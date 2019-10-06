@@ -14,16 +14,6 @@ class EntradaDAO
 
 	private $entradaList = array();
 
-	function __construct()
-	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
 	/**
 	 * 
 	 * @param entrada
