@@ -1,25 +1,13 @@
 <?php
+	//MODIFICAR, COPIADO DE TPS
 
+	namespace Config;
 
-
-
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:05:09
- */
-class Config
-{
-
-	function __construct()
-	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-}
+	define("ROOT", dirname(__DIR__) . "/");
+	//Path to your project's root folder
+	define("FRONT_ROOT", "/TP6/");
+	define("VIEWS_PATH", "Views/");
+	define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "layout/styles/");
+	define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
+	define("IMG_PATH", VIEWS_PATH . "img/");
 ?>
