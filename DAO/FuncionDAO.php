@@ -344,6 +344,48 @@ class FuncionDAO
 		return false;
 	}
 
+	/**
+	* retorna true si se pudieron agregar, false si no;
+	*/
+	public function agregarEntradasVendidas(int $nuevasEntradasVendidas, int $idFuncion)
+	{
+		$this->funcionList = array();
+
+		$rta = false;
+
+		if(file_exists("Data/funciones.json"));
+		{
+			$jsonContent = file_get_contents("Data/funciones.json");
+
+			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+			
+			foreach($arrayToDecode as $valuesArray)
+			{
+				$funcion = new Funcion();
+				$funcion->setId($valuesArray["id"]);
+				$funcion->setId_Cine($valuesArray["id_Cine"]);
+				$funcion->setFecha($valuesArray["fecha"]);
+				$funcion->setHora($valuesArray["hora"]);
+				$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
+				$funcion->setCantEntradas($valuesArray["cantEntradas"]);
+				$funcion->setCantVendidas($valuesArray["cantVendidas"]);
+
+				if($idFuncion == $funcion->getId())
+				{
+					$rta = $funcion->agregarEntradasVendidas($nuevasEntradasVendidas);
+
+					array_push($funcionList, $funcion);
+				}
+				else 
+				{
+					array_push($funcionList, $funcion);
+				}
+			}
+
+			$this->SaveData();
+		}
+		return $rta;
+	}
 
 }
 ?>

@@ -188,5 +188,14 @@ class Funcion
 		 return $this;
 	 }
 
+	 public function agregarEntradasVendidas( int $nuevasEntradasVendidas)
+	 {
+		if($this->cantEntradas >= ($cantVendidas + $nuevasEntradasVendidas))
+		{
+			setCantEntradas($this->cantVendidas + $nuevasEntradasVendidas)
+			return true;
+		}
+		return false;
+	 }
 }
 ?>
