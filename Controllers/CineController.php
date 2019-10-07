@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\CineDAO as CineDAO;
+use Models\Cine as Cine;
 
 namespace Controllers;
 
@@ -12,40 +14,37 @@ namespace Controllers;
 class CineController
 {
 
-	private $cinesRepository;
+	private $cineDAO;
 
-	function __construct()
+	public function __construct()
 	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-	/**
-	 * 
-	 * @param id
-	 * @param nombre
-	 * @param direccion
-	 * @param capacidad
-	 * @param precio
-	 */
-	public function _construct(int $id, string $nombre, string $direccion, int $capacidad, float $precio)
-	{
+		$this->cineDAO = new CineDAO();
 	}
 
 	public function ShowAddView()
 	{
+		require_once(VIEWS_PATH. "");
 	}
 
 	public function ShowListView()
 	{
+		$cineList = $this->cineDAO->getAll();
+
+		require_once(VIEWS-PATH."");
 	}
 
-	public function Add()
+	public function Add(int $id, string $nombre, string $direccion, int $capacidad, float $precio)
 	{
+		$cine = new Cine();
+		$cine->setId($id);
+		$cine->setNombre($nombre);
+		$cine->setDireccion($direccion);
+		$cine->setCapacidad($capacidad);
+		$cine->setPrecio($precio);
+
+		$this->cineDAO->add($cine);
+
+		$this->ShowAddView();
 	}
 
 }

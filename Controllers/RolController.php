@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\RolDAO as RolDAO;
+use Models\Rol as Rol;
 
 namespace Controllers;
 
@@ -11,39 +13,32 @@ namespace Controllers;
  */
 class RolController
 {
-
-	private $rolRepository;
+	private $rolsDAO;
 
 	function __construct()
 	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-	/**
-	 * 
-	 * @param id
-	 * @param descripcion
-	 * @param nombre
-	 */
-	public function _construct(int $id, string $descripcion, string $nombre)
-	{
+		$this->rolsDAO = new RolDAO();
 	}
 
 	public function ShowAddView()
 	{
+		require_once(VIEWS_PATH. "");
 	}
 
 	public function ShowListView()
 	{
+		$rolList = $this->RolsDAO->getAll();
+
+		require_once(VIEWS-PATH."");
 	}
 
-	public function Add()
+	public function Add(int $id, string $descripcion, string $nombre)
 	{
+		$rol = new Rol($id, $descripcion, $nombre);
+
+		$this->rolsDAO->add($rol);
+
+		$this->ShowAddView();
 	}
 
 }

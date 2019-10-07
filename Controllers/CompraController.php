@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\CompraDAO as CompraDAO;
+use Models\Compra as Compra;
 
 namespace Controllers;
 
@@ -12,41 +14,33 @@ namespace Controllers;
 class CompraController
 {
 
-	private $compraRepository;
+	private $compraDAO;
 
 	function __construct()
 	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-	/**
-	 * 
-	 * @param id
-	 * @param fecha
-	 * @param cantEntradas
-	 * @param descuento
-	 * @param total
-	 * @param usuario
-	 */
-	public function _constructor(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
-	{
+		$this->compraDAO = new CompraDAO();
 	}
 
 	public function ShowAddView()
 	{
+		require_once(VIEWS_PATH. "");
 	}
 
 	public function ShowListView()
 	{
+		$compraList = $this->compraDAO->getAll();
+
+		require_once(VIEWS-PATH."");
 	}
 
-	public function Add()
+
+	public function Add(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
 	{
+		$compra = new Compra($id,$fecha,$cantEntradas,$descuento,$total,$usuario);
+
+		$this->compraDAO->add($compra);
+
+		$this->ShowAddView();
 	}
 
 }

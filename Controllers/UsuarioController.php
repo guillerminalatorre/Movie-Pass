@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\UsuarioDAO as UsuarioDAO;
+use Models\Usuario as Usuario;
 
 namespace Controllers;
 
@@ -11,41 +13,32 @@ namespace Controllers;
  */
 class UsuarioController
 {
-
-	private $usuarioRepository;
+	private $usuariosDAO;
 
 	function __construct()
 	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-	/**
-	 * 
-	 * @param dni
-	 * @param password
-	 * @param email
-	 * @param apellido
-	 * @param rol
-	 */
-	public function _construct(int $dni, string $password, string $email, string $apellido, Rol $rol)
-	{
+		$this->usuariosDAO = new UsuarioDAO();
 	}
 
 	public function ShowAddView()
 	{
+		require_once(VIEWS_PATH. "");
 	}
 
 	public function ShowListView()
 	{
+		$usuarioList = $this->UsuariosDAO->getAll();
+
+		require_once(VIEWS-PATH."");
 	}
 
-	public function Add()
+	public function Add(int $dni, string $password, string $email, string $apellido, string $nombre,int $id_Rol)
 	{
+		$usuario = new Usuario($id, $password, $email, $apellido,$nombre,  $id_Rol);
+
+		$this->usuariosDAO->add($usuario);
+
+		$this->ShowAddView();
 	}
 
 }

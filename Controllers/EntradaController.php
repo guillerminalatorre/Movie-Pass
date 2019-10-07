@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\EntradaDAO as EntradaDAO;
+use Models\Entrada as Entrada;
 
 namespace Controllers;
 
@@ -12,28 +14,34 @@ namespace Controllers;
 class EntradaController
 {
 
-	private $entradasRepository;
+	private $entradasDAO;
 
 	function __construct()
 	{
+		$this->entradasDAO = new EntradaDAO();
 	}
 
-	function __destruct()
+	public function ShowAddView()
 	{
+		require_once(VIEWS_PATH. "");
 	}
 
-
-
-	/**
-	 * 
-	 * @param id
-	 * @param qr
-	 * @param compra
-	 * @param funcion
-	 */
-	public function _construct(int $id, string $qr, Compra $compra, Funcion $funcion)
+	public function ShowListView()
 	{
+		$entradaList = $this->entradasDAO->getAll();
+
+		require_once(VIEWS-PATH."");
 	}
+
+	public function Add(int $id, string $qr, int $id_Compra, int $id_Funcion)
+	{
+		$entrada = new Entrada($id, $qr, $id_Compra, $id_Funcion);
+
+		$this->entradasDAO->add($entrada);
+
+		$this->ShowAddView();
+	}
+
 
 }
 ?>

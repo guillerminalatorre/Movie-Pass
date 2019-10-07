@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\FuncionDAO as FuncionDAO;
+use Models\Funcion as Funcion;
 
 namespace Controllers;
 
@@ -12,40 +14,33 @@ namespace Controllers;
 class FuncionController
 {
 
-	private $funcionRepository;
+	private $funcionDAO;
 
-	function __construct()
+
+	 function __construct()
+	 {
+		 $this->funcionDAO = new FuncionDAO();
+	 }
+ 
+	 public function ShowAddView()
+	 {
+		 require_once(VIEWS_PATH. "");
+	 }
+ 
+	 public function ShowListView()
+	 {
+		 $funcionList = $this->funcionDAO->getAll();
+ 
+		 require_once(VIEWS-PATH."");
+	 }
+
+	public function Add(int $id, int $id_Cine, string $fecha, string $hora, int $id_Pelicula, int $cantEntradas, int $cantVendidas)
 	{
-	}
+		$funcion = new Funcion($id, $id_Cine, $fecha, $hora, $id_Pelicula, $cantEntradas, $cantVendidas);
 
-	function __destruct()
-	{
-	}
+		$this->funcionDAO->add($funcion);
 
-
-
-	/**
-	 * 
-	 * @param id
-	 * @param cine
-	 * @param fecha
-	 * @param hora
-	 * @param pelicula
-	 */
-	public function _construct(int $id, Cine $cine, date $fecha, date $hora, Pelicula $pelicula)
-	{
-	}
-
-	public function ShowAddView()
-	{
-	}
-
-	public function ShowListView()
-	{
-	}
-
-	public function Add()
-	{
+		$this->ShowAddView();
 	}
 
 }

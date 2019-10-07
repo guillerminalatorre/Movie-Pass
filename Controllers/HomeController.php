@@ -12,22 +12,13 @@ namespace Controllers;
 class HomeController
 {
 
-	function __construct()
-	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
 	/**
 	 * 
 	 * @param $message = ""
 	 */
 	public function Index(string $$message = "")
 	{
+		require_once(VIEWS_PATH."");
 	}
 
 }

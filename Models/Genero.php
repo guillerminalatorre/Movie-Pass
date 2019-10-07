@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Models;
-
 
 /**
  * @author Guille
@@ -15,15 +13,56 @@ class Genero
 	private $id;
 	private $nombre;
 
-	function __construct()
+	function __construct(int $id, string $nombre)
 	{
+		$this->id = $id;
+		$this->nombre = $nombre;
 	}
 
-	function __destruct()
-	{
-	}
-
-
-
+		/**
+	 * Getter for Id
+	 *
+	 * @return [type]
+	 */
+	 public function getId()
+	 {
+		 return $this->id;
+	 }
+ 
+	 /**
+	  * Setter for Id
+	  * @var [type] id
+	  *
+	  * @return self
+	  */
+	 public function setId($id)
+	 {
+		 $this->id = $id;
+		 return $this;
+	 }
+ 
+ 
+	 /**
+	  * Getter for Nombre
+	  *
+	  * @return [type]
+	  */
+	 public function getNombre()
+	 {
+		 return $this->nombre;
+	 }
+ 
+	 /**
+	  * Setter for Nombre
+	  * @var [type] nombre
+	  *
+	  * @return self
+	  */
+	 public function setNombre($nombre)
+	 {
+		 $this->nombre = $nombre;
+		 return $this;
+	 }
+ 
 }
 ?>

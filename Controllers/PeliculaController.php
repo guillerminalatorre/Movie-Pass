@@ -1,5 +1,7 @@
 <?php
-
+require "Config/Autoload.php";
+use DAO\PeliculaDAO as PeliculaDAO;
+use Models\Pelicula as Pelicula;
 
 namespace Controllers;
 
@@ -12,41 +14,32 @@ namespace Controllers;
 class PeliculaController
 {
 
-	private $peliculaRepository;
+	private $peliculaDAO;
 
 	function __construct()
 	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-	/**
-	 * 
-	 * @param id
-	 * @param titulo
-	 * @param generos
-	 * @param duracion
-	 * @param descripcion
-	 * @param clasificacion
-	 */
-	public function _construct($id, $titulo, $generos, $duracion, $descripcion, $clasificacion)
-	{
+		$this->peliculasDAO = new PeliculaDAO();
 	}
 
 	public function ShowAddView()
 	{
+		require_once(VIEWS_PATH. "");
 	}
 
 	public function ShowListView()
 	{
+		$peliculaList = $this->PeliculasDAO->getAll();
+
+		require_once(VIEWS-PATH."");
 	}
 
-	public function Add()
+	public function Add($id, $titulo, $generos, $duracion, $descripcion, $idioma, $clasificacion, $actores)
 	{
+		$pelicula = new Pelicula($id, $titulo, $generos, $duracion, $descripcion,$idioma, $clasificacion, $actores);
+
+		$this->peliculasDAO->add($pelicula);
+
+		$this->ShowAddView();
 	}
 
 }

@@ -17,15 +17,14 @@
 		private $total;
 		private $id_Usuario;
 
-		function __construct(int $id, string $fecha, int $cantEntradas, int $descuento, float $total,  )
+		function __construct(int $id, string $fecha, int $cantEntradas, int $descuento, float $total, int $id_Usuario )
 		{
 			$this->id = $id;
 			$this->fecha = $fecha;
 			$this->cantEntradas = $cantEntradas;
-			$this->descuento = $descuento;
+			$this->logicaDescuento();
 			$this->total = $total;
 			$this->id_Usuario = $id_Usuario;
-
 		}
 
 		/**
@@ -172,7 +171,19 @@
 
 			$diaActual = date("D");
 
-			if($diaActual == "")
+			if($diaActual == "Tue" || $diaActual == "Wed")
+			{
+				if($this->cantEntradas >1) 
+				{
+					$this->setDescuento(25);
+				}
+				else {
+					$this->setDescuento(0);
+				}
+			}
+			else {
+				$this->setDescuento(0);
+			}
 		}
 
 	}
