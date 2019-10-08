@@ -1,140 +1,52 @@
 <?php
-require "Config/Autoload.php";
-use Models\Genero as Genero;
 
 namespace DAO;
+use Models\Genero as Genero;
 
-
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:06:02
- */
 class GeneroDAO
 {
-
 	private $generoList = array ();
 
-	/**
-	 * 
-	 * @param genero
-	 */
-	public function add(Genero $genero)
-	{
-		$this->retrieveData();
+	function GetAllGenders()
+    { 
+        $this->getCurl();
+        return $this->generoList;
+    }
 
-		array_push($this->generoList, $genero);
-			
-		$this->saveData();
-	}
+	public function getCurl()
+    {
+        $curl = curl_init();
 
-	public function getAll()
-	{
-		$this->Retrievedata();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.themoviedb.org/3/genre/movie/list?language=es&api_key=6a65158231eaaf71a3446b747cff20ec",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_POSTFIELDS => "{}",
+        ));
 
-		return $this->generoList;
-	}
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
 
-	public function SaveData()
-	{
-		$arrayToEncode = array();
+        curl_close($curl);
 
-		foreach($this->generoList as $genero)
-		{
-			$valuesArray["id"] = $genero->getId();
-			$valuesArray["nombre"]= $genero->getNombre();
-		
-			array_push($arrayToEncode, $valuesArray);
-		}
-
-		$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-		file_put_contents("Data/generos.json", $jsonContent);
-	}
-
-	public function RetrieveData()
-	{
-		$this->generoList = array();
-
-		if(file_exists("Data/generos.json"));
-		{
-			$jsonContent = file_get_contents("Data/generos.json");
-
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
-			{
-				$genero = new Genero();
-				$genero->setId($valuesArray["id"]);
-				$genero->setNombre($valuesArray["nombre"]);
-
-				array_push($this->generoList, $genero);
-			}
-		}
-	}
-
-	/**
-	 * retorna 0 si no existe, la id si existe
-	 * @param genero
-	 */
-	public function generoExists(Genero $generoAbuscar)
-	{	
-		$this->generoList = array();
-
-		if(file_exists("Data/generos.json"));
-		{
-			$jsonContent = file_get_contents("Data/generos.json");
-
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
-			{
-				$genero = new Genero();
-				$genero->setId($valuesArray["id"]);
-				$genero->setNombre($valuesArray["nombre"]);
-
-				if($generoAbuscar->getId() === $genero->getId())
-				{
-					return $genero->getId();
-				}
-				if($generoAbuscar->getNombre() === $genero->getNombre())
-				{
-					return $genero->getId();
-				}
-			}
-		}
-
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public function eliminarGenero(int $id)
-	{
-		$this->generoList = array();
-
-		if(file_exists("Data/generos.json"));
-		{
-			$jsonContent = file_get_contents("Data/generos.json");
-
-			$arrayToDencode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
-			{
-				$genero = new Genero();
-				$genero->setId($valuesArray["id"]);
-				$genero->setNombre($valuesArray["nombre"]);
-
-				if($id != $genero->getId())
-				{
-					array_push($this->generoList, $genero);
-				}
-			}
-
-			$this->SaveData();
-		}
-	}
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            $arrayToDecode = ($response) ? json_decode($response, true) : array();
+            
+            foreach ($arrayToDecode["genres"] as $categoryValues) {
+                $category = new Genero();
+                $category->setId($categoryValues["id"]);
+                $category->setNombre($categoryValues["name"]);
+                array_push($this->generoList, $category);
+            }
+        }
+    }
 
 }
 ?>
