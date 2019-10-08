@@ -1,45 +1,42 @@
 <?php
-require "Config/Autoload.php";
-use DAO\UsuarioDAO as UsuarioDAO;
-use Models\Usuario as Usuario;
+	/**
+	 * @author Guille
+	 * @version 1.0
+	 * @created 06-oct.-2019 19:05:38
+	 */
+	namespace Controllers;
 
-namespace Controllers;
+	use DAO\UsuarioDAO as UsuarioDAO;
+	use Models\Usuario as Usuario;
 
-
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:05:38
- */
-class UsuarioController
-{
-	private $usuariosDAO;
-
-	function __construct()
+	class UsuarioController
 	{
-		$this->usuariosDAO = new UsuarioDAO();
+		private $usuariosDAO;
+
+		function __construct()
+		{
+			$this->usuariosDAO = new UsuarioDAO();
+		}
+
+		public function ShowAddView()
+		{
+			require_once(VIEWS_PATH. "");
+		}
+
+		public function ShowListView()
+		{
+			$usuarioList = $this->UsuariosDAO->getAll();
+
+			require_once(VIEWS-PATH."");
+		}
+
+		public function Add(int $dni, string $password, string $email, string $apellido, string $nombre,int $id_Rol)
+		{
+			$usuario = new Usuario($id, $password, $email, $apellido,$nombre,  $id_Rol);
+
+			$this->usuariosDAO->add($usuario);
+
+			$this->ShowAddView();
+		}
 	}
-
-	public function ShowAddView()
-	{
-		require_once(VIEWS_PATH. "");
-	}
-
-	public function ShowListView()
-	{
-		$usuarioList = $this->UsuariosDAO->getAll();
-
-		require_once(VIEWS-PATH."");
-	}
-
-	public function Add(int $dni, string $password, string $email, string $apellido, string $nombre,int $id_Rol)
-	{
-		$usuario = new Usuario($id, $password, $email, $apellido,$nombre,  $id_Rol);
-
-		$this->usuariosDAO->add($usuario);
-
-		$this->ShowAddView();
-	}
-
-}
 ?>
