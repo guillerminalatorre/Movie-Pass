@@ -1,241 +1,238 @@
 <?php
-require "Config/Autoload.php";
-use Models\Pelicula as Pelicula;
-use Models\Genero as Genero;
-
-namespace DAO;
-
-
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:06:02
- */
-class PeliculaDAO
-{
-
-	private $peliculaList = array;
-
 	/**
-	 * 
-	 * @param pelicula
+	 * @author Guille
+	 * @version 1.0
+	 * @created 06-oct.-2019 19:06:02
 	 */
-	public function add(Pelicula $pelicula)
-	{
-		$this->RetrieveData();
-	
-		array_push($this->peliculaList, $pelicula);
-	
-		$this->SaveData();
-	}
+	namespace DAO;
 
-	public function getAll()
-	{
-		$this->Retrievedata();
-	
-		return $this->peliculaList;
-	}
+	use Models\Pelicula as Pelicula;
+	use Models\Genero as Genero;
 
-	public function SaveData()
+	class PeliculaDAO
 	{
-		$arrayToEncode = array();
+		private $peliculaList = array();
 
-		foreach($this->peliculaList as $pelicula)
+		/**
+		 * 
+		 * @param pelicula
+		 */
+		public function add(Pelicula $pelicula)
 		{
-			$valuesArray["id"] = $pelicula->getId();
-			$valuesArray["titulo"]= $pelicula->getTitulo();
-			$valuesArray["generos"]= $pelicula->getGeneros();
-			$valuesArray["duracion"]=$pelicula->getDuracion();
-			$valuesArray["descripcion"]=$pelicula->getDescripcion();
-			$valuesArray["idioma"]=$pelicula->getIdioma();
-			$valuesArray["clasificacion"]=$pelicula->getClasificacion();
-			$valuesArray["actores"]=$pelicula->getActores();
-			
+			$this->RetrieveData();
 		
-			array_push($arrayToEncode, $valuesArray);
+			array_push($this->peliculaList, $pelicula);
+		
+			$this->SaveData();
 		}
 
-		$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-		file_put_contents("Data/peliculas.json", $jsonContent);
-	}
-
-	public function RetrieveData()
-	{
-		$this->peliculaList = array();
-
-		if(file_exists("Data/peliculas.json"));
+		public function getAll()
 		{
-			$jsonContent = file_get_contents("Data/peliculas.json");
-
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
-			{
-				$pelicula = new Pelicula();
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setTitulo($valuesArray["titulo"] );
-				$pelicula->setGeneros($valuesArray["generos"] );
-				$pelicula->setDuracion($valuesArray["duracion"]);
-				$pelicula->setDescripcion($valuesArray["descripcion"]);
-				$pelicula->setIdioma($valuesArray["idioma"]);
-				$pelicula->setClasificacion($valuesArray["clasificacion"]);
-				$pelicula->setActores($valuesArray["actores"]);
-
-				array_push($this->peliculaList, $pelicula);
-			}
+			$this->Retrievedata();
+		
+			return $this->peliculaList;
 		}
-	}
 
-	/**
-	 * retorna 0 si no existe, la id si existe
-	 * 
-	 * @param peliculaAbuscar busca por id, por titulo y por fecha.
-	 */
-	public function peliculaExists(Pelicula $peliculaAbuscar)
-	{
-		$this->peliculaList = array();
-
-		if(file_exists("Data/peliculas.json"));
+		public function SaveData()
 		{
-			$jsonContent = file_get_contents("Data/peliculas.json");
+			$arrayToEncode = array();
 
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
+			foreach($this->peliculaList as $pelicula)
 			{
-				$pelicula = new Pelicula();
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setTitulo($valuesArray["titulo"] );
-				$pelicula->setGeneros($valuesArray["generos"] );
-				$pelicula->setDuracion($valuesArray["duracion"]);
-				$pelicula->setDescripcion($valuesArray["descripcion"]);
-				$pelicula->setIdioma($valuesArray["idioma"]);
-				$pelicula->setClasificacion($valuesArray["clasificacion"]);
-				$pelicula->setActores($valuesArray["actores"]);
-
-				if($peliculaAbuscar->getId() === $pelicula->getId())
-				{
-					return $pelicula->getId();
-				}
-
-				if($peliculaAbuscar->getTitulo() === $pelicula->getTitulo())
-				{
-					return $pelicula->getId();
-				}
-				if($peliculaAbuscar->getFecha() === $pelicula->getFecha())
-				{
-					return $pelicula->getId();
-				}
+				$valuesArray["id"] = $pelicula->getId();
+				$valuesArray["titulo"]= $pelicula->getTitulo();
+				$valuesArray["generos"]= $pelicula->getGeneros();
+				$valuesArray["duracion"]=$pelicula->getDuracion();
+				$valuesArray["descripcion"]=$pelicula->getDescripcion();
+				$valuesArray["idioma"]=$pelicula->getIdioma();
+				$valuesArray["clasificacion"]=$pelicula->getClasificacion();
+				$valuesArray["actores"]=$pelicula->getActores();
+				
+			
+				array_push($arrayToEncode, $valuesArray);
 			}
-		}	
-		return 0;
-	}
 
-	public function getPelicula(int $id)
-	{
-		$this->peliculaList = array();
+			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-		if(file_exists("Data/peliculas.json"));
+			file_put_contents("Data/peliculas.json", $jsonContent);
+		}
+
+		public function RetrieveData()
 		{
-			$jsonContent = file_get_contents("Data/peliculas.json");
+			$this->peliculaList = array();
 
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
+			if(file_exists("Data/peliculas.json"));
 			{
-				$pelicula = new Pelicula();
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setTitulo($valuesArray["titulo"] );
-				$pelicula->setGeneros($valuesArray["generos"] );
-				$pelicula->setDuracion($valuesArray["duracion"]);
-				$pelicula->setDescripcion($valuesArray["descripcion"]);
-				$pelicula->setIdioma($valuesArray["idioma"]);
-				$pelicula->setClasificacion($valuesArray["clasificacion"]);
-				$pelicula->setActores($valuesArray["actores"]);
+				$jsonContent = file_get_contents("Data/peliculas.json");
 
-				if($pelicula->getId() === $id)
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
 				{
-					return $pelicula;
-				}
-			}
-		}	
-		return null;
-	}
+					$pelicula = new Pelicula();
+					$pelicula->setId($valuesArray["id"] );
+					$pelicula->setTitulo($valuesArray["titulo"] );
+					$pelicula->setGeneros($valuesArray["generos"] );
+					$pelicula->setDuracion($valuesArray["duracion"]);
+					$pelicula->setDescripcion($valuesArray["descripcion"]);
+					$pelicula->setIdioma($valuesArray["idioma"]);
+					$pelicula->setClasificacion($valuesArray["clasificacion"]);
+					$pelicula->setActores($valuesArray["actores"]);
 
-	public function peliculasXGenero(string $genero)
-	{
-		$this->peliculaList = array();
-
-		$busqueda = array();
-
-		if(file_exists("Data/peliculas.json"));
-		{
-			$jsonContent = file_get_contents("Data/peliculas.json");
-
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
-			{
-				$pelicula = new Pelicula();
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setTitulo($valuesArray["titulo"] );
-				$pelicula->setGeneros($valuesArray["generos"] );
-				$pelicula->setDuracion($valuesArray["duracion"]);
-				$pelicula->setDescripcion($valuesArray["descripcion"]);
-				$pelicula->setIdioma($valuesArray["idioma"]);
-				$pelicula->setClasificacion($valuesArray["clasificacion"]);
-				$pelicula->setActores($valuesArray["actores"]);
-
-				$generos = array();
-				$generos = $pelicula->getGeneros();
-
-				for($generos as $gen)
-				{
-					if($gen === $genero)
-					{
-						array_push($busqueda, $pelicula);
-					}
-				}
-			}
-		}	
-		return $busqueda;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public function eliminarPelicula(int $id)
-	{
-		$this->peliculaList = array();
-
-		if(file_exists("Data/peliculas.json"));
-		{
-			$jsonContent = file_get_contents("Data/peliculas.json");
-
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-			
-			foreach($arrayToDecode as $valuesArray)
-			{
-				$pelicula = new Pelicula();
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setTitulo($valuesArray["titulo"] );
-				$pelicula->setGeneros($valuesArray["generos"] );
-				$pelicula->setDuracion($valuesArray["duracion"]);
-				$pelicula->setDescripcion($valuesArray["descripcion"]);
-				$pelicula->setIdioma($valuesArray["idioma"]);
-				$pelicula->setClasificacion($valuesArray["clasificacion"]);
-				$pelicula->setActores($valuesArray["actores"]);
-
-				if($id != $pelicula->getId())
-				{
 					array_push($this->peliculaList, $pelicula);
 				}
 			}
+		}
 
-			$this->SaveData();
+		/**
+		 * retorna 0 si no existe, la id si existe
+		 * 
+		 * @param peliculaAbuscar busca por id, por titulo y por fecha.
+		 */
+		public function peliculaExists(Pelicula $peliculaAbuscar)
+		{
+			$this->peliculaList = array();
+
+			if(file_exists("Data/peliculas.json"));
+			{
+				$jsonContent = file_get_contents("Data/peliculas.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$pelicula = new Pelicula();
+					$pelicula->setId($valuesArray["id"] );
+					$pelicula->setTitulo($valuesArray["titulo"] );
+					$pelicula->setGeneros($valuesArray["generos"] );
+					$pelicula->setDuracion($valuesArray["duracion"]);
+					$pelicula->setDescripcion($valuesArray["descripcion"]);
+					$pelicula->setIdioma($valuesArray["idioma"]);
+					$pelicula->setClasificacion($valuesArray["clasificacion"]);
+					$pelicula->setActores($valuesArray["actores"]);
+
+					if($peliculaAbuscar->getId() === $pelicula->getId())
+					{
+						return $pelicula->getId();
+					}
+
+					if($peliculaAbuscar->getTitulo() === $pelicula->getTitulo())
+					{
+						return $pelicula->getId();
+					}
+					if($peliculaAbuscar->getFecha() === $pelicula->getFecha())
+					{
+						return $pelicula->getId();
+					}
+				}
+			}	
+			return 0;
+		}
+
+		public function getPelicula(int $id)
+		{
+			$this->peliculaList = array();
+
+			if(file_exists("Data/peliculas.json"));
+			{
+				$jsonContent = file_get_contents("Data/peliculas.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$pelicula = new Pelicula();
+					$pelicula->setId($valuesArray["id"] );
+					$pelicula->setTitulo($valuesArray["titulo"] );
+					$pelicula->setGeneros($valuesArray["generos"] );
+					$pelicula->setDuracion($valuesArray["duracion"]);
+					$pelicula->setDescripcion($valuesArray["descripcion"]);
+					$pelicula->setIdioma($valuesArray["idioma"]);
+					$pelicula->setClasificacion($valuesArray["clasificacion"]);
+					$pelicula->setActores($valuesArray["actores"]);
+
+					if($pelicula->getId() === $id)
+					{
+						return $pelicula;
+					}
+				}
+			}	
+			return null;
+		}
+
+		public function peliculasXGenero(string $genero)
+		{
+			$this->peliculaList = array();
+
+			$busqueda = array();
+
+			if(file_exists("Data/peliculas.json"));
+			{
+				$jsonContent = file_get_contents("Data/peliculas.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$pelicula = new Pelicula();
+					$pelicula->setId($valuesArray["id"] );
+					$pelicula->setTitulo($valuesArray["titulo"] );
+					$pelicula->setGeneros($valuesArray["generos"] );
+					$pelicula->setDuracion($valuesArray["duracion"]);
+					$pelicula->setDescripcion($valuesArray["descripcion"]);
+					$pelicula->setIdioma($valuesArray["idioma"]);
+					$pelicula->setClasificacion($valuesArray["clasificacion"]);
+					$pelicula->setActores($valuesArray["actores"]);
+
+					$generos = array();
+					$generos = $pelicula->getGeneros();
+
+					for($generos as $gen)
+					{
+						if($gen === $genero)
+						{
+							array_push($busqueda, $pelicula);
+						}
+					}
+				}
+			}	
+			return $busqueda;
+		}
+
+		/**
+		 * 
+		 * @param id
+		 */
+		public function eliminarPelicula(int $id)
+		{
+			$this->peliculaList = array();
+
+			if(file_exists("Data/peliculas.json"));
+			{
+				$jsonContent = file_get_contents("Data/peliculas.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$pelicula = new Pelicula();
+					$pelicula->setId($valuesArray["id"] );
+					$pelicula->setTitulo($valuesArray["titulo"] );
+					$pelicula->setGeneros($valuesArray["generos"] );
+					$pelicula->setDuracion($valuesArray["duracion"]);
+					$pelicula->setDescripcion($valuesArray["descripcion"]);
+					$pelicula->setIdioma($valuesArray["idioma"]);
+					$pelicula->setClasificacion($valuesArray["clasificacion"]);
+					$pelicula->setActores($valuesArray["actores"]);
+
+					if($id != $pelicula->getId())
+					{
+						array_push($this->peliculaList, $pelicula);
+					}
+				}
+
+				$this->SaveData();
+		}
+
 	}
-
-}
 ?>

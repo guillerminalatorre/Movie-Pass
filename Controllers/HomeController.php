@@ -15,7 +15,7 @@
 		 */
 		public function Index(string $$message = "")
 		{
-			require_once(VIEWS_PATH."");
+			require_once(VIEWS_PATH."login.php");
 		}
 	}
 ?>
