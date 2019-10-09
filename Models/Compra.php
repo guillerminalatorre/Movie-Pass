@@ -1,31 +1,19 @@
 <?php
-
-	namespace Models;
-
 	/**
 	* @author Guille
 	* @version 1.0
 	* @created 06-oct.-2019 19:07:11
 	*/
+	namespace Models;
+
 	class Compra
 	{
-
 		private $id;
 		private $fecha;
 		private $cantEntradas;
 		private $descuento;
 		private $total;
 		private $id_Usuario;
-
-		function __construct(int $id, string $fecha, int $cantEntradas, int $descuento, float $total, int $id_Usuario )
-		{
-			$this->id = $id;
-			$this->fecha = $fecha;
-			$this->cantEntradas = $cantEntradas;
-			$this->logicaDescuento();
-			$this->total = $total;
-			$this->id_Usuario = $id_Usuario;
-		}
 
 		/**
 		* Getter for Id
@@ -164,7 +152,6 @@
 		    return $this;
 		}
 
-
 		private function logicaDescuento()
 		{
 			date_default_timezone_get();
@@ -185,6 +172,5 @@
 				$this->setDescuento(0);
 			}
 		}
-
 	}
 ?>

@@ -1,11 +1,11 @@
 <?php
-	namespace Models;
-
 	/**
 	* @author Guille
 	* @version 1.0
 	* @created 06-oct.-2019 19:07:11
 	*/
+	namespace Models;
+	
 	class Entrada
 	{
 
@@ -13,15 +13,6 @@
 		private $qr;
 		private $id_Compra;
 		private $id_Funcion;
-
-		function __construct(int $id, string $qr, int $id_Compra, int $id_Funcion)
-		{	
-			$this->id = $id;
-			$this->qr = $qr;
-			$this->id_Compra = $id_Compra;
-			$this->id_Funcion = $id_Compra;
-		}
-
 
 		/**
 		 * Getter for Id
@@ -113,6 +104,5 @@
 		    $this->id_Funcion = $id_Funcion;
 		    return $this;
 		}
-
 	}
 ?>
