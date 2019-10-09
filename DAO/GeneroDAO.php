@@ -7,7 +7,7 @@ class GeneroDAO
 {
 	private $generoList = array ();
 
-	function GetAllGenders()
+	function getAll()
     { 
         $this->getCurl();
         return $this->generoList;

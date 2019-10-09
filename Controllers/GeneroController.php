@@ -18,25 +18,11 @@
 			$this->generosDAO = new GeneroDAO();
 		}
 
-		public function ShowAddView()
-		{
-			require_once(VIEWS_PATH. "");
-		}
-
-		public function ShowListView()
+		public function GetAllCategories()
 		{
 			$generoList = $this->generosDAO->getAll();
 
 			require_once(VIEWS-PATH."");
-		}
-
-		public function Add(int $id, string $nombre)
-		{
-			$genero = new Genero($id, $nombre);
-
-			$this->generosDAO->add($genero);
-
-			$this->ShowAddView();
 		}
 	}
 ?>

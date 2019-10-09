@@ -9,10 +9,6 @@
 
 	class HomeController
 	{
-		/**
-		 * 
-		 * @param $message = ""
-		 */
 		public function Index($message = "")
 		{
 			require_once(VIEWS_PATH."login.php");

@@ -8,22 +8,15 @@
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group col-md-6" role="group" aria-label="First group">
                     <select class="form-control ">
-                        <option disabled selected>Elije una categoria...</option>
-                        <option>Acción</option>
-                        <option>Aventura</option>
-                        <option>Animación</option>
-                        <option>Comedia</option>
-                        <option>Crimen</option>
-                        <option>Documental</option>
-                        <option>Drama</option>
-                        <option>Familia</option>
-                        <option>Fantasía</option>
-                        <option>Historia</option>
-                        <option>Terror</option>
-                        <option>Música</option>
-                        <option>Misterio</option>
-                        <option>Romance</option>
-                        <option>Ciencia ficción</option>
+                    <option disabled selected>Elije una categoria...</option>
+                    <?php
+                        foreach ($generoList as $generoValue)
+                    {
+                      ?>
+                      <option> <?php echo $generoValue->getNombre() ?></option>
+                      <?php
+                    } 
+                    ?>
                     </select>
                 </div>
                 <div class="input-group col-md-3" role="group" aria-label="Second group">
