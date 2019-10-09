@@ -1,35 +1,26 @@
-<?php
-	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:05:09
-	 */
-	namespace Config;
+<?php 
+    namespace Config;
 
-	use Config\Request as Request;
-	
-	class Router
-	{
-		/**
-		 * 
-		 * @param request
-		 */
-		public static function Route(Request $request)
-		{
-			$controllerName = $request->getcontroller() . 'Controller';
+    use Config\Request as Request;
 
-			$methodName = $request->getmethod();
+    class Router
+    {
+        public static function Route(Request $request)
+        {
+            $controllerName = $request->getcontroller() . 'Controller';
 
-			$methodParameters = $request->getparameters();          
+            $methodName = $request->getmethod();
 
-			$controllerClassName = "Controllers\\". $controllerName;            
+            $methodParameters = $request->getparameters();          
 
-			$controller = new $controllerClassName;
-			
-			if(!isset($methodParameters))            
-				call_user_func(array($controller, $methodName));
-			else
-				call_user_func_array(array($controller, $methodName), $methodParameters);
-		}
-	}
+            $controllerClassName = "Controllers\\". $controllerName;            
+
+            $controller = new $controllerClassName;
+            
+            if(!isset($methodParameters))            
+                call_user_func(array($controller, $methodName));
+            else
+                call_user_func_array(array($controller, $methodName), $methodParameters);
+        }
+    }
 ?>
