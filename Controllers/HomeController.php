@@ -13,7 +13,7 @@
 		 * 
 		 * @param $message = ""
 		 */
-		public function Index(string $$message = "")
+		public function Index($message = "")
 		{
 			require_once(VIEWS_PATH."login.php");
 		}
