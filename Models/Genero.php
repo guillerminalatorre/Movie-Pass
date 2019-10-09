@@ -6,11 +6,26 @@
 	 */
 	namespace Models;
 
+<<<<<<< HEAD
 	class Genero
 	{
 
 		private $id;
 		private $nombre;
+=======
+namespace Models;
+
+/**
+ * @author Guille
+ * @version 1.0
+ * @created 06-oct.-2019 19:07:11
+ */
+class Genero
+{
+
+	private $id;
+	private $nombre;
+>>>>>>> bd20655b5c60bddde5ee21e70901550fa077abe5
 
 		/**
 		 * Getter for Id
