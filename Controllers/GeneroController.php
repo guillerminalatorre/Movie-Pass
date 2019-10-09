@@ -18,11 +18,10 @@
 			$this->generosDAO = new GeneroDAO();
 		}
 
-		public function GetAllCategories()
+		public function ShowGenreView($message = "")
 		{
 			$generoList = $this->generosDAO->getAll();
-
-			require_once(VIEWS-PATH."");
+			require_once(VIEWS_PATH."searchbar.php");
 		}
 	}
 ?>
