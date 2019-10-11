@@ -152,6 +152,37 @@
 			}
 		}
 
+		public function cineXid($id)
+		{
+			$this->cineList = array();
+
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
+			{
+				$jsonContent = file_get_contents($jsonPath);
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$cine = new Cine();
+					$cine->setId($valuesArray["id"]);
+					$cine->setNombre($valuesArray["nombre"]);
+					$cine->setDireccion($valuesArray["direccion"]);
+					$cine->setCapacidad($valuesArray["capacidad"]);
+					$cine->setPrecio($valuesArray["precio"]);
+
+					if($id === $cine->getId())
+					{
+						return $cine;
+					}
+
+				}
+			}
+			return null;
+		}
+
 		//Need this function to return correct file json path
 		function GetJsonFilePath(){
 
