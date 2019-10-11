@@ -18,7 +18,7 @@
 			$this->usuariosDAO = new UsuarioDAO();
 		}
 
-		public function ShowAddView()
+		public function ShowRegisterView()
 		{
 			require_once(VIEWS_PATH. "");
 		}
@@ -30,7 +30,7 @@
 			require_once(VIEWS-PATH."");
 		}
 
-		public function Add(int $dni, string $password, string $email, string $apellido, string $nombre,int $id_Rol)
+		public function Register(int $dni, string $password, string $email, string $apellido, string $nombre,int $id_Rol)
 		{
 			$usuario = new Usuario($id, $password, $email, $apellido,$nombre,  $id_Rol);
 

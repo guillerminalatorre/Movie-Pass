@@ -20,7 +20,7 @@
 
 		public function ShowAddView()
 		{
-			require_once(VIEWS_PATH. "");
+			require_once(VIEWS_PATH."");
 		}
 
 		public function ShowListView()

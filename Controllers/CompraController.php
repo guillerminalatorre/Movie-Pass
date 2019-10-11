@@ -30,7 +30,6 @@
 			require_once(VIEWS-PATH."");
 		}
 
-
 		public function Add(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
 		{
 			$compra = new Compra($id,$fecha,$cantEntradas,$descuento,$total,$usuario);
