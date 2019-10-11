@@ -1,27 +1,24 @@
-<?php 
-require "Config/Autoload.php"; 
+<?php /*
+require "../Models/Cine.php";
+require "../DAO/CineDAO.php";
 
-use Config\Autoload as Autoload;
-
-Autoload::start();
 
 use Models\Cine as Cine;
-use DAO\CineDAO as DAO;
+use DAO\CineDAO as CineDAO;
 
-require_once("Views/header.php");
-
+require_once("../Views/header.php");
+*/
 ?>
-
 <div class="container container-fluid mt-4">
     <h2>Selecciona un cine para operar: </h2>
     <?php 
-        $cineDAO = new CineDAO();
-        $cines = $cineDAO->getAll();
+        //$cineDAO = new CineDAO();
+        //$cines = $cineDAO->getAll();
 
-        foreach ($cines as $cine) {
+        foreach ($cineList as $cine) {
             ?>
                 <br>
-                <button type="button" class="btn btn-info btn-block" href="ficha-cine.php" value = "<?php $cine->getId();?>">  <?php $cine->getNombre();?></button>
+                <button type="button" class="btn btn-info btn-block" href="ficha-cine.php" value = "<?php $cine->getId();?>">  <?php echo $cine->getNombre();?></button>
                 <hr>
             <?php
         }
@@ -29,4 +26,4 @@ require_once("Views/header.php");
 
     <button type="button" class="btn btn-success btn-block" ><i class="fas fa-plus-circle"></i> Agregar cine</button>
 </div>
-<?php require_once("Views/footer.php");?>
+<?php/* require_once("../Views/footer.php");*/?>

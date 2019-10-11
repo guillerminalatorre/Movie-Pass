@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Models;
 
 class Pelicula
@@ -136,3 +134,5 @@ class Pelicula
 		array_push($this->generos, $id_genero);
 	}
 }
+
+?>
