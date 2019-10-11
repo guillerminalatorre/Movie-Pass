@@ -1,9 +1,5 @@
 <?php
-	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:06:02
-	 */
+
 	namespace DAO;
 
 	use Models\Pelicula as Pelicula;
@@ -13,10 +9,6 @@
 	{
 		private $peliculaList = array();
 
-		/**
-		 * 
-		 * @param pelicula
-		 */
 		public function add(Pelicula $pelicula)
 		{
 			$this->RetrieveData();
@@ -85,10 +77,10 @@
 		}
 
 		/**
-		 * retorna 0 si no existe, la id si existe
+		 *  retorna 0 si no existe, la id si existe
 		 * 
 		 * @param peliculaAbuscar busca por id, por titulo y por fecha.
-		 */
+-		 */
 		public function peliculaExists(Pelicula $peliculaAbuscar)
 		{
 			$this->peliculaList = array();
@@ -185,9 +177,8 @@
 
 					$generos = array();
 					$generos = $pelicula->getGeneros();
-
-					for($generos as $gen)
-					{
+					foreach ($generos as $gen){
+						
 						if($gen === $genero)
 						{
 							array_push($busqueda, $pelicula);
@@ -198,10 +189,6 @@
 			return $busqueda;
 		}
 
-		/**
-		 * 
-		 * @param id
-		 */
 		public function eliminarPelicula(int $id)
 		{
 			$this->peliculaList = array();
@@ -234,4 +221,64 @@
 		}
 
 	}
+
+	public function getByGenre($id)
+    { 
+        $this->getCurl($id);
+        return $this->peliculaList;
+    }
+
+	private function getCurl($id)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=6a65158231eaaf71a3446b747cff20ec&language=es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&without_genres=".$id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_POSTFIELDS => "{}",
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            echo "cURL Error #:" . $err;
+        } else {
+            $arrayToDecode = ($response) ? json_decode($response, true) : array();
+
+			foreach($arrayToDecode["results"] as $valuesArray)
+				{
+					$pelicula = new Pelicula();
+					$pelicula->setPoster($valuesArray["poster_path"]);
+					$pelicula->setId($valuesArray["id"] );
+					$pelicula->setIdioma($valuesArray["original_language"]);
+
+					foreach($valuesArray["genre_ids"] as $genero)
+					{
+								$pelicula->agregarGenero($genero);
+					}
+
+					$pelicula->setTitulo($valuesArray["title"]);
+					$pelicula->setClasificacion($valuesArray["vote_average"]);
+					$pelicula->setDescripcion($valuesArray["overview"]);
+					$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
+
+					if($valuesArray["video"]!==false)
+					{
+						$pelicula->setVideo($valuesArray["video"]);
+					}
+
+                array_push($this->peliculaList, $pelicula);
+            }
+        }
+    }
+}
 ?>

@@ -1,19 +1,20 @@
 <?php
 
 namespace DAO;
+
 use Models\Genero as Genero;
 
 class GeneroDAO
 {
-	private $generoList = array ();
+    private $generoList = array();
 
-	function getAll()
-    { 
+    function getAll()
+    {
         $this->getCurl();
         return $this->generoList;
     }
 
-	public function getCurl()
+    public function getCurl()
     {
         $curl = curl_init();
 
@@ -38,7 +39,7 @@ class GeneroDAO
             echo "cURL Error #:" . $err;
         } else {
             $arrayToDecode = ($response) ? json_decode($response, true) : array();
-            
+
             foreach ($arrayToDecode["genres"] as $categoryValues) {
                 $category = new Genero();
                 $category->setId($categoryValues["id"]);
@@ -48,4 +49,5 @@ class GeneroDAO
         }
     }
 }
+
 ?>
