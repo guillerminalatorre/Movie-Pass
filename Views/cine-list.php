@@ -1,7 +1,7 @@
 <div class="container container-fluid mt-4">
     <h2>Selecciona un cine para operar: </h2>
     <?php foreach ($cineList as $cine) { ?>
-            <button type="button" class="btn btn-info btn-block" href="ficha-cine.php" value = "<?php $cine->getId();?>">  <?php echo $cine->getNombre();?></button>
+            <a class="btn btn-info btn-block" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaCine/<?php echo $cine->getNombre();?>"><?php echo $cine->getNombre();?></button>
         <hr>
     <?php } ?>
 

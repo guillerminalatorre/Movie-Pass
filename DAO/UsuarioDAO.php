@@ -108,13 +108,9 @@
 					$usuario->setNombre($valuesArray["nombre"]);
 					$usuario->setId_Rol($valuesArray["id_Rol"]);
 
-					if($usuarioAbuscar->getDni() === $usuario->getDni())
+					if($usuarioAbuscar->getDni() === $usuario->getDni() || $usuarioAbuscar->getEmail() === $usuario->getEmail())
 					{
-						return $usuario->getDni();
-					}
-					if($usuarioAbuscar->getEmail() === $usuario->getEmail())
-					{
-						return $usuario->getDni();
+						return $usuario;
 					}
 				}
 			}
@@ -152,7 +148,6 @@
 						array_push($this->usuarioList, $usuario);
 					}
 				}
-
 				$this->SaveData();
 			}
 		}

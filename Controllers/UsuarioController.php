@@ -20,22 +20,32 @@
 
 		public function ShowRegisterView()
 		{
-			require_once(VIEWS_PATH. "");
+			require_once(VIEWS_PATH."add-usuario.php");
 		}
 
 		public function ShowListView()
 		{
 			$usuarioList = $this->UsuariosDAO->getAll();
 
-			require_once(VIEWS-PATH."");
+			require_once(VIEWS-PATH."usuario-list.php");
 		}
 
-		public function Register(int $dni, string $password, string $email, string $apellido, string $nombre,int $id_Rol)
+		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
 		{
-			$usuario = new Usuario($dni, $password, $email, $apellido, $nombre, $id_Rol);
+			if($password == $confirmpassword)
+			{
+				$id_Rol = 1;
 
-			$this->usuariosDAO->add($usuario);
-
+				$usuario = new Usuario();
+				$usuario->setDni($dni);
+				$usuario->setNombre($nombre);
+				$usuario->setApellido($apellido);
+				$usuario->setEmail($email);
+				$usuario->setPassword($password);
+				$usuario->setId_Rol($id_Rol);
+	
+				$this->usuariosDAO->add($usuario);
+			}
 			$this->ShowAddView();
 		}
 	}

@@ -38,7 +38,6 @@
 
 			foreach($this->cineList as $cine)
 			{
-				$valuesArray["id"] = $cine->getId();
 				$valuesArray["nombre"]= $cine->getNombre();
 				$valuesArray["direccion"]= $cine->getDireccion();
 				$valuesArray["capacidad"]=$cine->getCapacidad();
@@ -69,7 +68,6 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$cine = new Cine();
-					$cine->setId($valuesArray["id"]);
 					$cine->setNombre($valuesArray["nombre"]);
 					$cine->setDireccion($valuesArray["direccion"]);
 					$cine->setCapacidad($valuesArray["capacidad"]);
@@ -86,8 +84,6 @@
 		 */
 		public function cineExiste(Cine $cineAbuscar)
 		{
-			$this->cineList = array();
-
 			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
 
 			if(file_exists($jsonPath));
@@ -99,19 +95,14 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$cine = new Cine();
-					$cine->setId($valuesArray["id"]);
 					$cine->setNombre($valuesArray["nombre"]);
 					$cine->setDireccion($valuesArray["direccion"]);
 					$cine->setCapacidad($valuesArray["capacidad"]);
 					$cine->setPrecio($valuesArray["precio"]);
 
-					if($cineAbuscar->getId() === $cine->getId())
+					if($cine->getNombre() === $cineAbuscar->getNombre())
 					{
-						return $cine->getId();
-					}
-					if($cineAbuscar->getNombre() === $cine->getNombre())
-					{
-						return $cine->getId();
+						return $cine;
 					}
 				}
 			}
@@ -120,9 +111,9 @@
 
 		/**
 		 * 
-		 * @param id
+		 * @param nombre
 		 */
-		public function eliminarCine(int $id)
+		public function eliminarCine($nombre)
 		{
 			$this->cineList = array();
 			
@@ -137,13 +128,12 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$cine = new Cine();
-					$cine->setId($valuesArray["id"]);
 					$cine->setNombre($valuesArray["nombre"]);
 					$cine->setDireccion($valuesArray["direccion"]);
 					$cine->setCapacidad($valuesArray["capacidad"]);
 					$cine->setPrecio($valuesArray["precio"]);
 
-					if($id != $cine->getId())
+					if($nombre != $cine->getNombre())
 					{
 						array_push($this->cineList, $cine);
 					}
