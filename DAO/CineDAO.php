@@ -49,16 +49,16 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			file_put_contents("Data/cines.json", $jsonContent);
+			file_put_contents("../Data/cines.json", $jsonContent);
 		}
 
 		public function retrieveData()
 		{
 			$this->cineList = array();
 
-			if(file_exists("Data/cines.json"));
+			if(file_exists("../Data/cines.json"));
 			{
-				$jsonContent = file_get_contents("Data/cines.json");
+				$jsonContent = file_get_contents("../Data/cines.json");
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				

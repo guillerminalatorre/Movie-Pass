@@ -27,7 +27,7 @@
 		{
 			$cineList = $this->cineDAO->getAll();
 
-			require_once(VIEWS-PATH."");
+			require_once(VIEWS-PATH."homeadmin.php");
 		}
 
 		public function Add(int $id, string $nombre, string $direccion, int $capacidad, float $precio)
