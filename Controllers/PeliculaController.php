@@ -15,28 +15,19 @@
 
 		function __construct()
 		{
-			$this->peliculasDAO = new PeliculaDAO();
+			$this->peliculaDAO = new PeliculaDAO();
 		}
 
 		public function ShowAddView()
 		{
-			require_once(VIEWS_PATH. "");
+			require_once(VIEWS_PATH. "searchbar.php");
 		}
 
-		public function ShowListView()
-		{
-			$peliculaList = $this->PeliculasDAO->getAll();
+		public function ShowFilteredMovies($id){
+			$peliculaList= $this->peliculaDAO->getByGenre($id);
 
-			require_once(VIEWS-PATH."");
+			require_once(VIEWS_PATH."listarpeliculas.php");
 		}
 
-		public function Add($id, $titulo, $generos, $duracion, $descripcion, $idioma, $clasificacion, $actores)
-		{
-			$pelicula = new Pelicula($id, $titulo, $generos, $duracion, $descripcion,$idioma, $clasificacion, $actores);
-
-			$this->peliculasDAO->add($pelicula);
-
-			$this->ShowAddView();
-		}
 	}
 ?>
