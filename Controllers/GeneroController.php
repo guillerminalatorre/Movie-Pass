@@ -21,6 +21,7 @@
 		public function ShowGenreView($message = "")
 		{
 			$generoList = $this->generosDAO->getAll();
+			
 			require_once(VIEWS_PATH."searchbar.php");
 		}
 	}

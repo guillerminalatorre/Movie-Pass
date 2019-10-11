@@ -50,16 +50,20 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			file_put_contents("Data/usuarios.json", $jsonContent);
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			file_put_contents($jsonPath, $jsonContent);
 		}
 
 		public function RetrieveData()
 		{
 			$this->usuarioList = array();
 
-			if(file_exists("Data/usuarios.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/usuarios.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -86,9 +90,11 @@
 		{
 			$this->usuarioList = array();
 
-			if(file_exists("Data/usuarios.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/usuarios.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -112,7 +118,6 @@
 					}
 				}
 			}
-
 			return 0;
 		}
 
@@ -124,9 +129,11 @@
 		{
 			$this->usuarioList = array();
 
-			if(file_exists("Data/usuarios.json"));
-			{
-				$jsonContent = file_get_contents("Data/usuarios.json");
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
+			{				
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -148,6 +155,20 @@
 
 				$this->SaveData();
 			}
+		}
+
+		//Need this function to return correct file json path
+		function GetJsonFilePath(){
+
+			$initialPath = "Data\usuarios.json";
+			
+			if(file_exists($initialPath)){
+				$jsonFilePath = $initialPath;
+			}else{
+				$jsonFilePath = ROOT.$initialPath;
+			}
+			
+			return $jsonFilePath;
 		}
 	}
 ?>

@@ -49,16 +49,20 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			file_put_contents("../Data/cines.json", $jsonContent);
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			file_put_contents($jsonPath, $jsonContent);
 		}
 
 		public function retrieveData()
 		{
 			$this->cineList = array();
 
-			if(file_exists("../Data/cines.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("../Data/cines.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -84,9 +88,11 @@
 		{
 			$this->cineList = array();
 
-			if(file_exists("Data/cines.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/cines.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -119,10 +125,12 @@
 		public function eliminarCine(int $id)
 		{
 			$this->cineList = array();
+			
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
 
-			if(file_exists("Data/cines.json"));
+			if(file_exists($jsonPath))
 			{
-				$jsonContent = file_get_contents("Data/cines.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDencode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -140,9 +148,22 @@
 						array_push($this->cineList, $cine);
 					}
 				}
-
 				$this->SaveData();
 			}
+		}
+
+		//Need this function to return correct file json path
+		function GetJsonFilePath(){
+
+			$initialPath = "Data\cines.json";
+			
+			if(file_exists($initialPath)){
+				$jsonFilePath = $initialPath;
+			}else{
+				$jsonFilePath = ROOT.$initialPath;
+			}
+			
+			return $jsonFilePath;
 		}
 	}
 ?>

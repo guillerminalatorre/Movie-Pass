@@ -8,7 +8,6 @@
 
 	class Funcion
 	{
-
 		private $id;
 		private $id_Cine;
 		private $fecha;

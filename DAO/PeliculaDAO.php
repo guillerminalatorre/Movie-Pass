@@ -107,7 +107,6 @@
 					{
 						return $pelicula->getId();
 					}
-
 					if($peliculaAbuscar->getTitulo() === $pelicula->getTitulo())
 					{
 						return $pelicula->getId();

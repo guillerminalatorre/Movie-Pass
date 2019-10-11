@@ -8,7 +8,6 @@
 	
 	class Entrada
 	{
-
 		private $id;
 		private $qr;
 		private $id_Compra;
@@ -36,7 +35,6 @@
 		    return $this;
 		}
 
-
 		/**
 		 * Getter for Qr
 		 *
@@ -59,7 +57,6 @@
 		    return $this;
 		}
 
-
 		/**
 		 * Getter for Id_Compra
 		 *
@@ -81,7 +78,6 @@
 		    $this->id_Compra = $id_Compra;
 		    return $this;
 		}
-
 
 		/**
 		 * Getter for Id_Funcion
