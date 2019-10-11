@@ -8,7 +8,6 @@
 	
 	class Pelicula
 	{
-
 		private $id;
 		private $titulo;
 		private $generos;
@@ -40,7 +39,6 @@
 			return $this;
 		}
  
- 
 		/**
 		 * Getter for Titulo
 		*
@@ -62,7 +60,6 @@
 			$this->titulo = $titulo;
 			return $this;
 		}
-
 
 		/**
 		 * Getter for Generos
@@ -109,7 +106,6 @@
 			return $this;
 		}
 
-
 		/**
 		 * Getter for Descripcion
 		*
@@ -131,7 +127,6 @@
 			$this->descripcion = $descripcion;
 			return $this;
 		}
-
 
 		/**
 		 * Getter for Idioma
@@ -155,7 +150,6 @@
 			return $this;
 		}
 
-
 		/**
 		 * Getter for Clasificacion
 		*
@@ -177,7 +171,6 @@
 			$this->clasificacion = $clasificacion;
 			return $this;
 		}
-
 
 		/**
 		 * Getter for Actores

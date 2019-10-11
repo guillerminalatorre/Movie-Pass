@@ -20,20 +20,19 @@
 
 		public function ShowAddView()
 		{
-			require_once(VIEWS_PATH. "");
+			require_once(VIEWS_PATH."add-cine.php");
 		}
 
 		public function ShowListView()
 		{
 			$cineList = $this->cineDAO->getAll();
 
-			require_once(VIEWS-PATH."homeadmin.php");
+			require_once(VIEWS_PATH."cine-list.php");
 		}
 
-		public function Add(int $id, string $nombre, string $direccion, int $capacidad, float $precio)
+		public function Add($nombre, $direccion, $capacidad, $precio)
 		{
 			$cine = new Cine();
-			$cine->setId($id);
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
 			$cine->setCapacidad($capacidad);

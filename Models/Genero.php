@@ -34,7 +34,6 @@
 			return $this;
 		}
 	
-	
 		/**
 		 * Getter for Nombre
 		*

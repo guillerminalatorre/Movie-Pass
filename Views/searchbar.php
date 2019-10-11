@@ -26,6 +26,6 @@
                     <button type="submit" class="btn  btn-info">Buscar</button>
                 </div>
             </div>
+        </form>
     </div>
 </div>
-</form>

@@ -1,19 +1,16 @@
 <?php
-	namespace Models;
-
 	/**
 	* @author Guille
 	* @version 1.0
 	* @created 06-oct.-2019 19:07:11
 	*/
-
+	namespace Models;
 
 	class Cine
 	{
-
 		private $id;
-		private $nombre ;
-		private $direccion ;
+		private $nombre;
+		private $direccion;
 		private $capacidad;
 		private $precio;
 
