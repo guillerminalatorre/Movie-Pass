@@ -1,7 +1,7 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
       <a class="navbar-brand" href="#">
-        <img src="Views/img/logoMoviePass.png" width="60" height="60" alt="movie Pass logo">
+        <img src="<?php echo IMG_PATH ."logoMoviePass.png"?>" width="60" height="60" alt="movie Pass logo">
       </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">

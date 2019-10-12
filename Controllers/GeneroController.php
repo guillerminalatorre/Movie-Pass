@@ -25,3 +25,4 @@
 			require_once(VIEWS_PATH."searchbar.php");
 		}
 	}
+?>

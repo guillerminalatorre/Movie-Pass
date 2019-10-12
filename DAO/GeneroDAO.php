@@ -3,49 +3,43 @@
 namespace DAO;
 
 use Models\Genero as Genero;
+use API\APIController as APIController;
 
 class GeneroDAO
 {
     private $generoList = array();
 
-    function getAll()
+    public function getAll()
     {
-        $this->getCurl();
+        $this->getGendersFromApi();
         return $this->generoList;
     }
 
-    public function getCurl()
-    {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.themoviedb.org/3/genre/movie/list?language=es&api_key=6a65158231eaaf71a3446b747cff20ec",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POSTFIELDS => "{}",
-        ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            $arrayToDecode = ($response) ? json_decode($response, true) : array();
-
-            foreach ($arrayToDecode["genres"] as $categoryValues) {
-                $category = new Genero();
-                $category->setId($categoryValues["id"]);
-                $category->setNombre($categoryValues["name"]);
-                array_push($this->generoList, $category);
+    public function getGenderForId($id){
+        if(count($this->generoList)==0){
+            $this->getAll();
+        }
+            foreach($this->generoList  as $genero ){
+                if($genero->getId()==$id){
+                    $genderName=$genero->getNombre();
+                };
             }
+        return $genderName;
+    }
+
+    private function getGendersFromApi()
+    {
+        $arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES);
+
+		$get_data = APIController::callAPI('GET', API .'/genre/movie/list', $arrayReque);
+
+        $arrayToDecode = json_decode($get_data, true);
+        
+        foreach ($arrayToDecode["genres"] as $categoryValues) {
+            $category = new Genero();
+            $category->setId($categoryValues["id"]);
+            $category->setNombre($categoryValues["name"]);
+            array_push($this->generoList, $category);
         }
     }
 }
