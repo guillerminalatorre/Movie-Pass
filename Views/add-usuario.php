@@ -7,7 +7,7 @@
             <br>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group col-md-6" role="group" aria-label="First group">
-                    <select  name="id" class="form-control ">
+                    <select name="id" class="form-control ">
                         <option disabled selected>Elije una categoria...</option>
                         <?php
                         foreach ($generoList as $generoValue) {
