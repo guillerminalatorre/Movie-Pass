@@ -30,6 +30,15 @@
 			require_once(VIEWS_PATH."cine-list.php");
 		}
 
+		public function ShowFichaCine($id)
+		{
+			$cine = new Cine();
+
+			$cine = $this->cineDAO->cineXid($id);
+
+			require_once(VIEWS_PATH."cine-ficha.php");
+		}
+
 		public function Add($nombre, $direccion, $capacidad, $precio)
 		{
 			$cine = new Cine();
