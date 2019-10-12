@@ -8,34 +8,10 @@
 
 	class Cine
 	{
-		private $id;
 		private $nombre;
 		private $direccion;
 		private $capacidad;
 		private $precio;
-
-		/**
-		 * Getter for Id
-		 *
-		 * @return [type]
-		 */
-		public function getId()
-		{
-			return $this->id;
-		}
-
-		/**
-		 * Setter for Id
-		* @var [type] id
-		*
-		* @return self
-		*/
-		public function setId($id)
-		{
-			$this->id = $id;
-			return $this;
-		}
-
 
 		/**
 		 * Getter for Nombre
@@ -104,7 +80,6 @@
 			$this->capacidad = $capacidad;
 			return $this;
 		}
-
 
 		/**
 		 * Getter for Precio

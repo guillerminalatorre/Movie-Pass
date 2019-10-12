@@ -1,6 +1,6 @@
     <div class="container">
         <div class="loginForm">
-            <form action="">
+            <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
                 <h2 class="text-left">Ingresa tus datos: </h2>
                 <br>
                 <div class="row">
@@ -40,13 +40,13 @@
                         <label for="contraseña">Contraseña:</label>
                     </div>
                     <div>
-                        <input type="password" class="form-control" name="contraseña" required>
+                        <input type="password" class="form-control" name="password" required>
                     </div>
                     <div class="form-group col-sm text-right">
                         <label for="contaseña_dos">Repite tu contraseña:</label>
                     </div>
                     <div>
-                        <input type="password" class="form-control" name="contraseña_dos" required>
+                        <input type="password" class="form-control" name="confirmpassword" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Crear cuenta</button>
             </form>
