@@ -10,7 +10,8 @@
 
 	class UsuarioDAO
 	{
-		private $usuarioDAO;
+		private $usuarioList = array();
+		private $fileName = ROOT."Data/usuarios.json";
 
 		/**
 		 * 
@@ -50,20 +51,16 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			file_put_contents($jsonPath, $jsonContent);
+			file_put_contents($fileName, $jsonContent);
 		}
 
 		public function RetrieveData()
 		{
 			$this->usuarioList = array();
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
+			if(file_exists($fileName));
 			{
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -90,11 +87,9 @@
 		{
 			$this->usuarioList = array();
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
+			if(file_exists($fileName));
 			{
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -116,20 +111,48 @@
 			}
 			return 0;
 		}
+		
+		public function GetByEmail($email)
+        {
+            $user = null;
+
+            $this->RetrieveData();
+
+            $users = array_filter($this->userList, function($user) use($email){
+                return $user->getEmail() == $email;
+            });
+
+            $users = array_values($users); //Reordering array indexes
+
+            return (count($users) > 0) ? $users[0] : null;
+		}
+		
+		public function GetByDni($dni)
+        {
+            $user = null;
+
+            $this->RetrieveData();
+
+            $users = array_filter($this->userList, function($user) use($dni){
+                return $user->getDni() == $dni;
+            });
+
+            $users = array_values($users); //Reordering array indexes
+
+            return (count($users) > 0) ? $users[0] : null;
+        }
 
 		/**
 		 * 
-		 * @param id
+		 * @param email
 		 */
-		public function eliminarUsuario(int $dni)
+		public function eliminarUsuario($email)
 		{
 			$this->usuarioList = array();
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
+			if(file_exists($fileName));
 			{				
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -143,27 +166,13 @@
 					$usuario->setNombre($valuesArray["nombre"]);
 					$usuario->setId_Rol($valuesArray["id_Rol"]);
 
-					if($dni != $usuario->getDni())
+					if($email != $usuario->getEmail())
 					{
-						array_push($this->usuarioList, $usuario);
+						array_push($this->usuarioList, $email);
 					}
 				}
 				$this->SaveData();
 			}
-		}
-
-		//Need this function to return correct file json path
-		function GetJsonFilePath(){
-
-			$initialPath = "Data\usuarios.json";
-			
-			if(file_exists($initialPath)){
-				$jsonFilePath = $initialPath;
-			}else{
-				$jsonFilePath = ROOT.$initialPath;
-			}
-			
-			return $jsonFilePath;
 		}
 	}
 ?>

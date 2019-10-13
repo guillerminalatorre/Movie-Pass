@@ -11,6 +11,7 @@
 	class CineDAO
 	{
 		private $cineList = array();
+		private $fileName = ROOT."Data/cines.json";
 
 		/**
 		 * 
@@ -48,20 +49,16 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			file_put_contents($jsonPath, $jsonContent);
+			file_put_contents($fileName, $jsonContent);
 		}
 
 		public function retrieveData()
 		{
 			$this->cineList = array();
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
+			if(file_exists($fileName));
 			{
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -84,11 +81,9 @@
 		 */
 		public function cineExiste(Cine $cineAbuscar)
 		{
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
+			if(file_exists($fileName));
 			{
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -116,12 +111,10 @@
 		public function eliminarCine($nombre)
 		{
 			$this->cineList = array();
-			
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
 
-			if(file_exists($jsonPath))
+			if(file_exists($fileName))
 			{
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDencode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -146,11 +139,9 @@
 		{
 			$this->cineList = array();
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
+			if(file_exists($fileName));
 			{
-				$jsonContent = file_get_contents($jsonPath);
+				$jsonContent = file_get_contents($fileName);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -171,20 +162,6 @@
 				}
 			}
 			return null;
-		}
-
-		//Need this function to return correct file json path
-		function GetJsonFilePath(){
-
-			$initialPath = "Data\cines.json";
-			
-			if(file_exists($initialPath)){
-				$jsonFilePath = $initialPath;
-			}else{
-				$jsonFilePath = ROOT.$initialPath;
-			}
-			
-			return $jsonFilePath;
 		}
 	}
 ?>
