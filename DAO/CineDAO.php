@@ -198,6 +198,7 @@
 					else {
 						array_push($this->cineList, $cine);
 					}
+
 				}
 				$this->SaveData();
 			}
