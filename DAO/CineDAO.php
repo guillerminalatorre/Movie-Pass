@@ -20,9 +20,15 @@
 		{
 			$this->retrieveData();
 
-			array_push($this->cineList, $cine);
-				
-			$this->saveData();
+			$rta=$this->cineExiste($cine->getNombre());
+
+			if( $rta == 0 )
+			{
+				array_push($this->cineList, $cine);
+				$this->saveData();
+			}		
+		
+			return $rta;
 		}
 
 		public function getAll()
@@ -79,10 +85,10 @@
 		}
 
 		/**
-		 * retorna 0 si no existe, la id si existe
+		 * retorna 0 si no existe, la 1 si existe
 		 * @param cineAbuscar debe tener al menos el parametro "id" o el "nombre"
 		 */
-		public function cineExiste(Cine $cineAbuscar)
+		public function cineExiste($nombre)
 		{
 			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
 
@@ -100,9 +106,9 @@
 					$cine->setCapacidad($valuesArray["capacidad"]);
 					$cine->setPrecio($valuesArray["precio"]);
 
-					if($cine->getNombre() === $cineAbuscar->getNombre())
+					if($cine->getNombre() == $nombre)
 					{
-						return $cine;
+						return 1;
 					}
 				}
 			}

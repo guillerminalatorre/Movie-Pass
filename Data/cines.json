@@ -1,26 +1,26 @@
 [
     {
-        "nombre": "Ambasador",
-        "direccion": "Cordobaa",
-        "capacidad": "123",
-        "precio": "150"
-    },
-    {
         "nombre": "Aldery",
         "direccion": "Rawso",
         "capacidad": "200",
         "precio": "250"
     },
     {
-        "nombre": "Ambassador",
-        "direccion": "Cordoba 2551",
-        "capacidad": "250",
-        "precio": "350"
-    },
-    {
         "nombre": "Sel",
         "direccion": "Cordoba ",
         "capacidad": "250",
         "precio": "350"
+    },
+    {
+        "nombre": "des",
+        "direccion": "mogotes",
+        "capacidad": "123",
+        "precio": "111"
+    },
+    {
+        "nombre": "ad",
+        "direccion": "x",
+        "capacidad": "6",
+        "precio": "8"
     }
 ]

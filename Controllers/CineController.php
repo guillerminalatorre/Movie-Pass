@@ -18,8 +18,10 @@
 			$this->cineDAO = new CineDAO();
 		}
 
+		/**pasar valor null por defecto */
 		public function ShowAddView()
 		{
+			$resultadoAgregarCine = 4;
 			require_once(VIEWS_PATH."add-cine.php");
 		}
 
@@ -71,12 +73,15 @@
 		public function Add( $nombre, $direccion, $capacidad, $precio)
 		{
 			$cine = new Cine();
+
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
 			$cine->setCapacidad($capacidad);
 			$cine->setPrecio($precio);
 
-			$this->ShowAddView();
+			$resultadoAgregarCine = $this->cineDAO->add($cine);
+
+			require_once(VIEWS_PATH."add-cine.php");
 		}
 
 
