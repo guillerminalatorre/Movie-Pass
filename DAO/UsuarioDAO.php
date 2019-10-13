@@ -11,7 +11,6 @@
 	class UsuarioDAO
 	{
 		private $usuarioList = array();
-		private $fileName = ROOT."Data/usuarios.json";
 
 		/**
 		 * 
@@ -51,16 +50,20 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			file_put_contents($fileName, $jsonContent);
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			file_put_contents($jsonPath, $jsonContent);
 		}
 
 		public function RetrieveData()
 		{
 			$this->usuarioList = array();
 
-			if(file_exists($fileName));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents($fileName);
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -78,39 +81,6 @@
 				}
 			}
 		}
-
-		/**
-		 * retorna 0 si no existe, la id si existe
-		 * @param usuario buscar por dni y por email
-		 */
-		public function usuarioExists(Usuario $usuario)
-		{
-			$this->usuarioList = array();
-
-			if(file_exists($fileName));
-			{
-				$jsonContent = file_get_contents($fileName);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$usuario = new Usuario();
-					$usuario->setDni($valuesArray["dni"]);
-					$usuario->setPassword($valuesArray["password"]);
-					$usuario->setEmail($valuesArray["email"]);
-					$usuario->setApellido($valuesArray["apellido"]);
-					$usuario->setNombre($valuesArray["nombre"]);
-					$usuario->setId_Rol($valuesArray["id_Rol"]);
-
-					if($usuarioAbuscar->getDni() === $usuario->getDni() || $usuarioAbuscar->getEmail() === $usuario->getEmail())
-					{
-						return $usuario;
-					}
-				}
-			}
-			return 0;
-		}
 		
 		public function GetByEmail($email)
         {
@@ -118,7 +88,7 @@
 
             $this->RetrieveData();
 
-            $users = array_filter($this->userList, function($user) use($email){
+            $users = array_filter($this->usuarioList, function($user) use($email){
                 return $user->getEmail() == $email;
             });
 
@@ -133,7 +103,7 @@
 
             $this->RetrieveData();
 
-            $users = array_filter($this->userList, function($user) use($dni){
+            $users = array_filter($this->usuarioList, function($user) use($dni){
                 return $user->getDni() == $dni;
             });
 
@@ -150,9 +120,11 @@
 		{
 			$this->usuarioList = array();
 
-			if(file_exists($fileName));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{				
-				$jsonContent = file_get_contents($fileName);
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -173,6 +145,20 @@
 				}
 				$this->SaveData();
 			}
+		}
+
+		//Need this function to return correct file json path
+		function GetJsonFilePath(){
+
+			$initialPath = "Data\usuarios.json";
+			
+			if(file_exists($initialPath)){
+				$jsonFilePath = $initialPath;
+			}else{
+				$jsonFilePath = ROOT.$initialPath;
+			}
+			
+			return $jsonFilePath;
 		}
 	}
 ?>

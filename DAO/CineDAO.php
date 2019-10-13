@@ -11,7 +11,6 @@
 	class CineDAO
 	{
 		private $cineList = array();
-		private $fileName = ROOT."Data/cines.json";
 
 		/**
 		 * 
@@ -49,16 +48,20 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			file_put_contents($fileName, $jsonContent);
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			file_put_contents($jsonPath, $jsonContent);
 		}
 
 		public function retrieveData()
 		{
 			$this->cineList = array();
 
-			if(file_exists($fileName));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents($fileName);
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -81,9 +84,11 @@
 		 */
 		public function cineExiste(Cine $cineAbuscar)
 		{
-			if(file_exists($fileName));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents($fileName);
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -112,9 +117,11 @@
 		{
 			$this->cineList = array();
 
-			if(file_exists($fileName))
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath))
 			{
-				$jsonContent = file_get_contents($fileName);
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -139,9 +146,11 @@
 		{
 			$this->cineList = array();
 
-			if(file_exists($fileName));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents($fileName);
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -157,7 +166,6 @@
 					{
 						return $cine;
 					}
-
 				}
 			}
 			return null;
@@ -190,7 +198,6 @@
 					else {
 						array_push($this->cineList, $cine);
 					}
-
 				}
 				$this->SaveData();
 			}

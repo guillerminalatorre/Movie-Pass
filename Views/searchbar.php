@@ -1,6 +1,6 @@
 <div class="container">
     <div class="jumbotron mt-5">
-        <form action=<?php echo  FRONT_ROOT . "Pelicula/ShowFilteredMovies" ?> method="POST">
+        <form action="<?php echo FRONT_ROOT ?>Pelicula/ShowFilteredMovies" method="POST">
             <div class="col-md-6">
                 <h3>Elije una categoria o una fecha: </h3>
             </div>

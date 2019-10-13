@@ -20,12 +20,12 @@
 
 		public function ShowLoginView()
 		{
-			require_once(VIEWS-PATH."login.php");
+			require_once(VIEWS_PATH."login.php");
 		}
 
 		public function ShowRegisterView()
 		{
-			require_once(VIEWS_PATH."add-usuario.php");
+			require_once(VIEWS_PATH."register.php");
 		}
 
 		public function ShowListView()
@@ -50,8 +50,13 @@
 				$usuario->setId_Rol($id_Rol);
 
 				$this->usuarioDAO->add($usuario);
+
+				$this->Login($email, $password);
 			}
-			$this->ShowAddView();
+			else
+			{
+				$this->ShowRegisterView();
+			}			
 		}
 
 		public function Login($email, $password)
@@ -62,7 +67,7 @@
             {
 				$_SESSION["loggedUser"] = $user;
 				
-                require_once(VIEWS_PATH."searchbar.php");
+                header("Location: ../Genero/ShowGenreView");
             }
             else
 				$this->ShowLoginView();
