@@ -1,9 +1,9 @@
-
 html, body {
-     height: 100%;
+     height: 100%;    
 }
 
 body {
+   background: url("https://external-preview.redd.it/-DobWIgRbcMv7FJUmWeen-Cj1V4m2QWWkZ1VMciK3uA.jpg?auto=webp&s=9a81025dbd9698379b49060271b1455d5d874e1b") no-repeat center center fixed;
      -webkit-background-size: cover;
         -moz-background-size: cover;
           -o-background-size: cover;
@@ -20,8 +20,6 @@ body {
 .bg-light-alpha {
      background-color: rgba(255,255,255,0.2);
 }
-
-
 .signUpForm{
      background: url("https://external-preview.redd.it/-DobWIgRbcMv7FJUmWeen-Cj1V4m2QWWkZ1VMciK3uA.jpg?auto=webp&s=9a81025dbd9698379b49060271b1455d5d874e1b") no-repeat center center fixed;
 
@@ -45,3 +43,90 @@ body {
      padding: 35px;
      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(252, 42, 42, 0.4);
    }
+
+   /*https://codepen.io/Ikonikov/pen/OjdWmb*/
+.movie-card {
+   background-color: #F8FAFB;
+   font-family: 'Open Sans', sans-serif;
+   padding-top: 10%;
+}
+
+.movie-card .col-md-5, .movie-card .description {
+   padding: 0;  
+}
+
+.description {
+   font-family: 'Fredericka the Great', cursive;
+   text-align: center;
+}
+
+.card-header, .metadata {
+   background: none;
+   padding: 0;
+   position: relative;
+   border-style: none;
+}
+
+.metadata {
+   font-size: 16px;
+}
+
+p {
+     float: left;
+     margin-top: 0;
+     margin-left: 10px;
+  }
+
+
+.card-img {
+   -webkit-clip-path: inset(10% 0 20% 0);
+    clip-path: inset(10% 0 20% 0);
+    margin-top: -15%;
+}
+
+.card-body {
+   position: relative;
+   margin-top: -30%;
+   color: #9FA7A9;
+}
+
+
+.card-body .card-text {
+     margin-top: 8px;
+     font-weight: 600;
+     line-height: 30px;
+  }
+
+.card-body .card-title {
+     font-weight: 600;
+     color: #414345;
+  }
+
+.card, .trailer-preview {
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card {
+   border-radius: 8pt;
+   border-style: none;
+   overflow: hidden;
+   transform: scale(0.8);
+   margin-top: -60px;
+}
+
+.trailer-preview {
+   background-color: #ff3d49;
+   position: absolute;
+   top: -46px;
+   right: 24px;
+   width: 80px;
+   height: 80px;
+   border-radius: 50%;
+   color: white;
+   font-size: 36px;
+   text-align: center;
+   padding-top: 13px;
+}   
+.trailer-preview i {
+   margin-left: 5px;
+}

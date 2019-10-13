@@ -1,9 +1,9 @@
 <?php
-
 	namespace DAO;
 
 	use Models\Pelicula as Pelicula;
 	use Models\Genero as Genero;
+	use API\APIController as APIController;
 
 	class PeliculaDAO
 	{
@@ -224,61 +224,79 @@
 
 	public function getByGenre($id)
     { 
-        $this->getCurl($id);
+	$this->getMoviesByGender($id);
         return $this->peliculaList;
-    }
+	}
 
-	private function getCurl($id)
+	private function getNowPlayingMovies(){
+
+	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR");
+
+	$get_data = APIController::callAPI('GET', API .'/movie/now_playing', $arrayReque);
+
+	$arrayToDecode = json_decode($get_data, true);
+
+	foreach($arrayToDecode["results"] as $valuesArray)
+	{
+		$pelicula = new Pelicula();
+		$pelicula->setPoster($valuesArray["poster_path"]);
+		$pelicula->setId($valuesArray["id"] );
+		$pelicula->setIdioma($valuesArray["original_language"]);
+		$pelicula->setClasificacion($valuesArray["adult"]);
+
+		foreach($valuesArray["genre_ids"] as $genero)
+		{
+			$pelicula->agregarGenero($genero);
+		}
+
+		$pelicula->setTitulo($valuesArray["title"]);
+		$pelicula->setPopularidad($valuesArray["vote_average"]);
+		$pelicula->setDescripcion($valuesArray["overview"]);
+		$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
+
+		if($valuesArray["video"]!==false)
+		{
+			$pelicula->setVideo($valuesArray["video"]);
+		}
+
+		array_push($this->peliculaList, $pelicula);
+	}
+}
+
+	private function getMoviesByGender($id)
     {
-        $curl = curl_init();
+	   $actualDate=date("Y-m-d");
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.themoviedb.org/3/discover/movie?api_key=6a65158231eaaf71a3446b747cff20ec&language=es&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&without_genres=".$id,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            CURLOPT_POSTFIELDS => "{}",
-        ));
+       $arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "include_video"=>true,"with_genres"=>$id,"primary_release_date.lte"=>date("Y-m-d", strtotime($actualDate . "+ 5 days")),"primary_release_date.gte"=> date("Y-m-d", strtotime($actualDate . "- 2 month")),"sort_by"=>"primary_release_date.desc", "with_original_language"=>"es,en");
 
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
+		$get_data = APIController::callAPI('GET', API .'/discover/movie', $arrayReque);
 
-        curl_close($curl);
+		$arrayToDecode = json_decode($get_data, true);
 
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            $arrayToDecode = ($response) ? json_decode($response, true) : array();
+		foreach($arrayToDecode["results"] as $valuesArray)
+		{
+			$pelicula = new Pelicula();
+			$pelicula->setPoster($valuesArray["poster_path"]);
+			$pelicula->setId($valuesArray["id"] );
+			$pelicula->setIdioma($valuesArray["original_language"]);
 
-			foreach($arrayToDecode["results"] as $valuesArray)
-				{
-					$pelicula = new Pelicula();
-					$pelicula->setPoster($valuesArray["poster_path"]);
-					$pelicula->setId($valuesArray["id"] );
-					$pelicula->setIdioma($valuesArray["original_language"]);
+			foreach($valuesArray["genre_ids"] as $genero)
+			{
+				$pelicula->agregarGenero($genero);
+			}
 
-					foreach($valuesArray["genre_ids"] as $genero)
-					{
-								$pelicula->agregarGenero($genero);
-					}
+			$pelicula->setTitulo($valuesArray["title"]);
+			$pelicula->setPopularidad($valuesArray["vote_average"]);
+			$pelicula->setDescripcion($valuesArray["overview"]);
+			$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
 
-					$pelicula->setTitulo($valuesArray["title"]);
-					$pelicula->setClasificacion($valuesArray["vote_average"]);
-					$pelicula->setDescripcion($valuesArray["overview"]);
-					$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
+			if($valuesArray["video"]!==false)
+			{
+				$pelicula->setVideo($valuesArray["video"]);
+			}
 
-					if($valuesArray["video"]!==false)
-					{
-						$pelicula->setVideo($valuesArray["video"]);
-					}
-
-                array_push($this->peliculaList, $pelicula);
-            }
-        }
-    }
+			array_push($this->peliculaList, $pelicula);
+		}
+	}
 }
 ?>
