@@ -22,7 +22,7 @@
             <h1><?php echo $cine->getNombre(); ?></h1>
         </th>
         <th scope="col" style="text-align:right">
-            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowModificarCine/<?phpecho $cine->getNombre();?>">Modificar Cine</a>
+            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowModificarCine/<?php echo $cine->getNombre();?>">Modificar Cine</a>
         </th>
         </tr>
     </thead>

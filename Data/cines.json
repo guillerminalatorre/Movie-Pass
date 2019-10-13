@@ -1,29 +1,25 @@
 [
     {
-        "id": 1,
         "nombre": "Ambasador",
-        "direccion": "Cordoba",
-        "capacidad": 123,
-        "precio": 150
+        "direccion": "Cordobaa",
+        "capacidad": "123",
+        "precio": "150"
     },
     {
-        "id": 2,
         "nombre": "Aldery",
-        "direccion": "Rawson",
-        "capacidad": 200,
-        "precio": 250
+        "direccion": "Rawso",
+        "capacidad": "200",
+        "precio": "250"
     },
     {
-        "id": null,
         "nombre": "Ambassador",
         "direccion": "Cordoba 2551",
         "capacidad": "250",
         "precio": "350"
     },
     {
-        "id": null,
-        "nombre": "Ambassador",
-        "direccion": "Cordoba 2551",
+        "nombre": "Sel",
+        "direccion": "Cordoba ",
         "capacidad": "250",
         "precio": "350"
     }

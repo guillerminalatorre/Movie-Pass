@@ -30,13 +30,6 @@
 			require_once(VIEWS_PATH."cine-list.php");
 		}
 
-		public function eliminarCineYredirect ($nombre)
-		{
-			$this->cineDAO->eliminarCine($nombre);
-
-			$this->ShowListView();
-		}
-
 		public function ShowFichaCine($nombre)
 		{
 			$cine = new Cine();
@@ -46,7 +39,23 @@
 			require_once(VIEWS_PATH."cine-ficha.php");
 		}
 
-		public function Add($nombre, $direccion, $capacidad, $precio)
+		public function ShowModificarCine($nombre)
+		{
+			$cine= new Cine();
+
+			$cine = $this->cineDAO->cineXnombre($nombre);
+
+			require_once(VIEWS_PATH."cine-modificar.php");
+		}
+
+		public function eliminarCineYredirect ($nombre)
+		{
+			$this->cineDAO->eliminarCine($nombre);
+
+			$this->ShowListView();
+		}
+
+		public function actualizarUnCine($nombre, $direccion, $capacidad, $precio)
 		{
 			$cine = new Cine();
 			$cine->setNombre($nombre);
@@ -54,9 +63,22 @@
 			$cine->setCapacidad($capacidad);
 			$cine->setPrecio($precio);
 
-			$this->cineDAO->add($cine);
+			$this->cineDAO->actualizarUnCine($cine);
+
+			$this->ShowFichaCine($nombre);
+		}
+
+		public function Add( $nombre, $direccion, $capacidad, $precio)
+		{
+			$cine = new Cine();
+			$cine->setNombre($nombre);
+			$cine->setDireccion($direccion);
+			$cine->setCapacidad($capacidad);
+			$cine->setPrecio($precio);
 
 			$this->ShowAddView();
 		}
+
+
 	}
 ?>
