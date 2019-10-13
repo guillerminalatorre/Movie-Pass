@@ -122,7 +122,7 @@
 		public function eliminarCine($nombre)
 		{
 			$this->cineList = array();
-			
+
 			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
 
 			if(file_exists($jsonPath))
@@ -172,7 +172,6 @@
 					{
 						return $cine;
 					}
-
 				}
 			}
 			return null;

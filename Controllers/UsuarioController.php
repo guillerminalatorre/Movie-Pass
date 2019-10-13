@@ -11,28 +11,33 @@
 
 	class UsuarioController
 	{
-		private $usuariosDAO;
+		private $usuarioDAO;
 
 		function __construct()
 		{
-			$this->usuariosDAO = new UsuarioDAO();
+			$this->usuarioDAO = new UsuarioDAO();
+		}
+
+		public function ShowLoginView()
+		{
+			require_once(VIEWS_PATH."login.php");
 		}
 
 		public function ShowRegisterView()
 		{
-			require_once(VIEWS_PATH."add-usuario.php");
+			require_once(VIEWS_PATH."register.php");
 		}
 
 		public function ShowListView()
 		{
-			$usuarioList = $this->UsuariosDAO->getAll();
+			$usuarioList = $this->usuarioDAO->getAll();
 
 			require_once(VIEWS-PATH."usuario-list.php");
 		}
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
 		{
-			if($password == $confirmpassword)
+			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword)
 			{
 				$id_Rol = 1;
 
@@ -43,10 +48,36 @@
 				$usuario->setEmail($email);
 				$usuario->setPassword($password);
 				$usuario->setId_Rol($id_Rol);
-	
-				$this->usuariosDAO->add($usuario);
+
+				$this->usuarioDAO->add($usuario);
+
+				$this->Login($email, $password);
 			}
-			$this->ShowAddView();
+			else
+			{
+				$this->ShowRegisterView();
+			}			
 		}
+
+		public function Login($email, $password)
+        {
+            $user = $this->usuarioDAO->GetByEmail($email);
+
+            if(($user != null) && ($user->getPassword() === $password))
+            {
+				$_SESSION["loggedUser"] = $user;
+				
+                header("Location: ../Genero/ShowGenreView");
+            }
+            else
+				$this->ShowLoginView();
+        }
+        
+        public function Logout()
+        {
+            session_destroy();
+
+            $this->ShowLoginView();
+        }
 	}
 ?>

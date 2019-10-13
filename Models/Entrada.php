@@ -8,32 +8,9 @@
 	
 	class Entrada
 	{
-		private $id;
 		private $qr;
 		private $id_Compra;
 		private $id_Funcion;
-
-		/**
-		 * Getter for Id
-		 *
-		 * @return [type]
-		 */
-		public function getId()
-		{
-		    return $this->id;
-		}
-
-		/**
-		 * Setter for Id
-		 * @var [type] id
-		 *
-		 * @return self
-		 */
-		public function setId($id)
-		{
-		    $this->id = $id;
-		    return $this;
-		}
 
 		/**
 		 * Getter for Qr
