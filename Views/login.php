@@ -1,15 +1,15 @@
 <div class="container">
     <div class="loginForm">
-      <form action="">
+      <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">
         <h2 class="text-center">¡Hola! Para seguir, <br>ingresá tus datos</h2>
         <br>
         <div class="form-group">
           <label for="userEmail">Email</label>
-          <input type="email" class="form-control" name="userEmail" placeholder="email@example.com" required>
+          <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
         </div>
         <div class="form-group">
           <label for="userPassword">Contraseña</label>
-          <input type="password" class="form-control" name="userPassword" placeholder="Contraseña" required>
+          <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
         </div>
         <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar sesion</button>
         <br>
@@ -18,6 +18,6 @@
         </div>
       </form>
       <div class="dropdown-divider mt-5"></div>
-      <p class="message text-center">Eres nuevo? <a href="#"> Resgistrate</a></p>
+      <p class="message text-center">Eres nuevo? <a href="<?php echo FRONT_ROOT ?>Usuario/ShowRegisterView"> Registrate</a></p>
     </div>
   </div>

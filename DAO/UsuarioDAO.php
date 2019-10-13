@@ -10,7 +10,7 @@
 
 	class UsuarioDAO
 	{
-		private $usuarioDAO;
+		private $usuarioList = array();
 
 		/**
 		 * 
@@ -81,47 +81,42 @@
 				}
 			}
 		}
+		
+		public function GetByEmail($email)
+        {
+            $user = null;
 
-		/**
-		 * retorna 0 si no existe, la id si existe
-		 * @param usuario buscar por dni y por email
-		 */
-		public function usuarioExists(Usuario $usuario)
-		{
-			$this->usuarioList = array();
+            $this->RetrieveData();
 
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+            $users = array_filter($this->usuarioList, function($user) use($email){
+                return $user->getEmail() == $email;
+            });
 
-			if(file_exists($jsonPath));
-			{
-				$jsonContent = file_get_contents($jsonPath);
+            $users = array_values($users); //Reordering array indexes
 
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$usuario = new Usuario();
-					$usuario->setDni($valuesArray["dni"]);
-					$usuario->setPassword($valuesArray["password"]);
-					$usuario->setEmail($valuesArray["email"]);
-					$usuario->setApellido($valuesArray["apellido"]);
-					$usuario->setNombre($valuesArray["nombre"]);
-					$usuario->setId_Rol($valuesArray["id_Rol"]);
-
-					if($usuarioAbuscar->getDni() === $usuario->getDni() || $usuarioAbuscar->getEmail() === $usuario->getEmail())
-					{
-						return $usuario;
-					}
-				}
-			}
-			return 0;
+            return (count($users) > 0) ? $users[0] : null;
 		}
+		
+		public function GetByDni($dni)
+        {
+            $user = null;
+
+            $this->RetrieveData();
+
+            $users = array_filter($this->usuarioList, function($user) use($dni){
+                return $user->getDni() == $dni;
+            });
+
+            $users = array_values($users); //Reordering array indexes
+
+            return (count($users) > 0) ? $users[0] : null;
+        }
 
 		/**
 		 * 
-		 * @param id
+		 * @param email
 		 */
-		public function eliminarUsuario(int $dni)
+		public function eliminarUsuario($email)
 		{
 			$this->usuarioList = array();
 
@@ -143,9 +138,9 @@
 					$usuario->setNombre($valuesArray["nombre"]);
 					$usuario->setId_Rol($valuesArray["id_Rol"]);
 
-					if($dni != $usuario->getDni())
+					if($email != $usuario->getEmail())
 					{
-						array_push($this->usuarioList, $usuario);
+						array_push($this->usuarioList, $email);
 					}
 				}
 				$this->SaveData();

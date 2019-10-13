@@ -39,7 +39,6 @@
 
 			foreach($this->entradaList as $entrada)
 			{
-				$valuesArray["id"] = $entrada->getId();
 				$valuesArray["qr"]= $entrada->getQr();
 				$valuesArray["id_compra"]= $entrada->getCompra();
 				$valuesArray["id_funcion"]=$entrada->getFuncion();
@@ -65,7 +64,6 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$entrada = new Entrada();
-					$entrada->setId($valuesArray["id"]);
 					$entrada->setQr($valuesArray["qr"]);
 					$entrada->setCompra($valuesArray["id_compra"]);
 					$entrada->setFuncion($valuesArray["id_funcion"]);
@@ -93,7 +91,6 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$entrada = new Entrada();
-					$entrada->setId($valuesArray["id"]);
 					$entrada->setQr($valuesArray["qr"]);
 					$entrada->setCompra($valuesArray["id_compra"]);
 					$entrada->setFuncion($valuesArray["id_funcion"]);
@@ -131,7 +128,6 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$entrada = new Entrada();
-					$entrada->setId($valuesArray["id"]);
 					$entrada->setQr($valuesArray["qr"]);
 					$entrada->setCompra($valuesArray["id_compra"]);
 					$entrada->setFuncion($valuesArray["id_funcion"]);
