@@ -1,27 +1,45 @@
+<script>
+    function borrar(nombre){
+        preg = window.confirm('¿Desea borrar el cine '+ nombre+'?');
+        if(preg==true) 
+        {
+            alert('Se ha borrado el cine '+ nombre);
+            location.href="<?php echo FRONT_ROOT ?>Cine/eliminarCineYredirect/<?php echo $cine->getNombre();?>";
+        }
+    }
+</script>
+
 <div class="container container-fluid mt-4">
-    <h2>FICHA DE CINE</h2>
+<a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
+    <h2>Ficha de Cine</h2>
     <table class="table table-striped">
-    <thead>
+    <thead class="thead-dark">       
         <tr>
-        <th scope="col"><?php $cine->getNombre(); ?></th>
+        <th scope="col" style="text-align:left">
+            <a class="btn btn-warning" onclick = "borrar('<?php echo $cine->getNombre(); ?>');">Eliminar Cine</a>
+        </th>
+        <th scope="col" style="text-align:center">
+            <h1><?php echo $cine->getNombre(); ?></h1>
+        </th>
+        <th scope="col" style="text-align:right">
+            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowModificarCine/<?php echo $cine->getNombre();?>">Modificar Cine</a>
+        </th>
         </tr>
     </thead>
-    <tbody>
-        <tr>
-        <th scope="row">ID</th>
-        <td><?php $cine->getId(); ?></td>
-        </tr>
+    </table>
+    <table class="table table-striped">
+    <tbody style="text-align:center">
         <tr>
         <th scope="row">Dirección</th>
-        <td><?php $cine->getDireccion(); ?></td>
+        <td><?php echo $cine->getDireccion(); ?></td>
         </tr>
         <tr>
         <th scope="row">Capacidad</th>
-        <td><?php $cine->getCapacidad(); ?></td>
+        <td><?php echo $cine->getCapacidad(); ?> personas </td>
         </tr>
         <tr>
         <th scope="row">Precio</th>
-        <td>$<?php $cine->getPrecio(); ?></td>
+        <td>$<?php echo $cine->getPrecio(); ?></td>
         </tr>
     </tbody>
 </table>

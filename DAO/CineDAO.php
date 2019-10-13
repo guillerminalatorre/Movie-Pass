@@ -116,7 +116,7 @@
 			{
 				$jsonContent = file_get_contents($fileName);
 
-				$arrayToDencode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
 				foreach($arrayToDecode as $valuesArray)
 				{
@@ -135,7 +135,7 @@
 			}
 		}
 
-		public function cineXid($id)
+		public function cineXnombre($nombre)
 		{
 			$this->cineList = array();
 
@@ -148,13 +148,12 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$cine = new Cine();
-					$cine->setId($valuesArray["id"]);
 					$cine->setNombre($valuesArray["nombre"]);
 					$cine->setDireccion($valuesArray["direccion"]);
 					$cine->setCapacidad($valuesArray["capacidad"]);
 					$cine->setPrecio($valuesArray["precio"]);
 
-					if($id === $cine->getId())
+					if($nombre === $cine->getNombre())
 					{
 						return $cine;
 					}
@@ -162,6 +161,53 @@
 				}
 			}
 			return null;
+		}
+
+		public function actualizarUnCine($actualizado)
+		{
+			$this->cineList = array();
+			
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath))
+			{
+				$jsonContent = file_get_contents($jsonPath);
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$cine = new Cine();
+					$cine->setNombre($valuesArray["nombre"]);
+					$cine->setDireccion($valuesArray["direccion"]);
+					$cine->setCapacidad($valuesArray["capacidad"]);
+					$cine->setPrecio($valuesArray["precio"]);
+
+					if($actualizado->getNombre() == $cine->getNombre())
+					{
+						array_push($this->cineList, $actualizado);
+					}
+					else {
+						array_push($this->cineList, $cine);
+					}
+
+				}
+				$this->SaveData();
+			}
+		}
+
+		//Need this function to return correct file json path
+		function GetJsonFilePath(){
+
+			$initialPath = "Data\cines.json";
+			
+			if(file_exists($initialPath)){
+				$jsonFilePath = $initialPath;
+			}else{
+				$jsonFilePath = ROOT.$initialPath;
+			}
+			
+			return $jsonFilePath;
 		}
 	}
 ?>

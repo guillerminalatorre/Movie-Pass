@@ -37,13 +37,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm text-right">
-                        <label for="contraseÃ±a">ContraseÃ±a:</label>
+                        <label for="contraseña">Contraseña:</label>
                     </div>
                     <div>
                         <input type="password" class="form-control" name="password" required>
                     </div>
                     <div class="form-group col-sm text-right">
-                        <label for="contaseÃ±a_dos">Repite tu contraseÃ±a:</label>
+                        <label for="contaseña_dos">Repite tu contraseña:</label>
                     </div>
                     <div>
                         <input type="password" class="form-control" name="confirmpassword" required>
