@@ -30,11 +30,18 @@
 			require_once(VIEWS_PATH."cine-list.php");
 		}
 
-		public function ShowFichaCine($id)
+		public function eliminarCineYredirect ($nombre)
+		{
+			$this->cineDAO->eliminarCine($nombre);
+
+			$this->ShowListView();
+		}
+
+		public function ShowFichaCine($nombre)
 		{
 			$cine = new Cine();
 
-			$cine = $this->cineDAO->cineXid($id);
+			$cine = $this->cineDAO->cineXnombre($nombre);
 
 			require_once(VIEWS_PATH."cine-ficha.php");
 		}

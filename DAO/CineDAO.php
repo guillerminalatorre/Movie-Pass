@@ -123,7 +123,7 @@
 			{
 				$jsonContent = file_get_contents($jsonPath);
 
-				$arrayToDencode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
 				foreach($arrayToDecode as $valuesArray)
 				{
@@ -142,7 +142,7 @@
 			}
 		}
 
-		public function cineXid($id)
+		public function cineXnombre($nombre)
 		{
 			$this->cineList = array();
 
@@ -157,13 +157,12 @@
 				foreach($arrayToDecode as $valuesArray)
 				{
 					$cine = new Cine();
-					$cine->setId($valuesArray["id"]);
 					$cine->setNombre($valuesArray["nombre"]);
 					$cine->setDireccion($valuesArray["direccion"]);
 					$cine->setCapacidad($valuesArray["capacidad"]);
 					$cine->setPrecio($valuesArray["precio"]);
 
-					if($id === $cine->getId())
+					if($nombre === $cine->getNombre())
 					{
 						return $cine;
 					}
