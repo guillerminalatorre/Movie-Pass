@@ -10,8 +10,10 @@ namespace Controllers;
 
 class HomeController
 {
-	public function Index($message = "")
-	{
-		require_once(VIEWS_PATH . "searchbar.php");
+		public function Index($message = "")
+		{
+			header("Location:" . FRONT_ROOT."Genero/ShowGenreView");
+			//require_once(VIEWS_PATH."searchbar.php");
+		}
 	}
 }
