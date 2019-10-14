@@ -9,7 +9,7 @@
 	class Funcion
 	{
 		private $id;
-		private $id_Cine;
+		private $nombre_Cine;
 		private $fecha;
 		private $hora;
 		private $id_Pelicula;	
@@ -38,30 +38,28 @@
 			return $this;
 		}
 	
-	
-		/**
-		 * Getter for Id_Cine
-		*
-		* @return [type]
-		*/
-		public function getId_Cine()
-		{
-			return $this->id_Cine;
-		}
-	
-		/**
-		 * Setter for Id_Cine
-		* @var [type] id_Cine
-		*
-		* @return self
-		*/
-		public function setId_Cine($id_Cine)
-		{
-			$this->id_Cine = $id_Cine;
-			return $this;
-		}
-	
-	
+				/**
+		 * Getter for Nombre_Cine
+		 *
+		 * @return [type]
+		 */
+		 public function getNombre_Cine()
+		 {
+			 return $this->nombre_Cine;
+		 }
+ 
+		 /**
+		  * Setter for Nombre_Cine
+		  * @var [type] nombre_Cine
+		  *
+		  * @return self
+		  */
+		 public function setNombre_Cine($nombre_Cine)
+		 {
+			 $this->nombre_Cine = $nombre_Cine;
+			 return $this;
+		 }
+		 
 		/**
 		 * Getter for Fecha
 		*
@@ -179,7 +177,7 @@
 		{
 			if($this->cantEntradas >= ($cantVendidas + $nuevasEntradasVendidas))
 			{
-				setCantEntradas($this->cantVendidas + $nuevasEntradasVendidas)
+				setCantEntradas($this->cantVendidas + $nuevasEntradasVendidas);
 				return true;
 			}
 			return false;
