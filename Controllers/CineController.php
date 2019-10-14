@@ -7,10 +7,7 @@
 	namespace Controllers;
 
 	use DAO\CineDAO as CineDAO;
-	use DAO\FuncionDAO as FuncionDAO;
 	use Models\Cine as Cine;	
-	use Models\Funcion as Funcion;
-	use Controllers\FuncionController as Controller;
 	
 	class CineController
 	{
@@ -21,6 +18,7 @@
 			$this->cineDAO = new CineDAO();
 		}
 
+		/**pasar valor null por defecto */
 		public function ShowAddView()
 		{
 			$resultadoAgregarCine = 4;
@@ -39,10 +37,6 @@
 			$cine = new Cine();
 
 			$cine = $this->cineDAO->cineXnombre($nombre);
-
-			$funcionDAO = new FuncionDAO();
-
-			$funciones = $funcionDAO->funcionesXcine($nombre);
 
 			require_once(VIEWS_PATH."cine-ficha.php");
 		}
