@@ -147,6 +147,8 @@
 				}
 				$this->SaveData();
 			}
+
+			
 		}
 
 		public function cineXnombre($nombre)
@@ -169,7 +171,7 @@
 					$cine->setCapacidad($valuesArray["capacidad"]);
 					$cine->setPrecio($valuesArray["precio"]);
 
-					if($nombre === $cine->getNombre())
+					if($nombre == $cine->getNombre())
 					{
 						return $cine;
 					}

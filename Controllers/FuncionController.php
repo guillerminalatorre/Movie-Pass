@@ -8,22 +8,27 @@
 
 	use DAO\FuncionDAO as FuncionDAO;
 	use Models\Funcion as Funcion;
-	use Controllers\CineController as CineController;
+	use DAO\CineDAO as CineDAO;
+	use Models\Cine as Cine;	
 
 	class FuncionController
 	{
 		private $funcionDAO;
-		private $cineController;
+		private $cineDAO;
 
 		function __construct()
 		{
 			$this->funcionDAO = new FuncionDAO();
-			$this->cineController =new CineController();
+			$this->cineDAO = new CineDAO();
 		}
 	
-		public function ShowAddView()
+		public function ShowAddView($nombre_Cine)
 		{
-			require_once(VIEWS_PATH. "");
+			$nombre_Cine = $nombre_Cine;
+
+			$id = $this->funcionDAO->iDdisponible();
+
+			require_once(VIEWS_PATH."funcion-add.php");		
 		}
 	
 		public function ShowListView()
@@ -39,15 +44,14 @@
 
 			$this->funcionDAO->eliminarFuncion($id);
 
-			header("Location: ../Cine/ShowFichaCine");
+			$cine = $this->cineDAO->cineXnombre($nombreCine);
+
+			$funciones = $this->funcionDAO->funcionesXcine($nombreCine);
+
+			require_once(VIEWS_PATH."cine-ficha.php");
 
 		}
 
-		public function ShowAgregarFuncion($nombre_Cine)
-		{
-			$nombre_Cine = $nombre_Cine;
-			require_once(VIEWS_PATH."funcion-add.php");
-		}
 
 		public function Add(  $id, $nombreCine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
 		{
@@ -61,8 +65,19 @@
 			$funcion->setCantEntradas($cantEntradas);
 			$funcion->setCantVendidas(0);
 
-			require_once(ROOT. "Cine/ShowFichaCine/$nombreCine");
+			$this->funcionDAO->add($funcion);
 
+			$this->ShowFichaCine($nombreCine);
+
+		}
+
+		public function ShowFichaCine($nombreCine)
+		{
+			$cine = $this->cineDAO->cineXnombre($nombreCine);
+
+			$funciones = $this->funcionDAO->funcionesXcine($nombreCine);
+
+			require_once(VIEWS_PATH."cine-ficha.php");
 		}
 	}
 ?>

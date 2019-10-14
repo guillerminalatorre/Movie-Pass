@@ -1,21 +1,13 @@
-<head>
-<script languaje="javascript">
-    function  verificacion {
-        if($resultadoAgregarCine == 0)
-        {
-            alert('El cine se ha agregado satisfactoriamente');
-        }
-        if($resultadoAgregarCine == 1)
-        {
-            alert('ERROR: el nombre del cine ya existe');
-        }
-        else
-        {
-            alert("anda");
-        }
+<?php
+    if($resultadoAgregarCine == 0)
+    {
+        echo "<script >alert('El cine se ha agregado satisfactoriamente');</script>";
     }
-</script>
-</head>
+    if($resultadoAgregarCine == 1)
+    {
+        echo "<script >alert('ERROR: el nombre del cine ya existe');</script>";
+    }
+?>
 <body>
     <div class="container container-fluid mt-4">
             <div class="loginForm">

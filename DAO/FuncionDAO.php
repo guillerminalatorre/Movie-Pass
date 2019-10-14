@@ -15,8 +15,6 @@
 	{
 		private $funcionList = array();
 
-		private static $id = 1;
-
 		/**
 		 * 
 		 * @param funcion
@@ -449,5 +447,59 @@
 			return $rta;
 		}
 
+		public function eliminarFuncionesXcine($nombreCine)
+		{
+			$this->funcionList = array();
+
+			if(file_exists("Data/funciones.json"));
+			{
+				$jsonContent = file_get_contents("Data/funciones.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$funcion = new Funcion();
+					$funcion->setId($valuesArray["id"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
+					$funcion->setFecha($valuesArray["fecha"]);
+					$funcion->setHora($valuesArray["hora"]);
+					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
+					$funcion->setCantEntradas($valuesArray["cantEntradas"]);
+					$funcion->setCantVendidas($valuesArray["cantVendidas"]);
+
+					if($nombreCine != $funcion->getNombre_Cine())
+					{
+						array_push($this->funcionList, $funcion);
+					}
+				}
+
+			}
+			$this->SaveData();
+		}
+
+		public function iDdisponible()
+		{
+			$rta = 0;
+
+			if(file_exists("Data/funciones.json"));
+			{
+				$jsonContent = file_get_contents("Data/funciones.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$funcion = new Funcion();
+					$funcion->setId($valuesArray["id"]);
+
+					$rta = $funcion->getId();
+				}
+
+			}
+			$rta++;
+			
+			return $rta;
+		}
 	}
 ?>

@@ -1,14 +1,7 @@
 <head>
 <script languaje="javascript">
     function  verificacion {
-        if($resultadoAgregarCine == 0)
-        {
             alert('La función se ha agregado satisfactoriamente');
-        }
-        if($resultadoAgregarCine == 1)
-        {
-            alert('ERROR: la función ya existe');
-        }
     }
 </script>
 </head>
@@ -24,7 +17,7 @@
                             <label for="id">Id:</label>
                         </div>
                         <div>
-                            <input type="text" class="form-control" name="id" required>
+                            <input type="text" class="form-control" name="id" value="<?php echo $id?>" readonly="readonly">
                         </div>
                     </div>
                     <div class="row">
@@ -64,7 +57,7 @@
                             <label for="cantEntradas">Cant. Entradas:</label>
                         </div>
                         <div>
-                            <input type="number" class="form-control" name="cantEntradas"  required>
+                            <input type="number" class="form-control" name="cantEntradas" required>
                         </div>
                     </div>
                     <div class="row">
