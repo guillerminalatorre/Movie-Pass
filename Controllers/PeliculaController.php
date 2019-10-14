@@ -23,7 +23,8 @@
 			require_once(VIEWS_PATH. "searchbar.php");
 		}
 
-		public function ShowFilteredMovies($id){
+		public function ShowFilteredMovies($id)
+		{
 			$peliculaList= $this->peliculaDAO->getByGenre($id);
 
 			require_once(VIEWS_PATH."listarpeliculas.php");

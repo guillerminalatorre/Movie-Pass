@@ -8,12 +8,12 @@
 
 namespace Controllers;
 
+use Controllers\GeneroController as GeneroController;
+
 class HomeController
 {
-		public function Index($message = "")
-		{
-			header("Location:" . FRONT_ROOT."Genero/ShowGenreView");
-			//require_once(VIEWS_PATH."searchbar.php");
-		}
+	public function Index($message = "")
+	{
+		header("Location: ".FRONT_ROOT."Genero/ShowGenreView");
 	}
 }

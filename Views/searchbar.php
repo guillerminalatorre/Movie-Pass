@@ -1,23 +1,7 @@
 <?php
-
-if (isset($_SESSION["loggedUser"])) {
-
-    if ($_SESSION["loggedUser"]->getId_Rol() === 1) {
-
-        require_once "user-navbar.php";
-    } else
-        header("Location: ../Cine/ShowListView");
-} else {
-    require_once 'anon-navbar.php';
-}
-
-/*El último header es para reestringir entradas de Admins*/
-
+require_once(VIEWS_PATH."checklogin.php");
+require_once(VIEWS_PATH."navbar.php");
 ?>
-
-
-
-
 
 <div class="container">
     <div class="jumbotron mt-5">
