@@ -17,24 +17,15 @@ if (isset($_SESSION["loggedUser"])) {
 }
 /*Los ultimos 2 headers son para reestringir entradas de no Admins*/
 
-
+if($resultadoAgregarCine == 0)
+{
+    echo "<script >alert('El cine se ha agregado satisfactoriamente');</script>";
+}
+if($resultadoAgregarCine == 1)
+{
+    echo "<script >alert('ERROR: el nombre del cine ya existe');</script>";
+}
 ?>
-
-<head>
-    <script languaje="javascript">
-        function verificacion {
-            if ($resultadoAgregarCine == 0) {
-                alert('El cine se ha agregado satisfactoriamente');
-            }
-            if ($resultadoAgregarCine == 1) {
-                alert('ERROR: el nombre del cine ya existe');
-            } else {
-                alert("anda");
-            }
-        }
-    </script>
-</head>
-
 <body>
     <div class="container container-fluid mt-4">
         <div class="loginForm">

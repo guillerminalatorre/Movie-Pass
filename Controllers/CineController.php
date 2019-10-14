@@ -12,10 +12,12 @@
 	class CineController
 	{
 		private $cineDAO;
+		private $funcionDAO;
 
 		public function __construct()
 		{
 			$this->cineDAO = new CineDAO();
+			$this->funcionDAO = new FuncionDAO();
 		}
 
 		/**pasar valor null por defecto */
@@ -38,6 +40,8 @@
 
 			$cine = $this->cineDAO->cineXnombre($nombre);
 
+			$funciones = $this->funcionDAO->funcionesXcine($nombre);
+
 			require_once(VIEWS_PATH."cine-ficha.php");
 		}
 
@@ -53,6 +57,8 @@
 		public function eliminarCineYredirect ($nombre)
 		{
 			$this->cineDAO->eliminarCine($nombre);
+
+			$this->funcionDAO->eliminarFuncionesXcine($nombre);
 
 			$this->ShowListView();
 		}
