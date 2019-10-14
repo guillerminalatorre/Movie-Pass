@@ -67,7 +67,7 @@
             {
 				$_SESSION["loggedUser"] = $user;
 				
-                header("Location: ../Genero/ShowGenreView");
+                header("Location: ".FRONT_ROOT."Genero/ShowGenreView");
             }
             else
 				$this->ShowLoginView();

@@ -1,3 +1,7 @@
+<?php
+require_once(VIEWS_PATH."checklogin.php");
+require_once(VIEWS_PATH."navbar.php");
+?>
 <head>
 <script languaje="javascript">
     function  verificacion {
@@ -8,7 +12,7 @@
 <body>
     <div class="container container-fluid mt-4">
             <div class="loginForm">
-                <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaCine/<?php echo $nombre_Cine;?>" role="button">Volver a ficha del cine</a>
+                <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaCine/<?php echo $nombre_Cine; ?>" role="button">Volver a ficha del cine</a>
                 <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $nombre_Cine;?>" method="POST">
                     <h2 class="text-left">Ingresa datos de la funcion: </h2>
                     <br>

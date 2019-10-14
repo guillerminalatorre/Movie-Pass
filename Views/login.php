@@ -1,7 +1,5 @@
 <?php
-
-require_once 'anon-navbar.php';
-
+require_once(VIEWS_PATH."navbar.php");
 ?>
 
 <div class="container">
