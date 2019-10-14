@@ -8,17 +8,14 @@
 
 	use DAO\FuncionDAO as FuncionDAO;
 	use Models\Funcion as Funcion;
-	use Controllers\CineController as CineController;
 
 	class FuncionController
 	{
 		private $funcionDAO;
-		private $cineController;
 
 		function __construct()
 		{
 			$this->funcionDAO = new FuncionDAO();
-			$this->cineController =new CineController();
 		}
 	
 		public function ShowAddView()
@@ -30,39 +27,16 @@
 		{
 			$funcionList = $this->funcionDAO->getAll();
 	
-			require_once(VIEWS_PATH."");
+			require_once(VIEWS-PATH."");
 		}
 
-		public function eliminarFuncionYredirect($id)
+		public function Add(int $id, int $id_Cine, string $fecha, string $hora, int $id_Pelicula, int $cantEntradas, int $cantVendidas)
 		{
-			$nombreCine = $this->funcionDAO->cineXid($id);
+			$funcion = new Funcion($id, $id_Cine, $fecha, $hora, $id_Pelicula, $cantEntradas, $cantVendidas);
 
-			$this->funcionDAO->eliminarFuncion($id);
+			$this->funcionDAO->add($funcion);
 
-			header("Location: ../Cine/ShowFichaCine");
-
-		}
-
-		public function ShowAgregarFuncion($nombre_Cine)
-		{
-			$nombre_Cine = $nombre_Cine;
-			require_once(VIEWS_PATH."funcion-add.php");
-		}
-
-		public function Add(  $id, $nombreCine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
-		{
-			$funcion = new Funcion();
-
-			$funcion->setId($id);
-			$funcion->setNombre_Cine($nombreCine);
-			$funcion->setFecha($fecha);
-			$funcion->setHora($hora);
-			$funcion->setId_Pelicula($id_Pelicula);
-			$funcion->setCantEntradas($cantEntradas);
-			$funcion->setCantVendidas(0);
-
-			require_once(ROOT. "Cine/ShowFichaCine/$nombreCine");
-
+			$this->ShowAddView();
 		}
 	}
 ?>

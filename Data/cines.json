@@ -18,9 +18,9 @@
         "precio": "111"
     },
     {
-        "nombre": "ad",
-        "direccion": "x",
-        "capacidad": "6",
-        "precio": "8"
+        "nombre": "Los gallegos",
+        "direccion": "La rioja y Belgrano",
+        "capacidad": "100",
+        "precio": "250"
     }
 ]

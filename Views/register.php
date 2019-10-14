@@ -1,3 +1,9 @@
+    <?php
+
+    require_once 'anon-navbar.php';
+
+    ?>
+
     <div class="container">
         <div class="loginForm">
             <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
@@ -38,19 +44,19 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-sm text-right">
-                        <label for="contrase�a">Contrase�a:</label>
+                        <label for="contraseña">Contraseña:</label>
                     </div>
                     <div>
                         <input type="password" class="form-control" name="password" required>
                     </div>
                     <div class="form-group col-sm text-right">
-                        <label for="contase�a_dos">Repite tu contrase�a:</label>
+                        <label for="contaseña_dos">Repite tu contraseña:</label>
                     </div>
                     <div>
                         <input type="password" class="form-control" name="confirmpassword" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Crear cuenta</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">Crear cuenta</button>
             </form>
             <br>
-            <button class="btn btn-primary btn-lg btn-block"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</button>
+            <button class="btn btn-primary btn-lg btn-block mt-3"><i class="fab fa-facebook-f"></i> Iniciar sesion con Facebook</button>
         </div>

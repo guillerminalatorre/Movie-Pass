@@ -1,19 +1,30 @@
-<?php 
-    include_once('navbar.php');
+<?php
+
+if (isset($_SESSION["loggedUser"])) {
+
+  if ($_SESSION["loggedUser"]->getId_Rol() === 1) {
+
+    require_once "user-navbar.php";
+  } else
+    header("Location: ../Cine/ShowListView");
+} else {
+  require_once 'anon-navbar.php';
+}
+
+/*El último header es para reestringir entradas de Admins*/
+
 ?>
 
 <div class="container">
-    <div class="row flex-column-reverse flex-md-row">
+  <div class="row flex-column-reverse flex-md-row">
     <?php
 
 
-foreach($peliculaList as $values)
-{
-    require(VIEWS_PATH."moviecard.php");
-}
-
-?>
-</div>
+    foreach ($peliculaList as $values) {
+      require(VIEWS_PATH . "moviecard.php");
+    }
+    ?>
+  </div>
 </div>
 
 <nav aria-label="Page navigation example">

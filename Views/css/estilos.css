@@ -20,9 +20,6 @@ body {
 .bg-light-alpha {
      background-color: rgba(255,255,255,0.2);
 }
-.bg-white {
-   background-color: rgb(255, 255, 255);
-}
 .signUpForm{
      background: url("https://external-preview.redd.it/-DobWIgRbcMv7FJUmWeen-Cj1V4m2QWWkZ1VMciK3uA.jpg?auto=webp&s=9a81025dbd9698379b49060271b1455d5d874e1b") no-repeat center center fixed;
 
