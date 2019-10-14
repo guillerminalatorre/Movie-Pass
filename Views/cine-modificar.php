@@ -1,3 +1,24 @@
+<?php
+
+if (isset($_SESSION["loggedUser"])) {
+
+    if ($_SESSION["loggedUser"]->getId_Rol() === 2) {
+
+        require_once "main-admin-navbar.php";
+    } else if ($_SESSION["loggedUser"]->getId_Rol() === 3) {
+
+        require_once "admin-navbar.php";
+    } else
+
+        header("Location: ../Pelicula/ShowAddView");
+} else {
+    header("Location: ../Usuario/ShowLoginView");
+}
+/*Los ultimos 2 headers son para reestringir entradas de no Admins*/
+
+?>
+
+
 <body>
 <div class="container container-fluid mt-4">
     <div class="loginForm">

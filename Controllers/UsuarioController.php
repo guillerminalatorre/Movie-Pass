@@ -80,4 +80,3 @@
             $this->ShowLoginView();
         }
 	}
-?>

@@ -35,12 +35,12 @@
 		{
 			$funcionList = $this->funcionDAO->getAll();
 	
-			require_once(VIEWS_PATH."");
+			require_once(VIEWS-PATH."");
 		}
 
-		public function eliminarFuncionYredirect($id)
+		public function Add(int $id, int $id_Cine, string $fecha, string $hora, int $id_Pelicula, int $cantEntradas, int $cantVendidas)
 		{
-			$nombreCine = $this->funcionDAO->cineXid($id);
+			$funcion = new Funcion($id, $id_Cine, $fecha, $hora, $id_Pelicula, $cantEntradas, $cantVendidas);
 
 			$this->funcionDAO->eliminarFuncion($id);
 

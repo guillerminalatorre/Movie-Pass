@@ -7,10 +7,7 @@
 	namespace Controllers;
 
 	use DAO\CineDAO as CineDAO;
-	use DAO\FuncionDAO as FuncionDAO;
 	use Models\Cine as Cine;	
-	use Models\Funcion as Funcion;
-	use Controllers\FuncionController as Controller;
 	
 	class CineController
 	{
@@ -23,6 +20,7 @@
 			$this->funcionDAO = new FuncionDAO();
 		}
 
+		/**pasar valor null por defecto */
 		public function ShowAddView()
 		{
 			$resultadoAgregarCine = 4;

@@ -1,8 +1,29 @@
+<?php
+
+if (isset($_SESSION["loggedUser"])) {
+
+    if ($_SESSION["loggedUser"]->getId_Rol() === 1) {
+
+        require_once "user-navbar.php";
+    } else
+        header("Location: ../Cine/ShowListView");
+} else {
+    require_once 'anon-navbar.php';
+}
+
+/*El último header es para reestringir entradas de Admins*/
+
+?>
+
+
+
+
+
 <div class="container">
     <div class="jumbotron mt-5">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/ShowFilteredMovies" method="POST">
             <div class="col-md-6">
-                <h3>Elije una categoria o una fecha: </h3>
+                <h3>Elije una categoria y/o una fecha: </h3>
             </div>
             <br>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

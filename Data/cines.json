@@ -1,8 +1,26 @@
 [
     {
-        "nombre": "ad",
-        "direccion": "x",
-        "capacidad": "6",
-        "precio": "8"
+        "nombre": "Aldery",
+        "direccion": "Rawso",
+        "capacidad": "200",
+        "precio": "250"
+    },
+    {
+        "nombre": "Sel",
+        "direccion": "Cordoba ",
+        "capacidad": "250",
+        "precio": "350"
+    },
+    {
+        "nombre": "des",
+        "direccion": "mogotes",
+        "capacidad": "123",
+        "precio": "111"
+    },
+    {
+        "nombre": "Los gallegos",
+        "direccion": "La rioja y Belgrano",
+        "capacidad": "100",
+        "precio": "250"
     }
 ]

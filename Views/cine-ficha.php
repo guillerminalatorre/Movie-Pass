@@ -1,19 +1,28 @@
-<script>
-    function borrarCine(nombre){
-        preg = window.confirm('¿Desea borrar el cine '+ nombre+'?');
-        if(preg==true) 
-        {
-            alert('Se ha borrado el cine '+ nombre);
-            location.href="<?php echo FRONT_ROOT ?>Cine/eliminarCineYredirect/<?php echo $cine->getNombre();?>";
-        }
-    }
+<?php
 
+if (isset($_SESSION["loggedUser"])) {
+
+    if ($_SESSION["loggedUser"]->getId_Rol() === 2) {
+
+        require_once "main-admin-navbar.php";
+    } else if ($_SESSION["loggedUser"]->getId_Rol() === 3) {
+
+        require_once "admin-navbar.php";
+    } else
+
+        header("Location: ../Pelicula/ShowAddView");
+} else {
+    header("Location: ../Usuario/ShowLoginView");
+}
+/*Los ultimos 2 headers son para reestringir entradas de no Admins*/
+?>
+
+<script>
     function borrarFuncion(id){
         preg = window.confirm('¿Desea borrar la funcion?');
         if(preg==true) 
         {
             alert('Se ha borrado la funcion '+ id);
-           // location.href="<?php echo FRONT_ROOT ?>Funcion/eliminarFuncionYredirect" . document.write(id) ;
         }
         return preg;
     }
