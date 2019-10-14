@@ -24,6 +24,14 @@ if (isset($_SESSION["loggedUser"])) {
         }
         return preg;
     }
+    function borrarCine(nombreCine){
+        preg = window.confirm('¿Desea borrar el cine'+ nombreCine +'?');
+        if(preg==true) 
+        {
+            alert('Se ha borrado el cine '+ nombreCine);
+        }
+        return preg;
+    }
 </script>
 
 <div class="container">
@@ -35,7 +43,7 @@ if (isset($_SESSION["loggedUser"])) {
             <thead >       
                 <tr>
                 <th scope="col" style="text-align:left">
-                    <a class="btn btn-warning" onclick = "borrarCine('<?php echo $cine->getNombre(); ?>');">Eliminar Cine</a>
+                    <a class="btn btn-warning" onclick = "if(borrarCine('<?php echo $cine->getNombre(); ?>')) href='<?php echo FRONT_ROOT ?>Cine/eliminarCineYredirect/<?php echo $cine->getNombre(); ?>' ;">Eliminar Cine</a>
                 </th>
                 <th scope="col" style="text-align:center" >
                     <h1 class="display-2"><?php echo $cine->getNombre(); ?></h1>

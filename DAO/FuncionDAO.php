@@ -138,7 +138,7 @@
 		 * 
 		 * @param id
 		 */
-		public function eliminarFuncion(int $id)
+		public function eliminarFuncion( $id)
 		{
 			$this->funcionList = array();
 
@@ -407,6 +407,32 @@
 					if($nombreCine == $funcion->getNombre_Cine())
 					{
 						array_push($rta, $funcion);
+					}
+				}
+
+			}
+			return $rta;
+		}
+
+		public function cineXFuncion($id)
+		{
+			$rta = "";
+
+			if(file_exists("Data/funciones.json"));
+			{
+				$jsonContent = file_get_contents("Data/funciones.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$funcion = new Funcion();
+					$funcion->setId($valuesArray["id"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
+
+					if($id == $funcion->getId())
+					{
+						$rta = $funcion->getNombre_Cine();
 					}
 				}
 

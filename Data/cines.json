@@ -12,15 +12,15 @@
         "precio": "350"
     },
     {
-        "nombre": "des",
-        "direccion": "mogotes",
-        "capacidad": "123",
-        "precio": "111"
-    },
-    {
         "nombre": "Los gallegos",
         "direccion": "La rioja y Belgrano",
         "capacidad": "100",
         "precio": "250"
+    },
+    {
+        "nombre": "des",
+        "direccion": "Cordobaa",
+        "capacidad": "123",
+        "precio": "12"
     }
 ]

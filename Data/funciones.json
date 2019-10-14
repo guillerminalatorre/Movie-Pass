@@ -18,15 +18,6 @@
         "cantVendidas": 0
     },
     {
-        "id": "3",
-        "nombre_Cine": "des",
-        "fecha": "2019-10-22",
-        "hora": "04:03",
-        "id_Pelicula": "12",
-        "cantEntradas": "234",
-        "cantVendidas": 0
-    },
-    {
         "id": "Views",
         "nombre_Cine": "css",
         "fecha": null,
