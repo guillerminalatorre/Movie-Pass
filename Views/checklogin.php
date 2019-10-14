@@ -1,0 +1,1 @@
+<?php if (!isset($_SESSION["loggedUser"])) header("Location: ".FRONT_ROOT."Usuario/ShowLoginView"); ?>
