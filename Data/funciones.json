@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "nombre_Cine": "Aldery",
+        "fecha": "2019-10-15",
+        "hora": "19:00",
+        "id_Pelicula": "12",
+        "cantEntradas": "100",
+        "cantVendidas": 0
+    },
+    {
+        "id": "2",
+        "nombre_Cine": "Aldery",
+        "fecha": "2019-10-16",
+        "hora": "12:00",
+        "id_Pelicula": "13",
+        "cantEntradas": "200",
+        "cantVendidas": 0
+    }
+]
