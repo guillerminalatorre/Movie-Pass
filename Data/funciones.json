@@ -16,5 +16,23 @@
         "id_Pelicula": "24",
         "cantEntradas": "345",
         "cantVendidas": 0
+    },
+    {
+        "id": "Views",
+        "nombre_Cine": "css",
+        "fecha": null,
+        "hora": null,
+        "id_Pelicula": "estilos.css",
+        "cantEntradas": null,
+        "cantVendidas": 0
+    },
+    {
+        "id": "Views",
+        "nombre_Cine": "img",
+        "fecha": null,
+        "hora": null,
+        "id_Pelicula": "logoMoviePass.png",
+        "cantEntradas": null,
+        "cantVendidas": 0
     }
 ]

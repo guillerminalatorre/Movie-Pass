@@ -2,13 +2,20 @@
 require_once(VIEWS_PATH."checklogin.php");
 require_once(VIEWS_PATH."navbar.php");
 ?>
-
 <script>
     function borrarFuncion(id){
         preg = window.confirm('¿Desea borrar la funcion?');
         if(preg==true) 
         {
             alert('Se ha borrado la funcion '+ id);
+        }
+        return preg;
+    }
+    function borrarCine(nombreCine){
+        preg = window.confirm('¿Desea borrar el cine'+ nombreCine +'?');
+        if(preg==true) 
+        {
+            alert('Se ha borrado el cine '+ nombreCine);
         }
         return preg;
     }
@@ -23,7 +30,7 @@ require_once(VIEWS_PATH."navbar.php");
             <thead >       
                 <tr>
                 <th scope="col" style="text-align:left">
-                    <a class="btn btn-warning" onclick = "borrarCine('<?php echo $cine->getNombre(); ?>');">Eliminar Cine</a>
+                    <a class="btn btn-warning" onclick = "if(borrarCine('<?php echo $cine->getNombre(); ?>')) href='<?php echo FRONT_ROOT ?>Cine/eliminarCineYredirect/<?php echo $cine->getNombre(); ?>' ;">Eliminar Cine</a>
                 </th>
                 <th scope="col" style="text-align:center" >
                     <h1 class="display-2"><?php echo $cine->getNombre(); ?></h1>
