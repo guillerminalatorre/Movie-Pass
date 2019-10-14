@@ -35,7 +35,7 @@
 			return $this->funcionList;
 		}
 
-		public function SaveAll()
+		public function SaveData()
 		{
 			
 			$arrayToEncode = array();
@@ -43,12 +43,12 @@
 			foreach($this->funcionList as $funcion)
 			{
 				$valuesArray["id"] = $funcion->getId();
-				$valuesArray["id_Cine"]= $funcion->getId_Cine();
+				$valuesArray["nombre_Cine"]= $funcion->getNombre_Cine();
 				$valuesArray["fecha"]= $funcion->getFecha();
 				$valuesArray["hora"]=$funcion->getHora();
 				$valuesArray["id_Pelicula"]=$funcion->getId_Pelicula();
 				$valuesArray["cantEntradas"]=$funcion->getCantEntradas();
-				$valuesArray["cantVendidas"]=$funcion->getCantVendidas());
+				$valuesArray["cantVendidas"]=$funcion->getCantVendidas();
 			
 				array_push($arrayToEncode, $valuesArray);
 			}
@@ -72,7 +72,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -102,7 +102,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -113,9 +113,9 @@
 					{
 						return $funcion->getId();
 					}
-					if($funcionAbuscar->getId_Cine() === $funcion->getId_Cine())
+					if($funcionAbuscar->getNombre_Cine() === $funcion->getNombre_Cine())
 					{
-						return $funcion->getId();
+						return $funcion->getNombre();
 					}
 					if($funcionAbuscar->getId_Pelicula() === $funcion->getId_Pelicula())
 					{
@@ -152,7 +152,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -188,7 +188,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["Nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -224,7 +224,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -237,7 +237,7 @@
 					$generos = array();
 					$generos = $pelicula->getGeneros();
 					
-					for($generos as $gen)
+					foreach($generos as $gen)
 					{
 						if( $gen->idGenero() === $idGenero && $funcion->getCantEntradas() > $funcion->getCantVendidas() && $fecha === $funcion->getFecha())
 						{
@@ -272,7 +272,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -285,7 +285,7 @@
 					$generos = array();
 					$generos = $pelicula->getGeneros();
 					
-					for($generos as $gen)
+					foreach($generos as $gen)
 					{
 						if( $gen->idGenero() === $idGenero && $funcion->getCantEntradas() > $funcion->getCantVendidas())
 						{
@@ -316,7 +316,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
@@ -359,7 +359,7 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setId($valuesArray["id"]);
-					$funcion->setId_Cine($valuesArray["id_Cine"]);
+					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
 					$funcion->setFecha($valuesArray["fecha"]);
 					$funcion->setHora($valuesArray["hora"]);
 					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);

@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_SESSION["loggedUser"])) {
 
     if ($_SESSION["loggedUser"]->getId_Rol() === 2) {
@@ -16,7 +15,6 @@ if (isset($_SESSION["loggedUser"])) {
 }
 /*Los ultimos 2 headers son para reestringir entradas de no Admins*/
 ?>
-
 <script>
     function borrarFuncion(id){
         preg = window.confirm('¿Desea borrar la funcion?');

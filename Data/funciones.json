@@ -16,5 +16,32 @@
         "id_Pelicula": "24",
         "cantEntradas": "345",
         "cantVendidas": 0
+    },
+    {
+        "id": "3",
+        "nombre_Cine": "des",
+        "fecha": "2019-10-22",
+        "hora": "04:03",
+        "id_Pelicula": "12",
+        "cantEntradas": "234",
+        "cantVendidas": 0
+    },
+    {
+        "id": "Views",
+        "nombre_Cine": "css",
+        "fecha": null,
+        "hora": null,
+        "id_Pelicula": "estilos.css",
+        "cantEntradas": null,
+        "cantVendidas": 0
+    },
+    {
+        "id": "Views",
+        "nombre_Cine": "img",
+        "fecha": null,
+        "hora": null,
+        "id_Pelicula": "logoMoviePass.png",
+        "cantEntradas": null,
+        "cantVendidas": 0
     }
 ]

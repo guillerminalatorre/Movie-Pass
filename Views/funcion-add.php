@@ -6,7 +6,7 @@
 </script>
 </head>
 <body>
-    <div class="container container-fluid mt-4">
+    <div class="container">
             <div class="loginForm">
                 <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaCine/<?php echo $nombre_Cine;?>" role="button">Volver a ficha del cine</a>
                 <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $nombre_Cine;?>" method="POST">

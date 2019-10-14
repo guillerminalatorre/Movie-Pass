@@ -8,6 +8,8 @@
 
 	use DAO\CineDAO as CineDAO;
 	use Models\Cine as Cine;	
+	use DAO\FuncionDao as FuncionDAO;
+	use Models\Funcion as Funcion;
 	
 	class CineController
 	{

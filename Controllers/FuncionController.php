@@ -38,7 +38,7 @@
 			require_once(VIEWS-PATH."");
 		}
 
-		public function Add(int $id, int $id_Cine, string $fecha, string $hora, int $id_Pelicula, int $cantEntradas, int $cantVendidas)
+		/*public function Add(int $id, int $id_Cine, string $fecha, string $hora, int $id_Pelicula, int $cantEntradas, int $cantVendidas)
 		{
 			$funcion = new Funcion($id, $id_Cine, $fecha, $hora, $id_Pelicula, $cantEntradas, $cantVendidas);
 
@@ -50,7 +50,7 @@
 
 			require_once(VIEWS_PATH."cine-ficha.php");
 
-		}
+		}*/
 
 
 		public function Add(  $id, $nombreCine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
