@@ -10,7 +10,8 @@
 	{
 		public function Index($message = "")
 		{
-			require_once(VIEWS_PATH."login.php");
+			header("Location:" . FRONT_ROOT."Genero/ShowGenreView");
+			//require_once(VIEWS_PATH."searchbar.php");
 		}
 	}
 ?>

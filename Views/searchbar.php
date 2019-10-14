@@ -2,7 +2,7 @@
     <div class="jumbotron mt-5">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/ShowFilteredMovies" method="POST">
             <div class="col-md-6">
-                <h3>Elije una categoria o una fecha: </h3>
+                <h3>Elije una categoria y/o una fecha: </h3>
             </div>
             <br>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

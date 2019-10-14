@@ -49,9 +49,8 @@ body {
 
    /*https://codepen.io/Ikonikov/pen/OjdWmb*/
 .movie-card {
-   background-color: #F8FAFB;
    font-family: 'Open Sans', sans-serif;
-   padding-top: 10%;
+   padding-top: 5%;
 }
 
 .movie-card .col-md-5, .movie-card .description {
@@ -106,7 +105,7 @@ p {
   }
 
 .card, .trailer-preview {
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card {
@@ -133,3 +132,4 @@ p {
 .trailer-preview i {
    margin-left: 5px;
 }
+
