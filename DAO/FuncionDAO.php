@@ -28,6 +28,17 @@
 			$this->saveData();
 		}
 
+		function remove($id)
+        {
+            $this->RetrieveData();
+
+            $this->funcionList = array_filter($this->funcionList, function($funcion) use($id){
+                return $funcion->getId() != $id;
+            });
+
+            $this->SaveData();
+        }
+
 		public function getAll()
 		{
 			$this->Retrievedata();
@@ -37,7 +48,6 @@
 
 		public function SaveData()
 		{
-			
 			$arrayToEncode = array();
 
 			foreach($this->funcionList as $funcion)
@@ -55,16 +65,20 @@
 
 			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
 
-			file_put_contents("Data/funciones.json", $jsonContent);
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			file_put_contents($jsonPath, $jsonContent);
 		}
 
 		public function RetrieveData()
 		{
 			$this->funcionList = array();
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -85,102 +99,19 @@
 		}
 
 		/**
-		 * retorna 0 si no existe, la id si existe
-		 * @param funcion debe tener alguno de sus atributos completos
-		 */
-		public function funcionExists(Funcion $funcionAbuscar)
-		{
-			$this->funcionList = array();
-
-			if(file_exists("Data/funciones.json"));
-			{
-				$jsonContent = file_get_contents("Data/funciones.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$funcion = new Funcion();
-					$funcion->setId($valuesArray["id"]);
-					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
-					$funcion->setFecha($valuesArray["fecha"]);
-					$funcion->setHora($valuesArray["hora"]);
-					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
-					$funcion->setCantEntradas($valuesArray["cantEntradas"]);
-					$funcion->setCantVendidas($valuesArray["cantVendidas"]);
-
-					if($funcionAbuscar->getId() === $funcion->getId())
-					{
-						return $funcion->getId();
-					}
-					if($funcionAbuscar->getNombre_Cine() === $funcion->getNombre_Cine())
-					{
-						return $funcion->getNombre();
-					}
-					if($funcionAbuscar->getId_Pelicula() === $funcion->getId_Pelicula())
-					{
-						return $funcion->getId();
-					}
-					if($funcionAbuscar->getFecha() === $funcion->getFecha())
-					{
-						return $funcion->getId();
-					}
-					if($funcionAbuscar->getHora() === $funcion->getHora())
-					{
-						return $funcion->getId();
-					}
-				}
-			}
-			return 0;
-		}
-
-		/**
-		 * 
-		 * @param id
-		 */
-		public function eliminarFuncion( $id)
-		{
-			$this->funcionList = array();
-
-			if(file_exists("Data/funciones.json"));
-			{
-				$jsonContent = file_get_contents("Data/funciones.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$funcion = new Funcion();
-					$funcion->setId($valuesArray["id"]);
-					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
-					$funcion->setFecha($valuesArray["fecha"]);
-					$funcion->setHora($valuesArray["hora"]);
-					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
-					$funcion->setCantEntradas($valuesArray["cantEntradas"]);
-					$funcion->setCantVendidas($valuesArray["cantVendidas"]);
-
-					if($id != $funcion->getId())
-					{
-						array_push($this->funcionList, $funcion);
-					}
-				}
-
-				$this->SaveData();
-			}
-		}
-
-		/**
 		*retorna un arrgelo con las funciones que cumplen la condicion
 		*/
-		public function funcionesAptasFecha (string $fecha)
+		public function funcionesAptasFecha(string $fecha)
 		{
 			$this->funcionList = array();
 
 			$busqueda = array();
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -214,9 +145,11 @@
 
 			$busqueda = array();
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -254,7 +187,7 @@
 		/**
 		*preCondicion: utilizacion de la funcion de $genero->generoExist();
 		*/
-		public function funcionesAptasGenero (int $idGenero)
+		public function funcionesAptasGenero(int $idGenero)
 		{
 			$this->funcionList = array();
 
@@ -262,9 +195,11 @@
 
 			$busqueda = array();
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -291,53 +226,10 @@
 						{
 							array_push($busqueda, $funcion);
 						}
-					}
-					
+					}					
 				}
 			}
-
 			return $busqueda;
-		}
-
-		/**
-		*retorna false si no hay disponibilidad para esa cantidad, true si sí.
-		*/
-		public function hayEntradasDisponibles (int $idFuncion, int $cantEntradasSolicitadas)
-		{
-			$this->funcionList = array();
-
-			if(file_exists("Data/funciones.json"));
-			{
-				$jsonContent = file_get_contents("Data/funciones.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$funcion = new Funcion();
-					$funcion->setId($valuesArray["id"]);
-					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
-					$funcion->setFecha($valuesArray["fecha"]);
-					$funcion->setHora($valuesArray["hora"]);
-					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
-					$funcion->setCantEntradas($valuesArray["cantEntradas"]);
-					$funcion->setCantVendidas($valuesArray["cantVendidas"]);
-
-					if($funcion->getId() === $idFuncion)
-					{
-						if($funcion->getCantEntradas() > ($funcion->cantVendidas() + $cantEntradasSolicitadas))
-						{
-							return true;
-						}
-						else 
-						{
-							return false;	
-						}
-					}
-				}
-			}
-
-			return false;
 		}
 
 		/**
@@ -349,9 +241,11 @@
 
 			$rta = false;
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -383,70 +277,45 @@
 			return $rta;
 		}
 
-		public function funcionesXCine($nombreCine)
-		{
-			$rta = array();
+		public function getById($id)
+        {
+            $funcion = null;
 
-			if(file_exists("Data/funciones.json"));
-			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+            $this->RetrieveData();
 
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$funcion = new Funcion();
-					$funcion->setId($valuesArray["id"]);
-					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
-					$funcion->setFecha($valuesArray["fecha"]);
-					$funcion->setHora($valuesArray["hora"]);
-					$funcion->setId_Pelicula($valuesArray["id_Pelicula"]);
-					$funcion->setCantEntradas($valuesArray["cantEntradas"]);
-					$funcion->setCantVendidas($valuesArray["cantVendidas"]);
+            $funciones = array_filter($this->funcionList, function($funcion) use($id){
+                return $funcion->getId() == $id;
+            });
 
-					if($nombreCine == $funcion->getNombre_Cine())
-					{
-						array_push($rta, $funcion);
-					}
-				}
+            $funciones = array_values($funciones); //Reordering array indexes
 
-			}
-			return $rta;
-		}
+            return (count($funciones) > 0) ? $funciones[0] : null;
+        }
 
-		public function cineXFuncion($id)
-		{
-			$rta = "";
+		public function getByCine($nombre_Cine)
+        {
+            $funcion = null;
 
-			if(file_exists("Data/funciones.json"));
-			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+            $this->RetrieveData();
 
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$funcion = new Funcion();
-					$funcion->setId($valuesArray["id"]);
-					$funcion->setNombre_Cine($valuesArray["nombre_Cine"]);
+            $funciones = array_filter($this->funcionList, function($funcion) use($nombre_Cine){
+                return $funcion->getNombre_Cine() == $nombre_Cine;
+            });
 
-					if($id == $funcion->getId())
-					{
-						$rta = $funcion->getNombre_Cine();
-					}
-				}
+            $funciones = array_values($funciones); //Reordering array indexes
 
-			}
-			return $rta;
-		}
+            return (count($funciones) > 0) ? $funciones : null;
+        }
 
-		public function eliminarFuncionesXcine($nombreCine)
+		public function eliminarGetByCine($nombreCine)
 		{
 			$this->funcionList = array();
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -475,9 +344,11 @@
 		{
 			$rta = 0;
 
-			if(file_exists("Data/funciones.json"));
+			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+			if(file_exists($jsonPath));
 			{
-				$jsonContent = file_get_contents("Data/funciones.json");
+				$jsonContent = file_get_contents($jsonPath);
 
 				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
 				
@@ -488,11 +359,24 @@
 
 					$rta = $funcion->getId();
 				}
-
 			}
 			$rta++;
 			
 			return $rta;
+		}
+
+		//Need this function to return correct file json path
+		function GetJsonFilePath(){
+
+			$initialPath = "Data\\funciones.json";
+			
+			if(file_exists($initialPath)){
+				$jsonFilePath = $initialPath;
+			}else{
+				$jsonFilePath = ROOT.$initialPath;
+			}
+			
+			return $jsonFilePath;
 		}
 	}
 ?>

@@ -25,6 +25,17 @@
 			$this->saveData();
 		}
 
+		function remove($email)
+        {
+            $this->RetrieveData();
+
+            $this->usuarioList = array_filter($this->cineList, function($usuario) use($email){
+                return $usuario->getEmail() != $email;
+            });
+
+            $this->SaveData();
+        }
+
 		public function getAll()
 		{
 			$this->Retrievedata();
@@ -111,41 +122,6 @@
 
             return (count($users) > 0) ? $users[0] : null;
         }
-
-		/**
-		 * 
-		 * @param email
-		 */
-		public function eliminarUsuario($email)
-		{
-			$this->usuarioList = array();
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
-			{				
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$usuario = new Usuario();
-					$usuario->setDni($valuesArray["dni"]);
-					$usuario->setPassword($valuesArray["password"]);
-					$usuario->setEmail($valuesArray["email"]);
-					$usuario->setApellido($valuesArray["apellido"]);
-					$usuario->setNombre($valuesArray["nombre"]);
-					$usuario->setId_Rol($valuesArray["id_Rol"]);
-
-					if($email != $usuario->getEmail())
-					{
-						array_push($this->usuarioList, $email);
-					}
-				}
-				$this->SaveData();
-			}
-		}
 
 		//Need this function to return correct file json path
 		function GetJsonFilePath(){

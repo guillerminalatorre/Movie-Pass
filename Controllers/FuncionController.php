@@ -8,67 +8,40 @@
 
 	use DAO\FuncionDAO as FuncionDAO;
 	use Models\Funcion as Funcion;
-	use DAO\CineDAO as CineDAO;
-	use Models\Cine as Cine;	
 
 	class FuncionController
 	{
 		private $funcionDAO;
-		private $cineDAO;
 
 		function __construct()
 		{
 			$this->funcionDAO = new FuncionDAO();
-			$this->cineDAO = new CineDAO();
 		}
 	
 		public function ShowAddView($nombre_Cine)
 		{
-			$nombre_Cine = $nombre_Cine;
-
 			$id = $this->funcionDAO->iDdisponible();
 
 			require_once(VIEWS_PATH."funcion-add.php");		
 		}
-	
-		public function ShowListView()
+
+		public function eliminarFuncion($id)
 		{
-			$funcionList = $this->funcionDAO->getAll();
-	
-			require_once(VIEWS-PATH."");
+			$funcion = $this->funcionDAO->getById($id);
+
+			$nombreCine = $funcion->getNombre_Cine();
+
+			$this->funcionDAO->remove($id);
+
+			header("Location: ".FRONT_ROOT."Cine/ShowFichaCine/".$nombreCine);
 		}
 
-		public function eliminarFuncionYredirect($id)
-		{
-			$cine = $this->funcionDAO->cineXfuncion($id);
-
-			$this->funcionDAO->eliminarFuncion($id);
-
-			$this->ShowFichaCine($cine);
-		}
-	
-
-		/*public function Add(int $id, int $id_Cine, string $fecha, string $hora, int $id_Pelicula, int $cantEntradas, int $cantVendidas)
-		{
-			$funcion = new Funcion($id, $id_Cine, $fecha, $hora, $id_Pelicula, $cantEntradas, $cantVendidas);
-
-			$this->funcionDAO->eliminarFuncion($id);
-
-			$cine = $this->cineDAO->cineXnombre($nombreCine);
-
-			$funciones = $this->funcionDAO->funcionesXcine($nombreCine);
-
-			require_once(VIEWS_PATH."cine-ficha.php");
-
-		}*/
-
-
-		public function Add(  $id, $nombreCine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
+		public function Add($id, $nombre_Cine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
 		{
 			$funcion = new Funcion();
 
 			$funcion->setId($id);
-			$funcion->setNombre_Cine($nombreCine);
+			$funcion->setNombre_Cine($nombre_Cine);
 			$funcion->setFecha($fecha);
 			$funcion->setHora($hora);
 			$funcion->setId_Pelicula($id_Pelicula);
@@ -77,17 +50,7 @@
 
 			$this->funcionDAO->add($funcion);
 
-			$this->ShowFichaCine($nombreCine);
-
-		}
-
-		public function ShowFichaCine($nombreCine)
-		{
-			$cine = $this->cineDAO->cineXnombre($nombreCine);
-
-			$funciones = $this->funcionDAO->funcionesXcine($nombreCine);
-
-			require_once(VIEWS_PATH."cine-ficha.php");
+			header("Location: ".FRONT_ROOT."Cine/ShowFichaCine/".$nombre_Cine);
 		}
 	}
 ?>

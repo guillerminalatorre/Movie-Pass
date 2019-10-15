@@ -1,5 +1,5 @@
 <div class="col-md-4 movie-card">
-    <div class="card" style="height: 850px;">
+    <div class="card">
         <div class="card-header">
             <img class="card-img" src="
             <?php

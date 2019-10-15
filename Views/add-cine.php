@@ -1,16 +1,13 @@
 <?php
-require_once(VIEWS_PATH . "navbar.php");
-require_once(VIEWS_PATH . "check-login-admin.php");
-
-
-if ($resultadoAgregarCine == 0) {
+if($resultadoAgregarCine == 0)
+{
     echo "<script >alert('El cine se ha agregado satisfactoriamente');</script>";
 }
-if ($resultadoAgregarCine == 1) {
+if($resultadoAgregarCine == 1)
+{
     echo "<script >alert('ERROR: el nombre del cine ya existe');</script>";
 }
 ?>
-
 <body>
     <div class="container container-fluid mt-4">
         <div class="loginForm">
