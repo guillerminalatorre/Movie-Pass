@@ -1,5 +1,5 @@
 <?php
-require_once(VIEWS_PATH . "navbar.php");
+require_once(VIEWS_PATH."navbar.php");
 ?>
 
 <div class="container">
@@ -13,7 +13,7 @@ require_once(VIEWS_PATH . "navbar.php");
                     <h2>Registro</h2>
                 </div>
             </div>
-
+            
             <div class="row">
                 <div class="form-group col-sm">
                     <label for="dni">Dni:</label>
@@ -49,6 +49,6 @@ require_once(VIEWS_PATH . "navbar.php");
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Crear cuenta</button>
         </form>
-        <button class="btn btn-primary btn-lg btn-block"><i class="fab fa-facebook-f"></i> Iniciar sesion con Facebook</button>
+        <button class="btn btn-primary btn-lg btn-block"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</button>
     </div>
 </div>

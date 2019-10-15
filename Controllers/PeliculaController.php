@@ -29,7 +29,6 @@
 		public function ShowMovies(){
 			$generoList=$this->generoDAO->getAll();
 			$peliculaList=$this->peliculaDAO->getNowPlayingMovies();
-			$totalPages=$this->peliculaDAO->getNumberOfTotalPages();
 
 			require_once(VIEWS_PATH."searchbar.php");
 
@@ -47,8 +46,6 @@
 		public function ShowFilteredMovies($id)
 		{
 			$peliculaList= $this->peliculaDAO->getByGenre($id);
-			$totalPages=$this->peliculaDAO->getNumberOfTotalPages();
-
 			foreach($peliculaList as $pelicula){
 				$generoNames=array();
 				$peliculaGeneros=$pelicula->getGeneros();
