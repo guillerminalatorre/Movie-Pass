@@ -1,7 +1,7 @@
 <?php
-require_once(VIEWS_PATH."checklogin.php");
-require_once(VIEWS_PATH."navbar.php");
+require_once(VIEWS_PATH . "navbar.php");
 ?>
+
 
 <div class="container black">
   <div class="row flex-column-reverse flex-md-row">

@@ -14,14 +14,21 @@
         "apellido": "Lintz",
         "nombre": "Marcelo",
         "id_Rol": 1
-    },    {
+    },
+    {
         "dni": "666789789",
         "password": "123456",
-        "email": "elpibe123@gmail.com",            
+        "email": "elpibe123@gmail.com",
         "apellido": "bonifazio",
         "nombre": "juanca",
         "id_Rol": 3
-    }       
-
-
+    },
+    {
+        "dni": "15546546546",
+        "password": "123456",
+        "email": "nuevo@admin.com",
+        "apellido": "admin",
+        "nombre": "nuevo",
+        "id_Rol": 2
+    }
 ]
