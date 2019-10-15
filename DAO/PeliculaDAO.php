@@ -228,7 +228,7 @@
         return $this->peliculaList;
 	}
 
-	private function getNowPlayingMovies(){
+	public function getNowPlayingMovies(){
 
 	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR");
 
@@ -261,6 +261,7 @@
 
 		array_push($this->peliculaList, $pelicula);
 	}
+	return $this->peliculaList;
 }
 
 	private function getMoviesByGender($id)

@@ -4,10 +4,15 @@ html, body {
 
 body {
    background: url("https://external-preview.redd.it/-DobWIgRbcMv7FJUmWeen-Cj1V4m2QWWkZ1VMciK3uA.jpg?auto=webp&s=9a81025dbd9698379b49060271b1455d5d874e1b") no-repeat center center fixed;
-     -webkit-background-size: cover;
+   -webkit-background-size: cover;
         -moz-background-size: cover;
           -o-background-size: cover;
              background-size: cover;
+}
+
+.container.black{
+   background:rgba(0,0,0,0.95);
+   color: inherit;
 }
 
 .height-100 {
@@ -44,10 +49,22 @@ body {
      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(252, 42, 42, 0.4);
    }
 
-   /*https://codepen.io/Ikonikov/pen/OjdWmb*/
+   .jumbotron{
+      background:rgba(0,0,0,0.95);
+      padding:2rem;
+      border:1px solid rgba(0,0,0,0.1);
+      border-radius:4px;
+      padding: 20px;
+      margin-bottom: 30px;
+      font-size: 21px;
+      font-weight: 200;
+      line-height: 2.1428571435;
+      color: inherit;
+   }
+
 .movie-card {
    font-family: 'Open Sans', sans-serif;
-   padding-top: 5%;
+   padding-top: 2%;
 }
 
 .movie-card .col-md-5, .movie-card .description {
@@ -91,7 +108,7 @@ p {
 
 
 .card-body .card-text {
-     margin-top: 8px;
+     margin-top: 5px;
      font-weight: 600;
      line-height: 30px;
   }
@@ -102,7 +119,7 @@ p {
   }
 
 .card, .trailer-preview {
-   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.9), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
 }
 
 .card {
@@ -129,4 +146,5 @@ p {
 .trailer-preview i {
    margin-left: 5px;
 }
+
 

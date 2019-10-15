@@ -1,4 +1,4 @@
-<div class="col-md-4 movie-card  mb-2">
+<div class="col-md-4 movie-card">
     <div class="card">
         <div class="card-header">
             <img class="card-img" src="
@@ -13,16 +13,21 @@
 
         </div>
         <div class="card-body">
-            <h3 class="card-title"> <?php echo $values->getTitulo(); ?></h3>
+            <h3 class="card-title">
+                <?php echo $values->getTitulo(); ?>
+            </h3>
             <div class="container">
                 <div class="row">
-                    <div class="col-4" style=" color: gold;">
-                        <i class="fa fa-star" aria-hidden="true" color: #ff9d00;></i>
-                        <p><?php echo $values->getPopularidad()."/10";?>
-                            </p>
-                                
+                    <div class="col-4" style="color: gold;">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <p><?php echo $values->getPopularidad() . "/10"; ?></p>
                     </div>
-                    <div class="col-8 metadata"><?php echo "generos"; ?></div>
+                    <div class="col-8 metadata">
+                        <?php
+                        foreach ($values->getGeneros() as $gen) {
+                            echo $gen . " ";
+                        }
+                        ?></div>
                 </div>
             </div>
             <p class="card-text">
@@ -31,15 +36,15 @@
                 if ($description != NULL) {
                     if (strlen($description) > 300) {
                         echo substr($description, 0, 300) . "...";
-                        echo "<a href='#' class='card-link'>Ver mas</a>";
+                        echo "<a href='#' class='card-link text-warning'>Ver mas</a>";
                     } else {
                         echo $description;
                     }
                 }
-                ?> </p>
-
+                ?>
+            </p>
             <div class="text-right">
-                <a href="#" class="btn btn-primary">Consultar funciones</a></div>
+                <a href="#" class="btn btn-warning">Consultar funciones</a></div>
         </div>
     </div>
 </div>

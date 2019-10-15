@@ -8,12 +8,10 @@
 
 namespace Controllers;
 
-use Controllers\GeneroController as GeneroController;
-
 class HomeController
 {
 	public function Index($message = "")
 	{
-		header("Location: ".FRONT_ROOT."Genero/ShowGenreView");
+		header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
 	}
 }

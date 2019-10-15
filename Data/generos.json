@@ -1,0 +1,78 @@
+[
+    {
+        "id": 28,
+        "name": "Acci\u00f3n"
+    },
+    {
+        "id": 12,
+        "name": "Aventura"
+    },
+    {
+        "id": 16,
+        "name": "Animaci\u00f3n"
+    },
+    {
+        "id": 35,
+        "name": "Comedia"
+    },
+    {
+        "id": 80,
+        "name": "Crimen"
+    },
+    {
+        "id": 99,
+        "name": "Documental"
+    },
+    {
+        "id": 18,
+        "name": "Drama"
+    },
+    {
+        "id": 10751,
+        "name": "Familia"
+    },
+    {
+        "id": 14,
+        "name": "Fantas\u00eda"
+    },
+    {
+        "id": 36,
+        "name": "Historia"
+    },
+    {
+        "id": 27,
+        "name": "Terror"
+    },
+    {
+        "id": 10402,
+        "name": "M\u00fasica"
+    },
+    {
+        "id": 9648,
+        "name": "Misterio"
+    },
+    {
+        "id": 10749,
+        "name": "Romance"
+    },
+    {
+        "id": 878,
+        "name": "Ciencia ficci\u00f3n"
+    },
+    {
+        "id": 10770,
+        "name": "Pel\u00edcula de TV"
+    },
+    {
+        "id": 53,
+        "name": "Suspense"
+    },
+    {
+        "id": 10752,
+        "name": "B\u00e9lica"
+    },
+    {
+        "id": 37,
+        "name": "Western"
+    }
+]

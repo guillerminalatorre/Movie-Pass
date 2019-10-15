@@ -3,11 +3,9 @@ require_once(VIEWS_PATH."checklogin.php");
 require_once(VIEWS_PATH."navbar.php");
 ?>
 
-<div class="container">
+<div class="container black">
   <div class="row flex-column-reverse flex-md-row">
     <?php
-
-
     foreach ($peliculaList as $values) {
       require(VIEWS_PATH . "moviecard.php");
     }

@@ -7,24 +7,26 @@ use API\APIController as APIController;
 
 class GeneroDAO
 {
-    private $generoList = array();
+    protected $generoList = array();
 
     public function getAll()
     {
-        $this->getGendersFromApi();
+        if(!file_exists(ROOT."Data/generos.json")){
+             $this->getGendersFromApi();
+        }
+         else{
+            $this->getGendersFromFile();
+        }   
         return $this->generoList;
     }
 
-    public function getGenderForId($id){
-        if(count($this->generoList)==0){
-            $this->getAll();
-        }
-            foreach($this->generoList  as $genero ){
-                if($genero->getId()==$id){
-                    $genderName=$genero->getNombre();
-                };
+    public function GetGeneroForId($id){
+        $generoList= $this->getAll();
+        foreach($this->generoList as $genero){
+            if($genero->getId()==$id){
+                return $genero->getNombre();
             }
-        return $genderName;
+        }
     }
 
     private function getGendersFromApi()
@@ -34,13 +36,36 @@ class GeneroDAO
 		$get_data = APIController::callAPI('GET', API .'/genre/movie/list', $arrayReque);
 
         $arrayToDecode = json_decode($get_data, true);
-        
+
         foreach ($arrayToDecode["genres"] as $categoryValues) {
             $category = new Genero();
             $category->setId($categoryValues["id"]);
             $category->setNombre($categoryValues["name"]);
             array_push($this->generoList, $category);
         }
+
+        //Upload a file with the genders.
+        $jsonContent = json_encode($arrayToDecode["genres"], JSON_PRETTY_PRINT);
+		file_put_contents("Data/generos.json", $jsonContent);
+    }
+
+    private function getGendersFromFile(){
+        $this->generoList = array();
+
+			if(file_exists(ROOT."Data/generos.json"));
+			{
+				$jsonContent = file_get_contents("Data/generos.json");
+
+				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+				
+				foreach($arrayToDecode as $valuesArray)
+				{
+					$valueGenero = new Genero();
+					$valueGenero->setId($valuesArray["id"]);
+					$valueGenero->setNombre($valuesArray["name"]);
+					array_push($this->generoList, $valueGenero);
+				}
+			}
     }
 }
 
