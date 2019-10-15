@@ -66,6 +66,7 @@
             if(($user != null) && ($user->getPassword() === $password))
             {
 				$_SESSION["loggedUser"] = $user;
+<<<<<<< HEAD
 
 				/*if($user->getId_Rol() == 2 || $user->getId_Rol() == 3)
 				{
@@ -75,6 +76,10 @@
 				{*/
 					header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
 				/*}*/
+=======
+				
+                header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
+>>>>>>> parent of e29c7ed... 15/10 Vista directa a cines desde los admins
             }
             else
 				$this->ShowLoginView();
