@@ -12,6 +12,7 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView">Perfil</a>
+        <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Cine/ShowListView">Ver cines</a>
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView">Dar de baja Usuario</a>
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/altaAdmin">Dar de alta administrador</a>
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/bajaAdmin">Dar de baja administrador</a>

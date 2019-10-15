@@ -67,14 +67,14 @@
             {
 				$_SESSION["loggedUser"] = $user;
 
-				if($user->getId_Rol() == 2 || $user->getId_Rol() == 3)
+				/*if($user->getId_Rol() == 2 || $user->getId_Rol() == 3)
 				{
 					header("Location: ".FRONT_ROOT."Cine/ShowListView");
 				}
 				else
-				{
+				{*/
 					header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
-				}
+				/*}*/
             }
             else
 				$this->ShowLoginView();
