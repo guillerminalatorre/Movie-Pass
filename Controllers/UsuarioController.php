@@ -106,5 +106,6 @@ class UsuarioController
 		session_destroy();
 
 		header("Location: " . FRONT_ROOT . "Pelicula/ShowMovies");
+
 	}
 }
