@@ -30,5 +30,13 @@
         "apellido": "Berengena",
         "nombre": "Pame",
         "id_Rol": 1
+    },
+    {
+        "dni": "234567",
+        "password": "1234",
+        "email": "martin@gmail.com",
+        "apellido": "Howy",
+        "nombre": "Martin",
+        "id_Rol": 2
     }
 ]

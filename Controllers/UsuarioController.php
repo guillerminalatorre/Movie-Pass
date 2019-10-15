@@ -27,6 +27,10 @@
 		{
 			require_once(VIEWS_PATH."register.php");
 		}
+		public function ShowAdminRegisterView()
+		{
+			require_once(VIEWS_PATH . "register-admin.php");
+		}
 
 		public function ShowProfileView($email)
 		{
@@ -96,6 +100,28 @@
 			}
 		}
 
+		public function RegisterAdmin($dni, $nombre, $apellido, $email, $password, $confirmpassword)
+		{
+			if (!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword)
+			{
+				$id_Rol = 2;
+				$usuario = new Usuario();
+				$usuario->setDni($dni);
+				$usuario->setNombre($nombre);
+				$usuario->setApellido($apellido);
+				$usuario->setEmail($email);
+				$usuario->setPassword($password);
+				$usuario->setId_Rol($id_Rol);
+
+				$this->usuarioDAO->add($usuario);
+				
+				header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
+			} else 
+				{
+				$this->ShowAdminRegisterView();
+			}
+		}
+
 		public function Login($email, $password)
         {
             $user = $this->usuarioDAO->GetByEmail($email);
@@ -114,6 +140,6 @@
         {
             session_destroy();
 
-            $this->ShowLoginView();
+            header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
         }
 	}

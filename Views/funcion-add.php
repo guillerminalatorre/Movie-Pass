@@ -1,5 +1,5 @@
 <?php
-require_once(VIEWS_PATH."checklogin.php");
+require_once(VIEWS_PATH . "check-login-admin.php");
 require_once(VIEWS_PATH."navbar.php");
 ?>
 <head>
@@ -45,7 +45,7 @@ require_once(VIEWS_PATH."navbar.php");
                             <label for="fecha">Fecha:</label>
                         </div>
                         <div>
-                            <input type="date" class="form-control" name="fecha" required>
+                            <input type="date" class="form-control" name="fecha" min="<?php echo date("Y-m-d")?>" required>
                         </div>
                     </div>
                     <div class="row">

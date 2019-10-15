@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="<?php echo FRONT_ROOT ?>Pelicula/ShowMovies">
     <img src="<?php echo IMG_PATH ?>logoMoviePass.png" width="60" height="60" alt="movie Pass logo">
   </a>
 

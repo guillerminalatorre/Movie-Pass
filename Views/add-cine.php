@@ -1,4 +1,7 @@
 <?php
+require_once(VIEWS_PATH . "check-login-admin.php");
+require_once(VIEWS_PATH."navbar.php");
+
 if($resultadoAgregarCine == 0)
 {
     echo "<script >alert('El cine se ha agregado satisfactoriamente');</script>";

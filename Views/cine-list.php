@@ -1,5 +1,5 @@
 <?php
-require_once(VIEWS_PATH."checklogin.php");
+require_once(VIEWS_PATH . "check-login-admin.php");
 require_once(VIEWS_PATH."navbar.php");
 ?>
 

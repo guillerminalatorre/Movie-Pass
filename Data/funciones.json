@@ -1,38 +1,3 @@
 [
-    {
-        "id": "1",
-        "nombre_Cine": "ad",
-        "fecha": "2019-10-17",
-        "hora": "01:11",
-        "id_Pelicula": "12",
-        "cantEntradas": "23",
-        "cantVendidas": 0
-    },
-    {
-        "id": "2",
-        "nombre_Cine": "ad",
-        "fecha": "2019-10-18",
-        "hora": "05:55",
-        "id_Pelicula": "24",
-        "cantEntradas": "345",
-        "cantVendidas": 0
-    },
-    {
-        "id": "Views",
-        "nombre_Cine": "css",
-        "fecha": null,
-        "hora": null,
-        "id_Pelicula": "estilos.css",
-        "cantEntradas": null,
-        "cantVendidas": 0
-    },
-    {
-        "id": "Views",
-        "nombre_Cine": "img",
-        "fecha": null,
-        "hora": null,
-        "id_Pelicula": "logoMoviePass.png",
-        "cantEntradas": null,
-        "cantVendidas": 0
-    }
+
 ]
