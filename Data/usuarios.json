@@ -3,7 +3,7 @@
         "dni": "38831866",
         "password": "1234",
         "email": "rodrii.fan@gmail.com",
-        "apellido": "Fanjul",
+        "apellido": "Fatmagul",
         "nombre": "Rodrigo",
         "id_Rol": 1
     },
@@ -13,14 +13,22 @@
         "email": "Marcelolintz@gmail.com",
         "apellido": "Lintz",
         "nombre": "Marcelo",
-        "id_Rol": 1
+        "id_Rol": 2
     },
     {
         "dni": "666789789",
         "password": "123456",
         "email": "elpibe123@gmail.com",
-        "apellido": "Fanjul",
-        "nombre": "Rodrigo",
+        "apellido": "Guille",
+        "nombre": "Loca",
         "id_Rol": 3
+    },
+    {
+        "dni": "42492167",
+        "password": "1234",
+        "email": "pame@gmail.com",
+        "apellido": "Berengena",
+        "nombre": "Pame",
+        "id_Rol": 1
     }
 ]

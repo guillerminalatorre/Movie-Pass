@@ -69,7 +69,7 @@
 		{
 			$usuarioList = $this->usuarioDAO->getAll();
 
-			require_once(VIEWS-PATH."usuario-list.php");
+			require_once(VIEWS_PATH."usuario-list.php");
 		}
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)

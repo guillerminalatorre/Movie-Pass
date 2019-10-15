@@ -11,7 +11,7 @@
         <i class="fas fa-user-cog"></i>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <<a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail() ?>">Perfil</a>
+        <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail() ?>">Perfil</a>
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Cine/ShowListView">Ver cines</a>
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Pelicula/ShowMovies">Ver peliculas</a>
         <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView">Dar de baja Usuario</a>

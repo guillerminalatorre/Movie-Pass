@@ -1,11 +1,5 @@
 [
     {
-        "nombre": "Sel",
-        "direccion": "Cordoba ",
-        "capacidad": "250",
-        "precio": "350"
-    },
-    {
         "nombre": "des",
         "direccion": "Cordobaa",
         "capacidad": "123",
