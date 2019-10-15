@@ -8,6 +8,11 @@
 	class PeliculaDAO
 	{
 		private $peliculaList = array();
+		private $totalPages;
+
+		public function getNumberOfTotalPages(){
+			return $this->totalPages;
+		}
 
 		public function add(Pelicula $pelicula)
 		{
@@ -229,8 +234,13 @@
 	}
 
 	public function getNowPlayingMovies(){
-
-	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR");
+		if (isset($_GET['page'])) {
+			$pageValue = $_GET['page'];
+		} else {
+			$pageValue = 1;
+		}
+	
+	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR", "page"=>$pageValue);
 
 	$get_data = APIController::callAPI('GET', API .'/movie/now_playing', $arrayReque);
 
@@ -261,13 +271,15 @@
 
 		array_push($this->peliculaList, $pelicula);
 	}
+
+	$this->totalPages=$arrayToDecode["total_pages"];
 	return $this->peliculaList;
 }
 
 	private function getMoviesByGender($id)
     {
 	   $actualDate=date("Y-m-d");
-
+	
        $arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "include_video"=>true,"with_genres"=>$id,"primary_release_date.lte"=>date("Y-m-d", strtotime($actualDate . "+ 5 days")),"primary_release_date.gte"=> date("Y-m-d", strtotime($actualDate . "- 2 month")),"sort_by"=>"primary_release_date.desc", "with_original_language"=>"es,en");
 
 		$get_data = APIController::callAPI('GET', API .'/discover/movie', $arrayReque);
@@ -295,6 +307,7 @@
 			{
 				$pelicula->setVideo($valuesArray["video"]);
 			}
+			$this->totalPages=$arrayToDecode["total_pages"];
 
 			array_push($this->peliculaList, $pelicula);
 		}
