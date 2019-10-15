@@ -1,5 +1,5 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Pelicula/ShowAddView"></a>
+    <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Pelicula/ShowMovies"></a>
 </div>
 
 <div class="collapse navbar-collapse" id="navbarSupportedContent">

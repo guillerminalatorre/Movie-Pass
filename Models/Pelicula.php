@@ -140,6 +140,10 @@ class Pelicula
 		array_push($this->actores, $id_actor); 
 	}
 
+	public function setGeneros($array){
+		$this->generos=$array;
+	}
+
 	public function agregarGenero($id_genero)
 	{
 		array_push($this->generos, $id_genero);

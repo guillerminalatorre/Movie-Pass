@@ -4,7 +4,7 @@ require_once(VIEWS_PATH."navbar.php");
 ?>
 
 <div class="container">
-    <div class="jumbotron mt-5">
+    <div class="jumbotron text-white">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/ShowFilteredMovies" method="POST">
             <div class="col-md-6">
                 <h3>Elije una categoria y/o una fecha: </h3>
@@ -24,10 +24,10 @@ require_once(VIEWS_PATH."navbar.php");
                     </select>
                 </div>
                 <div class="input-group col-md-3" role="group" aria-label="Second group">
-                    <input type="date" min="1000-01-01" class="form-control">
+                    <input type="date" min="<?php echo date("Y-m-d")?>" class="form-control">
                 </div>
                 <div class="btn-group col-md-3" role="group" aria-label="Third group">
-                    <button type="submit" class="btn  btn-info">Buscar</button>
+                    <button type="submit" class="btn btn-warning">Buscar</button>
                 </div>
             </div>
         </form>
