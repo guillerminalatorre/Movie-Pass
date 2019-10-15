@@ -1,6 +1,6 @@
 <?php
-require_once(VIEWS_PATH."checklogin.php");
-require_once(VIEWS_PATH."navbar.php");
+
+require_once(VIEWS_PATH . "navbar.php");
 ?>
 
 <div class="container">
@@ -24,7 +24,7 @@ require_once(VIEWS_PATH."navbar.php");
                     </select>
                 </div>
                 <div class="input-group col-md-3" role="group" aria-label="Second group">
-                    <input type="date" min="<?php echo date("Y-m-d")?>" class="form-control">
+                    <input type="date" min="<?php echo date("Y-m-d") ?>" class="form-control">
                 </div>
                 <div class="btn-group col-md-3" role="group" aria-label="Third group">
                     <button type="submit" class="btn btn-warning">Buscar</button>
