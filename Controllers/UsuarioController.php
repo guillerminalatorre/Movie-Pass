@@ -1,119 +1,137 @@
 <?php
-	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:05:38
-	 */
-	namespace Controllers;
 
-	use DAO\UsuarioDAO as UsuarioDAO;
-	use Models\Usuario as Usuario;
+/**
+ * @author Guille
+ * @version 1.0
+ * @created 06-oct.-2019 19:05:38
+ */
 
-	class UsuarioController
+namespace Controllers;
+
+use DAO\UsuarioDAO as UsuarioDAO;
+use Models\Usuario as Usuario;
+
+class UsuarioController
+{
+	private $usuarioDAO;
+
+	function __construct()
 	{
-		private $usuarioDAO;
-
-		function __construct()
-		{
-			$this->usuarioDAO = new UsuarioDAO();
-		}
-
-		public function ShowLoginView()
-		{
-			require_once(VIEWS_PATH."login.php");
-		}
-
-		public function ShowRegisterView()
-		{
-			require_once(VIEWS_PATH."register.php");
-		}
-
-		public function ShowProfileView($email)
-		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
-
-			require_once(VIEWS_PATH."profile.php");
-		}
-
-		public function ShowModificarUsuario($email)
-		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
-
-			require_once(VIEWS_PATH."profile-edit.php");
-		}
-
-		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
-		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
-
-			if($usuario != null)
-			{
-				// $usuario->setEmail($email);
-				$usuario->setNombre($nombre);
-				$usuario->setApellido($apellido);
-				// $usuario->setDni($dni);
-				if($usuario->getPassword() === $previouspassword)
-				{
-					if(($password != "") && ($confirmpassword != "") && ($password === $confirmpassword))
-					{
-						$usuario->setPassword($password);
-					}
-				}				
-				$this->usuarioDAO->saveData();
-			}
-
-			$this->ShowProfileView($email);
-		}
-
-		public function ShowListView()
-		{
-			$usuarioList = $this->usuarioDAO->getAll();
-
-			require_once(VIEWS-PATH."usuario-list.php");
-		}
-
-		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
-		{
-			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword)
-			{
-				$id_Rol = 1;
-
-				$usuario = new Usuario();
-				$usuario->setDni($dni);
-				$usuario->setNombre($nombre);
-				$usuario->setApellido($apellido);
-				$usuario->setEmail($email);
-				$usuario->setPassword($password);
-				$usuario->setId_Rol($id_Rol);
-
-				$this->usuarioDAO->add($usuario);
-
-				$this->Login($email, $password);
-			}
-			else
-			{
-				$this->ShowRegisterView();
-			}
-		}
-
-		public function Login($email, $password)
-        {
-            $user = $this->usuarioDAO->GetByEmail($email);
-
-            if(($user != null) && ($user->getPassword() === $password))
-            {
-				$_SESSION["loggedUser"] = $user;
-				
-                header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
-            }
-            else
-				$this->ShowLoginView();
-        }
-        
-        public function Logout()
-        {
-            session_destroy();
-
-            $this->ShowLoginView();
-        }
+		$this->usuarioDAO = new UsuarioDAO();
 	}
+
+	public function ShowLoginView()
+	{
+		require_once(VIEWS_PATH . "login.php");
+	}
+
+	public function ShowRegisterView()
+	{
+		require_once(VIEWS_PATH . "register.php");
+	}
+	
+	public function ShowAdminRegisterView()
+	{
+		require_once(VIEWS_PATH . "register-admin.php");
+	}
+
+	public function ShowProfileView($email)
+	{
+		$usuario = $this->usuarioDAO->getByEmail($email);
+
+		require_once(VIEWS_PATH."profile.php");
+	}
+
+	public function ShowModificarUsuario($email)
+	{
+		$usuario = $this->usuarioDAO->getByEmail($email);
+
+		require_once(VIEWS_PATH."profile-edit.php");
+	}
+
+	public function ShowListView()
+	{
+		$usuarioList = $this->usuarioDAO->getAll();
+
+		require_once(VIEWS_PATH . "usuario-list.php");
+	}	
+
+	public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
+	{
+		$usuario = $this->usuarioDAO->getByEmail($email);
+
+		if($usuario != null)
+		{
+			// $usuario->setEmail($email);
+			$usuario->setNombre($nombre);
+			$usuario->setApellido($apellido);
+			// $usuario->setDni($dni);
+			if($usuario->getPassword() === $previouspassword)
+			{
+				if(($password != "") && ($confirmpassword != "") && ($password === $confirmpassword))
+				{
+					$usuario->setPassword($password);
+				}
+			}				
+			$this->usuarioDAO->saveData();
+		}
+
+		$this->ShowProfileView($email);
+	}
+
+	public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
+	{
+		if (!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword) {
+			$id_Rol = 1;
+			$usuario = new Usuario();
+			$usuario->setDni($dni);
+			$usuario->setNombre($nombre);
+			$usuario->setApellido($apellido);
+			$usuario->setEmail($email);
+			$usuario->setPassword($password);
+			$usuario->setId_Rol($id_Rol);
+			$this->usuarioDAO->add($usuario);
+			$this->Login($email, $password);
+		} else {
+			$this->ShowRegisterView();
+		}
+	}
+	
+	public function RegisterAdmin($dni, $nombre, $apellido, $email, $password, $confirmpassword)
+	{
+		if (!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword) {
+			$id_Rol = 2;
+			$usuario = new Usuario();
+			$usuario->setDni($dni);
+			$usuario->setNombre($nombre);
+			$usuario->setApellido($apellido);
+			$usuario->setEmail($email);
+			$usuario->setPassword($password);
+			$usuario->setId_Rol($id_Rol);
+			$this->usuarioDAO->add($usuario);
+			$this->Login($email, $password);
+		} else {
+			$this->ShowAdminRegisterView();
+		}
+	}
+
+	public function Login($email, $password)
+	{
+		$user = $this->usuarioDAO->GetByEmail($email);
+		if (($user != null) && ($user->getPassword() === $password)) {
+			$_SESSION["loggedUser"] = $user;
+			if ($user->getId_Rol() === 1) {
+				header("Location: " . FRONT_ROOT . "Pelicula/ShowMovies");
+			} else
+				header("Location: " . FRONT_ROOT . "Cine/ShowListView");
+		} else
+			$this->ShowLoginView();
+	}
+        
+	public function Logout()
+	{
+		session_destroy();
+
+		header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
+	}
+}

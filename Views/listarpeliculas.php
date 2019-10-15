@@ -1,7 +1,7 @@
 <?php
-require_once(VIEWS_PATH."checklogin.php");
-require_once(VIEWS_PATH."navbar.php");
+require_once(VIEWS_PATH . "navbar.php");
 ?>
+
 
 <div class="container black">
   <div class="row flex-column-reverse flex-md-row">
@@ -12,17 +12,42 @@ require_once(VIEWS_PATH."navbar.php");
     ?>
   </div>
 </div>
+<?php 
+if (isset($_GET['page'])) {
+  $pageValue = $_GET['page'];
+} else {
+  $pageValue = 1;
+}
+?>
 
-<nav aria-label="Page navigation example">
+<nav class="mt-5" aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Anterior</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
     <li class="page-item">
-      <a class="page-link" href="#">Siguiente</a>
+      <a class="page-link" href="
+      <?php if($pageValue>1){
+        echo "?page=".($pageValue-1);
+      }
+      else{ echo "#";
+      } ?> ">Anterior</a>
+    </li>
+    <?php
+      foreach(range(1, $totalPages) as $page){
+        ?>
+        <li class="page-item"><a class="page-link" href="
+        <?php echo "?page=" . $page ?>"> 
+        <?php echo $page ?> </a>';    
+        <?php
+      }
+      ?>
+    <li class="page-item"><a class="page-link" href="<?php 
+      if($pageValue<$totalPages){
+        echo "?page=".($pageValue +1); 
+      }else
+      {
+        echo "#";
+      }?>  
+    
+    ">Siguiente</a>
     </li>
   </ul>
 </nav>

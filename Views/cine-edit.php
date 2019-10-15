@@ -1,6 +1,6 @@
 <?php
-require_once(VIEWS_PATH."checklogin.php");
-require_once(VIEWS_PATH."navbar.php");
+require_once(VIEWS_PATH . "navbar.php");
+require_once(VIEWS_PATH . "check-login-admin.php");
 ?>
 
 <div class="container container-fluid mt-4">
