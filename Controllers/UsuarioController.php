@@ -68,18 +68,22 @@
 				$_SESSION["loggedUser"] = $user;
 <<<<<<< HEAD
 
-				/*if($user->getId_Rol() == 2 || $user->getId_Rol() == 3)
+				if($user->getId_Rol() == 2 || $user->getId_Rol() == 3)
 				{
 					header("Location: ".FRONT_ROOT."Cine/ShowListView");
 				}
 				else
-				{*/
+				{
 					header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
+<<<<<<< HEAD
 				/*}*/
 =======
 				
                 header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
 >>>>>>> parent of e29c7ed... 15/10 Vista directa a cines desde los admins
+=======
+				}
+>>>>>>> parent of e2d6375... 15/10 Primera Entrega, COMPLETADA
             }
             else
 				$this->ShowLoginView();

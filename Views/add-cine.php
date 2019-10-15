@@ -1,15 +1,12 @@
 <?php
-    require_once(VIEWS_PATH."checklogin.php");
-    require_once(VIEWS_PATH."navbar.php");
-
-    if($resultadoAgregarCine == 0)
-    {
-        echo "<script >alert('El cine se ha agregado satisfactoriamente');</script>";
-    }
-    if($resultadoAgregarCine == 1)
-    {
-        echo "<script >alert('ERROR: el nombre del cine ya existe');</script>";
-    }
+if($resultadoAgregarCine == 0)
+{
+    echo "<script >alert('El cine se ha agregado satisfactoriamente');</script>";
+}
+if($resultadoAgregarCine == 1)
+{
+    echo "<script >alert('ERROR: el nombre del cine ya existe');</script>";
+}
 ?>
 <body>
     <div class="container container-fluid mt-4">

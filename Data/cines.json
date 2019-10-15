@@ -6,9 +6,21 @@
         "precio": "250"
     },
     {
+        "nombre": "Sel",
+        "direccion": "Cordoba ",
+        "capacidad": "250",
+        "precio": "350"
+    },
+    {
         "nombre": "Los gallegos",
         "direccion": "La rioja y Belgrano",
         "capacidad": "100",
         "precio": "250"
+    },
+    {
+        "nombre": "des",
+        "direccion": "Cordobaa",
+        "capacidad": "123",
+        "precio": "12"
     }
 ]

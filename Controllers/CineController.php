@@ -22,6 +22,7 @@
 			$this->funcionDAO = new FuncionDAO();
 		}
 
+		/**pasar valor null por defecto */
 		public function ShowAddView()
 		{
 			$resultadoAgregarCine = 4;
