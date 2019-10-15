@@ -1,6 +1,3 @@
-<a class="navbar-brand" href="<?php echo FRONT_ROOT ?>Pelicula/ShowMovies">
-    <img src="<?php echo IMG_PATH ?>logoMoviePass.png" width="60" height="60" alt="movie Pass logo">
-</a>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Pelicula/ShowMovies"></a>
 </div>
@@ -9,7 +6,7 @@
     <a class="nav-link text-warning" href="">Mis Entradas</a>
 </div>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView">
+    <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail() ?>">
         <?php echo $_SESSION["loggedUser"]->getNombre() . " " . $_SESSION["loggedUser"]->getApellido(); ?>
     </a>
 </div>
@@ -21,7 +18,7 @@
 
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView">Perfil</a>
+        <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail() ?>">Perfil</a>
     </div>
 </div>
 

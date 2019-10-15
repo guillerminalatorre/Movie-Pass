@@ -20,16 +20,21 @@
 		{
 			$this->retrieveData();
 
-			$rta=$this->cineExiste($cine->getNombre());
-
-			if( $rta == 0 )
-			{
-				array_push($this->cineList, $cine);
-				$this->saveData();
-			}		
-		
-			return $rta;
+			array_push($this->cineList, $cine);
+			
+			$this->saveData();
 		}
+
+		function remove($nombre)
+        {
+            $this->RetrieveData();
+
+            $this->cineList = array_filter($this->cineList, function($cine) use($nombre){
+                return $cine->getNombre() != $nombre;
+            });
+
+            $this->SaveData();
+        }
 
 		public function getAll()
 		{
@@ -84,132 +89,19 @@
 			}
 		}
 
-		/**
-		 * retorna 0 si no existe, la 1 si existe
-		 * @param cineAbuscar debe tener al menos el parametro "id" o el "nombre"
-		 */
-		public function cineExiste($nombre)
-		{
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+		public function getByNombre($nombre)
+        {
+            $cine = null;
 
-			if(file_exists($jsonPath));
-			{
-				$jsonContent = file_get_contents($jsonPath);
+            $this->RetrieveData();
 
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$cine = new Cine();
-					$cine->setNombre($valuesArray["nombre"]);
-					$cine->setDireccion($valuesArray["direccion"]);
-					$cine->setCapacidad($valuesArray["capacidad"]);
-					$cine->setPrecio($valuesArray["precio"]);
+            $cines = array_filter($this->cineList, function($cine) use($nombre){
+                return $cine->getNombre() == $nombre;
+            });
 
-					if($cine->getNombre() == $nombre)
-					{
-						return 1;
-					}
-				}
-			}
-			return 0;
-		}
+            $cines = array_values($cines); //Reordering array indexes
 
-		/**
-		 * 
-		 * @param nombre
-		 */
-		public function eliminarCine($nombre)
-		{
-			$this->cineList = array();
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath))
-			{
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$cine = new Cine();
-					$cine->setNombre($valuesArray["nombre"]);
-					$cine->setDireccion($valuesArray["direccion"]);
-					$cine->setCapacidad($valuesArray["capacidad"]);
-					$cine->setPrecio($valuesArray["precio"]);
-
-					if($nombre != $cine->getNombre())
-					{
-						array_push($this->cineList, $cine);
-					}
-				}
-				$this->SaveData();
-			}
-
-			
-		}
-
-		public function cineXnombre($nombre)
-		{
-			$this->cineList = array();
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
-			{
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$cine = new Cine();
-					$cine->setNombre($valuesArray["nombre"]);
-					$cine->setDireccion($valuesArray["direccion"]);
-					$cine->setCapacidad($valuesArray["capacidad"]);
-					$cine->setPrecio($valuesArray["precio"]);
-
-					if($nombre == $cine->getNombre())
-					{
-						return $cine;
-					}
-				}
-			}
-			return null;
-		}
-
-		public function actualizarUnCine($actualizado)
-		{
-			$this->cineList = array();
-			
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath))
-			{
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$cine = new Cine();
-					$cine->setNombre($valuesArray["nombre"]);
-					$cine->setDireccion($valuesArray["direccion"]);
-					$cine->setCapacidad($valuesArray["capacidad"]);
-					$cine->setPrecio($valuesArray["precio"]);
-
-					if($actualizado->getNombre() == $cine->getNombre())
-					{
-						array_push($this->cineList, $actualizado);
-					}
-					else {
-						array_push($this->cineList, $cine);
-					}
-
-				}
-				$this->SaveData();
-			}
+            return (count($cines) > 0) ? $cines[0] : null;
 		}
 
 		//Need this function to return correct file json path
