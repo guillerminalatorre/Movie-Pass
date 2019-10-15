@@ -92,7 +92,7 @@ class UsuarioController
 		if (($user != null) && ($user->getPassword() === $password)) {
 			$_SESSION["loggedUser"] = $user;
 
-			if ($user->getId_Rol() === 1) {
+			if ($user->getId_Rol() == 1 || $user->getId_Rol() == 2 || $user->getId_Rol() == 3 ) {
 
 				header("Location: " . FRONT_ROOT . "Pelicula/ShowMovies");
 			} else

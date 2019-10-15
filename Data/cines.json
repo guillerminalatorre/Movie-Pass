@@ -1,20 +1,19 @@
 [
     {
-        "nombre": "Aldery",
-        "direccion": "Rawso",
-        "capacidad": "200",
-        "precio": "250"
-    },
-    {
         "nombre": "Sel",
         "direccion": "Cordoba ",
         "capacidad": "250",
         "precio": "350"
     },
-
     {
         "nombre": "des",
         "direccion": "Cordobaa",
+        "capacidad": "123",
+        "precio": "12"
+    },
+    {
+        "nombre": "Aldrey",
+        "direccion": "mogotes",
         "capacidad": "123",
         "precio": "12"
     }
