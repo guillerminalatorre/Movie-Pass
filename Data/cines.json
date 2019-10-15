@@ -1,7 +1,7 @@
 [
     {
         "nombre": "Aldery",
-        "direccion": "Rawso",
+        "direccion": "Rawson 1234",
         "capacidad": "200",
         "precio": "250"
     },
@@ -22,5 +22,11 @@
         "direccion": "Cordobaa",
         "capacidad": "123",
         "precio": "12"
+    },
+    {
+        "nombre": "Ambassador",
+        "direccion": "Croce 2677",
+        "capacidad": "50",
+        "precio": "680"
     }
 ]

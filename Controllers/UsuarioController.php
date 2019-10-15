@@ -28,6 +28,43 @@
 			require_once(VIEWS_PATH."register.php");
 		}
 
+		public function ShowProfileView($email)
+		{
+			$usuario = $this->usuarioDAO->getByEmail($email);
+
+			require_once(VIEWS_PATH."profile.php");
+		}
+
+		public function ShowModificarUsuario($email)
+		{
+			$usuario = $this->usuarioDAO->getByEmail($email);
+
+			require_once(VIEWS_PATH."profile-edit.php");
+		}
+
+		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
+		{
+			$usuario = $this->usuarioDAO->getByEmail($email);
+
+			if($usuario != null)
+			{
+				// $usuario->setEmail($email);
+				$usuario->setNombre($nombre);
+				$usuario->setApellido($apellido);
+				// $usuario->setDni($dni);
+				if($usuario->getPassword() === $previouspassword)
+				{
+					if(($password != "") && ($confirmpassword != "") && ($password === $confirmpassword))
+					{
+						$usuario->setPassword($password);
+					}
+				}				
+				$this->usuarioDAO->saveData();
+			}
+
+			$this->ShowProfileView($email);
+		}
+
 		public function ShowListView()
 		{
 			$usuarioList = $this->usuarioDAO->getAll();
@@ -56,7 +93,7 @@
 			else
 			{
 				$this->ShowRegisterView();
-			}			
+			}
 		}
 
 		public function Login($email, $password)
@@ -68,7 +105,6 @@
 				$_SESSION["loggedUser"] = $user;
 				
                 header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
-
             }
             else
 				$this->ShowLoginView();

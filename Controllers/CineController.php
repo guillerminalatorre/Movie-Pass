@@ -22,7 +22,6 @@
 			$this->funcionDAO = new FuncionDAO();
 		}
 
-		/**pasar valor null por defecto */
 		public function ShowAddView()
 		{
 			$resultadoAgregarCine = 4;
@@ -38,60 +37,64 @@
 
 		public function ShowFichaCine($nombre)
 		{
-			$cine = new Cine();
+			$cine = $this->cineDAO->getByNombre($nombre);
 
-			$cine = $this->cineDAO->cineXnombre($nombre);
-
-			$funciones = $this->funcionDAO->funcionesXcine($nombre);
+			$funciones = $this->funcionDAO->getByCine($nombre);
 
 			require_once(VIEWS_PATH."cine-ficha.php");
 		}
 
 		public function ShowModificarCine($nombre)
 		{
-			$cine= new Cine();
+			$cine = $this->cineDAO->getByNombre($nombre);
 
-			$cine = $this->cineDAO->cineXnombre($nombre);
-
-			require_once(VIEWS_PATH."cine-modificar.php");
+			require_once(VIEWS_PATH."cine-edit.php");
 		}
 
-		public function eliminarCineYredirect ($nombre)
+		public function updateCine($nombre, $direccion, $capacidad, $precio)
 		{
-			$this->cineDAO->eliminarCine($nombre);
+			$cine = $this->cineDAO->getByNombre($nombre);
 
-			$this->funcionDAO->eliminarFuncionesXcine($nombre);
-
-			$this->ShowListView();
-		}
-
-		public function actualizarUnCine($nombre, $direccion, $capacidad, $precio)
-		{
-			$cine = new Cine();
-			$cine->setNombre($nombre);
-			$cine->setDireccion($direccion);
-			$cine->setCapacidad($capacidad);
-			$cine->setPrecio($precio);
-
-			$this->cineDAO->actualizarUnCine($cine);
+			if($cine != null)
+			{
+				// $cine->setNombre($nombre);
+				$cine->setDireccion($direccion);
+				$cine->setCapacidad($capacidad);
+				$cine->setPrecio($precio);
+				$this->cineDAO->saveData();
+			}
 
 			$this->ShowFichaCine($nombre);
 		}
 
-		public function Add( $nombre, $direccion, $capacidad, $precio)
+		public function eliminarCine($nombre)
 		{
-			$cine = new Cine();
+			$this->cineDAO->remove($nombre);
 
-			$cine->setNombre($nombre);
-			$cine->setDireccion($direccion);
-			$cine->setCapacidad($capacidad);
-			$cine->setPrecio($precio);
+			$this->funcionDAO->eliminarGetByCine($nombre);
 
-			$resultadoAgregarCine = $this->cineDAO->add($cine);
-
-			require_once(VIEWS_PATH."add-cine.php");
+			$this->ShowListView();
 		}
 
+		public function Add($nombre, $direccion, $capacidad, $precio)
+		{
+			if(!$this->cineDAO->getByNombre($nombre))
+			{
+				$cine = new Cine();
 
+				$cine->setNombre($nombre);
+				$cine->setDireccion($direccion);
+				$cine->setCapacidad($capacidad);
+				$cine->setPrecio($precio);
+
+				$this->cineDAO->add($cine);
+
+				$this->ShowListView();
+			}
+			else
+			{
+				$this->ShowAddView();
+			}
+		}
 	}
 ?>

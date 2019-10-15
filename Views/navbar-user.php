@@ -6,7 +6,7 @@
     <a class="nav-link text-warning" href="">Mis Entradas</a>
 </div>
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView">
+    <a class="nav-link text-warning" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail() ?>">
         <?php echo $_SESSION["loggedUser"]->getNombre() . " " . $_SESSION["loggedUser"]->getApellido(); ?>
     </a>
 </div>
@@ -18,7 +18,7 @@
 
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView">Perfil</a>
+        <a class="dropdown-item" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail() ?>">Perfil</a>
     </div>
 </div>
 
