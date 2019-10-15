@@ -26,7 +26,7 @@ require_once(VIEWS_PATH."navbar.php");
                     <a class="btn btn-warning" onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuarioYredirect/<?php echo $usuario->getNombre(); ?>' ;">Eliminar Usuario</a>
                 </th> -->
                 <th scope="col" style="text-align:center" >
-                    <h1 class="display-2"><?php echo $usuario->getNombre().", ".$usuario->getNombre(); ?></h1>
+                    <h1 class="display-2"><?php echo $usuario->getApellido().", ".$usuario->getNombre(); ?></h1>
                 </th>
                 <th scope="col" style="text-align:right">
                     <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Usuario/ShowModificarUsuario/<?php echo $usuario->getEmail();?>">Modificar perfil</a>
