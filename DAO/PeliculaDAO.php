@@ -8,6 +8,11 @@
 	class PeliculaDAO
 	{
 		private $peliculaList = array();
+		private $totalPages;
+
+		public function getNumberOfTotalPages(){
+			return $this->totalPages;
+		}
 
 		public function add(Pelicula $pelicula)
 		{
@@ -230,7 +235,13 @@
 
 	public function getNowPlayingMovies(){
 
-	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR");
+		if (isset($_GET['page'])) {
+			$pageValue = $_GET['page'];
+		} else {
+			$pageValue = 1;
+		}
+	
+	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR", "page"=>$pageValue);
 
 	$get_data = APIController::callAPI('GET', API .'/movie/now_playing', $arrayReque);
 
@@ -261,6 +272,7 @@
 
 		array_push($this->peliculaList, $pelicula);
 	}
+	$this->totalPages=$arrayToDecode["total_pages"];
 	return $this->peliculaList;
 }
 
@@ -295,7 +307,7 @@
 			{
 				$pelicula->setVideo($valuesArray["video"]);
 			}
-
+			$this->totalPages=$arrayToDecode["total_pages"];
 			array_push($this->peliculaList, $pelicula);
 		}
 	}
