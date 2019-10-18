@@ -53,7 +53,16 @@ require_once(VIEWS_PATH."navbar.php");
                     <label for="confirmpassword">Repite contraseña:</label>
                     <input type="password" class="form-control" name="confirmpassword">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-plus-circle"></i> Actualizar datos</button>
+            </div>
+            <div class="row">
+                <div class="file-field">
+                    <div class="btn btn-primary btn-lg">
+                        <span><i class="fas fa-user"></i> Imagen de perfil (MAX: 3MB)</span>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                        <input class="mt-2" type="file">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"><i class="fas fa-plus-circle"></i> Actualizar datos</button>
             </div>
         </form>
         <!-- <button class="btn btn-primary btn-lg btn-block"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</button> -->

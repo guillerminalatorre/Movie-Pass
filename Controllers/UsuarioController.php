@@ -8,6 +8,7 @@
 
 	use DAO\UsuarioDAO as UsuarioDAO;
 	use Models\Usuario as Usuario;
+	use Config\Functions as Functions;
 
 	class UsuarioController
 	{
@@ -79,6 +80,13 @@
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
 		{
+			$dni = Functions::getInstance()->escapar($dni);
+			$nombre = Functions::getInstance()->escapar($dni);
+			$apellido = Functions::getInstance()->escapar($dni);
+			$email = Functions::getInstance()->escapar($dni);
+			$password = Functions::getInstance()->escapar($dni);
+			$confirmpassword = Functions::getInstance()->escapar($dni);
+
 			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword)
 			{
 				$usuario = new Usuario();

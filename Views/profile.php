@@ -57,6 +57,11 @@ require_once(VIEWS_PATH."navbar.php");
                 <li class="list-group-item">Email: <?php echo $usuario->getEmail(); ?></li>
                 <li class="list-group-item">Nombre: <?php echo $usuario->getNombre().", ".$usuario->getApellido(); ?></li>
                 <li class="list-group-item">DNI: <?php echo $usuario->getDni(); ?></li>
+                <li class="list-group-item">Registro: 
+                <?php $date = $usuario->getRegisterDate();
+                $registerDate = date("d/m/Y H:i",$date);
+                echo $registerDate; ?>
+                </li>
             </ul>
         </div>
         <div class="col-md-8 bg-light rounded p-4">

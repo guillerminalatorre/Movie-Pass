@@ -37,7 +37,7 @@ require_once(VIEWS_PATH."navbar.php");
                 $date = $usuario->getLastConnection();
                 $lastConnection = date("d/m/Y H:i",$date);
                 echo $lastConnection;
-                if($usuario->getLoggedIn() == TRUE) { ?>
+                if($usuario->getLoggedIn() == true) { ?>
                     <span class="status text-success">•</span>
                 <?php 
                 } else { 
