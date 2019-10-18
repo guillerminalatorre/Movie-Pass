@@ -3,7 +3,7 @@ require_once(VIEWS_PATH."navbar.php");
 ?>
 
 <div class="container">
-    <div class="loginForm">
+    <div class="registerForm">
         <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
             <div class="row">
                 <div class="form-group col-sm">

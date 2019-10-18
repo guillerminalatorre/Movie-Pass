@@ -1,5 +1,4 @@
 <?php
-
 require_once(VIEWS_PATH."navbar.php");
 ?>
 

@@ -44,6 +44,7 @@
 				}
 				$pelicula->setGeneros($generoNames);
 			}
+			
 			require_once(VIEWS_PATH. "listarpeliculas.php");
 		}
 
