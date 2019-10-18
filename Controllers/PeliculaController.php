@@ -50,7 +50,7 @@
 
 		public function ShowFilteredMovies($id)
 		{
-			$peliculaList= $this->peliculaDAO->getByGenre($id);
+			$peliculaList= $this->peliculaDAO->getMoviesByGender($id);
 			$totalPages=$this->peliculaDAO->getNumberOfTotalPages();
 
 			foreach($peliculaList as $pelicula)
