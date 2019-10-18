@@ -33,9 +33,10 @@ require_once(VIEWS_PATH."navbar.php");
                     
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Pelicula</th>
+                    <th scope="col">Cine</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,23 +45,6 @@ require_once(VIEWS_PATH."navbar.php");
                     <td>Mark</td>
                     <td>Otto</td>
                     <td>@mdo</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
                     <td>@mdo</td>
                     </tr>
                     <tr>
@@ -68,17 +52,20 @@ require_once(VIEWS_PATH."navbar.php");
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
+                    <td>@mdo</td>
                     </tr>
                     <tr>
                     <th scope="row">3</th>
                     <td>Larry</td>
                     <td>the Bird</td>
                     <td>@twitter</td>
+                    <td>@mdo</td>
                     </tr>
                     <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
+                    <td>@mdo</td>
                     <td>@mdo</td>
                     </tr>
                     <tr>
@@ -86,6 +73,28 @@ require_once(VIEWS_PATH."navbar.php");
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
+                    <td>@mdo</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                    <td>@mdo</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td>@mdo</td>
                     </tr>
                 </tbody>
             </table>
