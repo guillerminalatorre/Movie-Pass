@@ -15,6 +15,10 @@
 		private $apellido;
 		private $nombre;
 		private $id_Rol;
+		private $ip;
+		private $registerDate;
+		private $lastConnection;
+		private $loggedIn;
 
 		/**
 		 * Getter for Dni
@@ -150,6 +154,94 @@
 		public function setId_Rol($id_Rol)
 		{
 			$this->id_Rol = $id_Rol;
+			return $this;
+		}
+
+		/**
+		 * Getter for Ip
+		 *
+		 * @return [type]
+		 */
+		public function getIp()
+		{
+			return $this->ip;
+		}
+
+		/**
+		 * Setter for Ip
+		 * @var [type] ip
+		 *
+		 * @return self
+		 */
+		public function setIp($ip)
+		{
+			$this->ip = $ip;
+			return $this;
+		}
+
+		/**
+		 * Getter for RegisterDate
+		 *
+		 * @return [type]
+		 */
+		public function getRegisterDate()
+		{
+			return $this->registerDate;
+		}
+
+		/**
+		 * Setter for RegisterDate
+		 * @var [type] registerDate
+		 *
+		 * @return self
+		 */
+		public function setRegisterDate($registerDate)
+		{
+			$this->registerDate = $registerDate;
+			return $this;
+		}
+
+		/**
+		 * Getter for LastConnection
+		 *
+		 * @return [type]
+		 */
+		public function getLastConnection()
+		{
+			return $this->lastConnection;
+		}
+
+		/**
+		 * Setter for LastConnection
+		 * @var [type] lastConnection
+		 *
+		 * @return self
+		 */
+		public function setLastConnection($lastConnection)
+		{
+			$this->lastConnection = $lastConnection;
+			return $this;
+		}
+
+		/**
+		 * Getter for LoggedIn
+		 *
+		 * @return [type]
+		 */
+		public function getLoggedIn()
+		{
+			return $this->loggedIn;
+		}
+
+		/**
+		 * Setter for LoggedIn
+		 * @var [type] loggedIn
+		 *
+		 * @return self
+		 */
+		public function setLoggedIn($loggedIn)
+		{
+			$this->loggedIn = $loggedIn;
 			return $this;
 		}
 	}
