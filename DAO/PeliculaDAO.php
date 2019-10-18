@@ -183,12 +183,6 @@
 				
 		}
 
-		public function getByGenre($id)
-		{ 
-			$this->getMoviesByGender($id);
-			return $this->peliculaList;
-		}
-
 		public function getNowPlayingMovies()
 		{
 			if (isset($_GET['page'])) {
@@ -232,7 +226,7 @@
 			return $this->peliculaList;
 		}
 
-		private function getMoviesByGender($id)
+		public function getMoviesByGender($id)
 		{
 			$actualDate=date("Y-m-d");
 
@@ -262,10 +256,11 @@
 				if($valuesArray["video"]!==false)
 				{
 					$pelicula->setVideo($valuesArray["video"]);
-				}
-				$this->totalPages=$arrayToDecode["total_pages"];
+				}				
 				array_push($this->peliculaList, $pelicula);
 			}
+			$this->totalPages=$arrayToDecode["total_pages"];
+			return $this->peliculaList;
 		}
 	}
 ?>
