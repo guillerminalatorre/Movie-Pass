@@ -7,32 +7,10 @@
 	namespace Models;
 	
 	class Entrada
-	{
-		private $qr;
+	{		
 		private $id_Compra;
 		private $id_Funcion;
-
-		/**
-		 * Getter for Qr
-		 *
-		 * @return [type]
-		 */
-		public function getQr()
-		{
-		    return $this->qr;
-		}
-
-		/**
-		 * Setter for Qr
-		 * @var [type] qr
-		 *
-		 * @return self
-		 */
-		public function setQr($qr)
-		{
-		    $this->qr = $qr;
-		    return $this;
-		}
+		private $qr;
 
 		/**
 		 * Getter for Id_Compra
@@ -75,6 +53,28 @@
 		public function setId_Funcion($id_Funcion)
 		{
 		    $this->id_Funcion = $id_Funcion;
+		    return $this;
+		}
+
+		/**
+		 * Getter for Qr
+		 *
+		 * @return [type]
+		 */
+		public function getQr()
+		{
+		    return $this->qr;
+		}
+
+		/**
+		 * Setter for Qr
+		 * @var [type] qr
+		 *
+		 * @return self
+		 */
+		public function setQr($qr)
+		{
+		    $this->qr = $qr;
 		    return $this;
 		}
 	}
