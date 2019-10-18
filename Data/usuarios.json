@@ -5,7 +5,11 @@
         "email": "rodrii.fan@gmail.com",
         "apellido": "Fatmagul",
         "nombre": "Rodrigo",
-        "id_Rol": 1
+        "id_Rol": 1,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0
     },
     {
         "dni": "70841371",
@@ -13,7 +17,11 @@
         "email": "Marcelolintz@gmail.com",
         "apellido": "Lintz",
         "nombre": "Marcelo",
-        "id_Rol": 2
+        "id_Rol": 1,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0
     },
     {
         "dni": "666789789",
@@ -21,7 +29,11 @@
         "email": "elpibe123@gmail.com",
         "apellido": "Guille",
         "nombre": "Loca",
-        "id_Rol": 3
+        "id_Rol": 3,
+        "ip": "::1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571428095,
+        "loggedIn": true
     },
     {
         "dni": "42492167",
@@ -29,7 +41,11 @@
         "email": "pame@gmail.com",
         "apellido": "Berengena",
         "nombre": "Pame",
-        "id_Rol": 1
+        "id_Rol": 1,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0
     },
     {
         "dni": "234567",
@@ -37,6 +53,10 @@
         "email": "martin@gmail.com",
         "apellido": "Howy",
         "nombre": "Martin",
-        "id_Rol": 2
+        "id_Rol": 2,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0
     }
 ]

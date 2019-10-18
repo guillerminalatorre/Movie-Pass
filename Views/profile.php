@@ -2,8 +2,9 @@
 require_once(VIEWS_PATH."navbar.php");
 ?>
 
-<!-- <script>
-    function borrarUsuario(nombreUsuario){
+<script>
+    function borrarUsuario(nombreUsuario)
+    {
         preg = window.confirm('¿Desea borrar el usuario'+ nombreUsuario +'?');
         if(preg==true) 
         {
@@ -11,13 +12,46 @@ require_once(VIEWS_PATH."navbar.php");
         }
         return preg;
     }
-</script> -->
+
+    function toggleAdmin(nombreUsuario, rolActual)
+    {
+        var preg;
+        preg = window.confirm('¿Desea dar/quitar administrador a '+ nombreUsuario +'?');
+        
+        if(preg == true) 
+        {
+            alert('Se ha cambiado el acceso de '+ nombreUsuario);
+        }
+        return preg;
+    }
+</script>
+
 <div class="container mb-4">
     <div class="row">
-        <div class="col-sm bg-light rounded p-4 text-center mr-4">     
-            <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" class="img-circle"></a>
-            <h3 class="mt-2"><?php echo $usuario->getNombre().", ".$usuario->getApellido(); ?></h3>
-            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowModificarUsuario/<?php echo $usuario->getEmail();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar perfil</a>
+        <div class="col-sm bg-light rounded p-4 text-center mr-4">
+
+            <!-- Volver a lista de usuarios solo para admins -->
+            <?php if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) { ?>
+            <a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a>
+            <?php } ?>
+
+            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
+            <h3 class="mt-2"><?php echo $usuario->getNombre()." ".$usuario->getApellido(); ?></h3>
+
+            <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->
+            <?php if(($_SESSION["loggedUser"]->getId_Rol() === 3) && ($_SESSION["loggedUser"]->getEmail() != $usuario->getEmail())) { ?>
+            <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-info btn-md mt-2" role="button">
+                <?php if($usuario->getId_Rol() === 1) { ?>Hacer admin<?php } else { ?>Quitar admin<?php } ?>
+            </a>
+            <?php } ?>
+            
+            <!-- Modificar perfil -->
+            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowModificarUsuario/<?php echo $usuario->getEmail();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
+            
+            <!-- Eliminar cuenta -->
+            <?php if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>
+            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-danger btn-md mt-2" role="button">Eliminar</a>
+            <?php } ?>
 
             <ul class="list-group mt-4">
                 <li class="list-group-item">Email: <?php echo $usuario->getEmail(); ?></li>
