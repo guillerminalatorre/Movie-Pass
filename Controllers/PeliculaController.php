@@ -26,17 +26,20 @@
 			require_once(VIEWS_PATH. "searchbar.php");
 		}
 
-		public function ShowMovies(){
+		public function ShowMovies()
+		{
 			$generoList=$this->generoDAO->getAll();
 			$peliculaList=$this->peliculaDAO->getNowPlayingMovies();
 			$totalPages=$this->peliculaDAO->getNumberOfTotalPages();
 
 			require_once(VIEWS_PATH."searchbar.php");
 
-			foreach($peliculaList as $pelicula){
+			foreach($peliculaList as $pelicula)
+			{
 				$generoNames=array();
 				$peliculaGeneros=$pelicula->getGeneros();
-				foreach($peliculaGeneros as $generoId){
+				foreach($peliculaGeneros as $generoId)
+				{
 					array_push($generoNames, $this->generoDAO->GetGeneroForId($generoId));
 				}
 				$pelicula->setGeneros($generoNames);
@@ -48,10 +51,13 @@
 		{
 			$peliculaList= $this->peliculaDAO->getByGenre($id);
 			$totalPages=$this->peliculaDAO->getNumberOfTotalPages();
-			foreach($peliculaList as $pelicula){
+
+			foreach($peliculaList as $pelicula)
+			{
 				$generoNames=array();
 				$peliculaGeneros=$pelicula->getGeneros();
-				foreach($peliculaGeneros as $generoId){
+				foreach($peliculaGeneros as $generoId)
+				{
 					array_push($generoNames, $this->generoDAO->GetGeneroForId($generoId));
 				}
 				$pelicula->setGeneros($generoNames);

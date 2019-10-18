@@ -1,5 +1,4 @@
 <?php
-
 require_once(VIEWS_PATH."navbar.php");
 ?>
 
@@ -14,25 +13,34 @@ require_once(VIEWS_PATH."navbar.php");
 </div>
 
 <?php 
-if (isset($_GET['page'])) {
+if (isset($_GET['page'])) 
+{
   $pageValue = $_GET['page'];
-} else {
+} 
+else
+{
   $pageValue = 1;
 }
 ?>
 
-<nav class="mt-5" aria-label="Page navigation example">
+<nav class="mt-5" aria-label="Page navigation">
   <ul class="pagination justify-content-center">
     <li class="page-item">
     <a class="page-link" href="
-      <?php if($pageValue>1){
+      <?php if($pageValue > 1)
+      {
         echo "?page=".($pageValue-1);
       }
-      else{ echo "#";
-      } ?> ">Anterior</a>
+      else
+      {
+        echo "javascript:void(0)";
+      } 
+      ?>
+      ">Anterior</a>
     </li>
     <?php
-      foreach(range(1, $totalPages) as $page){
+      foreach(range(1, $totalPages) as $page)
+      {
         ?>
         <li class="page-item"><a class="page-link" href="
         <?php echo "?page=" . $page ?>"> 
@@ -45,7 +53,7 @@ if (isset($_GET['page'])) {
         echo "?page=".($pageValue +1); 
       }else
       {
-        echo "#";
+        echo "javascript:void(0)";
       }?>  
     
     ">Siguiente</a>
