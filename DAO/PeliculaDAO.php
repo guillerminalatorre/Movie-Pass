@@ -10,7 +10,8 @@
 		private $peliculaList = array();
 		private $totalPages;
 
-		public function getNumberOfTotalPages(){
+		public function getNumberOfTotalPages()
+		{
 			return $this->totalPages;
 		}
 
@@ -79,50 +80,6 @@
 					array_push($this->peliculaList, $pelicula);
 				}
 			}
-		}
-
-		/**
-		 *  retorna 0 si no existe, la id si existe
-		 * 
-		 * @param peliculaAbuscar busca por id, por titulo y por fecha.
--		 */
-		public function peliculaExists(Pelicula $peliculaAbuscar)
-		{
-			$this->peliculaList = array();
-
-			if(file_exists("Data/peliculas.json"));
-			{
-				$jsonContent = file_get_contents("Data/peliculas.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$pelicula = new Pelicula();
-					$pelicula->setId($valuesArray["id"] );
-					$pelicula->setTitulo($valuesArray["titulo"] );
-					$pelicula->setGeneros($valuesArray["generos"] );
-					$pelicula->setDuracion($valuesArray["duracion"]);
-					$pelicula->setDescripcion($valuesArray["descripcion"]);
-					$pelicula->setIdioma($valuesArray["idioma"]);
-					$pelicula->setClasificacion($valuesArray["clasificacion"]);
-					$pelicula->setActores($valuesArray["actores"]);
-
-					if($peliculaAbuscar->getId() === $pelicula->getId())
-					{
-						return $pelicula->getId();
-					}
-					if($peliculaAbuscar->getTitulo() === $pelicula->getTitulo())
-					{
-						return $pelicula->getId();
-					}
-					if($peliculaAbuscar->getFecha() === $pelicula->getFecha())
-					{
-						return $pelicula->getId();
-					}
-				}
-			}	
-			return 0;
 		}
 
 		public function getPelicula(int $id)
@@ -221,95 +178,94 @@
 						array_push($this->peliculaList, $pelicula);
 					}
 				}
-
 				$this->SaveData();
-		}
-
-	}
-
-	public function getByGenre($id)
-    { 
-	$this->getMoviesByGender($id);
-        return $this->peliculaList;
-	}
-
-	public function getNowPlayingMovies(){
-
-		if (isset($_GET['page'])) {
-			$pageValue = $_GET['page'];
-		} else {
-			$pageValue = 1;
-		}
-	
-	$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR", "page"=>$pageValue);
-
-	$get_data = APIController::callAPI('GET', API .'/movie/now_playing', $arrayReque);
-
-	$arrayToDecode = json_decode($get_data, true);
-
-	foreach($arrayToDecode["results"] as $valuesArray)
-	{
-		$pelicula = new Pelicula();
-		$pelicula->setPoster($valuesArray["poster_path"]);
-		$pelicula->setId($valuesArray["id"] );
-		$pelicula->setIdioma($valuesArray["original_language"]);
-		$pelicula->setClasificacion($valuesArray["adult"]);
-
-		foreach($valuesArray["genre_ids"] as $genero)
-		{
-			$pelicula->agregarGenero($genero);
-		}
-
-		$pelicula->setTitulo($valuesArray["title"]);
-		$pelicula->setPopularidad($valuesArray["vote_average"]);
-		$pelicula->setDescripcion($valuesArray["overview"]);
-		$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
-
-		if($valuesArray["video"]!==false)
-		{
-			$pelicula->setVideo($valuesArray["video"]);
-		}
-
-		array_push($this->peliculaList, $pelicula);
-	}
-	$this->totalPages=$arrayToDecode["total_pages"];
-	return $this->peliculaList;
-}
-
-	private function getMoviesByGender($id)
-    {
-	   $actualDate=date("Y-m-d");
-
-       $arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "include_video"=>true,"with_genres"=>$id,"primary_release_date.lte"=>date("Y-m-d", strtotime($actualDate . "+ 5 days")),"primary_release_date.gte"=> date("Y-m-d", strtotime($actualDate . "- 2 month")),"sort_by"=>"primary_release_date.desc", "with_original_language"=>"es,en");
-
-		$get_data = APIController::callAPI('GET', API .'/discover/movie', $arrayReque);
-
-		$arrayToDecode = json_decode($get_data, true);
-
-		foreach($arrayToDecode["results"] as $valuesArray)
-		{
-			$pelicula = new Pelicula();
-			$pelicula->setPoster($valuesArray["poster_path"]);
-			$pelicula->setId($valuesArray["id"] );
-			$pelicula->setIdioma($valuesArray["original_language"]);
-
-			foreach($valuesArray["genre_ids"] as $genero)
-			{
-				$pelicula->agregarGenero($genero);
 			}
+				
+		}
 
-			$pelicula->setTitulo($valuesArray["title"]);
-			$pelicula->setPopularidad($valuesArray["vote_average"]);
-			$pelicula->setDescripcion($valuesArray["overview"]);
-			$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
+		public function getByGenre($id)
+		{ 
+			$this->getMoviesByGender($id);
+			return $this->peliculaList;
+		}
 
-			if($valuesArray["video"]!==false)
+		public function getNowPlayingMovies()
+		{
+			if (isset($_GET['page'])) {
+				$pageValue = $_GET['page'];
+			} else {
+				$pageValue = 1;
+			}
+		
+			$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR", "page"=>$pageValue);
+
+			$get_data = APIController::callAPI('GET', API .'/movie/now_playing', $arrayReque);
+
+			$arrayToDecode = json_decode($get_data, true);
+
+			foreach($arrayToDecode["results"] as $valuesArray)
 			{
-				$pelicula->setVideo($valuesArray["video"]);
+				$pelicula = new Pelicula();
+				$pelicula->setPoster($valuesArray["poster_path"]);
+				$pelicula->setId($valuesArray["id"] );
+				$pelicula->setIdioma($valuesArray["original_language"]);
+				$pelicula->setClasificacion($valuesArray["adult"]);
+
+				foreach($valuesArray["genre_ids"] as $genero)
+				{
+					$pelicula->agregarGenero($genero);
+				}
+
+				$pelicula->setTitulo($valuesArray["title"]);
+				$pelicula->setPopularidad($valuesArray["vote_average"]);
+				$pelicula->setDescripcion($valuesArray["overview"]);
+				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
+
+				if($valuesArray["video"]!==false)
+				{
+					$pelicula->setVideo($valuesArray["video"]);
+				}
+
+				array_push($this->peliculaList, $pelicula);
 			}
 			$this->totalPages=$arrayToDecode["total_pages"];
-			array_push($this->peliculaList, $pelicula);
+			return $this->peliculaList;
+		}
+
+		private function getMoviesByGender($id)
+		{
+			$actualDate=date("Y-m-d");
+
+			$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "include_video"=>true,"with_genres"=>$id,"primary_release_date.lte"=>date("Y-m-d", strtotime($actualDate . "+ 5 days")),"primary_release_date.gte"=> date("Y-m-d", strtotime($actualDate . "- 2 month")),"sort_by"=>"primary_release_date.desc", "with_original_language"=>"es,en");
+
+			$get_data = APIController::callAPI('GET', API .'/discover/movie', $arrayReque);
+
+			$arrayToDecode = json_decode($get_data, true);
+
+			foreach($arrayToDecode["results"] as $valuesArray)
+			{
+				$pelicula = new Pelicula();
+				$pelicula->setPoster($valuesArray["poster_path"]);
+				$pelicula->setId($valuesArray["id"] );
+				$pelicula->setIdioma($valuesArray["original_language"]);
+
+				foreach($valuesArray["genre_ids"] as $genero)
+				{
+					$pelicula->agregarGenero($genero);
+				}
+
+				$pelicula->setTitulo($valuesArray["title"]);
+				$pelicula->setPopularidad($valuesArray["vote_average"]);
+				$pelicula->setDescripcion($valuesArray["overview"]);
+				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
+
+				if($valuesArray["video"]!==false)
+				{
+					$pelicula->setVideo($valuesArray["video"]);
+				}
+				$this->totalPages=$arrayToDecode["total_pages"];
+				array_push($this->peliculaList, $pelicula);
+			}
 		}
 	}
-}
 ?>
