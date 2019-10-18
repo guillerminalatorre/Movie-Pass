@@ -4,7 +4,7 @@ require_once(VIEWS_PATH . "check-login-admin.php");
 ?>
 
 <div class="container">
-    <div class="loginForm">
+    <div class="panelForm">
         <form action="<?php echo FRONT_ROOT ?>Usuario/RegisterAdmin" method="POST">
             <div class="row">
                 <div class="form-group col-sm">

@@ -81,7 +81,7 @@ require_once(VIEWS_PATH."navbar.php");
                 </tr>
             </thead>
         </table>
-        <?php if(count($funciones) > 0) { ?>
+        <?php if(isset($funciones) && count($funciones) > 0) { ?>
         <table class="table">
             <thead class="table-dark">
                 <tr>

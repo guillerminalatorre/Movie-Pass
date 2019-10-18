@@ -1,13 +1,12 @@
 <?php
-
 require_once(VIEWS_PATH."navbar.php");
 ?>
 
-<div class="container">
-    <div class="jumbotron text-white">
+<div class="container bg-dark rounded">
+    <div class="jumbotron bg-dark border-0 text-white">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/ShowFilteredMovies" method="POST">
-            <div class="col-md-6">
-                <h3>Elije una categoria y/o una fecha: </h3>
+            <div class="col-md-6 border-bottom pb-2 mb-n4">
+                <h3 class="">Elije una categoria y/o una fecha: </h3>
             </div>
             <br>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
