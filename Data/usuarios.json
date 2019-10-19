@@ -5,7 +5,7 @@
         "email": "rodrii.fan@gmail.com",
         "apellido": "Fatmagul",
         "nombre": "Rodrigo",
-        "id_Rol": 1,
+        "id_Rol": 2,
         "ip": "127.0.0.1",
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
@@ -32,7 +32,7 @@
         "id_Rol": 3,
         "ip": "::1",
         "registerDate": 1571419160,
-        "lastConnection": 1571434803,
+        "lastConnection": 1571455172,
         "loggedIn": false
     },
     {

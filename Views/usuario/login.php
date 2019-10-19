@@ -1,7 +1,3 @@
-<?php
-require_once(VIEWS_PATH."navbar.php");
-?>
-
 <div class="container">
   <div class="loginForm">
     <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">

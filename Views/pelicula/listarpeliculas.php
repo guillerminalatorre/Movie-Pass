@@ -1,12 +1,8 @@
-<?php
-require_once(VIEWS_PATH."navbar.php");
-?>
-
 <div class="container bg-dark rounded">
   <div class="row flex-column-reverse flex-md-row">
     <?php
     foreach ($peliculaList as $values) {
-      require(VIEWS_PATH . "moviecard.php");
+      require("moviecard.php");
     }
     ?>
   </div>

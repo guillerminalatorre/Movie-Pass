@@ -8,47 +8,26 @@
 
 	use DAO\CineDAO as CineDAO;
 	use Models\Cine as Cine;	
-	use DAO\FuncionDao as FuncionDAO;
-	use Models\Funcion as Funcion;
 	
 	class CineController
 	{
 		private $cineDAO;
-		private $funcionDAO;
 
 		public function __construct()
 		{
 			$this->cineDAO = new CineDAO();
-			$this->funcionDAO = new FuncionDAO();
 		}
 
-		public function ShowAddView()
-		{
-			$resultadoAgregarCine = 4;
-			require_once(VIEWS_PATH."add-cine.php");
-		}
-
-		public function ShowListView()
+		public function getCineList()
 		{
 			$cineList = $this->cineDAO->getAll();
-
-			require_once(VIEWS_PATH."cine-list.php");
+			return $cineList;
 		}
 
-		public function ShowFichaCine($nombre)
+		public function getCine($nombre)
 		{
 			$cine = $this->cineDAO->getByNombre($nombre);
-
-			$funciones = $this->funcionDAO->getByCine($nombre);
-
-			require_once(VIEWS_PATH."cine-ficha.php");
-		}
-
-		public function ShowModificarCine($nombre)
-		{
-			$cine = $this->cineDAO->getByNombre($nombre);
-
-			require_once(VIEWS_PATH."cine-edit.php");
+			return $cine;
 		}
 
 		public function updateCine($nombre, $direccion, $capacidad, $precio)
@@ -64,16 +43,19 @@
 				$this->cineDAO->saveData();
 			}
 
-			$this->ShowFichaCine($nombre);
+			$homeController = new HomeController();
+			$homeController->FichaCine($nombre);
 		}
 
 		public function eliminarCine($nombre)
 		{
 			$this->cineDAO->remove($nombre);
+			
+			$funcionController = new FuncionController();
+			$funcionController->eliminarPorCine($nombre);
 
-			$this->funcionDAO->eliminarGetByCine($nombre);
-
-			$this->ShowListView();
+			$homeController = new HomeController();
+			$homeController->ListCines();
 		}
 
 		public function Add($nombre, $direccion, $capacidad, $precio)
@@ -89,11 +71,13 @@
 
 				$this->cineDAO->add($cine);
 
-				$this->ShowListView();
+				$homeController = new HomeController();
+				$homeController->ListCines();
 			}
 			else
 			{
-				$this->ShowAddView();
+				$homeController = new HomeController();
+				$homeController->AddCine();
 			}
 		}
 	}

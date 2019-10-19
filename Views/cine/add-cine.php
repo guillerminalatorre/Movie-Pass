@@ -1,6 +1,5 @@
 <?php
 require_once(VIEWS_PATH . "check-login-admin.php");
-require_once(VIEWS_PATH."navbar.php");
 
 if($resultadoAgregarCine == 0)
 {
@@ -14,7 +13,7 @@ if($resultadoAgregarCine == 1)
 <body>
     <div class="container container-fluid mt-4">
         <div class="panelForm">
-            <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
+            <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ListCines" role="button">Volver a lista de cines</a>
             <form action="<?php echo FRONT_ROOT ?>Cine/Add" method="POST">
                 <h2 class="text-left">Ingresa datos del cine: </h2>
                 <br>

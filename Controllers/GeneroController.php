@@ -11,18 +11,29 @@
 
 	class GeneroController
 	{
-		private $generosDAO;
+		private $generoDAO;
 
 		function __construct()
 		{
-			$this->generosDAO = new GeneroDAO();
+			$this->generoDAO = new GeneroDAO();
 		}
 
-		public function ShowGenreView($message = "")
+		public function getGeneroList()
 		{
-			$generoList = $this->generosDAO->getAll();
-			
-			require_once(VIEWS_PATH."searchbar.php");
+			$generoList = $this->generoDAO->getAll();
+			return $generoList;
+		}
+
+		public function getNombrePorId($id)
+		{
+			$nombre = null;
+			$generoList = $this->generoDAO->getAll();
+
+			foreach($generoList as $genero)
+			{
+				if($genero->getId() == $id) $nombre = $genero->getNombre();
+			}
+			return $nombre;
 		}
 	}
 ?>

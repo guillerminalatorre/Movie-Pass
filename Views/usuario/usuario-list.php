@@ -1,8 +1,3 @@
-<?php
-require_once(VIEWS_PATH . "check-login-admin.php");
-require_once(VIEWS_PATH."navbar.php");
-?>
-
 <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow-sm">
     <h2 class="col-md-6 pb-2 text-light">Lista de usuarios</h2>
     <table class="table table-striped text-light align-center">
@@ -47,10 +42,10 @@ require_once(VIEWS_PATH."navbar.php");
                 </td>
                 <td>
                 <?php 
-                    echo $this->getUserRol($usuario->getId_Rol());
+                    echo $usuarioController->getUserRol($usuario->getId_Rol());
                 ?>
                 </td>
-                <td><a href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $usuario->getEmail(); ?>" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><h4><i class="fas fa-arrow-circle-right"></i></h4></a></td>
+                <td><a href="<?php echo FRONT_ROOT ?>Home/ViewProfile/<?php echo $usuario->getEmail(); ?>" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><h4><i class="fas fa-arrow-circle-right"></i></h4></a></td>
             </tr>
             <?php } ?>
         </tbody>

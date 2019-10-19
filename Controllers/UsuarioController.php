@@ -19,40 +19,16 @@
 			$this->usuarioDAO = new UsuarioDAO();
 		}
 
-		public function ShowLoginView()
-		{
-			require_once(VIEWS_PATH."login.php");
-		}
-
-		public function ShowRegisterView()
-		{
-			require_once(VIEWS_PATH."register.php");
-		}
-
-		public function ShowAdminRegisterView()
-		{
-			require_once(VIEWS_PATH . "register-admin.php");
-		}
-
-		public function ShowProfileView($email)
-		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
-
-			require_once(VIEWS_PATH."profile.php");
-		}
-
-		public function ShowModificarUsuario($email)
-		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
-
-			require_once(VIEWS_PATH."profile-edit.php");
-		}
-
-		public function ShowListView()
+		public function getUserList()
 		{
 			$usuarioList = $this->usuarioDAO->getAll();
+			return $usuarioList;
+		}
 
-			require_once(VIEWS_PATH."usuario-list.php");
+		public function getUser($email)
+		{
+			$usuario = $this->usuarioDAO->getByEmail($email);
+			return $usuario;
 		}
 
 		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
@@ -74,8 +50,9 @@
 				}				
 				$this->usuarioDAO->saveData();
 			}
-
-			$this->ShowProfileView($email);
+			
+			$homeController = new HomeController();
+			$homeController->ViewProfile($email);
 		}
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
@@ -111,7 +88,8 @@
 			}
 			else
 			{
-				$this->ShowRegisterView();
+				$homeController = new HomeController();
+				$homeController->Register();
 			}
 		}
 
@@ -126,13 +104,73 @@
 
 				if($_SESSION["loggedUser"]->getEmail() != $email)
 				{
-					$this->ShowListView();
+					$homeController = new HomeController();
+					$homeController->ListUsers();
 				}
 				else
 				{
 					$this->Logout();
 				}
 			}
+		}
+
+		public function Login($email, $password)
+        {
+            $usuario = $this->usuarioDAO->GetByEmail($email);
+
+			if($usuario != null)
+			{
+				if($usuario->getPassword() === $password)
+				{
+					$this->toggleUserLoginStatus($email);
+
+					$_SESSION["loggedUser"] = $usuario;
+
+					$homeController = new HomeController();
+					$homeController->Index();
+				}
+				else
+				{
+					$homeController = new HomeController();
+					$homeController->Login();
+				}
+			}
+        }
+        
+        public function Logout()
+        {
+			$email = $_SESSION["loggedUser"]->getEmail();
+
+			$this->toggleUserLoginStatus($email);
+
+            session_destroy();
+
+            $homeController = new HomeController();
+			$homeController->Index();
+		}
+
+		public function notAdmin()
+		{
+			return (!isset($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId_Rol() === 1);
+		}
+
+		public function getUserRol($id_Rol)
+		{
+			switch($id_Rol)
+			{
+				case 1:
+					$rol = "Usuario";
+					break;
+				case 2:
+					$rol = "Admin";
+					break;
+				case 3:
+					$rol = "Main Admin";
+					break;
+				default: 
+					$rol = "Usuario";
+			}
+			return $rol;
 		}
 
 		private function getUserIp()
@@ -152,57 +190,6 @@
 			return $ip;
 		}
 
-		private function getUserRol($id_Rol)
-		{
-			switch($id_Rol)
-			{
-				case 1:
-					$rol = "Usuario";
-					break;
-				case 2:
-					$rol = "Admin";
-					break;
-				case 3:
-					$rol = "Main Admin";
-					break;
-				default: 
-					$rol = "Usuario";
-			}
-			return $rol;
-		}
-
-		public function Login($email, $password)
-        {
-            $usuario = $this->usuarioDAO->GetByEmail($email);
-
-			if($usuario != null)
-			{
-				if($usuario->getPassword() === $password)
-				{
-					$this->toggleUserLoginStatus($email);
-
-					$_SESSION["loggedUser"] = $usuario;
-					
-					header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
-				}
-				else
-				{
-					$this->ShowLoginView();
-				}
-			}
-        }
-        
-        public function Logout()
-        {
-			$email = $_SESSION["loggedUser"]->getEmail();
-
-			$this->toggleUserLoginStatus($email);
-
-            session_destroy();
-
-            header("Location: ".FRONT_ROOT."Pelicula/ShowMovies");
-		}
-		
 		private function toggleUserLoginStatus($email)
 		{
 			$usuario = $this->usuarioDAO->getByEmail($email);
@@ -248,6 +235,7 @@
 					$this->usuarioDAO->saveData();
 				}
 			}
-			$this->ShowProfileView($email);
+			$homeController = new HomeController();
+			$homeController->ViewProfile($email);
 		}
 	}

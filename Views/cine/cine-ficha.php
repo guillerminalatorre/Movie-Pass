@@ -1,8 +1,3 @@
-<?php
-require_once(VIEWS_PATH . "check-login-admin.php");
-require_once(VIEWS_PATH."navbar.php");
-?>
-
 <script>
     function borrarFuncion(id){
         preg = window.confirm('¿Desea borrar la funcion?');
@@ -24,7 +19,7 @@ require_once(VIEWS_PATH."navbar.php");
 
 <div class="container container-fluid mt-4">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
+        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ListCines" role="button">Volver a lista de cines</a>
         <br> 
         <br>  
         <table class="table table-sm table-light">
@@ -37,7 +32,7 @@ require_once(VIEWS_PATH."navbar.php");
                     <h1 class="display-2"><?php echo $cine->getNombre(); ?></h1>
                 </th>
                 <th scope="col" style="text-align:right">
-                    <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowModificarCine/<?php echo $cine->getNombre();?>">Modificar cine</a>
+                    <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Home/ModificarCine/<?php echo $cine->getNombre();?>">Modificar cine</a>
                 </th>
                 </tr>
             </thead>
@@ -76,32 +71,11 @@ require_once(VIEWS_PATH."navbar.php");
                     <th scope="col" style="text-align:center">Cant. Entradas</th>
                     <th scope="col" style="text-align:center">Cant. Vendidas</th>
                     <th scope="col" style="text-align:right">
-                        <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getNombre(); ?>">Agregar función</a>
+                        <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Home/AddFuncion/<?php echo $cine->getNombre(); ?>">Agregar función</a>
                     </th>
                 </tr>
             </thead>
         </table>
-        <?php if(isset($funciones) && count($funciones) > 0) { ?>
-        <table class="table">
-            <thead class="table-dark">
-                <tr>
-                    <?php foreach ($funciones as $funcion) {
-                    ?>
-                    <tr>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getId();?></th>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getId_Pelicula();?></th>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getFecha();?></th>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getHora();?></th>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getCantEntradas();?></th>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getCantVendidas();?></th>
-                        <th scope="col" style="text-align:right">
-                            <a class="btn btn-danger" onclick = "if(borrarFuncion('<?php echo $funcion->getId();?>')) href='<?php echo FRONT_ROOT ?>Funcion/eliminarFuncion/<?php echo $funcion->getId(); ?>';">Eliminar Funcion</a>
-                        </th>
-                    </tr>
-                    <?php } ?>
-                </tr>
-            </thead>
-        </table>
-        <?php } ?>
+        <?php require_once("funcion-list.php"); ?>
     </div>
 </div>

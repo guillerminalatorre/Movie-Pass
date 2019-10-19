@@ -6,7 +6,7 @@
   </div>
 </form>
 
-<a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Usuario/ShowLoginView" role="button">
+<a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Home/Login" role="button">
   <i class="fas fa-sign-in-alt"></i> Login
 </a>
 

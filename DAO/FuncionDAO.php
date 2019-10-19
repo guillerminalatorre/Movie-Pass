@@ -340,34 +340,6 @@
 			$this->SaveData();
 		}
 
-		public function iDdisponible()
-		{
-			$rta = 0;
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
-			{
-
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$funcion = new Funcion();
-
-					$funcion->setId($valuesArray["id"]);
-
-					$rta = $funcion->getId();
-				}
-
-			}
-			$rta++;
-			
-			return $rta;
-		}
-
 		//Need this function to return correct file json path
 		function GetJsonFilePath(){
 
