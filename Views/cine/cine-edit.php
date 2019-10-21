@@ -1,3 +1,4 @@
+<?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid mt-4">
     <div class="loginForm">
         <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/FichaCine/<?php echo $cine->getNombre(); ?>" role="button">Volver a la ficha del cine</a>

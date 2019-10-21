@@ -19,6 +19,7 @@
 		private $registerDate;
 		private $lastConnection;
 		private $loggedIn;
+		private $image;
 
 		/**
 		 * Getter for Dni
@@ -242,6 +243,28 @@
 		public function setLoggedIn($loggedIn)
 		{
 			$this->loggedIn = $loggedIn;
+			return $this;
+		}
+
+		/**
+		 * Getter for Image
+		 *
+		 * @return [type]
+		 */
+		public function getImage()
+		{
+			return $this->image;
+		}
+
+		/**
+		 * Setter for Image
+		 * @var [type] image
+		 *
+		 * @return self
+		 */
+		public function setImage($image)
+		{
+			$this->image = $image;
 			return $this;
 		}
 	}

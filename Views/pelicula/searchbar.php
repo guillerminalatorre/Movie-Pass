@@ -1,3 +1,4 @@
+<?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container bg-dark rounded">
     <div class="jumbotron bg-dark border-0 text-white">
         <form action="<?php echo FRONT_ROOT ?>Home/FilteredMovies/" method="POST">

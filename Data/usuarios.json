@@ -9,7 +9,8 @@
         "ip": "::1",
         "registerDate": 1571419160,
         "lastConnection": 1571619874,
-        "loggedIn": false
+        "loggedIn": false,
+        "image": "avatar.png"
     },
     {
         "dni": "70841371",
@@ -21,19 +22,21 @@
         "ip": "127.0.0.1",
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
-        "loggedIn": 0
+        "loggedIn": 0,
+        "image": "avatar.png"
     },
     {
         "dni": "666789789",
         "password": "123456",
         "email": "elpibe123@gmail.com",
-        "apellido": "Latorree",
-        "nombre": "Guillerminaaaa",
+        "apellido": "Latorre",
+        "nombre": "Guillermina",
         "id_Rol": 3,
         "ip": "::1",
         "registerDate": 1571419160,
-        "lastConnection": 1571619879,
-        "loggedIn": false
+        "lastConnection": 1571628132,
+        "loggedIn": false,
+        "image": "descarga.png"
     },
     {
         "dni": "42492167",
@@ -45,7 +48,8 @@
         "ip": "127.0.0.1",
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
-        "loggedIn": 0
+        "loggedIn": 0,
+        "image": "avatar.png"
     },
     {
         "dni": "234567",
@@ -57,6 +61,7 @@
         "ip": "127.0.0.1",
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
-        "loggedIn": 0
+        "loggedIn": 0,
+        "image": "avatar.png"
     }
 ]

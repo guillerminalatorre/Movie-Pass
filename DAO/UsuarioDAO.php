@@ -59,6 +59,7 @@
 				$valuesArray["registerDate"]=$usuario->getRegisterDate();
 				$valuesArray["lastConnection"]=$usuario->getLastConnection();
 				$valuesArray["loggedIn"]=$usuario->getLoggedIn();
+				$valuesArray["image"]=$usuario->getImage();
 			
 				array_push($arrayToEncode, $valuesArray);
 			}
@@ -95,6 +96,7 @@
 					$usuario->setRegisterDate($valuesArray["registerDate"]);
 					$usuario->setLastConnection($valuesArray["lastConnection"]);
 					$usuario->setLoggedIn($valuesArray["loggedIn"]);
+					$usuario->setImage($valuesArray["image"]);
 
 					array_push($this->usuarioList, $usuario);
 				}

@@ -38,7 +38,7 @@
   <ul class="navbar-nav ml-auto nav-flex-icons">
       <li class="nav-item avatar dropdown">
           <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <?php echo $_SESSION["loggedUser"]->getNombre() . " " . $_SESSION["loggedUser"]->getApellido(); ?><img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" height="30" class="rounded-circle z-depth-0 ml-2" alt="avatar image">
+            <?php echo $_SESSION["loggedUser"]->getNombre() . " " . $_SESSION["loggedUser"]->getApellido(); ?><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$_SESSION["loggedUser"]->getImage() ?>" height="30" class="rounded-circle z-depth-0 ml-2" alt="avatar image">
           </a>
           <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
             <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Home/ViewProfile/<?php echo $_SESSION["loggedUser"]->getEmail(); ?>"><i class="fas fa-user"></i> Ver perfil</a>

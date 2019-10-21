@@ -1,3 +1,4 @@
+<?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container mb-4">
     <div class="row">
         <div class="col-sm bg-light rounded p-4 text-center mr-4">
@@ -7,7 +8,7 @@
             <a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Home/ListUsers" role="button">Ver lista de usuarios</a>
             <?php } ?>
 
-            <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
+            <img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$usuario->getImage() ?>" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
             <h3 class="mt-2"><?php echo $usuario->getNombre()." ".$usuario->getApellido(); ?></h3>
 
             <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->

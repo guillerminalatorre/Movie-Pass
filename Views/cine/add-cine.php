@@ -1,3 +1,4 @@
+<?php require_once(VIEWS_PATH."navbar.php"); ?>
 <body>
     <div class="container container-fluid mt-4">
         <div class="panelForm">

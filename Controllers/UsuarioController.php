@@ -31,7 +31,7 @@
 			return $usuario;
 		}
 
-		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
+		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword, $image)
 		{
 			$usuario = $this->usuarioDAO->getByEmail($email);
 
@@ -47,7 +47,46 @@
 					{
 						$usuario->setPassword($password);
 					}
-				}				
+				}
+				
+				// Imagen de perfil
+				try
+            	{
+
+					if($_FILES["image"]["error"] > 0)
+					{
+						$message = "Error: " . $_FILES["image"]["error"] . "<br>";
+					}
+					else
+					{
+						$fileName = Functions::getInstance()->escapar($_FILES["image"]["name"]);
+						$tempFileName = $_FILES["image"]["tmp_name"];
+						$type = $_FILES["image"]["type"];
+						
+						$filePath = UPLOADS_PATH.basename($fileName);
+						$fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+						$imageSize = getimagesize($tempFileName);
+
+						if($imageSize !== false)
+						{
+							if (move_uploaded_file($tempFileName, $filePath))
+							{
+								$usuario->setImage($fileName);
+								$message = "Imagen subida correctamente";
+							}
+							else
+								$message = "Ocurrió un error al intentar subir la imagen";
+						}
+						else
+							$message = "El archivo no corresponde a una imágen";
+					}
+				}
+				catch(Exception $ex)
+				{
+					$message = $ex->getMessage();
+				}
+				// Fin imagen de perfil
+				
 				$this->usuarioDAO->saveData();
 			}
 			
@@ -56,12 +95,11 @@
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
 		{
-			$dni = Functions::getInstance()->escapar($dni);
-			$nombre = Functions::getInstance()->escapar($dni);
-			$apellido = Functions::getInstance()->escapar($dni);
-			$email = Functions::getInstance()->escapar($dni);
-			$password = Functions::getInstance()->escapar($dni);
-			$confirmpassword = Functions::getInstance()->escapar($dni);
+			$nombre = Functions::getInstance()->escapar($nombre);
+			$apellido = Functions::getInstance()->escapar($apellido);
+			$email = Functions::getInstance()->escapar($email);
+			$password = Functions::getInstance()->escapar($password);
+			$confirmpassword = Functions::getInstance()->escapar($confirmpassword);
 
 			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword)
 			{
