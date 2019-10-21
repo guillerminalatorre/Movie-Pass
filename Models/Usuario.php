@@ -20,6 +20,7 @@
 		private $lastConnection;
 		private $loggedIn;
 		private $image;
+		private $facebookId;
 
 		/**
 		 * Getter for Dni
@@ -265,6 +266,29 @@
 		public function setImage($image)
 		{
 			$this->image = $image;
+			return $this;
+		}
+
+		
+		/**
+		 * Getter for FacebookId
+		 *
+		 * @return [type]
+		 */
+		public function getFacebookId()
+		{
+			return $this->facebookId;
+		}
+
+		/**
+		 * Setter for FacebookId
+		 * @var [type] facebookId
+		 *
+		 * @return self
+		 */
+		public function setFacebookId($facebookId)
+		{
+			$this->facebookId = $facebookId;
 			return $this;
 		}
 	}

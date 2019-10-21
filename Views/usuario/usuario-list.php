@@ -18,7 +18,7 @@
             <?php foreach ($usuarioList as $id=>$usuario) { ?>
             <tr>
                 <td><?php echo $id+1; ?></td>
-                <td><a href="" class="text-light"><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$usuario->getImage() ?>" height="35" class="rounded-circle z-depth-0 mr-2" alt="avatar image"><b><?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?></b></a></td>
+                <td><a href="" class="text-light"><img src="<?php echo $usuario->getImage() ?>" height="35" class="rounded-circle z-depth-0 mr-2" alt="avatar image"><b><?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?></b></a></td>
                 <td><?php echo $usuario->getEmail(); ?></td>
                 <td><?php echo $usuario->getIp(); ?></td>
                 <td>

@@ -10,7 +10,8 @@
         "registerDate": 1571419160,
         "lastConnection": 1571619874,
         "loggedIn": false,
-        "image": "avatar.png"
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
     },
     {
         "dni": "70841371",
@@ -23,7 +24,8 @@
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
         "loggedIn": 0,
-        "image": "avatar.png"
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
     },
     {
         "dni": "666789789",
@@ -34,9 +36,10 @@
         "id_Rol": 3,
         "ip": "::1",
         "registerDate": 1571419160,
-        "lastConnection": 1571628132,
+        "lastConnection": 1571687464,
         "loggedIn": false,
-        "image": "descarga.png"
+        "image": "\/TP-Metodologia\/Uploads\/descarga.png",
+        "facebookId": null
     },
     {
         "dni": "42492167",
@@ -49,7 +52,8 @@
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
         "loggedIn": 0,
-        "image": "avatar.png"
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
     },
     {
         "dni": "234567",
@@ -62,6 +66,21 @@
         "registerDate": 1571419160,
         "lastConnection": 1571419160,
         "loggedIn": 0,
-        "image": "avatar.png"
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
+    },
+    {
+        "dni": null,
+        "password": 620230,
+        "email": "rodrii_cs@hotmail.com",
+        "apellido": "Fanjul",
+        "nombre": "Rodrigo",
+        "id_Rol": 1,
+        "ip": "::1",
+        "registerDate": 1571686838,
+        "lastConnection": 1571687654,
+        "loggedIn": false,
+        "image": "http:\/\/graph.facebook.com\/1874330122626592\/picture?type=square&height=200",
+        "facebookId": "1874330122626592"
     }
 ]

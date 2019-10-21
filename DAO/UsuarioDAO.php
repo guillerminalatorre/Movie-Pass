@@ -60,6 +60,7 @@
 				$valuesArray["lastConnection"]=$usuario->getLastConnection();
 				$valuesArray["loggedIn"]=$usuario->getLoggedIn();
 				$valuesArray["image"]=$usuario->getImage();
+				$valuesArray["facebookId"]=$usuario->getFacebookId();
 			
 				array_push($arrayToEncode, $valuesArray);
 			}
@@ -97,6 +98,7 @@
 					$usuario->setLastConnection($valuesArray["lastConnection"]);
 					$usuario->setLoggedIn($valuesArray["loggedIn"]);
 					$usuario->setImage($valuesArray["image"]);
+					$usuario->setFacebookId($valuesArray["facebookId"]);
 
 					array_push($this->usuarioList, $usuario);
 				}

@@ -4,7 +4,7 @@
         <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
             <div class="row">
                 <div class="form-group col-sm">
-                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Usuario/ShowLoginView" role="button">Volver a login</a>
+                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/Login" role="button">Volver a login</a>
                 </div>
                 <div class="form-group col-sm text-center">
                     <h2>Registro</h2>
@@ -46,6 +46,5 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Crear cuenta</button>
         </form>
-        <button class="btn btn-primary btn-lg btn-block"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</button>
     </div>
 </div>

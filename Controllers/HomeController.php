@@ -20,6 +20,8 @@ class HomeController
 	// Vistas de usuario
 	public function Login()
 	{
+		$usuarioController = new UsuarioController();
+		$facebookLoginUrl = $usuarioController->getFacebookLoginUrl();
 		require_once(VIEWS_PATH."usuario/login.php");
 	}
 

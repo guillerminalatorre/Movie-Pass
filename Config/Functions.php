@@ -37,9 +37,10 @@ class Functions
 
     public function escapar($string)
     {
+        //$string = stripslashes($string);
+        $string = strip_tags($string);
         $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
-        $string = stripslashes($string);
-        // $string = mysqli_real_escape_string(Database::getInstance()->getConn(), $string);
+        $string = mysqli_real_escape_string(Database::getInstance()->getConn(), $string);
         return $string;
     }
 }
