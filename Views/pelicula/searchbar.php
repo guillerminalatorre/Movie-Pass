@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="input-group col-md-3" role="group" aria-label="Second group">
-                    <input type="date" min="<?php echo date("Y-m-d")?>" class="form-control">
+                    <input type="date" name="fecha" min="<?php echo date("Y-m-d")?>" class="form-control">
                 </div>
                 <div class="btn-group col-md-3" role="group" aria-label="Third group">
                     <button type="submit" class="btn btn-warning">Buscar</button>
