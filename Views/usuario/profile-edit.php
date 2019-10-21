@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="form-group col-sm">
                     <label for="dni">Dni:</label>
-                    <input type="text" class="form-control" name="dni" value="<?php echo $usuario->getDni();?>" readonly="readonly">
+                    <input type="number" class="form-control" name="dni" value="<?php echo $usuario->getDni();?>" readonly="readonly">
                 </div>
             </div>
             <div class="row">

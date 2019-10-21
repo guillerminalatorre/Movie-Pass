@@ -3,13 +3,13 @@
         "dni": "38831866",
         "password": "1234",
         "email": "rodrii.fan@gmail.com",
-        "apellido": "Fatmagul",
+        "apellido": "Fanjul",
         "nombre": "Rodrigo",
         "id_Rol": 2,
-        "ip": "127.0.0.1",
+        "ip": "::1",
         "registerDate": 1571419160,
-        "lastConnection": 1571419160,
-        "loggedIn": 0
+        "lastConnection": 1571619874,
+        "loggedIn": false
     },
     {
         "dni": "70841371",
@@ -27,12 +27,12 @@
         "dni": "666789789",
         "password": "123456",
         "email": "elpibe123@gmail.com",
-        "apellido": "Guille",
-        "nombre": "Loca",
+        "apellido": "Latorree",
+        "nombre": "Guillerminaaaa",
         "id_Rol": 3,
         "ip": "::1",
         "registerDate": 1571419160,
-        "lastConnection": 1571455172,
+        "lastConnection": 1571619879,
         "loggedIn": false
     },
     {

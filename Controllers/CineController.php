@@ -43,8 +43,7 @@
 				$this->cineDAO->saveData();
 			}
 
-			$homeController = new HomeController();
-			$homeController->FichaCine($nombre);
+			Functions::getInstance()->redirect("Home","FichaCine",$nombre);
 		}
 
 		public function eliminarCine($nombre)
@@ -54,8 +53,7 @@
 			$funcionController = new FuncionController();
 			$funcionController->eliminarPorCine($nombre);
 
-			$homeController = new HomeController();
-			$homeController->ListCines();
+			Functions::getInstance()->redirect("Home","ListCines");
 		}
 
 		public function Add($nombre, $direccion, $capacidad, $precio)
@@ -71,13 +69,11 @@
 
 				$this->cineDAO->add($cine);
 
-				$homeController = new HomeController();
-				$homeController->ListCines();
+				Functions::getInstance()->redirect("Home","ListCines");
 			}
 			else
 			{
-				$homeController = new HomeController();
-				$homeController->AddCine();
+				Functions::getInstance()->redirect("Home","AddCine");
 			}
 		}
 	}

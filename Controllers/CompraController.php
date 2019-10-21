@@ -24,8 +24,7 @@
 
 			$this->compraDAO->add($compra);
 
-			$homeController = new HomeController();
-			$homeController->Index();
+			Functions::getInstance()->redirect("Home","Index");
 		}
 	}
 ?>

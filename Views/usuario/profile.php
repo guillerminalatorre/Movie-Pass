@@ -1,27 +1,3 @@
-<script>
-    function borrarUsuario(nombreUsuario)
-    {
-        preg = window.confirm('¿Desea borrar el usuario'+ nombreUsuario +'?');
-        if(preg==true) 
-        {
-            alert('Se ha borrado el usuario '+ nombreUsuario);
-        }
-        return preg;
-    }
-
-    function toggleAdmin(nombreUsuario, rolActual)
-    {
-        var preg;
-        preg = window.confirm('¿Desea dar/quitar administrador a '+ nombreUsuario +'?');
-        
-        if(preg == true) 
-        {
-            alert('Se ha cambiado el acceso de '+ nombreUsuario);
-        }
-        return preg;
-    }
-</script>
-
 <div class="container mb-4">
     <div class="row">
         <div class="col-sm bg-light rounded p-4 text-center mr-4">

@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="form-group col-sm">
                     <label for="dni">Dni:</label>
-                    <input type="text" class="form-control" name="dni" required>
+                    <input type="number" class="form-control" name="dni" required>
                 </div>
             </div>
             <div class="row">

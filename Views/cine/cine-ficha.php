@@ -1,22 +1,3 @@
-<script>
-    function borrarFuncion(id){
-        preg = window.confirm('¿Desea borrar la funcion?');
-        if(preg==true) 
-        {
-            alert('Se ha borrado la funcion '+ id);
-        }
-        return preg;
-    }
-    function borrarCine(nombreCine){
-        preg = window.confirm('¿Desea borrar el cine'+ nombreCine +'?');
-        if(preg==true) 
-        {
-            alert('Se ha borrado el cine '+ nombreCine);
-        }
-        return preg;
-    }
-</script>
-
 <div class="container container-fluid mt-4">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ListCines" role="button">Volver a lista de cines</a>

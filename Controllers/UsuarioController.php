@@ -51,8 +51,7 @@
 				$this->usuarioDAO->saveData();
 			}
 			
-			$homeController = new HomeController();
-			$homeController->ViewProfile($email);
+			Functions::getInstance()->redirect("Home","ViewProfile",$email);
 		}
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
@@ -88,8 +87,7 @@
 			}
 			else
 			{
-				$homeController = new HomeController();
-				$homeController->Register();
+				Functions::getInstance()->redirect("Home","Register");
 			}
 		}
 
@@ -104,8 +102,7 @@
 
 				if($_SESSION["loggedUser"]->getEmail() != $email)
 				{
-					$homeController = new HomeController();
-					$homeController->ListUsers();
+					Functions::getInstance()->redirect("Home","ListUsers");
 				}
 				else
 				{
@@ -126,13 +123,11 @@
 
 					$_SESSION["loggedUser"] = $usuario;
 
-					$homeController = new HomeController();
-					$homeController->Index();
+					Functions::getInstance()->redirect("Home","Index");
 				}
 				else
 				{
-					$homeController = new HomeController();
-					$homeController->Login();
+					Functions::getInstance()->redirect("Home","Login");
 				}
 			}
         }
@@ -145,8 +140,7 @@
 
             session_destroy();
 
-            $homeController = new HomeController();
-			$homeController->Index();
+            Functions::getInstance()->redirect("Home","Index");
 		}
 
 		public function notAdmin()
@@ -235,7 +229,6 @@
 					$this->usuarioDAO->saveData();
 				}
 			}
-			$homeController = new HomeController();
-			$homeController->ViewProfile($email);
+			Functions::getInstance()->redirect("Home","ViewProfile", $email);
 		}
 	}

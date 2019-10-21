@@ -31,6 +31,21 @@ class Functions
         return $this->message;
     }
 
+    public function redirect($controller, $method = "Home", $args = array())
+    {
+        if(is_array($args))
+        {
+            $location = FRONT_ROOT . $controller . "/" . $method . "/" . implode("/",$args);
+        }
+        else
+        {
+            $location = FRONT_ROOT . $controller . "/" . $method . "/" . $args;
+        }
+        
+        header("Location: " . $location);
+        exit;
+    }
+
     public function escapar($string)
     {
         $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');

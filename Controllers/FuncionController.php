@@ -39,12 +39,11 @@
 		{
 			$funcion = $this->funcionDAO->getById($id);
 
-			$nombreCine = $funcion->getNombre_Cine();
+			$nombre_Cine = $funcion->getNombre_Cine();
 
 			$this->funcionDAO->remove($id);
 
-			$homeController = new HomeController();
-			$homeController->FichaCine($nombreCine);
+			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
 		}
 
 		public function Add($id, $nombre_Cine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
@@ -61,8 +60,7 @@
 
 			$this->funcionDAO->add($funcion);
 
-			$homeController = new HomeController();
-			$homeController->FichaCine($nombre_Cine);
+			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
 		}
 
 		public function iDdisponible()
