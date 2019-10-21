@@ -71,7 +71,7 @@ class HomeController
 		require_once(VIEWS_PATH."pelicula/searchbar.php");
 	}
 
-	public function FilteredMovies($id,$fecha)
+	public function FilteredMovies($id = null, $fecha = null)
 	{
 		$peliculaController = new PeliculaController();
 		$peliculaList = $peliculaController->getFilteredMovies($id);	
