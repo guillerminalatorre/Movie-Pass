@@ -37,17 +37,20 @@
 
 		public function eliminarFuncion($id)
 		{
+			$_SESSION['flash'] = array();
 			$funcion = $this->funcionDAO->getById($id);
 
 			$nombre_Cine = $funcion->getNombre_Cine();
 
 			$this->funcionDAO->remove($id);
 
+			array_push($_SESSION['flash'], "La funcion se ha eliminado correctamente.");
 			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
 		}
 
 		public function Add($id, $nombre_Cine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
 		{
+			$_SESSION['flash'] = array();
 			$funcion = new Funcion();
 
 			$funcion->setId($id);
@@ -60,6 +63,7 @@
 
 			$this->funcionDAO->add($funcion);
 
+			array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
 			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
 		}
 

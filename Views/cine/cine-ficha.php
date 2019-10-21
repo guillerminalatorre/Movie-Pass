@@ -2,8 +2,7 @@
 <div class="container container-fluid mt-4">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
         <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ListCines" role="button">Volver a lista de cines</a>
-        <br> 
-        <br>  
+        <?php require_once(VIEWS_PATH."alert.php"); ?>
         <table class="table table-sm table-light">
             <thead >       
                 <tr>

@@ -1,5 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow-sm">
+    <?php require_once(VIEWS_PATH."alert.php"); ?>
     <h4 class="border-bottom border-gray pb-2 mb-0 text-white">Selecciona un cine:</h4>
 
     <?php foreach ($cineList as $cine) { ?>

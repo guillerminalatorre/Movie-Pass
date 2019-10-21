@@ -105,7 +105,7 @@ class HomeController
 	public function ModificarCine($nombre)
 	{
 		$cineController = new CineController();
-		$cineList = $cineController->getCine($nombre);
+		$cine = $cineController->getCine($nombre);
 		require_once(VIEWS_PATH."cine/cine-edit.php");
 	}
 
