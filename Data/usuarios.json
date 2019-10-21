@@ -78,8 +78,8 @@
         "id_Rol": 1,
         "ip": "::1",
         "registerDate": 1571686838,
-        "lastConnection": 1571687654,
-        "loggedIn": false,
+        "lastConnection": 1571694312,
+        "loggedIn": true,
         "image": "http:\/\/graph.facebook.com\/1874330122626592\/picture?type=square&height=200",
         "facebookId": "1874330122626592"
     }
