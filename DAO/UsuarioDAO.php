@@ -29,7 +29,7 @@
         {
             $this->RetrieveData();
 
-            $this->usuarioList = array_filter($this->cineList, function($usuario) use($email){
+            $this->usuarioList = array_filter($this->usuarioList, function($usuario) use($email){
                 return $usuario->getEmail() != $email;
             });
 
@@ -55,6 +55,12 @@
 				$valuesArray["apellido"]=$usuario->getApellido();
 				$valuesArray["nombre"]=$usuario->getNombre();
 				$valuesArray["id_Rol"]=$usuario->getId_Rol();
+				$valuesArray["ip"]=$usuario->getIp();
+				$valuesArray["registerDate"]=$usuario->getRegisterDate();
+				$valuesArray["lastConnection"]=$usuario->getLastConnection();
+				$valuesArray["loggedIn"]=$usuario->getLoggedIn();
+				$valuesArray["image"]=$usuario->getImage();
+				$valuesArray["facebookId"]=$usuario->getFacebookId();
 			
 				array_push($arrayToEncode, $valuesArray);
 			}
@@ -87,6 +93,12 @@
 					$usuario->setApellido($valuesArray["apellido"]);
 					$usuario->setNombre($valuesArray["nombre"]);
 					$usuario->setId_Rol($valuesArray["id_Rol"]);
+					$usuario->setIp($valuesArray["ip"]);
+					$usuario->setRegisterDate($valuesArray["registerDate"]);
+					$usuario->setLastConnection($valuesArray["lastConnection"]);
+					$usuario->setLoggedIn($valuesArray["loggedIn"]);
+					$usuario->setImage($valuesArray["image"]);
+					$usuario->setFacebookId($valuesArray["facebookId"]);
 
 					array_push($this->usuarioList, $usuario);
 				}

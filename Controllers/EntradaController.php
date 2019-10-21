@@ -18,25 +18,13 @@
 			$this->entradasDAO = new EntradaDAO();
 		}
 
-		public function ShowAddView()
-		{
-			require_once(VIEWS_PATH. "");
-		}
-
-		public function ShowListView()
-		{
-			$entradaList = $this->entradasDAO->getAll();
-
-			require_once(VIEWS-PATH."");
-		}
-
 		public function Add(int $id, string $qr, int $id_Compra, int $id_Funcion)
 		{
 			$entrada = new Entrada($id, $qr, $id_Compra, $id_Funcion);
 
 			$this->entradasDAO->add($entrada);
 
-			$this->ShowAddView();
+			Functions::getInstance()->redirect("Home","Index");
 		}
 	}
 ?>

@@ -15,6 +15,12 @@
 		private $apellido;
 		private $nombre;
 		private $id_Rol;
+		private $ip;
+		private $registerDate;
+		private $lastConnection;
+		private $loggedIn;
+		private $image;
+		private $facebookId;
 
 		/**
 		 * Getter for Dni
@@ -150,6 +156,139 @@
 		public function setId_Rol($id_Rol)
 		{
 			$this->id_Rol = $id_Rol;
+			return $this;
+		}
+
+		/**
+		 * Getter for Ip
+		 *
+		 * @return [type]
+		 */
+		public function getIp()
+		{
+			return $this->ip;
+		}
+
+		/**
+		 * Setter for Ip
+		 * @var [type] ip
+		 *
+		 * @return self
+		 */
+		public function setIp($ip)
+		{
+			$this->ip = $ip;
+			return $this;
+		}
+
+		/**
+		 * Getter for RegisterDate
+		 *
+		 * @return [type]
+		 */
+		public function getRegisterDate()
+		{
+			return $this->registerDate;
+		}
+
+		/**
+		 * Setter for RegisterDate
+		 * @var [type] registerDate
+		 *
+		 * @return self
+		 */
+		public function setRegisterDate($registerDate)
+		{
+			$this->registerDate = $registerDate;
+			return $this;
+		}
+
+		/**
+		 * Getter for LastConnection
+		 *
+		 * @return [type]
+		 */
+		public function getLastConnection()
+		{
+			return $this->lastConnection;
+		}
+
+		/**
+		 * Setter for LastConnection
+		 * @var [type] lastConnection
+		 *
+		 * @return self
+		 */
+		public function setLastConnection($lastConnection)
+		{
+			$this->lastConnection = $lastConnection;
+			return $this;
+		}
+
+		/**
+		 * Getter for LoggedIn
+		 *
+		 * @return [type]
+		 */
+		public function getLoggedIn()
+		{
+			return $this->loggedIn;
+		}
+
+		/**
+		 * Setter for LoggedIn
+		 * @var [type] loggedIn
+		 *
+		 * @return self
+		 */
+		public function setLoggedIn($loggedIn)
+		{
+			$this->loggedIn = $loggedIn;
+			return $this;
+		}
+
+		/**
+		 * Getter for Image
+		 *
+		 * @return [type]
+		 */
+		public function getImage()
+		{
+			return $this->image;
+		}
+
+		/**
+		 * Setter for Image
+		 * @var [type] image
+		 *
+		 * @return self
+		 */
+		public function setImage($image)
+		{
+			$this->image = $image;
+			return $this;
+		}
+
+		
+		/**
+		 * Getter for FacebookId
+		 *
+		 * @return [type]
+		 */
+		public function getFacebookId()
+		{
+			return $this->facebookId;
+		}
+
+		/**
+		 * Setter for FacebookId
+		 * @var [type] facebookId
+		 *
+		 * @return self
+		 */
+		public function setFacebookId($facebookId)
+		{
+			$this->facebookId = $facebookId;
 			return $this;
 		}
 	}

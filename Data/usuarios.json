@@ -3,9 +3,15 @@
         "dni": "38831866",
         "password": "1234",
         "email": "rodrii.fan@gmail.com",
-        "apellido": "Fatmagul",
+        "apellido": "Fanjul",
         "nombre": "Rodrigo",
-        "id_Rol": 1
+        "id_Rol": 2,
+        "ip": "::1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571619874,
+        "loggedIn": false,
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
     },
     {
         "dni": "70841371",
@@ -13,15 +19,27 @@
         "email": "Marcelolintz@gmail.com",
         "apellido": "Lintz",
         "nombre": "Marcelo",
-        "id_Rol": 2
+        "id_Rol": 1,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0,
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
     },
     {
         "dni": "666789789",
         "password": "123456",
         "email": "elpibe123@gmail.com",
-        "apellido": "Guille",
-        "nombre": "Loca",
-        "id_Rol": 3
+        "apellido": "Latorre",
+        "nombre": "Guillermina",
+        "id_Rol": 3,
+        "ip": "::1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571687464,
+        "loggedIn": false,
+        "image": "\/TP-Metodologia\/Uploads\/descarga.png",
+        "facebookId": null
     },
     {
         "dni": "42492167",
@@ -29,7 +47,13 @@
         "email": "pame@gmail.com",
         "apellido": "Berengena",
         "nombre": "Pame",
-        "id_Rol": 1
+        "id_Rol": 1,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0,
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
     },
     {
         "dni": "234567",
@@ -37,6 +61,26 @@
         "email": "martin@gmail.com",
         "apellido": "Howy",
         "nombre": "Martin",
-        "id_Rol": 2
+        "id_Rol": 2,
+        "ip": "127.0.0.1",
+        "registerDate": 1571419160,
+        "lastConnection": 1571419160,
+        "loggedIn": 0,
+        "image": "\/TP-Metodologia\/Uploads\/avatar.png",
+        "facebookId": null
+    },
+    {
+        "dni": null,
+        "password": 620230,
+        "email": "rodrii_cs@hotmail.com",
+        "apellido": "Fanjul",
+        "nombre": "Rodrigo",
+        "id_Rol": 1,
+        "ip": "::1",
+        "registerDate": 1571686838,
+        "lastConnection": 1571687654,
+        "loggedIn": false,
+        "image": "http:\/\/graph.facebook.com\/1874330122626592\/picture?type=square&height=200",
+        "facebookId": "1874330122626592"
     }
 ]

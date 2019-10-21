@@ -17,23 +17,33 @@
 		{
 			$this->funcionDAO = new FuncionDAO();
 		}
-	
-		public function ShowAddView($nombre_Cine)
-		{
-			$id = $this->funcionDAO->iDdisponible();
 
-			require_once(VIEWS_PATH."funcion-add.php");		
+		public function getFuncionList()
+		{
+			$funcionList = $this->funcionDAO->getAll();
+			return $funcionList;
+		}
+
+		public function getFuncionesDeCine($nombre)
+		{
+			$funcionList = $this->funcionDAO->getByCine($nombre);
+			return $funcionList;
+		}
+
+		public function eliminarPorCine($nombre)
+		{
+			$this->funcionDAO->eliminarGetByCine($nombre);
 		}
 
 		public function eliminarFuncion($id)
 		{
 			$funcion = $this->funcionDAO->getById($id);
 
-			$nombreCine = $funcion->getNombre_Cine();
+			$nombre_Cine = $funcion->getNombre_Cine();
 
 			$this->funcionDAO->remove($id);
 
-			header("Location: ".FRONT_ROOT."Cine/ShowFichaCine/".$nombreCine);
+			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
 		}
 
 		public function Add($id, $nombre_Cine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
@@ -50,7 +60,18 @@
 
 			$this->funcionDAO->add($funcion);
 
-			header("Location: ".FRONT_ROOT."Cine/ShowFichaCine/".$nombre_Cine);
+			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
+		}
+
+		public function iDdisponible()
+		{
+			$rta = 0;
+			$funcionList = $this->getFuncionList();
+			foreach($funcionList as $funcion)
+			{
+				$rta = $funcion->getId();
+			}
+			return $rta+1;
 		}
 	}
 ?>

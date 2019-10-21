@@ -10,11 +10,6 @@
 		private $peliculaList = array();
 		private $totalPages;
 
-		public function getNumberOfTotalPages()
-		{
-			return $this->totalPages;
-		}
-
 		public function add(Pelicula $pelicula)
 		{
 			$this->RetrieveData();
@@ -29,6 +24,11 @@
 			$this->Retrievedata();
 		
 			return $this->peliculaList;
+		}
+
+		public function getNumberOfTotalPages()
+		{
+			return $this->totalPages;
 		}
 
 		public function SaveData()

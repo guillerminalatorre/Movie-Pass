@@ -11,22 +11,15 @@ class GeneroDAO
 
     public function getAll()
     {
-        if(!file_exists(ROOT."Data/generos.json")){
+        if(!file_exists(ROOT."Data/generos.json"))
+        {
              $this->getGendersFromApi();
         }
-         else{
+        else
+        {
             $this->getGendersFromFile();
         }   
         return $this->generoList;
-    }
-
-    public function GetGeneroForId($id){
-        $generoList= $this->getAll();
-        foreach($this->generoList as $genero){
-            if($genero->getId()==$id){
-                return $genero->getNombre();
-            }
-        }
     }
 
     private function getGendersFromApi()
@@ -49,23 +42,23 @@ class GeneroDAO
 		file_put_contents("Data/generos.json", $jsonContent);
     }
 
-    private function getGendersFromFile(){
+    private function getGendersFromFile()
+    {
         $this->generoList = array();
+        if(file_exists(ROOT."Data/generos.json"));
+        {
+            $jsonContent = file_get_contents("Data/generos.json");
 
-			if(file_exists(ROOT."Data/generos.json"));
-			{
-				$jsonContent = file_get_contents("Data/generos.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$valueGenero = new Genero();
-					$valueGenero->setId($valuesArray["id"]);
-					$valueGenero->setNombre($valuesArray["name"]);
-					array_push($this->generoList, $valueGenero);
-				}
-			}
+            $arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+            
+            foreach($arrayToDecode as $valuesArray)
+            {
+                $valueGenero = new Genero();
+                $valueGenero->setId($valuesArray["id"]);
+                $valueGenero->setNombre($valuesArray["name"]);
+                array_push($this->generoList, $valueGenero);
+            }
+        }
     }
 }
 

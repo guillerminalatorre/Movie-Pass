@@ -18,25 +18,13 @@
 			$this->compraDAO = new CompraDAO();
 		}
 
-		public function ShowAddView()
-		{
-			require_once(VIEWS_PATH. "");
-		}
-
-		public function ShowListView()
-		{
-			$compraList = $this->compraDAO->getAll();
-
-			require_once(VIEWS-PATH."");
-		}
-
 		public function Add(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
 		{
 			$compra = new Compra($id,$fecha,$cantEntradas,$descuento,$total,$usuario);
 
 			$this->compraDAO->add($compra);
 
-			$this->ShowAddView();
+			Functions::getInstance()->redirect("Home","Index");
 		}
 	}
 ?>
