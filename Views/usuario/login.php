@@ -1,6 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
   <div class="loginForm">
+    <?php require_once(VIEWS_PATH."alert.php"); ?>
     <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">
       <h2 class="text-center">¡Hola! Para seguir, <br>ingresá tus datos</h2>
       <br>

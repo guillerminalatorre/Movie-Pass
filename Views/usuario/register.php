@@ -1,6 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
     <div class="registerForm">
+        <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
             <div class="row">
                 <div class="form-group col-sm">

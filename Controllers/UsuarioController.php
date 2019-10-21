@@ -34,6 +34,7 @@
 
 		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword, $image)
 		{
+			$_SESSION['flash'] = array();
 			$usuario = $this->usuarioDAO->getByEmail($email);
 
 			if($usuario != null)
@@ -44,10 +45,21 @@
 				// $usuario->setDni($dni);
 				if($usuario->getPassword() === $previouspassword)
 				{
-					if(($password != "") && ($confirmpassword != "") && ($password === $confirmpassword))
+					if(($password != "") && ($confirmpassword != ""))
 					{
-						$usuario->setPassword($password);
+						if($password === $confirmpassword)
+						{
+							$usuario->setPassword($password);
+						}			
+						else
+						{
+							array_push($_SESSION['flash'], "Las password nuevas no coinciden.");
+						}
 					}
+				}
+				else
+				{
+					array_push($_SESSION['flash'], "La password ingresada es incorrecta.");
 				}
 				
 				// Imagen de perfil
@@ -73,67 +85,83 @@
 							if (move_uploaded_file($tempFileName, $filePath))
 							{
 								$usuario->setImage(FRONT_ROOT.UPLOADS_PATH.$fileName);
-								$message = "Imagen subida correctamente";
+								array_push($_SESSION['flash'], "Imagen subida correctamente.");
 							}
 							else
-								$message = "Ocurrió un error al intentar subir la imagen";
+								array_push($_SESSION['flash'], "Ocurrió un error al intentar subir la imagen.");
 						}
 						else
-							$message = "El archivo no corresponde a una imágen";
+							array_push($_SESSION['flash'], "El archivo no corresponde a una imágen.");
 					}
 				}
 				catch(Exception $ex)
 				{
-					$message = $ex->getMessage();
+					array_push($_SESSION['flash'], $ex->getMessage());
 				}
 				// Fin imagen de perfil
-				
+
 				$this->usuarioDAO->saveData();
+				array_push($_SESSION['flash'], "Los datos se han actualizado correctamente.");
+			}
+			else
+			{
+				array_push($_SESSION['flash'], "El usuario no existe.");
 			}
 			
-			Functions::getInstance()->redirect("Home","ViewProfile",$email);
+			Functions::getInstance()->redirect("Home","ViewProfile", $email);
 		}
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
 		{
+			$_SESSION['flash'] = array();
 			$nombre = Functions::getInstance()->escapar($nombre);
 			$apellido = Functions::getInstance()->escapar($apellido);
 			$email = Functions::getInstance()->escapar($email);
 			$password = Functions::getInstance()->escapar($password);
 			$confirmpassword = Functions::getInstance()->escapar($confirmpassword);
 
-			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni) && $password == $confirmpassword)
+			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni))
 			{
-				$usuario = new Usuario();
-				$usuario->setDni($dni);
-				$usuario->setNombre($nombre);
-				$usuario->setApellido($apellido);
-				$usuario->setEmail($email);
-				$usuario->setPassword($password);
+				if($password == $confirmpassword)
+				{
+					$usuario = new Usuario();
+					$usuario->setDni($dni);
+					$usuario->setNombre($nombre);
+					$usuario->setApellido($apellido);
+					$usuario->setEmail($email);
+					$usuario->setPassword($password);
 
-				$id_Rol = 1;
-				$usuario->setId_Rol($id_Rol);
+					$id_Rol = 1;
+					$usuario->setId_Rol($id_Rol);
 
-				$ip = $this->getUserIp();
-				$usuario->setIp($ip);
+					$ip = $this->getUserIp();
+					$usuario->setIp($ip);
 
-				$date = time();
-				$usuario->setRegisterDate($date);
+					$date = time();
+					$usuario->setRegisterDate($date);
 
-				$usuario->setImage(FRONT_ROOT.UPLOADS_PATH."avatar.png");
+					$usuario->setImage(FRONT_ROOT.UPLOADS_PATH."avatar.png");
 
-				$this->usuarioDAO->add($usuario);
+					$this->usuarioDAO->add($usuario);
 
-				$this->Login($email, $password);
+					$this->Login($email, $password);
+				}
+				else
+				{
+					array_push($_SESSION['flash'], "Las password ingresadas no coinciden.");
+					Functions::getInstance()->redirect("Home","Register");
+				}				
 			}
 			else
 			{
+				array_push($_SESSION['flash'], "El usuario ya existe.");
 				Functions::getInstance()->redirect("Home","Register");
 			}
 		}
 
 		public function eliminarUsuario($email)
 		{
+			$_SESSION['flash'] = array();
 			// Solo puede ser usada por main admin / admin / usuario de su propia cuenta
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3))
 			{
@@ -143,10 +171,12 @@
 
 				if($_SESSION["loggedUser"]->getEmail() != $email)
 				{
+					array_push($_SESSION['flash'], "El usuario seleccionado fue eliminado.");
 					Functions::getInstance()->redirect("Home","ListUsers");
 				}
 				else
 				{
+					array_push($_SESSION['flash'], "Tu cuenta ha sido borrada satisfactoriamente.");
 					$this->Logout();
 				}
 			}
@@ -154,6 +184,7 @@
 
 		public function Login($email, $password)
         {
+			$_SESSION['flash'] = array();
             $usuario = $this->usuarioDAO->GetByEmail($email);
 
 			if($usuario != null)
@@ -164,12 +195,18 @@
 
 					$_SESSION["loggedUser"] = $usuario;
 
+					array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
 					Functions::getInstance()->redirect("Home","Index");
 				}
 				else
 				{
+					array_push($_SESSION['flash'], "Mail o password incorrectos.");
 					Functions::getInstance()->redirect("Home","Login");
 				}
+			}
+			else
+			{
+				array_push($_SESSION['flash'], "Mail o password incorrectos.");
 			}
 		}
 
@@ -192,6 +229,7 @@
 		
 		public function FacebookLogin()
 		{
+			$_SESSION['flash'] = array();
 			$fb = $this->getFacebookAPI();
 			$helper = $fb->getRedirectLoginHelper();			
 			try 
@@ -276,6 +314,7 @@
 
 				$_SESSION["loggedUser"] = $usuario;
 
+				array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
 				Functions::getInstance()->redirect("Home","Index");
 			}
 			else
@@ -333,12 +372,14 @@
         
         public function Logout()
         {
+			$_SESSION['flash'] = array();
 			$email = $_SESSION["loggedUser"]->getEmail();
 
 			$this->toggleUserLoginStatus($email);
 
             session_destroy();
 
+			array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
             Functions::getInstance()->redirect("Home","Index");
 		}
 
@@ -407,6 +448,7 @@
 
 		public function toggleAdmin($email)
 		{
+			$_SESSION['flash'] = array();
 			// Solo puede ser usada por main admin
 			if($_SESSION["loggedUser"]->getId_Rol() === 3)
 			{
@@ -428,6 +470,7 @@
 					$this->usuarioDAO->saveData();
 				}
 			}
+			array_push($_SESSION['flash'], "Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
 			Functions::getInstance()->redirect("Home","ViewProfile", $email);
 		}
 	}

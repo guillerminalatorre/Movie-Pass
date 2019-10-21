@@ -71,7 +71,7 @@ class HomeController
 		require_once(VIEWS_PATH."pelicula/searchbar.php");
 	}
 
-	public function FilteredMovies($id)
+	public function FilteredMovies($id = null, $fecha = null)
 	{
 		$peliculaController = new PeliculaController();
 		$peliculaList = $peliculaController->getFilteredMovies($id);	
@@ -105,7 +105,7 @@ class HomeController
 	public function ModificarCine($nombre)
 	{
 		$cineController = new CineController();
-		$cineList = $cineController->getCine($nombre);
+		$cine = $cineController->getCine($nombre);
 		require_once(VIEWS_PATH."cine/cine-edit.php");
 	}
 

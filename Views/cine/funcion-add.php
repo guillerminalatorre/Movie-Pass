@@ -2,6 +2,7 @@
 <div class="container">
     <div class="loginForm">
         <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/FichaCine/<?php echo $nombre_Cine; ?>" role="button">Volver a ficha del cine</a>
+        <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $nombre_Cine;?>" method="POST">
             <h2 class="text-left">Ingresa datos de la funcion: </h2>
             <br>

@@ -1,5 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container bg-dark rounded">
+    <?php require_once(VIEWS_PATH."alert.php"); ?>
     <div class="jumbotron bg-dark border-0 text-white">
         <form action="<?php echo FRONT_ROOT ?>Home/FilteredMovies/" method="POST">
             <div class="col-md-6 border-bottom pb-2 mb-n4">
@@ -20,7 +21,7 @@
                     </select>
                 </div>
                 <div class="input-group col-md-3" role="group" aria-label="Second group">
-                    <input type="date" min="<?php echo date("Y-m-d")?>" class="form-control">
+                    <input type="date" name="fecha" min="<?php echo date("Y-m-d")?>" class="form-control">
                 </div>
                 <div class="btn-group col-md-3" role="group" aria-label="Third group">
                     <button type="submit" class="btn btn-warning">Buscar</button>
