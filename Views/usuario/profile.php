@@ -20,7 +20,7 @@
             <?php } ?>
             
             <!-- Modificar perfil -->
-            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getEmail();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
+            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getId();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
             
             <!-- Eliminar cuenta -->
             <?php if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>

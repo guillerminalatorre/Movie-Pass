@@ -21,5 +21,5 @@
 	define("DB_HOST", "remotemysql.com");
 	define("DB_NAME", "dlsQli4swl");
 	define("DB_USER", "dlsQli4swl");
-	define("DB_PASS", "pSa5WjWEul");
+	define("DB_PASS", "btB12b3iWO");
 ?>
