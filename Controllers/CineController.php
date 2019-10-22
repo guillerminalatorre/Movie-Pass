@@ -34,6 +34,12 @@
 		public function updateCine($nombre, $direccion, $capacidad, $precio)
 		{
 			$_SESSION['flash'] = array();
+
+			$nombre = Functions::getInstance()->escapar($nombre);
+			$nombre = Functions::getInstance()->escapar($direccion);
+			$nombre = Functions::getInstance()->escapar($capacidad);
+			$nombre = Functions::getInstance()->escapar($precio);
+
 			$cine = $this->cineDAO->getByNombre($nombre);
 
 			if($cine != null)
@@ -68,17 +74,20 @@
 		public function Add($nombre, $direccion, $capacidad, $precio)
 		{
 			$_SESSION['flash'] = array();
+			
+			$nombre = Functions::getInstance()->escapar($nombre);
+			$nombre = Functions::getInstance()->escapar($direccion);
+			$nombre = Functions::getInstance()->escapar($capacidad);
+			$nombre = Functions::getInstance()->escapar($precio);
+
 			if(!$this->cineDAO->getByNombre($nombre))
 			{
 				$cine = new Cine();
-
 				$cine->setNombre($nombre);
 				$cine->setDireccion($direccion);
 				$cine->setCapacidad($capacidad);
 				$cine->setPrecio($precio);
-
 				$this->cineDAO->add($cine);
-
 				array_push($_SESSION['flash'], "El cine se ha creado correctamente.");
 				Functions::getInstance()->redirect("Home","ListCines");
 			}
