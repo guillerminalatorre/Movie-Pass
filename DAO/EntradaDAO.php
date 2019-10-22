@@ -1,145 +1,105 @@
 <?php
+/**
+ * @author Guille
+ * @version 1.0
+ * @created 06-oct.-2019 19:06:02
+ */
+namespace DAO;
+
+use Models\Entrada as Entrada;
+
+class EntradaDAO
+{
+	private $entradaList = array();
+
 	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:06:02
+	 * 
+	 * @param entrada
 	 */
-	namespace DAO;
-
-	use Models\Entrada as Entrada;
-
-	class EntradaDAO
+	public function add(Entrada $entrada)
 	{
-		private $entradaList = array();
+		$this->retrieveData();
 
-		/**
-		 * 
-		 * @param entrada
-		 */
-		public function add(Entrada $entrada)
-		{
-			$this->retrieveData();
-
-			array_push($this->entradaList, $entrada);
-				
-			$this->saveData();
-		}
-
-		public function getAll()
-		{
-			$this->Retrievedata();
-
-			return $this->entradasList;
-		}
-
-
-		public function saveData()
-		{
-			$arrayToEncode = array();
-
-			foreach($this->entradaList as $entrada)
-			{
-				$valuesArray["qr"]= $entrada->getQr();
-				$valuesArray["id_compra"]= $entrada->getCompra();
-				$valuesArray["id_funcion"]=$entrada->getFuncion();
+		array_push($this->entradaList, $entrada);
 			
-				array_push($arrayToEncode, $valuesArray);
-			}
+		$this->saveData();
+	}
 
-			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
+	function remove($nombre)
+	{
+		$this->RetrieveData();
 
-			file_put_contents("Data/entradas.json", $jsonContent);
+		$this->entradaList = array_filter($this->entradaList, function($entrada) use($qr){
+			return $entrada->getQr() != $qr;
+		});
+
+		$this->SaveData();
+	}
+
+	public function getAll()
+	{
+		$this->Retrievedata();
+
+		return $this->entradasList;
+	}
+
+
+	public function saveData()
+	{
+		$arrayToEncode = array();
+
+		foreach($this->entradaList as $entrada)
+		{
+			$valuesArray["qr"]= $entrada->getQr();
+			$valuesArray["id_compra"]= $entrada->getCompra();
+			$valuesArray["id_funcion"]=$entrada->getFuncion();
+		
+			array_push($arrayToEncode, $valuesArray);
 		}
 
-		public function retrieveData()
+		$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
+
+		$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+		file_put_contents($jsonPath, $jsonContent);
+	}
+
+	public function retrieveData()
+	{
+		$this->entradaList = array();
+
+		$jsonPath = $this->GetJsonFilePath(); //Get correct json path
+
+		if(file_exists($jsonPath));
 		{
-			$this->entradaList = array();
+			$jsonContent = file_get_contents($jsonPath);
 
-			if(file_exists("Data/entradas.json"));
+			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+			
+			foreach($arrayToDecode as $valuesArray)
 			{
-				$jsonContent = file_get_contents("Data/entradas.json");
+				$entrada = new Entrada();
+				$entrada->setQr($valuesArray["qr"]);
+				$entrada->setCompra($valuesArray["id_compra"]);
+				$entrada->setFuncion($valuesArray["id_funcion"]);
 
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$entrada = new Entrada();
-					$entrada->setQr($valuesArray["qr"]);
-					$entrada->setCompra($valuesArray["id_compra"]);
-					$entrada->setFuncion($valuesArray["id_funcion"]);
-
-					array_push($this->entradaList, $entrada);
-				}
-			}
-		}
-
-		/**
-		 * retorna 0 si no existe, la id si existe
-		 * @param entrada
-		 */
-		public function entradaExists(Entrada $entradaAbuscar)
-		{
-
-			$this->entradaList = array();
-
-			if(file_exists("Data/entradas.json"));
-			{
-				$jsonContent = file_get_contents("Data/entradas.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$entrada = new Entrada();
-					$entrada->setQr($valuesArray["qr"]);
-					$entrada->setCompra($valuesArray["id_compra"]);
-					$entrada->setFuncion($valuesArray["id_funcion"]);
-
-					if($entradaAbuscar->getId() === $entrada->getId())
-					{
-						return $entrada->getId();
-					}
-					if($entradaAbuscar->getId_Compra() === $entrada->getId_Compra())
-					{
-						return $entrada->getId();
-					}
-					if($entradaAbuscar->getQr() === $entrada->getQr())
-					{
-						return $entrada->getId();
-					}
-				}
-			}
-		}
-
-		/**
-		 * 
-		 * @param id
-		 */
-		public function eliminarEntrada(int $id)
-		{
-			$this->entradaList = array();
-
-			if(file_exists("Data/entradas.json"));
-			{
-				$jsonContent = file_get_contents("Data/entradas.json");
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$entrada = new Entrada();
-					$entrada->setQr($valuesArray["qr"]);
-					$entrada->setCompra($valuesArray["id_compra"]);
-					$entrada->setFuncion($valuesArray["id_funcion"]);
-
-					if($id != $entrada->getId())
-					{
-						array_push($this->entradaList, $entrada);
-					}
-				}
-
-				$this->SaveData();
+				array_push($this->entradaList, $entrada);
 			}
 		}
 	}
+
+	//Need this function to return correct file json path
+	function GetJsonFilePath(){
+
+		$initialPath = "Data\\entradas.json";
+		
+		if(file_exists($initialPath)){
+			$jsonFilePath = $initialPath;
+		}else{
+			$jsonFilePath = ROOT.$initialPath;
+		}
+		
+		return $jsonFilePath;
+	}
+}
 ?>

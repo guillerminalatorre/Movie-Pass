@@ -24,7 +24,7 @@
 
 			$this->entradasDAO->add($entrada);
 
-			Functions::getInstance()->redirect("Home","Index");
+			Functions::getInstance()->redirect("Home");
 		}
 	}
 ?>

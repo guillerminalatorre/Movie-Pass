@@ -20,16 +20,52 @@
 			$this->usuarioDAO = new UsuarioDAO();
 		}
 
-		public function getUserList()
+		public function ShowProfileView($email)
 		{
-			$usuarioList = $this->usuarioDAO->getAll();
-			return $usuarioList;
+			$_SESSION['flash'] = array();
+			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
+			$_SESSION["loggedUser"]->getEmail() === $email)
+			{
+				$usuario = $this->usuarioDAO->getByEmail($email);
+				require_once(VIEWS_PATH."usuario/profile.php");
+			}
+			else
+			{
+				array_push($_SESSION['flash'], "No tienes acceso para ver ese perfil.");
+				Functions::getInstance()->redirect("Home");
+			}	
 		}
 
-		public function getUser($email)
+		public function ShowEditView($email)
 		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
-			return $usuario;
+			$_SESSION['flash'] = array();
+			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
+			$_SESSION["loggedUser"]->getEmail() === $email)
+			{
+				$usuario = $this->usuarioDAO->getByEmail($email);
+				require_once(VIEWS_PATH."usuario/profile-edit.php");
+			}
+			else
+			{
+				array_push($_SESSION['flash'], "No tienes acceso para editar ese perfil.");
+				Functions::getInstance()->redirect("Home");
+			}
+		}
+
+		public function ShowListView()
+		{
+			$_SESSION['flash'] = array();
+			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
+			$_SESSION["loggedUser"]->getEmail() === $email)
+			{
+				$usuarioList = $this->usuarioDAO->getAll();
+				require_once(VIEWS_PATH."usuario/usuario-list.php");
+			}
+			else
+			{
+				array_push($_SESSION['flash'], "No tienes acceso para ver la lista de usuarios.");
+				Functions::getInstance()->redirect("Home");
+			}
 		}
 
 		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword, $image)
@@ -108,7 +144,7 @@
 				array_push($_SESSION['flash'], "El usuario no existe.");
 			}
 			
-			Functions::getInstance()->redirect("Home","ViewProfile", $email);
+			Functions::getInstance()->redirect("Usuario","ShowProfileView", $email);
 		}
 
 		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
@@ -149,13 +185,13 @@
 				else
 				{
 					array_push($_SESSION['flash'], "Las password ingresadas no coinciden.");
-					Functions::getInstance()->redirect("Home","Register");
+					Functions::getInstance()->redirect("Register");
 				}				
 			}
 			else
 			{
 				array_push($_SESSION['flash'], "El usuario ya existe.");
-				Functions::getInstance()->redirect("Home","Register");
+				Functions::getInstance()->redirect("Register");
 			}
 		}
 
@@ -172,7 +208,7 @@
 				if($_SESSION["loggedUser"]->getEmail() != $email)
 				{
 					array_push($_SESSION['flash'], "El usuario seleccionado fue eliminado.");
-					Functions::getInstance()->redirect("Home","ListUsers");
+					Functions::getInstance()->redirect("Usuario","ShowListView");
 				}
 				else
 				{
@@ -196,12 +232,12 @@
 					$_SESSION["loggedUser"] = $usuario;
 
 					array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
-					Functions::getInstance()->redirect("Home","Index");
+					Functions::getInstance()->redirect("Home");
 				}
 				else
 				{
 					array_push($_SESSION['flash'], "Mail o password incorrectos.");
-					Functions::getInstance()->redirect("Home","Login");
+					Functions::getInstance()->redirect("Login");
 				}
 			}
 			else
@@ -309,13 +345,7 @@
 
 			if($usuario != null)
 			{
-				//Si ya existe el usuario lo logueamos y finalizamos
-				$this->toggleUserLoginStatus($facebookData['email']);
-
-				$_SESSION["loggedUser"] = $usuario;
-
-				array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
-				Functions::getInstance()->redirect("Home","Index");
+				$this->Login($usuario->getEmail(), $usuario->getPassword());
 			}
 			else
 			{
@@ -380,7 +410,7 @@
             session_destroy();
 
 			array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
-            Functions::getInstance()->redirect("Home","Index");
+            Functions::getInstance()->redirect("Home");
 		}
 
 		public function notAdmin()
@@ -471,6 +501,6 @@
 				}
 			}
 			array_push($_SESSION['flash'], "Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
-			Functions::getInstance()->redirect("Home","ViewProfile", $email);
+			Functions::getInstance()->redirect("Usuario","ShowProfileView", $email);
 		}
 	}

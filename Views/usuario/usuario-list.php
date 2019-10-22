@@ -44,10 +44,10 @@
                 </td>
                 <td>
                 <?php 
-                    echo $usuarioController->getUserRol($usuario->getId_Rol());
+                    echo $this->getUserRol($usuario->getId_Rol());
                 ?>
                 </td>
-                <td><a href="<?php echo FRONT_ROOT ?>Home/ViewProfile/<?php echo $usuario->getEmail(); ?>" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><h4><i class="fas fa-arrow-circle-right"></i></h4></a></td>
+                <td><a href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $usuario->getEmail(); ?>" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><h4><i class="fas fa-arrow-circle-right"></i></h4></a></td>
             </tr>
             <?php } ?>
         </tbody>

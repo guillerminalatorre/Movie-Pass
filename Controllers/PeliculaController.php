@@ -7,6 +7,7 @@
 namespace Controllers;
 
 use DAO\PeliculaDAO as PeliculaDAO;
+use DAO\GeneroDAO as GeneroDAO;
 use Models\Pelicula as Pelicula;
 
 class PeliculaController
@@ -14,42 +15,30 @@ class PeliculaController
 	private $peliculaDAO;
 
 	function __construct()
-	{
+	{		
 		$this->peliculaDAO = new PeliculaDAO();
+		$this->generoDAO = new GeneroDAO();
 	}
 
-	public function getMovies()
-	{
+	public function List()
+	{	
+		$this->SearchBar();
 		$peliculaList = $this->peliculaDAO->getNowPlayingMovies();
-		return $peliculaList;
+		$totalPages = $this->peliculaDAO->getTotalPages();
+		require_once(VIEWS_PATH."pelicula/listarpeliculas.php");
 	}
 
-	public function getTotalPages()
+	public function SearchBar()
 	{
-		$totalPages = $this->peliculaDAO->getNumberOfTotalPages();
-		return $totalPages;
+		$generoList = $this->generoDAO->getAll();
+		require_once(VIEWS_PATH."pelicula/searchbar.php");
 	}
 
-	public function getFilteredMovies($id)
+	public function FilteredList($id = null, $fecha = null)
 	{
-		$peliculaList= $this->peliculaDAO->getMoviesByGender($id);
-		return $peliculaList;
-	}
-
-	public function replaceGenreNames($peliculaList)
-	{
-		foreach($peliculaList as $pelicula)
-		{
-			$generoNames = array();
-			$peliculaGeneros = $pelicula->getGeneros();
-			$generoController = new GeneroController();
-			foreach($peliculaGeneros as $generoId)
-			{
-				array_push($generoNames, $generoController->getNombrePorId($generoId));
-			}
-			$pelicula->setGeneros($generoNames);
-		}
-		return $peliculaList;
+		$peliculaList = $this->peliculaDAO->getFilteredMovies($id);	
+		$totalPages = $this->peliculaDAO->getTotalPages();
+		require_once(VIEWS_PATH."pelicula/listarpeliculas.php");
 	}
 }
 ?>

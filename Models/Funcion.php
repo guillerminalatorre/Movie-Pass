@@ -9,10 +9,10 @@
 	class Funcion
 	{
 		private $id;
-		private $nombre_Cine;
+		private $nombreCine;
 		private $fecha;
 		private $hora;
-		private $id_Pelicula;	
+		private $idPelicula;	
 		private $cantEntradas;
 		private $cantVendidas;
 
@@ -25,28 +25,7 @@
 		{
 			return $this->id;
 		}
-	
-		/**
- * Getter for Nombre_Cine
- *
- * @return [type]
- */
-public function getNombre_Cine()
-{
-    return $this->nombre_Cine;
-}
 
-/**
- * Setter for Nombre_Cine
- * @var [type] nombre_Cine
- *
- * @return self
- */
-public function setNombre_Cine($nombreCine)
-{
-    $this->nombre_Cine = $nombreCine;
-    return $this;
-}
 		/**
 		 * Setter for Id
 		* @var [type] id
@@ -58,6 +37,29 @@ public function setNombre_Cine($nombreCine)
 			$this->id = $id;
 			return $this;
 		}
+
+	
+		/**
+		 * Getter for NombreCine
+		 *
+		 * @return [type]
+		 */
+		public function getNombreCine()
+		{
+			return $this->nombreCine;
+		}
+
+		/**
+		 * Setter for NombreCine
+		 * @var [type] nombreCine
+		 *
+		 * @return self
+		 */
+		public function setNombreCine($nombreCine)
+		{
+			$this->nombreCine = $nombreCine;
+			return $this;
+		}		
 	
 
 		/**
@@ -107,24 +109,24 @@ public function setNombre_Cine($nombreCine)
 	
 	
 		/**
-		 * Getter for Id_Pelicula
+		 * Getter for IdPelicula
 		*
 		* @return [type]
 		*/
-		public function getId_Pelicula()
+		public function getIdPelicula()
 		{
-			return $this->id_Pelicula;
+			return $this->idPelicula;
 		}
 	
 		/**
-		 * Setter for Id_Pelicula
-		* @var [type] id_Pelicula
+		 * Setter for IdPelicula
+		* @var [type] idPelicula
 		*
 		* @return self
 		*/
-		public function setId_Pelicula($id_Pelicula)
+		public function setIdPelicula($idPelicula)
 		{
-			$this->id_Pelicula = $id_Pelicula;
+			$this->idPelicula = $idPelicula;
 			return $this;
 		}
 
@@ -150,8 +152,9 @@ public function setNombre_Cine($nombreCine)
 			$this->cantEntradas = $cantEntradas;
 			return $this;
 		}
+		
 
-			/**
+		/**
 		 * Getter for CantVendidas
 		 *
 		 * @return [type]
@@ -171,16 +174,6 @@ public function setNombre_Cine($nombreCine)
 		{
 			$this->cantVendidas = $cantVendidas;
 			return $this;
-		}
-
-		public function agregarEntradasVendidas( int $nuevasEntradasVendidas)
-		{
-			if($this->cantEntradas >= ($cantVendidas + $nuevasEntradasVendidas))
-			{
-				setCantEntradas($this->cantVendidas + $nuevasEntradasVendidas);
-				return true;
-			}
-			return false;
 		}
 	}
 ?>

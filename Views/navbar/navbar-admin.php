@@ -1,11 +1,11 @@
 <li class="nav-item ml-2">
-    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Home/ListMovies">Peliculas</a>
+    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Pelicula/List">Peliculas</a>
 </li>
 
 <li class="nav-item ml-2">
-    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Home/ListCines">Cines</a>
+    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Cine/ShowListView">Cines</a>
 </li>
 
 <li class="nav-item ml-2">
-    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Home/ListUsers">Usuarios</a>
+    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView">Usuarios</a>
 </li>

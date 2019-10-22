@@ -1,9 +1,9 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
     <div class="loginForm">
-        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/FichaCine/<?php echo $nombre_Cine; ?>" role="button">Volver a ficha del cine</a>
+        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $nombreCine; ?>" role="button">Volver a ficha del cine</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
-        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $nombre_Cine;?>" method="POST">
+        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $nombreCine;?>" method="POST">
             <h2 class="text-left">Ingresa datos de la funcion: </h2>
             <br>
             <div class="row">
@@ -19,7 +19,7 @@
                     <label for="nombreCine">NombreCine:</label>
                 </div>
                 <div>
-                    <input type="text" class="form-control" name="nombreCine" readonly="readonly" value="<?php echo $nombre_Cine?>">
+                    <input type="text" class="form-control" name="nombreCine" readonly="readonly" value="<?php echo $nombreCine?>">
                 </div>
             </div>
             <div class="row">

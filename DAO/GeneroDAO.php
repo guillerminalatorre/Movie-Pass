@@ -22,6 +22,17 @@ class GeneroDAO
         return $this->generoList;
     }
 
+    public function getNombrePorId($id)
+    {
+        $generoList = $this->getAll();
+        $nombre = null;
+        foreach($generoList as $genero)
+        {
+            if($genero->getId() === $id) $nombre = $genero->getNombre();
+        }
+        return $nombre;
+    }
+
     private function getGendersFromApi()
     {
         $arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES);
@@ -61,5 +72,4 @@ class GeneroDAO
         }
     }
 }
-
 ?>
