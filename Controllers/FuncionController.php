@@ -18,21 +18,10 @@
 			$this->funcionDAO = new FuncionDAO();
 		}
 
-		public function getFuncionList()
+		public function ShowAddView($nombreCine)
 		{
-			$funcionList = $this->funcionDAO->getAll();
-			return $funcionList;
-		}
-
-		public function getFuncionesDeCine($nombre)
-		{
-			$funcionList = $this->funcionDAO->getByCine($nombre);
-			return $funcionList;
-		}
-
-		public function eliminarPorCine($nombre)
-		{
-			$this->funcionDAO->eliminarGetByCine($nombre);
+			$id = $this->IdDisponible();
+			require_once(VIEWS_PATH."cine/funcion-add.php");
 		}
 
 		public function eliminarFuncion($id)
@@ -40,37 +29,37 @@
 			$_SESSION['flash'] = array();
 			$funcion = $this->funcionDAO->getById($id);
 
-			$nombre_Cine = $funcion->getNombre_Cine();
+			$nombreCine = $funcion->getNombreCine();
 
 			$this->funcionDAO->remove($id);
 
 			array_push($_SESSION['flash'], "La funcion se ha eliminado correctamente.");
-			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
+			Functions::getInstance()->redirect("Cine","ShowFichaView", $nombreCine);
 		}
 
-		public function Add($id, $nombre_Cine, $id_Pelicula, $fecha,  $hora,  $cantEntradas)
+		public function Add($id, $nombreCine, $idPelicula, $fecha,  $hora,  $cantEntradas)
 		{
 			$_SESSION['flash'] = array();
 			$funcion = new Funcion();
 
 			$funcion->setId($id);
-			$funcion->setNombre_Cine($nombre_Cine);
+			$funcion->setNombreCine($nombreCine);
 			$funcion->setFecha($fecha);
 			$funcion->setHora($hora);
-			$funcion->setId_Pelicula($id_Pelicula);
+			$funcion->setIdPelicula($idPelicula);
 			$funcion->setCantEntradas($cantEntradas);
 			$funcion->setCantVendidas(0);
 
 			$this->funcionDAO->add($funcion);
 
 			array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
-			Functions::getInstance()->redirect("Home","FichaCine", $nombre_Cine);
+			Functions::getInstance()->redirect("Cine","ShowFichaView", $nombreCine);
 		}
-
+		
 		public function iDdisponible()
 		{
 			$rta = 0;
-			$funcionList = $this->getFuncionList();
+			$funcionList = $this->funcionDAO->getAll();
 			foreach($funcionList as $funcion)
 			{
 				$rta = $funcion->getId();

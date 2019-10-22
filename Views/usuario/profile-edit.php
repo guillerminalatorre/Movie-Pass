@@ -5,7 +5,7 @@
         <form action="<?php echo FRONT_ROOT ?>Usuario/UpdateUser" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="form-group col-sm">
-                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ViewProfile/<?php echo $usuario->getEmail(); ?>" role="button">Volver a perfil</a>
+                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $usuario->getEmail(); ?>" role="button">Volver a perfil</a>
                 </div>
                 <div class="form-group col-sm text-center">
                     <h2>Modificar perfil</h2>

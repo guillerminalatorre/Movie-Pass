@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid mt-4">
     <div class="my-3 p-3 bg-white rounded shadow-sm">
-        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ListCines" role="button">Volver a lista de cines</a>
+        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <table class="table table-sm table-light">
             <thead >       
@@ -13,7 +13,7 @@
                     <h1 class="display-2"><?php echo $cine->getNombre(); ?></h1>
                 </th>
                 <th scope="col" style="text-align:right">
-                    <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Home/ModificarCine/<?php echo $cine->getNombre();?>">Modificar cine</a>
+                    <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowEditView/<?php echo $cine->getNombre();?>">Modificar cine</a>
                 </th>
                 </tr>
             </thead>
@@ -52,7 +52,7 @@
                     <th scope="col" style="text-align:center">Cant. Entradas</th>
                     <th scope="col" style="text-align:center">Cant. Vendidas</th>
                     <th scope="col" style="text-align:right">
-                        <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Home/AddFuncion/<?php echo $cine->getNombre(); ?>">Agregar función</a>
+                        <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getNombre(); ?>">Agregar función</a>
                     </th>
                 </tr>
             </thead>

@@ -5,7 +5,7 @@
 
             <!-- Volver a lista de usuarios solo para admins -->
             <?php if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) { ?>
-            <a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Home/ListUsers" role="button">Ver lista de usuarios</a>
+            <a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a>
             <?php } ?>
 
             <?php require_once(VIEWS_PATH."alert.php"); ?>
@@ -20,7 +20,7 @@
             <?php } ?>
             
             <!-- Modificar perfil -->
-            <a href="<?php echo FRONT_ROOT ?>Home/EditProfile/<?php echo $usuario->getEmail();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
+            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getEmail();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
             
             <!-- Eliminar cuenta -->
             <?php if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>

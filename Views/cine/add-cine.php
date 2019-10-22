@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid mt-4">
     <div class="panelForm">
-        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/ListCines" role="button">Volver a lista de cines</a>
+        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Cine/Add" method="POST">
             <h2 class="text-left">Ingresa datos del cine: </h2>

@@ -17,23 +17,5 @@
 		{
 			$this->generoDAO = new GeneroDAO();
 		}
-
-		public function getGeneroList()
-		{
-			$generoList = $this->generoDAO->getAll();
-			return $generoList;
-		}
-
-		public function getNombrePorId($id)
-		{
-			$nombre = null;
-			$generoList = $this->generoDAO->getAll();
-
-			foreach($generoList as $genero)
-			{
-				if($genero->getId() == $id) $nombre = $genero->getNombre();
-			}
-			return $nombre;
-		}
 	}
 ?>

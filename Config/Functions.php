@@ -20,7 +20,7 @@ class Functions
         return self::$instance;
     }
 
-    public function redirect($controller, $method = "Home", $args = array())
+    public function redirect($controller = "Home", $method = "Index", $args = array())
     {
         if(is_array($args))
         {

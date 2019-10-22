@@ -9,12 +9,11 @@
 namespace Controllers;
 
 use Models\Usuario as Usuario;
-use Config\Functions as Functions;
 
-class HomeController
+class RegisterController
 {
-	public function Index()
+    public function Index()
 	{
-		Functions::getInstance()->redirect("Pelicula","List");
+		require_once(VIEWS_PATH."usuario/register.php");
 	}
 }

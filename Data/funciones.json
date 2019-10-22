@@ -1,10 +1,10 @@
 [
     {
         "id": "1",
-        "nombre_Cine": "des",
+        "nombreCine": "des",
         "fecha": "2019-10-25",
         "hora": "01:00",
-        "id_Pelicula": "12",
+        "idPelicula": "12",
         "cantEntradas": "1",
         "cantVendidas": 0
     }

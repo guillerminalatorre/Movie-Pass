@@ -21,6 +21,6 @@
       </div>
     </form>
     <div class="dropdown-divider mt-5"></div>
-    <p class="message text-center">Eres nuevo? <a href="<?php echo FRONT_ROOT ?>Home/Register"> Registrate</a></p>
+    <p class="message text-center">Eres nuevo? <a href="<?php echo FRONT_ROOT ?>Register"> Registrate</a></p>
   </div>
 </div>

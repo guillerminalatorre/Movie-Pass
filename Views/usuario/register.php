@@ -5,7 +5,7 @@
         <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
             <div class="row">
                 <div class="form-group col-sm">
-                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Home/Login" role="button">Volver a login</a>
+                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Login" role="button">Volver a login</a>
                 </div>
                 <div class="form-group col-sm text-center">
                     <h2>Registro</h2>

@@ -1,8 +1,8 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container bg-dark rounded">
+<div class="container bg-dark rounded pt-2">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
     <div class="jumbotron bg-dark border-0 text-white">
-        <form action="<?php echo FRONT_ROOT ?>Home/FilteredMovies/" method="POST">
+        <form action="<?php echo FRONT_ROOT ?>Pelicula/FilteredList/" method="POST">
             <div class="col-md-6 border-bottom pb-2 mb-n4">
                 <h3 class="">Elije una categoria y/o una fecha: </h3>
             </div>
