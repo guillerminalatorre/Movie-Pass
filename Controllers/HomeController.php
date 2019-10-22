@@ -15,6 +15,6 @@ class HomeController
 {
 	public function Index()
 	{
-		Functions::getInstance()->redirect("Pelicula","List");
+		Functions::getInstance()->redirect("Pelicula","ShowListView");
 	}
 }
