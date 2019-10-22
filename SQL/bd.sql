@@ -50,9 +50,10 @@ CREATE TABLE Funciones
 drop table peliculasxgeneros;
 CREATE TABLE PeliculasXGeneros
 (
+	id_peliculasxgeneros INT NOT NULL AUTO_INCREMENT,
 	id_peliculaa INT NOT NULL,
 	id_generoo INT NOT NULL,
-	CONSTRAINT PK_PeliculasXGeneros PRIMARY KEY (id_peliculaa, id_generoo ),
+	CONSTRAINT PK_id_peliculasxgeneros PRIMARY KEY (id_peliculasxgeneros),
 	CONSTRAINT FK_id_peliculaa FOREIGN KEY (id_peliculaa) REFERENCES Peliculas (id_pelicula) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT FK_id_generoo FOREIGN KEY (id_generoo) REFERENCES Generos (id_genero) ON DELETE NO ACTION ON UPDATE CASCADE
 );
@@ -69,10 +70,9 @@ CREATE TABLE Usuarios
 	ip INT,
 	registerDate INT,
 	lastConnection INT,
-	loggedIn BOOLEAN,
+	loggedIn TINYINT(1),
 	image varchar(256),
 	facebookId int,
 	CONSTRAINT PK_dni PRIMARY KEY (dni ASC),
-	CONSTRAINT UNQ_email UNIQUE (email ASC),
-	CONSTRAINT CHK_rol CHECK (1 or 2 or 3)
+	CONSTRAINT UNQ_email UNIQUE (email ASC)
 );

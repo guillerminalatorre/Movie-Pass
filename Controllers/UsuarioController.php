@@ -20,41 +20,40 @@
 			$this->usuarioDAO = new UsuarioDAO();
 		}
 
-		public function ShowProfileView($email)
+		public function ShowProfileView($id)
 		{
-			$_SESSION['flash'] = array();
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
-			$_SESSION["loggedUser"]->getEmail() === $email)
+			$_SESSION["loggedUser"]->getEmail() === $id)
 			{
-				$usuario = $this->usuarioDAO->getByEmail($email);
+				$usuario = new Usuario();
+				$usuario->setId($id);
+				$usuario = $this->usuarioDAO->getUsuario($usuario);
 				require_once(VIEWS_PATH."usuario/profile.php");
 			}
 			else
 			{
-				array_push($_SESSION['flash'], "No tienes acceso para ver ese perfil.");
 				Functions::getInstance()->redirect("Home");
 			}	
 		}
 
 		public function ShowEditView($email)
 		{
-			$_SESSION['flash'] = array();
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
 			$_SESSION["loggedUser"]->getEmail() === $email)
 			{
-				$usuario = $this->usuarioDAO->getByEmail($email);
+				$usuario = new Usuario();
+				$usuario->setId($id);
+				$usuario = $this->usuarioDAO->getUsuario($usuario);
 				require_once(VIEWS_PATH."usuario/profile-edit.php");
 			}
 			else
 			{
-				array_push($_SESSION['flash'], "No tienes acceso para editar ese perfil.");
 				Functions::getInstance()->redirect("Home");
 			}
 		}
 
 		public function ShowListView()
 		{
-			$_SESSION['flash'] = array();
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
 			$_SESSION["loggedUser"]->getEmail() === $email)
 			{
@@ -63,7 +62,6 @@
 			}
 			else
 			{
-				array_push($_SESSION['flash'], "No tienes acceso para ver la lista de usuarios.");
 				Functions::getInstance()->redirect("Home");
 			}
 		}
@@ -71,7 +69,9 @@
 		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword, $image)
 		{
 			$_SESSION['flash'] = array();
-			$usuario = $this->usuarioDAO->getByEmail($email);
+			$usuario = new Usuario();
+			$usuario->setId($id);
+			$usuario = $this->usuarioDAO->getUsuario($usuario);
 
 			if($usuario != null)
 			{
@@ -156,7 +156,11 @@
 			$password = Functions::getInstance()->escapar($password);
 			$confirmpassword = Functions::getInstance()->escapar($confirmpassword);
 
-			if(!$this->usuarioDAO->GetByEmail($email) && !$this->usuarioDAO->GetByDni($dni))
+			$usuario = new Usuario();
+			$usuario->setId($id);
+			$usuario = $this->usuarioDAO->getUsuario($usuario);
+
+			if($usuario != null)
 			{
 				if($password == $confirmpassword)
 				{
@@ -201,7 +205,7 @@
 			// Solo puede ser usada por main admin / admin / usuario de su propia cuenta
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3))
 			{
-				$usuario = $this->usuarioDAO->getByEmail($email);
+				$usuario = $this->usuarioDAO->getById($email);
 
 				$this->usuarioDAO->remove($email);
 
@@ -221,7 +225,7 @@
 		public function Login($email, $password)
         {
 			$_SESSION['flash'] = array();
-            $usuario = $this->usuarioDAO->GetByEmail($email);
+            $usuario = $this->usuarioDAO->GetById($email);
 
 			if($usuario != null)
 			{
@@ -341,7 +345,7 @@
 			// Hacemos una consulta de los datos del usuario.
 			$facebookData = $this->GetFacebookData();
 
-			$usuario = $this->usuarioDAO->GetByEmail($facebookData['email']);
+			$usuario = $this->usuarioDAO->GetById($facebookData['email']);
 
 			if($usuario != null)
 			{
@@ -456,7 +460,7 @@
 
 		private function toggleUserLoginStatus($email)
 		{
-			$usuario = $this->usuarioDAO->getByEmail($email);
+			$usuario = $this->usuarioDAO->getUsuario($email);
 
 			if($usuario != null)
 			{
@@ -482,7 +486,7 @@
 			// Solo puede ser usada por main admin
 			if($_SESSION["loggedUser"]->getId_Rol() === 3)
 			{
-				$usuario = $this->usuarioDAO->getByEmail($email);
+				$usuario = $this->usuarioDAO->getUsuario($email);
 
 				if($usuario != null)
 				{
