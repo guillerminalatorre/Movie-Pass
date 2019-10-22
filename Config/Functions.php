@@ -1,6 +1,8 @@
 <?php
 namespace Config;
 
+use DAO\Connection as Connection;
+
 class Functions
 {
     private static $instance = null;
@@ -40,7 +42,7 @@ class Functions
         //$string = stripslashes($string);
         $string = strip_tags($string);
         $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
-        $string = mysqli_real_escape_string(Database::getInstance()->getConn(), $string);
+        $string = mysqli_real_escape_string(Connection::GetInstance(), $string);
         return $string;
     }
 }
