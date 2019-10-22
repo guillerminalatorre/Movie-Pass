@@ -22,7 +22,6 @@
 
 		public function ShowProfileView($email)
 		{
-			$_SESSION['flash'] = array();
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
 			$_SESSION["loggedUser"]->getEmail() === $email)
 			{
@@ -31,14 +30,12 @@
 			}
 			else
 			{
-				array_push($_SESSION['flash'], "No tienes acceso para ver ese perfil.");
 				Functions::getInstance()->redirect("Home");
 			}	
 		}
 
 		public function ShowEditView($email)
 		{
-			$_SESSION['flash'] = array();
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
 			$_SESSION["loggedUser"]->getEmail() === $email)
 			{
@@ -47,14 +44,12 @@
 			}
 			else
 			{
-				array_push($_SESSION['flash'], "No tienes acceso para editar ese perfil.");
 				Functions::getInstance()->redirect("Home");
 			}
 		}
 
 		public function ShowListView()
 		{
-			$_SESSION['flash'] = array();
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
 			$_SESSION["loggedUser"]->getEmail() === $email)
 			{
@@ -63,7 +58,6 @@
 			}
 			else
 			{
-				array_push($_SESSION['flash'], "No tienes acceso para ver la lista de usuarios.");
 				Functions::getInstance()->redirect("Home");
 			}
 		}
