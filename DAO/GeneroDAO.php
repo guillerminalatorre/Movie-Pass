@@ -2,74 +2,78 @@
 
 namespace DAO;
 
+use \Exception as Exception;
 use Models\Genero as Genero;
-use API\APIController as APIController;
+use DAO\Connection as Connection;
 
 class GeneroDAO
 {
-    protected $generoList = array();
+    private $connection;
+    private $tableName = "Generos";
 
     public function getAll()
     {
-        if(!file_exists(ROOT."Data/generos.json"))
-        {
-             $this->getGendersFromApi();
-        }
-        else
-        {
-            $this->getGendersFromFile();
-        }   
-        return $this->generoList;
-    }
+        try {
+            $list = array();
+            $query = "SELECT * FROM " . $this->tableName;
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
 
-    public function getNombrePorId($id)
-    {
-        $generoList = $this->getAll();
-        $nombre = null;
-        foreach($generoList as $genero)
-        {
-            if($genero->getId() === $id) $nombre = $genero->getNombre();
-        }
-        return $nombre;
-    }
-
-    private function getGendersFromApi()
-    {
-        $arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES);
-
-		$get_data = APIController::callAPI('GET', API .'/genre/movie/list', $arrayReque);
-
-        $arrayToDecode = json_decode($get_data, true);
-
-        foreach ($arrayToDecode["genres"] as $categoryValues) {
-            $category = new Genero();
-            $category->setId($categoryValues["id"]);
-            $category->setNombre($categoryValues["name"]);
-            array_push($this->generoList, $category);
-        }
-
-        //Upload a file with the genders.
-        $jsonContent = json_encode($arrayToDecode["genres"], JSON_PRETTY_PRINT);
-		file_put_contents("Data/generos.json", $jsonContent);
-    }
-
-    private function getGendersFromFile()
-    {
-        $this->generoList = array();
-        if(file_exists(ROOT."Data/generos.json"));
-        {
-            $jsonContent = file_get_contents("Data/generos.json");
-
-            $arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-            
-            foreach($arrayToDecode as $valuesArray)
-            {
-                $valueGenero = new Genero();
-                $valueGenero->setId($valuesArray["id"]);
-                $valueGenero->setNombre($valuesArray["name"]);
-                array_push($this->generoList, $valueGenero);
+            foreach ($resultSet as $row) {
+                $genero = new Genero();
+                $genero->setId($row["id_genero"]);
+                $genero->setNombre($row["nombre"]);
+                array_push($list, $genero);
             }
+
+            return $list;
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
+
+    public function add($genero)
+    {
+        try {
+            $query = "INSERT INTO " . $this->tableName . " (id_genero, nombre) VALUES (:id_genero, :nombre);";
+            $parameters["id_genero"] = $genero->getId();
+            $parameters["nombre"] = $genero->getNombre();
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    function remove($genero)
+    {
+        try {
+            $query = "DELETE FROM " . $this->tableName . " WHERE id = " . $genero->getId() . ";";
+
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function getGenero($genero)
+    {
+        try {
+            $query = "SELECT * FROM " . $this->tableName . "WHERE id = " . $genero->getId() . ";";
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+
+            foreach ($resultSet as $row) {
+                //TODO: CHECKER SI ESTO ES NECESARIO
+                $genero->setId($row["id_genero"]);
+                $genero->setNombre($row["nombre"]);
+            }
+            return $genero->getNombre();
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
 }
 ?>
