@@ -5,26 +5,28 @@ namespace Models;
 class Pelicula
 {
 	private $id;
+	private $idTMDB;
 	private $titulo;
-	private $generos=array();
+	private $generos = array();
 	private $duracion;
 	private $descripcion;
 	private $idioma;
-    private $clasificacion;
-    private $actores= array();
+	private $clasificacion;
 	private $fechaDeEstreno;
 	private $poster;
-    private $video;
-    private $popularidad;
+	private $video;
+	private $popularidad;
 
-    public function setPopularidad($popularidad){
-        $this->popularidad=$popularidad;
-        return $this;
-    }
+	public function setPopularidad($popularidad)
+	{
+		$this->popularidad = $popularidad;
+		return $this;
+	}
 
-    public function getPopularidad(){
-        return $this->popularidad;
-    }
+	public function getPopularidad()
+	{
+		return $this->popularidad;
+	}
 
 	public function setVideo($video)
 	{
@@ -128,25 +130,27 @@ class Pelicula
 	{
 		$this->clasificacion = $clasificacion;
 		return $this;
-    }
-    
-    public function getActores()
-	{
-		return $this->actores;
-	}
- 
-	public function agregarActor($id_actor)
-	{
-		array_push($this->actores, $id_actor); 
 	}
 
-	public function setGeneros($array){
-		$this->generos=$array;
+	public function setGeneros($array)
+	{
+		$this->generos = $array;
 	}
 
 	public function agregarGenero($id_genero)
 	{
 		array_push($this->generos, $id_genero);
+	}
+
+	public function setIdTMDB($id)
+	{
+		$this->idTMDB = $id;
+		return $this;
+	}
+
+	public function getIdTMDB()
+	{
+		return $this->idTMDB;
 	}
 }
 

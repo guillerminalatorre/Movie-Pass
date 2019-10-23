@@ -1,246 +1,114 @@
 <?php
-	namespace DAO;
 
-	use Models\Pelicula as Pelicula;
-	use Models\Genero as Genero;
-	use API\APIController as APIController;
+namespace DAO;
 
-	class PeliculaDAO
+use \Exception as Exception;
+use Models\Pelicula as Pelicula;
+use Models\Genero as Genero;
+use DAO\Connection as Connection;
+
+class PeliculaDAO
+{
+	private $connection;
+	private $tableName = "Peliculas";
+
+	public function getAll()
 	{
-		private $peliculaList = array();
+		try {
+			$list = array();
+			$query = "SELECT * FROM " . $this->tableName;
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
 
-		public function add(Pelicula $pelicula)
-		{
-			$this->RetrieveData();
-		
-			array_push($this->peliculaList, $pelicula);
-		
-			$this->SaveData();
-		}
-
-		function remove($id)
-        {
-            $this->RetrieveData();
-
-            $this->peliculaList = array_filter($this->peliculaList, function($pelicula) use($id){
-                return $pelicula->getId() != $id;
-            });
-
-            $this->SaveData();
-		}
-
-		public function getAll()
-		{
-			$this->Retrievedata();
-		
-			return $this->peliculaList;
-		}
-
-		public function getTotalPages()
-		{
-			return $this->totalPages;
-		}
-
-		public function SaveData()
-		{
-			$arrayToEncode = array();
-
-			foreach($this->peliculaList as $pelicula)
-			{
-				$valuesArray["id"] = $pelicula->getId();
-				$valuesArray["titulo"]= $pelicula->getTitulo();
-				$valuesArray["generos"]= $pelicula->getGeneros();
-				$valuesArray["duracion"]=$pelicula->getDuracion();
-				$valuesArray["descripcion"]=$pelicula->getDescripcion();				
-				$valuesArray["idioma"]= $pelicula->getIdioma();
-				$valuesArray["clasificacion"]= $pelicula->getClasificacion();
-				$valuesArray["actores"]=$pelicula->getActores();
-				$valuesArray["fechaDeEstreno"]=$pelicula->getFechaDeEstreno();
-				$valuesArray["poster"]= $pelicula->getPoster();
-				$valuesArray["video"]= $pelicula->getVideo();				
-				$valuesArray["popularidad"]=$pelicula->getPopularidad();
-							
-				array_push($arrayToEncode, $valuesArray);
-			}
-
-			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			file_put_contents($jsonPath, $jsonContent);
-		}
-
-		public function RetrieveData()
-		{
-			$this->peliculaList = array();
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
-			{
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
-					$pelicula = new Pelicula();
-
-					$pelicula->setId($valuesArray["id"]);
-					$pelicula->setTitulo($valuesArray["titulo"]);
-					foreach($valuesArray["generos"] as $genero)
-					{
-						$pelicula->agregarGenero($genero);
-					}
-					$pelicula->setDuracion($valuesArray["duracion"]);
-					$pelicula->setDescripcion($valuesArray["descripcion"]);				
-					$pelicula->setIdioma($valuesArray["idioma"]);
-					$pelicula->setClasificacion($valuesArray["clasificacion"]);
-					$pelicula->setActores($valuesArray["actores"]);
-					$pelicula->setFechaDeEstreno($valuesArray["fechaDeEstreno"]);
-					$pelicula->setPoster($valuesArray["poster"]);
-					$pelicula->setVideo($valuesArray["video"]);				
-					$pelicula->setPopularidad($valuesArray["popularidad"]);
-
-					array_push($this->peliculaList, $pelicula);
-				}
-			}
-		}
-
-		public function getById($id)
-        {
-            $pelicula = null;
-
-            $this->RetrieveData();
-
-            $peliculas = array_filter($this->peliculaList, function($pelicula) use($id){
-                return $pelicula->getId() == $id;
-            });
-
-            $peliculas = array_values($peliculas); //Reordering array indexes
-
-            return (count($peliculas) > 0) ? $peliculas[0] : null;
-		}
-		
-		public function getByTitulo($titulo)
-        {
-            $pelicula = null;
-
-            $this->RetrieveData();
-
-            $peliculas = array_filter($this->peliculaList, function($pelicula) use($titulo){
-                return $pelicula->getTitulo() == $titulo;
-            });
-
-            $peliculas = array_values($peliculas); //Reordering array indexes
-
-            return (count($peliculas) > 0) ? $peliculas[0] : null;
-		}
-
-		public function getNowPlayingMovies()
-		{
-			if (isset($_GET['page'])) 
-			{
-				$pageValue = $_GET['page'];
-			} 
-			else 
-			{
-				$pageValue = 1;
-			}
-		
-			$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "region"=>"AR", "page"=>$pageValue);
-
-			$get_data = APIController::callAPI('GET', API .'/movie/now_playing', $arrayReque);
-
-			$arrayToDecode = json_decode($get_data, true);
-
-			foreach($arrayToDecode["results"] as $valuesArray)
-			{
+			foreach ($resultSet as $row) {
 				$pelicula = new Pelicula();
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setPoster($valuesArray["poster_path"]);				
-				$pelicula->setIdioma($valuesArray["original_language"]);
-				$pelicula->setClasificacion($valuesArray["adult"]);
+				$pelicula->setIdTMDB($row["id_TMDB"]);
+				$pelicula->setTitulo($row["titulo"]);
+				//$pelicula->agregarGenero($genero);
+				$pelicula->setDuracion($row["duracion"]);
+				$pelicula->setDescripcion($row["descripcion"]);
+				$pelicula->setIdioma($row["idioma"]);
+				$pelicula->setClasificacion($row["clasificacion"]);
+				$pelicula->setFechaDeEstreno($row["fechaDeEstreno"]);
+				$pelicula->setPoster($row["poster"]);
+				$pelicula->setVideo($row["video"]);
+				$pelicula->setPopularidad($row["popularidad"]);
 
-				foreach($valuesArray["genre_ids"] as $genero)
-				{
-					$pelicula->agregarGenero($genero);
-				}
-
-				$pelicula->setTitulo($valuesArray["title"]);
-				$pelicula->setPopularidad($valuesArray["vote_average"]);
-				$pelicula->setDescripcion($valuesArray["overview"]);
-				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
-
-				if($valuesArray["video"]!==false)
-				{
-					$pelicula->setVideo($valuesArray["video"]);
-				}
-
-				array_push($this->peliculaList, $pelicula);
-			}
-			$this->totalPages=$arrayToDecode["total_pages"];
-			return $this->peliculaList;
-		}
-
-		public function getFilteredMovies($id)
-		{
-			if (isset($_GET['page'])) 
-			{
-				$pageValue = $_GET['page'];
-			} 
-			else 
-			{
-				$pageValue = 1;
+				array_push($list, $pelicula);
 			}
 
-			$actualDate=date("Y-m-d");
-
-			$arrayReque=array("api_key"=>API_KEY, "language"=>LANGUAGE_ES, "include_video"=>true,"with_genres"=>$id,"primary_release_date.lte"=>date("Y-m-d", strtotime($actualDate . "+ 5 days")),"primary_release_date.gte"=> date("Y-m-d", strtotime($actualDate . "- 2 month")),"sort_by"=>"primary_release_date.desc", "with_original_language"=>"es,en");
-
-			$get_data = APIController::callAPI('GET', API .'/discover/movie', $arrayReque);
-
-			$arrayToDecode = json_decode($get_data, true);
-
-			foreach($arrayToDecode["results"] as $valuesArray)
-			{
-				$pelicula = new Pelicula();
-				$pelicula->setPoster($valuesArray["poster_path"]);
-				$pelicula->setId($valuesArray["id"] );
-				$pelicula->setIdioma($valuesArray["original_language"]);
-
-				foreach($valuesArray["genre_ids"] as $genero)
-				{
-					$pelicula->agregarGenero($genero);
-				}
-
-				$pelicula->setTitulo($valuesArray["title"]);
-				$pelicula->setPopularidad($valuesArray["vote_average"]);
-				$pelicula->setDescripcion($valuesArray["overview"]);
-				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);				
-
-				if($valuesArray["video"]!==false)
-				{
-					$pelicula->setVideo($valuesArray["video"]);
-				}				
-				array_push($this->peliculaList, $pelicula);
-			}
-			$this->totalPages=$arrayToDecode["total_pages"];
-			return $this->peliculaList;
-		}
-		
-		//Need this function to return correct file json path
-		function GetJsonFilePath(){
-
-			$initialPath = "Data\peliculas.json";
-			
-			if(file_exists($initialPath)){
-				$jsonFilePath = $initialPath;
-			}else{
-				$jsonFilePath = ROOT.$initialPath;
-			}
-			
-			return $jsonFilePath;
+			return $list;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
+
+	public function add($pelicula)
+	{
+		try {
+			$query = "INSERT INTO " . $this->tableName . " (id_TMDB, titulo, duracion, descripcion, idioma, clasificacion, fechaDeEstreno, poster, video, popularidad) VALUES (:id_TMDB, :titulo, :duracion, :descripcion, :idioma, :clasificacion, :fechaDeEstreno, :poster, :video, :popularidad);";
+			$parameters["id_TMDB"] = $pelicula->getIdTMDB();
+			$parameters["titulo"] = $pelicula->getTitulo();
+			$parameters["duracion"] = $pelicula->getDuracion();
+			$parameters["descripcion"] = $pelicula->getDescripcion();
+			$parameters["idioma"] = $pelicula->getIdioma();
+			$parameters["clasificacion"] = $pelicula->getClasificacion();
+			$parameters["fechaDeEstreno"] = $pelicula->getFechaDeEstreno();
+			$parameters["poster"] = $pelicula->getPoster();
+			$parameters["video"] = $pelicula->getVideo();
+			$parameters["popularidad"] = $pelicula->getPopularidad();
+
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+
+	function remove($pelicula)
+	{
+		try {
+			$query = "DELETE FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
+
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query);
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+
+	public function getPelicula($pelicula)
+	{
+		try {
+			$query = "SELECT * FROM " . $this->tableName . "WHERE id_pelicula = " . $pelicula->getId() . ";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+
+			foreach ($resultSet as $row) {
+				$result = new Pelicula();
+				$result->setIdTMDB($row["id_TMDB"]);
+				$result->setTitulo($row["titulo"]);
+				//$pelicula->agregarGenero($genero);
+				$result->setDuracion($row["duracion"]);
+				$result->setDescripcion($row["descripcion"]);
+				$result->setIdioma($row["idioma"]);
+				$result->setClasificacion($row["clasificacion"]);
+				$result->setFechaDeEstreno($row["fechaDeEstreno"]);
+				$result->setPoster($row["poster"]);
+				$result->setVideo($row["video"]);
+				$result->setPopularidad($row["popularidad"]);
+			}
+			return $result;
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+
+	public function getFilteredMovies($id, $fecha)
+	{
+		//TODO: IMPLEMENTAR METODO QUE FILTRE LAS FUNCIONES			
+		return array();
+	}
+}
+
 ?>
