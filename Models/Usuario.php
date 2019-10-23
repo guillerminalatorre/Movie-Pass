@@ -8,7 +8,7 @@
 	
 	class Usuario
 	{
-
+		private $id;
 		private $dni;
 		private $password;
 		private $email;
@@ -21,6 +21,28 @@
 		private $loggedIn;
 		private $image;
 		private $facebookId;
+
+		/**
+		 * Getter for Id
+		 *
+		 * @return [type]
+		 */
+		public function getId()
+		{
+			return $this->id;
+		}
+
+		/**
+		 * Setter for Id
+		 * @var [type] id
+		 *
+		 * @return self
+		 */
+		public function setId($id)
+		{
+			$this->id = $id;
+			return $this;
+		}
 
 		/**
 		 * Getter for Dni

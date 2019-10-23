@@ -12,49 +12,99 @@
 	use DAO\PeliculaDAO as PeliculaDAO;
 
 	class FuncionDAO
+
+	
 	{
-		private $funcionList = array();
+
+		private $connection;
+        private $tableName = "Funciones";
+
 
 		/**
 		 * 
 		 * @param funcion
 		 */
-		public function add(Funcion $funcion)
-		{
-			$this->retrieveData();
+		public function add($funcion)
 
-			array_push($this->funcionList, $funcion);
-				
-			$this->saveData();
+		try
+		{
+			$query = "INSERT INTO ".$this->tableName." (id_funcion, id_cine, id_pelicula, fecha, hora, cantEntradas) VALUES (:id_funcion, :id_cine, :id_pelicula, :fecha, :hora, :cantEntradas);";
+			
+			$parameters["id_funcion"] = $usuario->getId();
+			$parameters["id_cine"]= $usuario->getIdCine();
+			$parameters["id_pelicula"]= $usuario->getIdPelicula();
+			$parameters["fecha"]=$usuario->getFecha();
+			$parameters["hora"]=$usuario->getHora();
+			$parameters["cantEntradas"]=$usuario->getCantEntradas();
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		}
+		catch(Exception $ex)
+		{
+			throw $ex;
 		}
 
-		function remove($id)
+		}
+
+		
+
+		function remove($funcion)
         {
-            $this->RetrieveData();
-
-            $this->funcionList = array_filter($this->funcionList, function($funcion) use($id){
-                return $funcion->getId() != $id;
-            });
-
-            $this->SaveData();
+			try
+            {
+                $query = "DELETE FROM ".$this->tableName." WHERE id = ".$funcion->getId().";";
+                
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 		}
 		
-		public function removeByCine($nombreCine)
+		public function removeByCine($cine)
 		{
-			$this->RetrieveData();
-
-            $this->funcionList = array_filter($this->funcionList, function($funcion) use($nombreCine){
-                return $funcion->getNombreCine() != $nombreCine;
-            });
-
-			$this->SaveData();
+			try
+            {
+                $query = "DELETE FROM ".$this->tableName." WHERE id = ".$cine->getId().";";
+                
+                $this->connection = Connection::GetInstance();
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 		}
 
 		public function getAll()
 		{
-			$this->Retrievedata();
-
-			return $this->funcionList;
+			try
+            {
+                $list = array();
+                $query = "SELECT * FROM ".$this->tableName;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {
+					$funcion = new funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFecha($row["fecha"]);
+					$funcion->setHora($row["hora"]);
+					$funcion->setCantEntradas($row["cant_entradas"]);
+                    array_push($list, $funcion);
+				}
+				
+                return $list;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 		}
 
 		public function SaveData()

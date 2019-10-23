@@ -86,7 +86,7 @@
 					$usuario->setLoggedIn($row["loggedIn"]);
 					$usuario->setImage($row["image"]);
 					$usuario->setFacebookId($row["facebookId"]);
-                    array_push($list, $student);
+                    array_push($list, $usuario);
 				}
 				
                 return $list;
@@ -97,7 +97,7 @@
             }
 		}
 		
-		public function GetUsuario($usuario)
+		public function getUsuario($usuario)
         {
             try
             {
@@ -107,6 +107,39 @@
                 
                 foreach ($resultSet as $row)
                 {
+					$usuario->setDni($row["dni"]);
+					$usuario->setPassword($row["contraseña"]);
+					$usuario->setEmail($row["email"]);
+					$usuario->setApellido($row["apellido"]);
+					$usuario->setNombre($row["nombre"]);
+					$usuario->setId_Rol($row["rol"]);
+					$usuario->setIp($row["ip"]);
+					$usuario->setRegisterDate($row["registerDate"]);
+					$usuario->setLastConnection($row["lastConnection"]);
+					$usuario->setLoggedIn($row["loggedIn"]);
+					$usuario->setImage($row["image"]);
+					$usuario->setFacebookId($row["facebookId"]);
+                    return $usuario;
+				}
+				return null;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+		}
+
+		public function getByEmail($email)
+        {
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName."WHERE email = ".$email.";";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {
+					$usuario = new Usuario();
 					$usuario->setDni($row["dni"]);
 					$usuario->setPassword($row["contraseña"]);
 					$usuario->setEmail($row["email"]);

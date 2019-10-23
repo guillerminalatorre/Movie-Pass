@@ -9,12 +9,11 @@
 	class Funcion
 	{
 		private $id;
-		private $nombreCine;
+		private $idCine;
 		private $fecha;
 		private $hora;
 		private $idPelicula;	
 		private $cantEntradas;
-		private $cantVendidas;
 
 		/**
 		 * Getter for Id
@@ -40,24 +39,24 @@
 
 	
 		/**
-		 * Getter for NombreCine
+		 * Getter for idCine
 		 *
 		 * @return [type]
 		 */
-		public function getNombreCine()
+		public function getIdCine()
 		{
-			return $this->nombreCine;
+			return $this->idCine;
 		}
 
 		/**
-		 * Setter for NombreCine
-		 * @var [type] nombreCine
+		 * Setter for idCine
+		 * @var [type] idCine
 		 *
 		 * @return self
 		 */
-		public function setNombreCine($nombreCine)
+		public function setIdCine($idCine)
 		{
-			$this->nombreCine = $nombreCine;
+			$this->idCine = $idCine;
 			return $this;
 		}		
 	
@@ -150,29 +149,6 @@
 		public function setCantEntradas($cantEntradas)
 		{
 			$this->cantEntradas = $cantEntradas;
-			return $this;
-		}
-		
-
-		/**
-		 * Getter for CantVendidas
-		 *
-		 * @return [type]
-		 */
-		public function getCantVendidas()
-		{
-			return $this->cantVendidas;
-		}
-	
-		/**
-		 * Setter for CantVendidas
-		* @var [type] cantVendidas
-		*
-		* @return self
-		*/
-		public function setCantVendidas($cantVendidas)
-		{
-			$this->cantVendidas = $cantVendidas;
 			return $this;
 		}
 	}

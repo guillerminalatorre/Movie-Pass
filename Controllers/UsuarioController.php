@@ -199,13 +199,15 @@
 			}
 		}
 
-		public function eliminarUsuario($email)
+		public function eliminarUsuario($id)
 		{
 			$_SESSION['flash'] = array();
 			// Solo puede ser usada por main admin / admin / usuario de su propia cuenta
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3))
 			{
-				$usuario = $this->usuarioDAO->getById($email);
+				$usuario = new Usuario();
+				$usuario->setId($id);
+				$usuario = $this->usuarioDAO->getUsuario($usuario);
 
 				$this->usuarioDAO->remove($email);
 
@@ -225,7 +227,9 @@
 		public function Login($email, $password)
         {
 			$_SESSION['flash'] = array();
-            $usuario = $this->usuarioDAO->GetById($email);
+            $usuario = new Usuario();
+			$usuario->setId($id);
+			$usuario = $this->usuarioDAO->getByEmail($email);
 
 			if($usuario != null)
 			{
