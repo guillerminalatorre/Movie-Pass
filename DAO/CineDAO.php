@@ -5,117 +5,128 @@
 	 * @created 06-oct.-2019 19:06:02
 	 */
 	namespace DAO;
-
+    use DAO\Connection as Connection;
 	use Models\Cine as Cine;
 
 	class CineDAO
 	{
-		private $cineList = array();
-
+		private $connection;
+		private $tableName = "Cines";		
+		
 		/**
 		 * 
 		 * @param cine
 		 */
-		public function add(Cine $cine)
+		 public function add($cine)
+		 {
+			 try
+			 {
+				 $query = "INSERT INTO ".$this->tableName." (id_cine, nombre, direccion, capacidad, precio) VALUES (:id_cine, :nombre, :direccion, :capacidad, :precio);";
+				 
+				 $parameters["id_cine"] = $cine->getId();
+				 $parameters["nombre"]= $cine->getNombre();
+				 $parameters["direccion"]= $cine->getDireccion();
+				 $parameters["capacidad"]=$cine->getCapacidad();
+				 $parameters["precio"]=$cine->getPrecio();
+
+				 $this->connection = Connection::GetInstance();
+				 $this->connection->ExecuteNonQuery($query, $parameters);
+			 }
+			 catch(Exception $ex)
+			 {
+				 throw $ex;
+			 }
+		 }
+
+		 function remove($cine)
+		 {
+			 try
+			 {
+				 $query = "DELETE FROM ".$this->tableName." WHERE id = ".$cine->getId().";";
+				 
+				 $this->connection = Connection::GetInstance();
+				 $this->connection->ExecuteNonQuery($query, $parameters);
+			 }
+			 catch(Exception $ex)
+			 {
+				 throw $ex;
+			 }
+		 }
+
+		 public function getAll()
 		{
-			$this->retrieveData();
-
-			array_push($this->cineList, $cine);
-			
-			$this->saveData();
-		}
-
-		function remove($nombre)
-        {
-            $this->RetrieveData();
-
-            $this->cineList = array_filter($this->cineList, function($cine) use($nombre){
-                return $cine->getNombre() != $nombre;
-            });
-
-            $this->SaveData();
-        }
-
-		public function getAll()
-		{
-			$this->Retrievedata();
-
-			return $this->cineList;
-		}
-
-		public function saveData()
-		{
-			$arrayToEncode = array();
-
-			foreach($this->cineList as $cine)
-			{
-				$valuesArray["nombre"]= $cine->getNombre();
-				$valuesArray["direccion"]= $cine->getDireccion();
-				$valuesArray["capacidad"]=$cine->getCapacidad();
-				$valuesArray["precio"]=$cine->getPrecio();
-			
-				array_push($arrayToEncode, $valuesArray);
-			}
-
-			$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			file_put_contents($jsonPath, $jsonContent);
-		}
-
-		public function retrieveData()
-		{
-			$this->cineList = array();
-
-			$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-			if(file_exists($jsonPath));
-			{
-				$jsonContent = file_get_contents($jsonPath);
-
-				$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
-				
-				foreach($arrayToDecode as $valuesArray)
-				{
+			try
+            {
+                $list = array();
+                $query = "SELECT * FROM ".$this->tableName;
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {
 					$cine = new Cine();
-					$cine->setNombre($valuesArray["nombre"]);
-					$cine->setDireccion($valuesArray["direccion"]);
-					$cine->setCapacidad($valuesArray["capacidad"]);
-					$cine->setPrecio($valuesArray["precio"]);
+					$cine->setId($row["id_cine"]);
+					$cine->setNombre($row["nombre"]);
+					$cine->setDireccion($row["direccion"]);
+					$cine->setCapacidad($row["capacidad"]);
+					$cine->setPrecio($row["precio"]);
 
-					array_push($this->cineList, $cine);
+                    array_push($list, $cine);
 				}
-			}
+				
+                return $list;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 		}
 
-		public function getByNombre($nombre)
+		public function getCine($cine)
         {
-            $cine = null;
+            try
+            {
+                $query = "SELECT * FROM ".$this->tableName."WHERE id = ".$cine->getId().";";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {
+					$cine->setId($row["id_cine"]);
+					$cine->setNombre($row["nombre"]);
+					$cine->setDireccion($row["direccion"]);
+					$cine->setCapacidad($row["capacidad"]);
+					$cine->setPrecio($row["precio"]);
 
-            $this->RetrieveData();
-
-            $cines = array_filter($this->cineList, function($cine) use($nombre){
-                return $cine->getNombre() == $nombre;
-            });
-
-            $cines = array_values($cines); //Reordering array indexes
-
-            return (count($cines) > 0) ? $cines[0] : null;
+                    return $cine;
+				}
+				return null;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 		}
 
-		//Need this function to return correct file json path
-		function GetJsonFilePath(){
+		public function edit($cine)
+		{
+			try
+            {
+				$query = "UPDATE ".$this->tableName." SET nombre = :nombre, direccion = :direccion, capacidad = :capacidad, precio = :precio WHERE id_cine =".$cine->getId().";";
 
-			$initialPath = "Data\cines.json";
-			
-			if(file_exists($initialPath)){
-				$jsonFilePath = $initialPath;
-			}else{
-				$jsonFilePath = ROOT.$initialPath;
-			}
-			
-			return $jsonFilePath;
+				$parameters["id_cine"] = $cine->getId();
+				$parameters["nombre"]= $cine->getNombre();
+				$parameters["direccion"]= $cine->getDireccion();
+				$parameters["capacidad"]=$cine->getCapacidad();
+				$parameters["precio"]=$cine->getPrecio();
+
+				$this->connection = Connection::GetInstance();
+				$this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
 		}
 	}
 ?>
