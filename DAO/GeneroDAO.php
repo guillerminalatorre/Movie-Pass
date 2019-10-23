@@ -48,7 +48,7 @@ class GeneroDAO
     function remove($genero)
     {
         try {
-            $query = "DELETE FROM " . $this->tableName . " WHERE id = " . $genero->getId() . ";";
+            $query = "DELETE FROM " . $this->tableName . " WHERE id_genero = " . $genero->getId() . ";";
 
             $this->connection = Connection::GetInstance();
             $this->connection->ExecuteNonQuery($query);
@@ -60,7 +60,7 @@ class GeneroDAO
     public function getGenero($genero)
     {
         try {
-            $query = "SELECT * FROM " . $this->tableName . "WHERE id = " . $genero->getId() . ";";
+            $query = "SELECT * FROM " . $this->tableName . "WHERE id_genero = " . $genero->getId() . ";";
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
 
@@ -74,6 +74,6 @@ class GeneroDAO
             throw $ex;
         }
     }
-
 }
+
 ?>

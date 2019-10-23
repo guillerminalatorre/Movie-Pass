@@ -23,6 +23,7 @@ CREATE TABLE Generos
 CREATE TABLE Peliculas
 (
 	id_pelicula INT NOT NULL,
+	id_TMDB INT NOT NULL,
 	titulo VARCHAR(50) NOT NULL,
 	duracion INT NOT NULL,
 	descripcion VARCHAR(255) NOT NULL,
