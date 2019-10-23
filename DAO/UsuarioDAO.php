@@ -101,7 +101,7 @@
         {
             try
             {
-                $query = "SELECT * FROM ".$this->tableName."WHERE id = ".$usuario->getId().";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE id = ".$usuario->getId().";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
@@ -133,7 +133,7 @@
         {
             try
             {
-                $query = "SELECT * FROM ".$this->tableName."WHERE email = ".$email.";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE email = ".$email.";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
