@@ -62,18 +62,20 @@ CREATE TABLE PeliculasXGeneros
 DROP TABLE Usuarios;
 CREATE TABLE Usuarios
 (
-	dni INT NOT NULL AUTO_INCREMENT,
-	contraseña VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	apellido VARCHAR(50) NOT NULL,
-	nombre VARCHAR(50) NOT NULL,
-	rol INT NOT NULL,
-	ip INT,
-	registerDate INT,
-	lastConnection INT,
-	loggedIn TINYINT(1),
-	image varchar(256),
-	facebookId int,
-	CONSTRAINT PK_dni PRIMARY KEY (dni ASC),
-	CONSTRAINT UNQ_email UNIQUE (email ASC)
+	id_usuario int(11) NOT NULL,
+	dni int(11) NOT NULL,
+	contraseña varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+	email varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+	apellido varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+	nombre varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+	rol tinyint(1) NOT NULL,
+	ip int(11) DEFAULT NULL,
+	registerDate int(11) DEFAULT NULL,
+	lastConnection int(11) DEFAULT NULL,
+	loggedIn tinyint(1) DEFAULT NULL,
+	image varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
+	facebookId int(11) DEFAULT NULL
+	CONSTRAINT PK_id_usuario PRIMARY KEY (id_usuario ASC),
+	CONSTRAINT UNQ_email UNIQUE (email ASC),
+	CONSTRAINT UNQ_dni UNIQUE (dni ASC)
 );

@@ -152,5 +152,26 @@
                 throw $ex;
             }
 		}
+
+		public function edit($funcion)
+		{
+			try
+            {
+				$query = "UPDATE ".$this->tableName." SET id_funcion = :id_funcion, id_cine = :id_cine, id_pelicula = :id_pelicula, fecha = :fecha, hora = :hora, cantEntradas = :cantEntradas WHERE id_usuario =".$funcion->getId().";";
+
+				$parameters["id_cine"]= $usuario->getIdCine();
+				$parameters["id_pelicula"]= $usuario->getIdPelicula();
+				$parameters["fecha"]=$usuario->getFecha();
+				$parameters["hora"]=$usuario->getHora();
+				$parameters["cantEntradas"]=$usuario->getCantEntradas();
+
+				$this->connection = Connection::GetInstance();
+				$this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+		}
 	}
 ?>
