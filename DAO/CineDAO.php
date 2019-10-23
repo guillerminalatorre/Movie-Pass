@@ -86,7 +86,7 @@
         {
             try
             {
-                $query = "SELECT * FROM ".$this->tableName."WHERE id = ".$cine->getId().";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE id = ".$cine->getId().";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
