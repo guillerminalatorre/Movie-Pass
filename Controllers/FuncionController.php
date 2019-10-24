@@ -12,6 +12,7 @@
 	use Models\Funcion as Funcion;
 	use Models\Cine as Cine;
 	use Models\Pelicula as Pelicula;
+	use Config\Functions as Functions;	
 
 	class FuncionController
 	{
@@ -44,18 +45,16 @@
 			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
 		}
 
-		public function Add($id, $idCine, $idPelicula, $fecha,  $hora,  $cantEntradas)
+		public function Add($idCine, $idPelicula, $fecha,  $hora,  $cantEntradas)
 		{
 			$_SESSION['flash'] = array();
 			$funcion = new Funcion();
 
-			$funcion->setId($id);
 			$funcion->setIdCine($idCine);
-			$funcion->setFecha($fecha);
-			$funcion->setHora($hora);
 			$funcion->setIdPelicula($idPelicula);
+			$funcion->setFecha($fecha);
+			$funcion->setHora($hora);			
 			$funcion->setCantEntradas($cantEntradas);
-			$funcion->setCantVendidas(0);
 
 			$this->funcionDAO->add($funcion);
 

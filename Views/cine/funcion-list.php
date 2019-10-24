@@ -10,7 +10,6 @@
                 <th scope="col" style="text-align:center"><?php echo $funcion->getFecha();?></th>
                 <th scope="col" style="text-align:center"><?php echo $funcion->getHora();?></th>
                 <th scope="col" style="text-align:center"><?php echo $funcion->getCantEntradas();?></th>
-                <th scope="col" style="text-align:center"><?php echo $funcion->getCantVendidas();?></th>
                 <th scope="col" style="text-align:right">
                     <a class="btn btn-danger" onclick = "if(borrarFuncion('<?php echo $funcion->getId();?>')) href='<?php echo FRONT_ROOT ?>Funcion/eliminarFuncion/<?php echo $funcion->getId(); ?>';">Eliminar Funcion</a>
                 </th>

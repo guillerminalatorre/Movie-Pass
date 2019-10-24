@@ -23,14 +23,14 @@
 		{
 			try
 			{
-				$query = "INSERT INTO ".$this->tableName." (id_funcion, id_cine, id_pelicula, fecha, hora, cantEntradas) VALUES (:id_funcion, :id_cine, :id_pelicula, :fecha, :hora, :cantEntradas);";
+				$query = "INSERT INTO ".$this->tableName." (id_funcion, id_cine, id_pelicula, fecha, hora, cant_entradas) VALUES (:id_funcion, :id_cine, :id_pelicula, :fecha, :hora, :cant_entradas);";
 				
-				$parameters["id_funcion"] = $usuario->getId();
-				$parameters["id_cine"]= $usuario->getIdCine();
-				$parameters["id_pelicula"]= $usuario->getIdPelicula();
-				$parameters["fecha"]=$usuario->getFecha();
-				$parameters["hora"]=$usuario->getHora();
-				$parameters["cantEntradas"]=$usuario->getCantEntradas();
+				$parameters["id_funcion"] = $funcion->getId();
+				$parameters["id_cine"]= $funcion->getIdCine();
+				$parameters["id_pelicula"]= $funcion->getIdPelicula();
+				$parameters["fecha"]=$funcion->getFecha();
+				$parameters["hora"]=$funcion->getHora();
+				$parameters["cant_entradas"]=$funcion->getCantEntradas();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
@@ -159,13 +159,13 @@
 		{
 			try
             {
-				$query = "UPDATE ".$this->tableName." SET id_funcion = :id_funcion, id_cine = :id_cine, id_pelicula = :id_pelicula, fecha = :fecha, hora = :hora, cantEntradas = :cantEntradas WHERE id_usuario =".$funcion->getId().";";
+				$query = "UPDATE ".$this->tableName." SET id_funcion = :id_funcion, id_cine = :id_cine, id_pelicula = :id_pelicula, fecha = :fecha, hora = :hora, cant_entradas = :cant_entradas WHERE id_usuario =".$funcion->getId().";";
 
-				$parameters["id_cine"]= $usuario->getIdCine();
-				$parameters["id_pelicula"]= $usuario->getIdPelicula();
-				$parameters["fecha"]=$usuario->getFecha();
-				$parameters["hora"]=$usuario->getHora();
-				$parameters["cantEntradas"]=$usuario->getCantEntradas();
+				$parameters["id_cine"]= $funcion->getIdCine();
+				$parameters["id_pelicula"]= $funcion->getIdPelicula();
+				$parameters["fecha"]=$funcion->getFecha();
+				$parameters["hora"]=$funcion->getHora();
+				$parameters["cant_entradas"]=$funcion->getCantEntradas();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
