@@ -1,25 +1,17 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
     <div class="loginForm">
-        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $nombreCine; ?>" role="button">Volver a ficha del cine</a>
+        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $idCine; ?>" role="button">Volver a ficha del cine</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
-        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $nombreCine;?>" method="POST">
+        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $idCine ?>" method="POST">
             <h2 class="text-left">Ingresa datos de la funcion: </h2>
             <br>
             <div class="row">
                 <div class="form-group col-sm text-right">
-                    <label for="id">Id:</label>
+                    <label for="idCine">Cine:</label>
                 </div>
                 <div>
-                    <input type="text" class="form-control" name="id" value="<?php echo $id?>" readonly="readonly">
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm text-right">
-                    <label for="nombreCine">NombreCine:</label>
-                </div>
-                <div>
-                    <input type="text" class="form-control" name="nombreCine" readonly="readonly" value="<?php echo $nombreCine?>">
+                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $idCine?>">
                 </div>
             </div>
             <div class="row">

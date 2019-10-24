@@ -27,7 +27,7 @@
                     <label for="capacidad">Capacidad:</label>
                 </div>
                 <div>
-                    <input type="text" class="form-control" name="capacidad" required>
+                    <input type="number" class="form-control" name="capacidad" required>
                 </div>
             </div>
             <div class="row">

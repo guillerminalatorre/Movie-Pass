@@ -4,7 +4,7 @@
         <div class="col-sm bg-light rounded p-4 text-center mr-4">
 
             <!-- Volver a lista de usuarios solo para admins -->
-            <?php if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) { ?>
+            <?php if($this->isAdmin($_SESSION["loggedUser"])) { ?>
             <a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a>
             <?php } ?>
 
@@ -13,7 +13,7 @@
             <h3 class="mt-2"><?php echo $usuario->getNombre()." ".$usuario->getApellido(); ?></h3>
 
             <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->
-            <?php if(($_SESSION["loggedUser"]->getId_Rol() === 3) && ($_SESSION["loggedUser"]->getEmail() != $usuario->getEmail())) { ?>
+            <?php if(($this->isMainAdmin($_SESSION["loggedUser"])) && ($_SESSION["loggedUser"]->getEmail() != $usuario->getEmail())) { ?>
             <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-info btn-md mt-2" role="button">
                 <?php if($usuario->getId_Rol() === 1) { ?>Hacer admin<?php } else { ?>Quitar admin<?php } ?>
             </a>
@@ -23,7 +23,7 @@
             <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getId();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
             
             <!-- Eliminar cuenta -->
-            <?php if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getId() === $usuario->getId()) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>
+            <?php if(($this->isAdmin($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId() === $usuario->getId()) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>
             <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-danger btn-md mt-2" role="button">Eliminar</a>
             <?php } ?>
 

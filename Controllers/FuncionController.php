@@ -7,20 +7,26 @@
 	namespace Controllers;
 
 	use DAO\FuncionDAO as FuncionDAO;
+	use DAO\CineDAO as CineDAO;
+	use DAO\PeliculaDAO as PeliculaDAO;
 	use Models\Funcion as Funcion;
+	use Models\Cine as Cine;
+	use Models\Pelicula as Pelicula;
+	use Config\Functions as Functions;	
 
 	class FuncionController
 	{
 		private $funcionDAO;
+		private $cineDAO;
 
 		function __construct()
 		{
 			$this->funcionDAO = new FuncionDAO();
+			$this->cineDAO = new CineDAO();
 		}
 
-		public function ShowAddView($nombreCine)
+		public function ShowAddView($idCine)
 		{
-			$id = $this->IdDisponible();
 			require_once(VIEWS_PATH."cine/funcion-add.php");
 		}
 
@@ -31,42 +37,29 @@
 			$funcion->setId($id);
 			$funcion = $this->funcionDAO->getFuncion($funcion);
 
-			$nombreCine = $funcion->getNombreCine();
+			$nombreCine = $funcion->getIdCine();
 
 			$this->funcionDAO->remove($id);
 
 			array_push($_SESSION['flash'], "La funcion se ha eliminado correctamente.");
-			Functions::getInstance()->redirect("Cine","ShowFichaView", $nombreCine);
+			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
 		}
 
-		public function Add($id, $nombreCine, $idPelicula, $fecha,  $hora,  $cantEntradas)
+		public function Add($idCine, $idPelicula, $fecha,  $hora,  $cantEntradas)
 		{
 			$_SESSION['flash'] = array();
 			$funcion = new Funcion();
 
-			$funcion->setId($id);
-			$funcion->setNombreCine($nombreCine);
-			$funcion->setFecha($fecha);
-			$funcion->setHora($hora);
+			$funcion->setIdCine($idCine);
 			$funcion->setIdPelicula($idPelicula);
+			$funcion->setFecha($fecha);
+			$funcion->setHora($hora);			
 			$funcion->setCantEntradas($cantEntradas);
-			$funcion->setCantVendidas(0);
 
 			$this->funcionDAO->add($funcion);
 
 			array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
-			Functions::getInstance()->redirect("Cine","ShowFichaView", $nombreCine);
-		}
-		
-		public function iDdisponible()
-		{
-			$rta = 0;
-			$funcionList = $this->funcionDAO->getAll();
-			foreach($funcionList as $funcion)
-			{
-				$rta = $funcion->getId();
-			}
-			return $rta+1;
+			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
 		}
 	}
 ?>

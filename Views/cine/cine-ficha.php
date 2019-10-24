@@ -7,13 +7,13 @@
             <thead >       
                 <tr>
                 <th scope="col" style="text-align:left">
-                    <a class="btn btn-warning" onclick = "if(borrarCine('<?php echo $cine->getNombre(); ?>')) href='<?php echo FRONT_ROOT ?>Cine/eliminarCine/<?php echo $cine->getNombre(); ?>' ;">Eliminar Cine</a>
+                    <a class="btn btn-warning" onclick = "if(borrarCine('<?php echo $cine->getNombre(); ?>')) href='<?php echo FRONT_ROOT ?>Cine/eliminarCine/<?php echo $cine->getId(); ?>' ;">Eliminar Cine</a>
                 </th>
                 <th scope="col" style="text-align:center" >
                     <h1 class="display-2"><?php echo $cine->getNombre(); ?></h1>
                 </th>
                 <th scope="col" style="text-align:right">
-                    <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowEditView/<?php echo $cine->getNombre();?>">Modificar cine</a>
+                    <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Cine/ShowEditView/<?php echo $cine->getId();?>">Modificar cine</a>
                 </th>
                 </tr>
             </thead>
@@ -52,7 +52,7 @@
                     <th scope="col" style="text-align:center">Cant. Entradas</th>
                     <th scope="col" style="text-align:center">Cant. Vendidas</th>
                     <th scope="col" style="text-align:right">
-                        <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getNombre(); ?>">Agregar función</a>
+                        <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getId(); ?>">Agregar función</a>
                     </th>
                 </tr>
             </thead>
