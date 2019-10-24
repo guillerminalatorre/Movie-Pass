@@ -69,9 +69,12 @@ class PeliculaController
 
 		foreach ($arrayToDecode["results"] as $valuesArray) 
 		{
-			$pelicula = new Pelicula();
-			$pelicula = $this->getMovieDetailsFromApi($valuesArray["id"]);
-			$this->peliculaDAO->add($pelicula);
+			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == null)
+			{
+				$pelicula = new Pelicula();
+				$pelicula = $this->getMovieDetailsFromApi($valuesArray["id"]);
+				$this->peliculaDAO->add($pelicula);
+			}
 		}
 
 		Functions::getInstance()->redirect("System");
@@ -79,7 +82,7 @@ class PeliculaController
 
 	public function getMovieDetailsFromApi($idTMDB)
 	{
-		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "append_to_response"=>"videos");
+		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 
 		$get_data = APIController::callAPI('GET', API . '/movie'. '/' . $idTMDB, $arrayReque);
 
@@ -105,11 +108,19 @@ class PeliculaController
 		$pelicula->setFechaDeEstreno($arrayToDecode["release_date"]);
 		$pelicula->setDuracion($arrayToDecode["runtime"]);
 
-		// if ($arrayToDecode["video"] != false) 
-		// {
-		// 	$pelicula->setVideo($arrayToDecode["video"]);
-		// }
+		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 
+		$get_data = APIController::callAPI('GET', API . '/movie'. '/' . $idTMDB . "/videos", $arrayReque);
+
+		$arrayToDecode = json_decode($get_data, true);
+
+		foreach($arrayToDecode["results"] as $valuesArray)
+		{
+			if(!strcmp($valuesArray["site"], "YouTube"))
+			{
+				$pelicula->setVideo("https://www.youtube.com/watch?v=".$valuesArray["key"]);
+			}
+		}
 		return $pelicula;
 	}
 }

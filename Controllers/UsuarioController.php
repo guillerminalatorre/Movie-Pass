@@ -38,8 +38,7 @@
 
 		public function ShowEditView($id)
 		{
-			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
-			$_SESSION["loggedUser"]->getId() === $id)
+			if($this->isAdmin($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId() === $id)
 			{
 				$usuario = new Usuario();
 				$usuario->setId($id);
@@ -54,7 +53,7 @@
 
 		public function ShowListView()
 		{
-			if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3)
+			if($this->isAdmin($_SESSION["loggedUser"]))
 			{
 				$usuarioList = $this->usuarioDAO->getAll();
 				require_once(VIEWS_PATH."usuario/usuario-list.php");
@@ -480,12 +479,12 @@
 
 		public function notAdmin()
 		{
-			return (!isset($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId_Rol() === 1);
+			return (!isset($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId_Rol() == 1);
 		}
 
 		public function isAdmin($usuario)
 		{
-			if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3)
+			if($_SESSION["loggedUser"]->getId_Rol() == 2 || $_SESSION["loggedUser"]->getId_Rol() == 3)
 			{
 				return true;
 			}
@@ -497,7 +496,7 @@
 
 		public function isMainAdmin($usuario)
 		{
-			if($_SESSION["loggedUser"]->getId_Rol() === 3)
+			if($_SESSION["loggedUser"]->getId_Rol() == 3)
 			{
 				return true;
 			}

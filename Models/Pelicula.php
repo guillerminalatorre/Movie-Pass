@@ -93,7 +93,7 @@ class Pelicula
 	 */
 	public function getGeneros()
 	{
-	    return $this->generos();
+	    return $this->generos;
 	}
 
 	/**

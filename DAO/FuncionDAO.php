@@ -60,7 +60,9 @@
 		{
 			try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_cine = ".$cine->getId().";";
+				$query = "DELETE FROM ".$this->tableName." WHERE id_cine = :id_cine;";
+				
+				$parameters["id_cine"]=$cine->getId();
                 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
@@ -125,12 +127,12 @@
             }
         }
 
-		public function getByCine($idCine)
+		public function getByCine($cine)
         {
             try
             {
                 $list = array();
-                $query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$idCine.";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$cine->getId().";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 

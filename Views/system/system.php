@@ -26,7 +26,7 @@
                 <div class="col-xl-3 col-sm-6 mb-5">
                     <div class="bg-white rounded shadow-sm py-5 px-4">
                         <h5 class="mb-0">Peliculas</h5><h3 class="large text-uppercase"><?php echo $peliculaCount; ?></h3>
-                        <a href="<?php echo FRONT_ROOT ?>Cine/ShowListView" class="btn btn-info btn-md mt-2" role="button">Lista de peliculas</a>
+                        <a href="<?php echo FRONT_ROOT ?>Pelicula/ShowListView" class="btn btn-info btn-md mt-2" role="button">Lista de peliculas</a>
                         <h5 class="mt-4 mb-0">Obtener de API</h5>
                         <a href="<?php echo FRONT_ROOT ?>Pelicula/getNowPlayingMoviesFromApi" class="btn btn-info btn-md mt-2" role="button">Peliculas</a>
                         <a href="<?php echo FRONT_ROOT ?>Genero/getGenresFromApi" class="btn btn-info btn-md mt-2" role="button">Generos</a>

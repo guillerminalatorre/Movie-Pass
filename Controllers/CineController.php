@@ -14,6 +14,7 @@
 	class CineController
 	{
 		private $cineDAO;
+		private $funcionDAO;
 
 		public function __construct()
 		{
@@ -32,16 +33,20 @@
 			require_once(VIEWS_PATH."cine/add-cine.php");
 		}
 
-		public function ShowFichaView($nombre)
+		public function ShowFichaView($id)
 		{
-			$cine = $this->cineDAO->getByNombre($nombre);
-			$funcionList = $this->funcionDAO->getByCine($nombre);
+			$cine = new Cine();
+			$cine->setId($id);
+			$cine = $this->cineDAO->getCine($cine);
+			$funcionList = $this->funcionDAO->getByCine($cine);
 			require_once(VIEWS_PATH."cine/cine-ficha.php");
 		}
 
-		public function ShowEditView($nombre)
+		public function ShowEditView($id)
 		{
-			$cine = $this->cineDAO->getByNombre($nombre);
+			$cine = new Cine();
+			$cine->setId($id);
+			$cine = $this->cineDAO->getCine($cine);
 			require_once(VIEWS_PATH."cine/cine-edit.php");
 		}
 
@@ -50,34 +55,37 @@
 			$_SESSION['flash'] = array();
 
 			$nombre = Functions::getInstance()->escapar($nombre);
-			$nombre = Functions::getInstance()->escapar($direccion);
-			$nombre = Functions::getInstance()->escapar($capacidad);
-			$nombre = Functions::getInstance()->escapar($precio);
+			$direccion = Functions::getInstance()->escapar($direccion);
+			$capacidad = Functions::getInstance()->escapar($capacidad);
+			$precio = Functions::getInstance()->escapar($precio);
 
 			$cine = $this->cineDAO->getByNombre($nombre);
 
 			if($cine != null)
 			{
-				// $cine->setNombre($nombre);
+				$cine->setNombre($nombre);
 				$cine->setDireccion($direccion);
 				$cine->setCapacidad($capacidad);
 				$cine->setPrecio($precio);
-				$this->cineDAO->saveData();
+				$this->cineDAO->edit($cine);
 				array_push($_SESSION['flash'], "Los datos se han actualizado correctamente.");
 			}
 			else
 			{
 				array_push($_SESSION['flash'], "El cine no existe.");
+				Functions::getInstance()->redirect("Cine","ShowListView");
 			}
 
-			Functions::getInstance()->redirect("Cine","ShowFichaView",$nombre);
+			Functions::getInstance()->redirect("Cine","ShowFichaView", $cine->getId());
 		}
 
-		public function eliminarCine($nombre)
+		public function eliminarCine($id)
 		{
 			$_SESSION['flash'] = array();
-			$this->cineDAO->remove($nombre);			
-			$this->funcionDAO->removeByCine($nombre);
+			$cine = new Cine();
+			$cine->setId($id);
+			$this->cineDAO->remove($cine);
+			$this->funcionDAO->removeByCine($cine);
 
 			array_push($_SESSION['flash'], "El cine se ha eliminado correctamente.");
 			Functions::getInstance()->redirect("Cine","ShowListView");
@@ -88,9 +96,9 @@
 			$_SESSION['flash'] = array();
 			
 			$nombre = Functions::getInstance()->escapar($nombre);
-			$nombre = Functions::getInstance()->escapar($direccion);
-			$nombre = Functions::getInstance()->escapar($capacidad);
-			$nombre = Functions::getInstance()->escapar($precio);
+			$direccion = Functions::getInstance()->escapar($direccion);
+			$capacidad = Functions::getInstance()->escapar($capacidad);
+			$precio = Functions::getInstance()->escapar($precio);
 
 			if(!$this->cineDAO->getByNombre($nombre))
 			{

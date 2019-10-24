@@ -36,6 +36,8 @@
 				   
 				$this->generoDAO->add($category);
 			}
+
+			Functions::getInstance()->redirect("System");
 		}
 	}
 ?>

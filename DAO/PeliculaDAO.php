@@ -11,20 +11,25 @@ class PeliculaDAO
 {
 	private $connection;
 	private $tableName = "Peliculas";
+	private $generoTableName = "PeliculasXGeneros";
 
 	public function getAll()
 	{
-		try {
+		try 
+		{
 			$list = array();
 			$query = "SELECT * FROM " . $this->tableName;
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
+			foreach ($resultSet as $row) 
+			{
 				$pelicula = new Pelicula();
+				$pelicula->setId($row["id_pelicula"]);
 				$pelicula->setIdTMDB($row["id_TMDB"]);
 				$pelicula->setTitulo($row["titulo"]);
-				//$pelicula->agregarGenero($genero);
+				$generos = $this->getGeneros($pelicula);
+				$pelicula->setGeneros($generos);
 				$pelicula->setDuracion($row["duracion"]);
 				$pelicula->setDescripcion($row["descripcion"]);
 				$pelicula->setIdioma($row["idioma"]);
@@ -36,16 +41,18 @@ class PeliculaDAO
 
 				array_push($list, $pelicula);
 			}
-
 			return $list;
-		} catch (Exception $ex) {
+		} 
+		catch (Exception $ex) 
+		{
 			throw $ex;
 		}
 	}
 
 	public function add($pelicula)
 	{
-		try {
+		try 
+		{
 			$query = "INSERT INTO " . $this->tableName . " (id_TMDB, titulo, duracion, descripcion, idioma, clasificacion, fechaDeEstreno, poster, video, popularidad) VALUES (:id_TMDB, :titulo, :duracion, :descripcion, :idioma, :clasificacion, :fechaDeEstreno, :poster, :video, :popularidad);";
 			$parameters["id_TMDB"] = $pelicula->getIdTMDB();
 			$parameters["titulo"] = $pelicula->getTitulo();
@@ -60,55 +67,141 @@ class PeliculaDAO
 
 			$this->connection = Connection::GetInstance();
 			$this->connection->ExecuteNonQuery($query, $parameters);
-		} catch (Exception $ex) {
+
+			$generos = $pelicula->getGeneros();
+			$pelicula = $this->getByIdTMDB($pelicula->getIdTMDB());
+			$this->saveGeneros($pelicula, $generos);
+		} 
+		catch (Exception $ex) 
+		{
 			throw $ex;
 		}
 	}
 
 	function remove($pelicula)
 	{
-		try {
+		try 
+		{
 			$query = "DELETE FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
 
 			$this->connection = Connection::GetInstance();
 			$this->connection->ExecuteNonQuery($query);
-		} catch (Exception $ex) {
+
+			$query = "DELETE FROM " . $this->generoTableName . " WHERE id_peliculaa = " . $pelicula->getId() . ";";
+
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query);
+		} 
+		catch (Exception $ex) 
+		{
 			throw $ex;
 		}
 	}
 
 	public function getPelicula($pelicula)
 	{
-		try {
-			$query = "SELECT * FROM " . $this->tableName . "WHERE id_pelicula = " . $pelicula->getId() . ";";
+		try
+		{
+			$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
-				$result = new Pelicula();
-				$result->setIdTMDB($row["id_TMDB"]);
-				$result->setTitulo($row["titulo"]);
-				//$pelicula->agregarGenero($genero);
-				$result->setDuracion($row["duracion"]);
-				$result->setDescripcion($row["descripcion"]);
-				$result->setIdioma($row["idioma"]);
-				$result->setClasificacion($row["clasificacion"]);
-				$result->setFechaDeEstreno($row["fechaDeEstreno"]);
-				$result->setPoster($row["poster"]);
-				$result->setVideo($row["video"]);
-				$result->setPopularidad($row["popularidad"]);
+			foreach ($resultSet as $row) 
+			{
+				$pelicula = new Pelicula();
+				$pelicula->setIdTMDB($row["id_TMDB"]);
+				$pelicula->setTitulo($row["titulo"]);
+				$generos = $this->getGeneros($pelicula);
+				$pelicula->setGeneros($generos);
+				$pelicula->setDuracion($row["duracion"]);
+				$pelicula->setDescripcion($row["descripcion"]);
+				$pelicula->setIdioma($row["idioma"]);
+				$pelicula->setClasificacion($row["clasificacion"]);
+				$pelicula->setFechaDeEstreno($row["fechaDeEstreno"]);
+				$pelicula->setPoster($row["poster"]);
+				$pelicula->setVideo($row["video"]);
+				$pelicula->setPopularidad($row["popularidad"]);
+				return $pelicula;
+			}			
+		} 
+		catch (Exception $ex) 
+		{
+			return null;
+		}
+	}
+
+	public function getGeneros($pelicula)
+	{
+		try
+		{
+			$query = "SELECT * FROM " . $this->generoTableName . " WHERE id_peliculaa = " . $pelicula->getId() . ";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+
+			$generos = array();
+			foreach ($resultSet as $row) 
+			{
+				array_push($generos, $row["id_generoo"]);
 			}
-			return $result;
-		} catch (Exception $ex) {
+			return $generos;
+		} 
+		catch (Exception $ex) 
+		{
+			return null;
+		}
+	}
+
+	public function saveGeneros($pelicula, $generos)
+	{
+		try
+		{
+			foreach($generos as $genero)
+			{
+				$query = "INSERT INTO " . $this->generoTableName . " (id_peliculaa, id_generoo) VALUES (:id_peliculaa, :id_generoo);";
+				$parameters["id_peliculaa"] = $pelicula->getId();
+				$parameters["id_generoo"] = $genero;
+
+				$this->connection = Connection::GetInstance();
+				$this->connection->ExecuteNonQuery($query, $parameters);
+			}
+		} 
+		catch (Exception $ex) 
+		{
 			throw $ex;
 		}
 	}
 
-	public function getFilteredMovies($id, $fecha)
+	public function getByIdTMDB($id)
 	{
-		//TODO: IMPLEMENTAR METODO QUE FILTRE LAS FUNCIONES			
-		return array();
+		try
+		{
+			$query = "SELECT * FROM " . $this->tableName . " WHERE id_TMDB = " . $id . ";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+
+			foreach ($resultSet as $row) 
+			{
+				$pelicula = new Pelicula();
+				$pelicula->setId($row["id_pelicula"]);
+				$pelicula->setIdTMDB($row["id_TMDB"]);
+				$pelicula->setTitulo($row["titulo"]);
+				$generos = $this->getGeneros($pelicula);
+				$pelicula->setGeneros($generos);
+				$pelicula->setDuracion($row["duracion"]);
+				$pelicula->setDescripcion($row["descripcion"]);
+				$pelicula->setIdioma($row["idioma"]);
+				$pelicula->setClasificacion($row["clasificacion"]);
+				$pelicula->setFechaDeEstreno($row["fechaDeEstreno"]);
+				$pelicula->setPoster($row["poster"]);
+				$pelicula->setVideo($row["video"]);
+				$pelicula->setPopularidad($row["popularidad"]);
+				return $pelicula;
+			}			
+		} 
+		catch (Exception $ex) 
+		{
+			return null;
+		}
 	}
 }
-
 ?>
