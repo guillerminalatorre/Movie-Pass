@@ -56,7 +56,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm text-right">
-                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-plus-circle"></i> Agregar Funcion</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-plus-circle"></i> Agregar Funcion</button>
             </div>
         </form>
     </div>

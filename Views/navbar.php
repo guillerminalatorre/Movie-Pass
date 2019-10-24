@@ -13,17 +13,17 @@
   <?php
     if (isset($_SESSION["loggedUser"]))
     {
-      if ($_SESSION["loggedUser"]->getId_Rol() === 1)
+      if ($_SESSION["loggedUser"]->getId_Rol() == 1)
       {
-        require_once "navbar/navbar-user.php";
+        require_once("navbar/navbar-user.php");
       }
-      else if ($_SESSION["loggedUser"]->getId_Rol() === 2)
+      else if ($_SESSION["loggedUser"]->getId_Rol() == 2)
       {
-        require_once "navbar/navbar-admin.php";
+        require_once("navbar/navbar-admin.php");
       }
-      else if ($_SESSION["loggedUser"]->getId_Rol() === 3)
+      else if ($_SESSION["loggedUser"]->getId_Rol() == 3)
       {
-        require_once "navbar/navbar-main-admin.php";
+        require_once("navbar/navbar-main-admin.php");
       }
   ?>
 
@@ -41,9 +41,9 @@
             <?php echo $_SESSION["loggedUser"]->getNombre() . " " . $_SESSION["loggedUser"]->getApellido(); ?><img src="<?php echo $_SESSION["loggedUser"]->getImage() ?>" height="30" class="rounded-circle z-depth-0 ml-2" alt="avatar image">
           </a>
           <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-            <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getEmail(); ?>"><i class="fas fa-user"></i> Ver perfil</a>
-            <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $_SESSION["loggedUser"]->getEmail(); ?>"><i class="fas fa-edit"></i> Modificar perfil</a>
-            <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Usuario/Logout"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $_SESSION["loggedUser"]->getId(); ?>"><i class="fa fa-user"></i> Ver perfil</a>
+            <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $_SESSION["loggedUser"]->getId(); ?>"><i class="fa fa-edit"></i> Modificar perfil</a>
+            <a class="dropdown-item waves-effect waves-light" href="<?php echo FRONT_ROOT ?>Usuario/Logout"><i class="fa fa-sign-out-alt"></i> Cerrar sesión</a>
           </div>
       </li>
   </ul>

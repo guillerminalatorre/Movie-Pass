@@ -40,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm text-right">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-plus-circle"></i> Agregar cine</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-plus-circle"></i> Agregar cine</button>
                 </div>
         </form>
     </div>

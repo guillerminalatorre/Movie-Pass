@@ -21,5 +21,5 @@
 
 	require_once(VIEWS_PATH."footer.php");
 
-	$_SESSION['flash'] = null;
+	unset($_SESSION['flash']);
 ?>

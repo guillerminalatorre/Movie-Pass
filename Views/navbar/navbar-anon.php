@@ -7,7 +7,7 @@
 </form>
 
 <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Login" role="button">
-  <i class="fas fa-sign-in-alt"></i> Login
+  <i class="fa fa-sign-in-alt"></i> Login
 </a>
 
 <!-- <ul class="nav navbar-nav flex-row justify-content-between ml-auto bd-primary">

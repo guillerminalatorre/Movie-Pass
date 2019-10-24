@@ -23,7 +23,7 @@
 		public function ShowProfileView($id)
 		{
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
-			$_SESSION["loggedUser"]->getEmail() === $id)
+			$_SESSION["loggedUser"]->getId() === $id)
 			{
 				$usuario = new Usuario();
 				$usuario->setId($id);
@@ -36,10 +36,10 @@
 			}	
 		}
 
-		public function ShowEditView($email)
+		public function ShowEditView($id)
 		{
 			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
-			$_SESSION["loggedUser"]->getEmail() === $email)
+			$_SESSION["loggedUser"]->getId() === $id)
 			{
 				$usuario = new Usuario();
 				$usuario->setId($id);
@@ -54,8 +54,7 @@
 
 		public function ShowListView()
 		{
-			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3) ||
-			$_SESSION["loggedUser"]->getEmail() === $email)
+			if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3)
 			{
 				$usuarioList = $this->usuarioDAO->getAll();
 				require_once(VIEWS_PATH."usuario/usuario-list.php");
@@ -69,9 +68,7 @@
 		public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword, $image)
 		{
 			$_SESSION['flash'] = array();
-			$usuario = new Usuario();
-			$usuario->setId($id);
-			$usuario = $this->usuarioDAO->getUsuario($usuario);
+			$usuario = $this->usuarioDAO->getByEmail($email);
 
 			if($usuario != null)
 			{
@@ -136,7 +133,7 @@
 				}
 				// Fin imagen de perfil
 
-				$this->usuarioDAO->saveData();
+				$this->usuarioDAO->edit($usuario);
 				array_push($_SESSION['flash'], "Los datos se han actualizado correctamente.");
 			}
 			else
@@ -144,10 +141,10 @@
 				array_push($_SESSION['flash'], "El usuario no existe.");
 			}
 			
-			Functions::getInstance()->redirect("Usuario","ShowProfileView", $email);
+			Functions::getInstance()->redirect("Usuario","ShowProfileView", $usuario->getId());
 		}
 
-		public function Register($dni, $nombre, $apellido, $email, $password, $confirmpassword)
+		public function Register($email, $nombre, $apellido, $dni = null, $password, $confirmpassword, $facebookId = null)
 		{
 			$_SESSION['flash'] = array();
 			$nombre = Functions::getInstance()->escapar($nombre);
@@ -156,19 +153,17 @@
 			$password = Functions::getInstance()->escapar($password);
 			$confirmpassword = Functions::getInstance()->escapar($confirmpassword);
 
-			$usuario = new Usuario();
-			$usuario->setId($id);
-			$usuario = $this->usuarioDAO->getUsuario($usuario);
+			$usuario = $this->usuarioDAO->getByEmail($email);
 
-			if($usuario != null)
+			if($usuario == null)
 			{
 				if($password == $confirmpassword)
 				{
 					$usuario = new Usuario();
-					$usuario->setDni($dni);
+					$usuario->setEmail($email);					
 					$usuario->setNombre($nombre);
 					$usuario->setApellido($apellido);
-					$usuario->setEmail($email);
+					if($dni != null) $usuario->setDni($dni);
 					$usuario->setPassword($password);
 
 					$id_Rol = 1;
@@ -179,8 +174,17 @@
 
 					$date = time();
 					$usuario->setRegisterDate($date);
+					$usuario->setLoggedIn(0);
 
-					$usuario->setImage(FRONT_ROOT.UPLOADS_PATH."avatar.png");
+					if($facebookId != null)
+					{
+						$usuario->setFacebookId($facebookId);
+						$usuario->setImage("http://graph.facebook.com/".$facebookId."/picture?type=square&height=200");
+					}
+					else
+					{
+						$usuario->setImage(FRONT_ROOT.UPLOADS_PATH."avatar.png");
+					}
 
 					$this->usuarioDAO->add($usuario);
 
@@ -203,7 +207,7 @@
 		{
 			$_SESSION['flash'] = array();
 			// Solo puede ser usada por main admin / admin / usuario de su propia cuenta
-			if(($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3 || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3))
+			if(($this->isAdmin($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getEmail() === $email) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3))
 			{
 				$usuario = new Usuario();
 				$usuario->setId($id);
@@ -227,13 +231,11 @@
 		public function Login($email, $password)
         {
 			$_SESSION['flash'] = array();
-            $usuario = new Usuario();
-			$usuario->setId($id);
 			$usuario = $this->usuarioDAO->getByEmail($email);
 
 			if($usuario != null)
 			{
-				if($usuario->getPassword() === $password)
+				if($usuario->getPassword() == $password)
 				{
 					$this->toggleUserLoginStatus($email);
 
@@ -251,6 +253,7 @@
 			else
 			{
 				array_push($_SESSION['flash'], "Mail o password incorrectos.");
+				Functions::getInstance()->redirect("Login");
 			}
 		}
 
@@ -274,6 +277,7 @@
 		public function FacebookLogin()
 		{
 			$_SESSION['flash'] = array();
+
 			$fb = $this->getFacebookAPI();
 			$helper = $fb->getRedirectLoginHelper();			
 			try 
@@ -282,13 +286,13 @@
 			} 
 			catch(Facebook\Exceptions\FacebookResponseException $e) {
 				// When Graph returns an error
-				echo 'Graph returned an error: ' . $e->getMessage();
-				exit;
+				array_push($_SESSION['flash'], 'Graph returned an error: ' . $e->getMessage());
+				Functions::getInstance()->redirect("Login");
 			} 
 			catch(Facebook\Exceptions\FacebookSDKException $e) {
 				// When validation fails or other local issues
-				echo 'Facebook SDK returned an error: ' . $e->getMessage();
-				exit;
+				array_push($_SESSION['flash'], 'Facebook SDK returned an error: ' . $e->getMessage());
+				Functions::getInstance()->redirect("Login");
 			}
 			
 			if (! isset($accessToken)) 
@@ -296,17 +300,17 @@
 				if ($helper->getError()) 
 				{
 					header('HTTP/1.0 401 Unauthorized');
-					echo "Error: " . $helper->getError() . "\n";
-					echo "Error Code: " . $helper->getErrorCode() . "\n";
-					echo "Error Reason: " . $helper->getErrorReason() . "\n";
-					echo "Error Description: " . $helper->getErrorDescription() . "\n";
+					array_push($_SESSION['flash'], "Error: " . $helper->getError());
+					array_push($_SESSION['flash'], "Error Code: " . $helper->getErrorCode());
+					array_push($_SESSION['flash'], "Error Reason: " . $helper->getErrorReason());
+					array_push($_SESSION['flash'], "Error Description: " . $helper->getErrorDescription());
 				} 
 				else 
 				{
 					header('HTTP/1.0 400 Bad Request');
-					echo 'Bad request';
+					array_push($_SESSION['flash'], 'Bad request');
 				}
-				exit;
+				Functions::getInstance()->redirect("Login");
 			}
 			
 			// Logged in
@@ -335,12 +339,13 @@
 				} 
 				catch (Facebook\Exceptions\FacebookSDKException $e) 
 				{
-					echo "<p>Error getting long-lived access token: " . $e->getMessage() . "</p>\n\n";
-					exit;
+					array_push($_SESSION['flash'], "Error getting long-lived access token: " . $e->getMessage());
+					Functions::getInstance()->redirect("Login");
 				}
 				
 				echo '<h3>Long-lived</h3>';
 				var_dump($accessToken->getValue());
+				Functions::getInstance()->redirect("Login");
 			}
 			
 			$_SESSION['fb_access_token'] = (string) $accessToken;
@@ -349,7 +354,7 @@
 			// Hacemos una consulta de los datos del usuario.
 			$facebookData = $this->GetFacebookData();
 
-			$usuario = $this->usuarioDAO->GetById($facebookData['email']);
+			$usuario = $this->usuarioDAO->GetByEmail($facebookData['email']);
 
 			if($usuario != null)
 			{
@@ -357,33 +362,9 @@
 			}
 			else
 			{
-				//Si no existe lo registramos
-				$usuario = new Usuario();
 				$nombre = explode(" ", $facebookData['name']);
-				$usuario->setNombre($nombre[0]);
-				$usuario->setApellido($nombre[1]);
-				$email = $facebookData['email'];
-				$usuario->setEmail($email);
 				$password = random_int(100000,1000000);
-				$usuario->setPassword($password);
-
-				$id_Rol = 1;
-				$usuario->setId_Rol($id_Rol);
-
-				$ip = $this->getUserIp();
-				$usuario->setIp($ip);
-
-				$date = time();
-				$usuario->setRegisterDate($date);
-
-				$usuario->setImage("http://graph.facebook.com/".$facebookData['id']."/picture?type=square&height=200");
-
-				//Seteamos el id de facebook
-				$usuario->setFacebookId($facebookData['id']);
-
-				$this->usuarioDAO->add($usuario);
-
-				$this->Login($email, $password);
+				$this->Register($facebookData['email'], $nombre[0], $nombre[1], null, $password, $password, $facebookData['id']);
 			}
 		}
 
@@ -413,17 +394,12 @@
 			$_SESSION['flash'] = array();
 			$email = $_SESSION["loggedUser"]->getEmail();
 
-			$this->toggleUserLoginStatus($email);
+			$this->toggleUserLoginStatus($_SESSION["loggedUser"]->getId());
 
-            session_destroy();
-
+			unset($_SESSION["loggedUser"]);
+			
 			array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
             Functions::getInstance()->redirect("Home");
-		}
-
-		public function notAdmin()
-		{
-			return (!isset($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId_Rol() === 1);
 		}
 
 		public function getUserRol($id_Rol)
@@ -464,7 +440,7 @@
 
 		private function toggleUserLoginStatus($email)
 		{
-			$usuario = $this->usuarioDAO->getUsuario($email);
+			$usuario = $this->usuarioDAO->getByEmail($email);
 
 			if($usuario != null)
 			{
@@ -477,10 +453,9 @@
 				$usuario->setLastConnection($date);
 
 				//Cambiar estado
-				$logged = $usuario->getLoggedIn();
-				$usuario->setLoggedIn(!$logged);
+				$usuario->getLoggedIn() ? $usuario->setLoggedIn(0) : $usuario->setLoggedIn(1);
 
-				$this->usuarioDAO->saveData();
+				$this->usuarioDAO->edit($usuario);
 			}
 		}
 
@@ -488,27 +463,47 @@
 		{
 			$_SESSION['flash'] = array();
 			// Solo puede ser usada por main admin
-			if($_SESSION["loggedUser"]->getId_Rol() === 3)
+			if($this->isMainAdmin($_SESSION["loggedUser"]))
 			{
 				$usuario = $this->usuarioDAO->getUsuario($email);
 
 				if($usuario != null)
 				{
 					//Cambiar rol
-					$rol = $usuario->getId_Rol();
-					if($rol === 1)
-					{
-						$usuario->setId_Rol(2);
-					}
-					else if($rol === 2)
-					{
-						$usuario->setId_Rol(1);
-					}
-
-					$this->usuarioDAO->saveData();
+					$usuario->getId_Rol() == 1 ? $usuario->setId_Rol(2) : $usuario->setId_Rol(1);
+					$this->usuarioDAO->edit($usuario);
 				}
 			}
 			array_push($_SESSION['flash'], "Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
-			Functions::getInstance()->redirect("Usuario","ShowProfileView", $email);
+			Functions::getInstance()->redirect("Usuario","ShowProfileView", $usuario->getId());
+		}
+
+		public function notAdmin()
+		{
+			return (!isset($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId_Rol() === 1);
+		}
+
+		public function isAdmin($usuario)
+		{
+			if($_SESSION["loggedUser"]->getId_Rol() === 2 || $_SESSION["loggedUser"]->getId_Rol() === 3)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public function isMainAdmin($usuario)
+		{
+			if($_SESSION["loggedUser"]->getId_Rol() === 3)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}

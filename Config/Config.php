@@ -18,8 +18,8 @@
 	define("FACEBOOK_API", "417391325441189");
 	define("FACEBOOK_SECRET", "67fbf5704267023c39712b1befaf9477");
 
-	define("DB_HOST", "remotemysql.com");
-	define("DB_NAME", "dlsQli4swl");
-	define("DB_USER", "dlsQli4swl");
-	define("DB_PASS", "btB12b3iWO");
+	define("DB_HOST", "metroline.com.ar");
+	define("DB_NAME", "moviepass");
+	define("DB_USER", "metroline");
+	define("DB_PASS", "rodrii01");
 ?>
