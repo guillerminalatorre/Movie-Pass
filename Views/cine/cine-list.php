@@ -7,5 +7,5 @@
             <a class="btn btn-info btn-block mt-2" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $cine->getNombre();?>"><?php echo $cine->getNombre();?></button>
     <?php } ?>
 
-    <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Cine/ShowAddView" role="button"><i class="fas fa-plus-circle"></i> Agregar cine</a>
+    <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Cine/ShowAddView" role="button"><i class="fa fa-plus-circle"></i> Agregar cine</a>
 </div>

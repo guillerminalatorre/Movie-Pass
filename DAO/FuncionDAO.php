@@ -130,7 +130,7 @@
             try
             {
                 $list = array();
-                $query = "SELECT * FROM ".$this->tableName" WHERE id_cine = ".$idCine.";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$idCine.";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 

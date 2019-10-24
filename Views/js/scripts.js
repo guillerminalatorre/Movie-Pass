@@ -1,7 +1,7 @@
 function borrarCine(nombreCine)
 {
     preg = window.confirm('¿Desea borrar el cine'+ nombreCine +'?');
-    if(preg==true) 
+    if(preg == true) 
     {
         alert('Se ha borrado el cine '+ nombreCine);
     }
@@ -10,23 +10,18 @@ function borrarCine(nombreCine)
 
 function borrarFuncion(id)
 {
-    preg = window.confirm('¿Desea borrar la funcion?');
-    if(preg==true) 
+    preg = window.confirm('¿Desea borrar la funcion ID:'+ id +'?');
+    if(preg == true) 
     {
         alert('Se ha borrado la funcion '+ id);
     }
     return preg;
 }
 
-function verificacion()
-{
-    alert('La función se ha agregado satisfactoriamente');
-}
-
 function borrarUsuario(nombreUsuario)
 {
     preg = window.confirm('¿Desea borrar el usuario'+ nombreUsuario +'?');
-    if(preg==true) 
+    if(preg == true) 
     {
         alert('Se ha borrado el usuario '+ nombreUsuario);
     }
@@ -41,6 +36,18 @@ function toggleAdmin(nombreUsuario, rolActual)
     if(preg == true) 
     {
         alert('Se ha cambiado el acceso de '+ nombreUsuario);
+    }
+    return preg;
+}
+
+function API()
+{
+    var preg;
+    preg = window.confirm('¿Desea conectar a TMDB para obtener datos de la API?');
+    
+    if(preg == true) 
+    {
+        alert('Obteniendo datos de la API.');
     }
     return preg;
 }

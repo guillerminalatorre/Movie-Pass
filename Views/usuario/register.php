@@ -11,13 +11,12 @@
                     <h2>Registro</h2>
                 </div>
             </div>
-            
             <div class="row">
                 <div class="form-group col-sm">
-                    <label for="dni">Dni:</label>
-                    <input type="number" class="form-control" name="dni" required>
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" name="email" placeholder="example@example.com" required>
                 </div>
-            </div>
+            </div>            
             <div class="row">
                 <div class="form-group col-sm">
                     <label for="nombre">Nombre:</label>
@@ -32,10 +31,10 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" name="email" placeholder="example@example.com" required>
+                    <label for="dni">Dni:</label>
+                    <input type="number" class="form-control" name="dni" required>
                 </div>
-            </div>
+            </div>            
             <div class="row">
                 <div class="form-group col-sm">
                     <label for="password">Contraseña:</label>
@@ -45,7 +44,10 @@
                     <label for="confirmpassword">Repite tu contraseña:</label>
                     <input type="password" class="form-control" name="confirmpassword" required>
                 </div>
+            </div>
+            <div class="row">
                 <button type="submit" class="btn btn-primary btn-lg btn-block">Crear cuenta</button>
+            </div>
         </form>
     </div>
 </div>

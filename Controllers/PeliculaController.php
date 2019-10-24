@@ -12,6 +12,7 @@ use API\APIController as APIController;
 use DAO\PeliculaDAO as PeliculaDAO;
 use DAO\GeneroDAO as GeneroDAO;
 use Models\Pelicula as Pelicula;
+use Config\Functions as Functions;
 
 class PeliculaController
 {
@@ -26,8 +27,15 @@ class PeliculaController
 	public function ShowListView()
 	{
 		$this->ShowSearchBar();
-		$peliculaList = $this->peliculaDAO->getNowPlayingMovies();
-		$totalPages = $this->peliculaDAO->getTotalPages();
+		$peliculaList = $this->peliculaDAO->getAll();
+		if (isset($_GET['page'])) 
+		{
+			$pageValue = $_GET['page'];
+		} 
+		else 
+		{
+			$pageValue = 1;
+		}
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
@@ -39,50 +47,38 @@ class PeliculaController
 
 	public function ShowFilteredList($id = null, $fecha = null)
 	{
-		$peliculaList = $this->peliculaDAO->getFilteredMovies($id, $fecha);
-		$totalPages = $this->peliculaDAO->getTotalPages();
+		$peliculaList = $this->peliculaDAO->getAll();
+		if (isset($_GET['page'])) 
+		{
+			$pageValue = $_GET['page'];
+		} 
+		else 
+		{
+			$pageValue = 1;
+		}
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
-	public function getNowPlayingMovies()
+	public function getNowPlayingMoviesFromApi()
 	{
-		if (isset($_GET['page'])) {
-			$pageValue = $_GET['page'];
-		} else {
-			$pageValue = 1;
-		}
-
-		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "region" => "AR", "page" => $pageValue);
+		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "region" => "AR");
 
 		$get_data = APIController::callAPI('GET', API . '/movie/now_playing', $arrayReque);
 
 		$arrayToDecode = json_decode($get_data, true);
 
-		foreach ($arrayToDecode["results"] as $valuesArray) {
+		foreach ($arrayToDecode["results"] as $valuesArray) 
+		{
 			$pelicula = new Pelicula();
-			$pelicula->setIdTMDB($valuesArray["id"]);
-			$pelicula->setPoster($valuesArray["poster_path"]);
-			$pelicula->setIdioma($valuesArray["original_language"]);
-			$pelicula->setClasificacion($valuesArray["adult"]);
-			//$pelicula->agregarGenero($genero);
-			$pelicula->setTitulo($valuesArray["title"]);
-			$pelicula->setPopularidad($valuesArray["vote_average"]);
-			$pelicula->setDescripcion($valuesArray["overview"]);
-			$pelicula->setFechaDeEstreno($valuesArray["release_date"]);
-
-			if ($valuesArray["video"] != false) {
-				$pelicula->setVideo($valuesArray["video"]);
-			}
-
+			$pelicula = $this->getMovieDetailsFromApi($valuesArray["id"]);
 			$this->peliculaDAO->add($pelicula);
 		}
 
-		//TODO: CHECKEAR SI SE SIGUE NECESITANDO..
-		$this->totalPages = $arrayToDecode["total_pages"];
-		
+		Functions::getInstance()->redirect("System");
 	}
 
-	public function getMovieDetailsFromApi($idTMDB){
+	public function getMovieDetailsFromApi($idTMDB)
+	{
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "append_to_response"=>"videos");
 
 		$get_data = APIController::callAPI('GET', API . '/movie'. '/' . $idTMDB, $arrayReque);
@@ -90,23 +86,31 @@ class PeliculaController
 		$arrayToDecode = json_decode($get_data, true);
 
 		$pelicula = new Pelicula();
-			$pelicula->setIdTMDB($arrayToDecode["id"]);
-			$pelicula->setPoster($arrayToDecode["poster_path"]);
-			$pelicula->setIdioma($arrayToDecode["original_language"]);
-			$pelicula->setClasificacion($arrayToDecode["adult"]);
-			$pelicula->setTitulo($arrayToDecode["title"]);
-			$pelicula->setPopularidad($arrayToDecode["vote_average"]);
-			$pelicula->setDescripcion($arrayToDecode["overview"]);
-			$pelicula->setFechaDeEstreno($arrayToDecode["release_date"]);
-			$pelicula->setClasificacion($arrayToDecode["adult"]);
-			$pelicula->setPoster($arrayToDecode["runtime"]);
+		$pelicula->setIdTMDB($arrayToDecode["id"]);
+		$pelicula->setPoster($arrayToDecode["poster_path"]);
+		$pelicula->setIdioma($arrayToDecode["original_language"]);
 
-			if ($arrayToDecode["video"] != false) {
-				$pelicula->setVideo($arrayToDecode["video"]);
-			}
-	
+		$generos = array();
+		foreach($arrayToDecode["genres"] as $genero)
+		{
+			array_push($generos,$genero["id"]);
+		}
+		$pelicula->setGeneros($generos);
+
+		$arrayToDecode["adult"] != false ? $adult = $arrayToDecode["adult"] : $adult = 0;
+		$pelicula->setClasificacion($adult);
+		$pelicula->setTitulo($arrayToDecode["title"]);
+		$pelicula->setPopularidad($arrayToDecode["vote_average"]);
+		$pelicula->setDescripcion($arrayToDecode["overview"]);
+		$pelicula->setFechaDeEstreno($arrayToDecode["release_date"]);
+		$pelicula->setDuracion($arrayToDecode["runtime"]);
+
+		// if ($arrayToDecode["video"] != false) 
+		// {
+		// 	$pelicula->setVideo($arrayToDecode["video"]);
+		// }
+
 		return $pelicula;
 	}
 }
-
 ?>

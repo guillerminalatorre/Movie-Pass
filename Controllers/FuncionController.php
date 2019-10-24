@@ -27,7 +27,9 @@
 		public function eliminarFuncion($id)
 		{
 			$_SESSION['flash'] = array();
-			$funcion = $this->funcionDAO->getById($id);
+			$funcion = new Funcion();
+			$funcion->setId($id);
+			$funcion = $this->funcionDAO->getFuncion($funcion);
 
 			$nombreCine = $funcion->getNombreCine();
 
