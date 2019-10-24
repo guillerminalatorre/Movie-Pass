@@ -3,7 +3,7 @@
    }
 
    body {
-      background: url("https://external-preview.redd.it/-DobWIgRbcMv7FJUmWeen-Cj1V4m2QWWkZ1VMciK3uA.jpg?auto=webp&s=9a81025dbd9698379b49060271b1455d5d874e1b") no-repeat center center fixed;
+      background: url("/TP-Metodologia/Views/img/postersBackground.png") rgba(200, 200, 200, 0.95) no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
