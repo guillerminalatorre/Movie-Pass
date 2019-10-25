@@ -27,15 +27,7 @@ class PeliculaController
 	public function ShowListView()
 	{
 		$this->ShowSearchBar();
-		$peliculaList = $this->peliculaDAO->getAll();
-		if (isset($_GET['page'])) 
-		{
-			$pageValue = $_GET['page'];
-		} 
-		else 
-		{
-			$pageValue = 1;
-		}
+		//$peliculaList = $this->peliculaDAO->getAll();
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
@@ -48,14 +40,6 @@ class PeliculaController
 	public function ShowFilteredList($id = null, $fecha = null)
 	{
 		$peliculaList = $this->peliculaDAO->getAll();
-		if (isset($_GET['page'])) 
-		{
-			$pageValue = $_GET['page'];
-		} 
-		else 
-		{
-			$pageValue = 1;
-		}
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
