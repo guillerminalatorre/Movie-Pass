@@ -16,18 +16,21 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm text-right">
-                    <label for="idPelicula">Id Pelicula:</label>
+                    <label for="idPelicula">Pelicula:</label>
                 </div>
-                <div>
-                    <input type="text" class="form-control" name="idPelicula" required>
-                </div>
+                <select name="idPelicula" class="form-control col-sm-6" required>
+                    <option disabled selected>Elegir pelicula</option>
+                    <?php foreach ($peliculaList as $peliculaValue) { ?>
+                        <option value="<?php echo $peliculaValue->getId(); ?>"> <?php echo $peliculaValue->getTitulo(); ?></option>
+                    <?php } ?>
+                </select>
             </div>
             <div class="row">
                 <div class="form-group col-sm text-right">
                     <label for="fecha">Fecha:</label>
                 </div>
                 <div>
-                    <input type="date" class="form-control" name="fecha" min="<?php echo date("Y-m-d")?>" required>
+                    <input type="date" class="form-control" name="fecha" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date("Y-m-d") ?>" required>
                 </div>
             </div>
             <div class="row">
@@ -35,7 +38,7 @@
                     <label for="hora">Hora:</label>
                 </div>
                 <div>
-                    <input type="time" class="form-control" name="hora"  required>
+                    <input type="time" class="form-control" name="hora" value="<?php echo date("H:i"); ?>" required>
                 </div>
             </div>
             <div class="row">

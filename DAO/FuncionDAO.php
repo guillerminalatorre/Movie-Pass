@@ -45,7 +45,7 @@
         {
 			try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id = ".$funcion->getId().";";
+                $query = "DELETE FROM ".$this->tableName." WHERE id_funcion = ".$funcion->getId().";";
                 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
@@ -105,7 +105,7 @@
         {
             try
             {
-                $query = "SELECT * FROM ".$this->tableName." WHERE id = ".$funcion->getId().";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = ".$funcion->getId().";";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 

@@ -50,7 +50,6 @@
                     <th scope="col" style="text-align:center">Fecha</th>
                     <th scope="col" style="text-align:center">Hora</th>
                     <th scope="col" style="text-align:center">Cant. Entradas</th>
-                    <th scope="col" style="text-align:center">Cant. Vendidas</th>
                     <th scope="col" style="text-align:right">
                         <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getId(); ?>">Agregar función</a>
                     </th>
