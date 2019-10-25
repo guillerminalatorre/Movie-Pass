@@ -1,12 +1,15 @@
 <div class="col-md-4 movie-card">
-    <div class="card" style="height: 850px;">
+    <div class="card movie-card-height">
         <div class="card-header" >
-            <img class="card-img" src="
+            <img class="card-img mb-4" src="
             <?php
             $poster = $values->getPoster();
-            if ($poster != NULL) {
+            if ($poster != NULL) 
+            {
                 echo "https://image.tmdb.org/t/p/w500" . $poster;
-            } else {
+            } 
+            else 
+            {
                 echo IMG_PATH . "noImage.jpg";
             }
             ?>" alt="Card image">
@@ -24,7 +27,8 @@
                     </div>
                     <div class="col-8 metadata">
                         <?php
-                        foreach ($values->getGeneros() as $gen) {
+                        foreach ($values->getGeneros() as $gen) 
+                        {
                             echo $gen . " ";
                         }
                         ?></div>
@@ -33,18 +37,56 @@
             <p class="card-text">
                 <?php
                 $description = $values->getDescripcion();
-                if ($description != NULL) {
-                    if (strlen($description) > 300) {
-                        echo substr($description, 0, 300) . "...";
+                if ($description != NULL) 
+                {
+                    if (strlen($description) > 300) 
+                    {
+                        echo substr($description, 0, 300) . "... ";
                         echo "<a href='#' class='card-link text-warning'>Ver mas</a>";
-                    } else {
+                    } 
+                    else 
+                    {
                         echo $description;
                     }
                 }
                 ?>
             </p>
-            <div class="text-right">
-                <a href="#" class="btn btn-warning">Consultar funciones</a></div>
+        </div>
+        <div class="card-footer pt-2">
+
+            <?php if($values->getVideo() != NULL) { ?>
+            <a href="#modal<?php echo $values->getId(); ?>" class="btn btn-danger" data-toggle="modal">Video</a>
+            <?php } ?>
+
+            <a href="#" class="btn btn-warning">Consultar funciones</a>
         </div>
     </div>
 </div>
+
+<!-- Modal que muestra video de youtube -->
+<?php if($values->getVideo() != null) { ?>
+<!-- The Modal -->
+<div class="modal" id="modal<?php echo $values->getId(); ?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Video <?php echo $values->getTitulo(); ?></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <iframe id="video" width="470" height="340" src="//www.youtube.com/embed/<?php echo $values->getVideo(); ?>?autoplay=1" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<?php } ?>

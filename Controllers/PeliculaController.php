@@ -118,7 +118,7 @@ class PeliculaController
 		{
 			if(!strcmp($valuesArray["site"], "YouTube"))
 			{
-				$pelicula->setVideo("https://www.youtube.com/watch?v=".$valuesArray["key"]);
+				$pelicula->setVideo($valuesArray["key"]);
 			}
 		}
 		return $pelicula;

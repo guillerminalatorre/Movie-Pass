@@ -51,4 +51,3 @@ function API()
     }
     return preg;
 }
-
