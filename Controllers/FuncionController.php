@@ -18,11 +18,13 @@
 	{
 		private $funcionDAO;
 		private $cineDAO;
+		private $peliculaDAO;
 
 		function __construct()
 		{
 			$this->funcionDAO = new FuncionDAO();
 			$this->cineDAO = new CineDAO();
+			$this->peliculaDAO = new PeliculaDAO();
 		}
 
 		public function ShowAddView($idCine)
@@ -60,6 +62,25 @@
 
 			array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
 			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
+		}
+
+		public function showMovies(){
+					
+			$funciones=$this->funcionDAO->getAll();
+
+			$peliculaList=array();
+			foreach($funciones as $fun){
+				$idPeli= $fun->getIdPelicula();
+				$peli= new Pelicula();
+				$peli-> setId($idPeli);
+
+				$movieDetails= $this->peliculaDAO ->getPelicula($peli);
+
+				array_push($peliculaList, $movieDetails);
+			}
+			require_once(VIEWS_PATH . "pelicula/searchbar.php");
+			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
+
 		}
 	}
 ?>

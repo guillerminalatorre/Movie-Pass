@@ -26,12 +26,8 @@
                         <p><?php echo $values->getPopularidad() . "/10"; ?></p>
                     </div>
                     <div class="col-8 metadata">
-                        <?php
-                        foreach ($values->getGeneros() as $gen) 
-                        {
-                            echo $gen . " ";
-                        }
-                        ?></div>
+                <!--Generos-->        
+                </div>
                 </div>
             </div>
             <p class="card-text">
