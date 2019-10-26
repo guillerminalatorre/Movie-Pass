@@ -136,7 +136,7 @@
 				{
 					$pelicula = $this->peliculaDAO->getById($idPeli);				
 					array_push($peliculaList, $pelicula);
-				}				
+				}
 			}
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
@@ -167,13 +167,12 @@
 			foreach($funciones as $funcion)
 			{
 				$idCine = $funcion->getIdCine();
-				if($this->getPeliById($cineList,$idCine) == NULL)
+				if($this->getCineById($cineList,$idCine) == NULL)
 				{
 					$cine = $this->cineDAO->getById($idCine);
 					array_push($cineList,$cine);
 				}
 			}
-
 			require_once(VIEWS_PATH."funcion/funcion-pelicula-list.php");
 		}
 

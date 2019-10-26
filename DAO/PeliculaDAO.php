@@ -102,13 +102,12 @@ class PeliculaDAO
 	{
 		try
 		{
-			$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$pelicula->getId().";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 
 			foreach ($resultSet as $row) 
 			{
-				$pelicula = new Pelicula();
 				$pelicula->setId($row["id_pelicula"]);
 				$pelicula->setIdTMDB($row["id_TMDB"]);
 				$pelicula->setTitulo($row["titulo"]);
@@ -235,6 +234,32 @@ class PeliculaDAO
 		catch (Exception $ex) 
 		{
 			return null;
+		}
+	}
+
+	public function edit($pelicula)
+	{
+		try 
+		{
+			$query = "UPDATE " . $this->tableName . " SET id_TMDB = :id_TMDB, titulo = :titulo, duracion = :duracion, descripcion = :descripcion, idioma = :idioma, clasificacion = :clasificacion, fechaDeEstreno = :fechaDeEstreno, poster = :poster, video = :video, popularidad = :popularidad WHERE id_pelicula = :id_pelicula;";
+			$parameters["id_TMDB"] = $pelicula->getIdTMDB();
+			$parameters["titulo"] = $pelicula->getTitulo();
+			$parameters["duracion"] = $pelicula->getDuracion();
+			$parameters["descripcion"] = $pelicula->getDescripcion();
+			$parameters["idioma"] = $pelicula->getIdioma();
+			$parameters["clasificacion"] = $pelicula->getClasificacion();
+			$parameters["fechaDeEstreno"] = $pelicula->getFechaDeEstreno();
+			$parameters["poster"] = $pelicula->getPoster();
+			$parameters["video"] = $pelicula->getVideo();
+			$parameters["popularidad"] = $pelicula->getPopularidad();
+			$parameters["id_pelicula"] = $pelicula->getId();
+
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		} 
+		catch (Exception $ex) 
+		{
+			throw $ex;
 		}
 	}
 }

@@ -19,10 +19,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php require_once(VIEWS_PATH."cine/funcion-disponible-list.php"); ?>
+                        <?php
+                        $funcionList = $this->filterByCine($funciones,$cine->getId());
+                        require(VIEWS_PATH."funcion/funcion-disponible-list.php"); 
+                        ?>
                     </tbody>
                 </table>
             </div>
         <?php } ?>
-   
+        
 </div>

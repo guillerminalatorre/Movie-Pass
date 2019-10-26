@@ -1,6 +1,6 @@
-<?php if(isset($funcionList) && count($funcionList) > 0) { 
+<?php 
+if(isset($funcionList) && count($funcionList) > 0) { 
     foreach ($funcionList as $funcion) {
-        if($cine->getId() == $funcion->getIdCine()) {  
 ?>
             <tr>
 
@@ -11,7 +11,7 @@
                     <a class="btn btn-success" href='<?php echo FRONT_ROOT ?>Entrada/comprarEntrada/<?php echo $funcion->getId(); ?>';">Comprar entrada</a>
                 </td>
             </tr>
-<?php 
-        }
+<?php
     }
-} ?>
+} 
+?>

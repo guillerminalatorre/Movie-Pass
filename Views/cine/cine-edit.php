@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid mt-4">
-    <div class="loginForm">
+    <div class="panelForm">
         <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $cine->getId(); ?>" role="button">Volver a la ficha del cine</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Cine/updateCine" method="post">

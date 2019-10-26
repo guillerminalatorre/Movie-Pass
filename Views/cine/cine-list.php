@@ -17,7 +17,7 @@
             <?php foreach ($cineList as $cine) { ?>
             <tr>
                 <td><?php echo $cine->getId(); ?></td>
-                <td><a href="" class="text-light"><img src="<?php echo IMG_PATH."cinema.png" ?>" height="35" class="rounded-circle z-depth-0 mr-2" alt="cinema image"><b><?php echo $cine->getNombre(); ?></b></a></td>
+                <td><a href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $cine->getId();?>" class="text-light"><img src="<?php echo IMG_PATH."cinema.png" ?>" height="35" class="rounded-circle z-depth-0 mr-2" alt="cinema image"><b><?php echo $cine->getNombre(); ?></b></a></td>
                 <td><?php echo $cine->getDireccion(); ?></td>
                 <td><?php echo $cine->getCapacidad(); ?></td>
                 <td><?php echo $cine->getPrecio(); ?></td>

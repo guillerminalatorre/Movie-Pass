@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php require_once("funcion-list.php"); ?>
+                    <?php require_once(VIEWS_PATH."funcion/funcion-list.php"); ?>
                 </tbody>
             </table>
         </div>

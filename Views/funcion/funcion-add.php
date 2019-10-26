@@ -1,0 +1,62 @@
+<?php require_once(VIEWS_PATH."navbar.php"); ?>
+<div class="container">
+    <div class="panelForm">
+        <?php require_once(VIEWS_PATH."alert.php"); ?>
+        <div class="row mb-4">        
+            <div class="col-sm-4"><a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $idCine; ?>" role="button">Volver a ficha</a></div>
+            <div class="col-sm-8"><h2>Datos de la funcion: </h2></div>
+        </div>
+        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $idCine ?>" method="POST">
+            <div class="row">
+                <div class="form-group col-sm">
+                    <label for="idCine">Cine:</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $idCine?>">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm">
+                    <label for="idPelicula">Pelicula:</label>
+                </div>
+                <div class="col-sm-9">
+                    <select name="idPelicula" class="form-control" required>
+                        <option value="0" selected>Elegir pelicula</option>
+                        <?php foreach ($peliculaList as $peliculaValue) { ?>
+                            <option value="<?php echo $peliculaValue->getId(); ?>"> <?php echo $peliculaValue->getTitulo(); ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm">
+                    <label for="fecha">Fecha:</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="date" class="form-control" name="fecha" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date("Y-m-d") ?>" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm">
+                    <label for="hora">Hora:</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="time" class="form-control" name="hora" value="<?php echo date("H:i"); ?>" required>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="form-group col-sm">
+                    <label for="cantEntradas">Cant. Entradas:</label>
+                </div>
+                <div class="col-sm-9">
+                    <input type="number" class="form-control" name="cantEntradas" value="1" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-plus-circle"></i> Agregar Funcion</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
