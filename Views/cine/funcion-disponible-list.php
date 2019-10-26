@@ -1,20 +1,17 @@
-<?php if(isset($funcionList) && count($funcionList) > 0) { ?>
-    <table class="table">
-        <thead class="table-dark">
+<?php if(isset($funcionList) && count($funcionList) > 0) { 
+    foreach ($funcionList as $funcion) {
+        if($cine->getId() == $funcion->getIdCine()) {  
+?>
             <tr>
-                <?php foreach ($funcionList as $funcion) {
-                    if($cine->getId() == $funcion->getIdCine())  {  
-                ?>
-                    <tr>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getFecha();?></th>
-                        <th scope="col" style="text-align:center"><?php echo $funcion->getHora();?></th>
-                        <th scope="col" style="text-align:right">
-                            <a class="btn btn-danger" href='<?php echo FRONT_ROOT ?>Entrada/comprarEntrada/<?php echo $funcion->getId(); ?>';">Comprar Entrada</a>
-                        </th>
-                    </tr>
-                <?php }
-                } ?>
+
+                <td><?php echo $funcion->getFecha();?></td>
+                <td><?php echo $funcion->getHora();?></td>
+                <td>32</td>
+                <td style="text-align:right">
+                    <a class="btn btn-success" href='<?php echo FRONT_ROOT ?>Entrada/comprarEntrada/<?php echo $funcion->getId(); ?>';">Comprar entrada</a>
+                </td>
             </tr>
-        </thead>
-    </table>
-<?php } ?>
+<?php 
+        }
+    }
+} ?>

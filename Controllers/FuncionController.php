@@ -145,6 +145,8 @@
 
 			$cineList = $this->cineDAO->getByFunciones($funcionList);
 
+			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+
 			require_once(VIEWS_PATH . "cine/cine-con-funciones-list.php");
 		}
 	}
