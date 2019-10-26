@@ -116,5 +116,36 @@
 			}
 			return $available;
 		}
+
+		public function showMovies(){
+					
+			$funciones=$this->funcionDAO->getAll();
+
+			$peliculaList=array();
+			foreach($funciones as $fun){
+				$idPeli= $fun->getIdPelicula();
+				$peli= new Pelicula();
+				$peli->setId($idPeli);
+
+				$movieDetails= $this->peliculaDAO->getPelicula($peli);
+
+				array_push($peliculaList, $movieDetails);
+			}
+			require_once(VIEWS_PATH . "pelicula/searchbar.php");
+			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
+
+		}
+
+		public function ShowFuncionesXPelicula($idPelicula)
+		{
+			$pelicula= new Pelicula();
+			$pelicula->setId($idPelicula);
+
+			$funcionList = $this->funcionDAO->getByPelicula($pelicula);
+
+			$cineList = $this->cineDAO->getByFunciones($funcionList);
+
+			require_once(VIEWS_PATH . "cine/cine-con-funciones-list.php");
+		}
 	}
 ?>

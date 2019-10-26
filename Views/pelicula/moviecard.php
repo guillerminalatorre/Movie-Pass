@@ -26,12 +26,8 @@
                         <p><?php echo $values->getPopularidad() . "/10"; ?></p>
                     </div>
                     <div class="col-8 metadata">
-                        <?php
-                        foreach ($values->getGeneros() as $gen) 
-                        {
-                            echo $gen . " ";
-                        }
-                        ?></div>
+                <!--Generos-->        
+                </div>
                 </div>
             </div>
             <p class="card-text">
@@ -58,7 +54,7 @@
             <a href="#modal<?php echo $values->getId(); ?>" class="btn btn-danger" data-toggle="modal">Video</a>
             <?php } ?>
 
-            <a href="#" class="btn btn-warning">Consultar funciones</a>
+            <a href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesXPelicula/<?php echo $values->getId(); ?>" class="btn btn-warning">Consultar funciones</a>
         </div>
     </div>
 </div>
