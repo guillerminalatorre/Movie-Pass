@@ -8,18 +8,23 @@
 
 	use DAO\CineDAO as CineDAO;
 	use DAO\FuncionDAO as FuncionDAO;
+	use DAO\PeliculaDAO as PeliculaDAO;
 	use Models\Cine as Cine;
-	use Config\Functions as Functions;	
+	use Models\Funcion as Funcion;
+	use Models\Pelicula as Pelicula;
+	use Config\Functions as Functions;
 	
 	class CineController
 	{
 		private $cineDAO;
 		private $funcionDAO;
+		private $peliculaDAO;
 
 		public function __construct()
 		{
 			$this->cineDAO = new CineDAO();
 			$this->funcionDAO = new FuncionDAO();
+			$this->peliculaDAO = new PeliculaDAO();
 		}
 
 		public function ShowListView()

@@ -11,24 +11,29 @@ namespace Controllers;
 use API\APIController as APIController;
 use DAO\PeliculaDAO as PeliculaDAO;
 use DAO\GeneroDAO as GeneroDAO;
+use DAO\FuncionDAO as FuncionDAO;
 use Models\Pelicula as Pelicula;
+use Models\Genero as Genero;
+use Models\Funcion as Funcion;
 use Config\Functions as Functions;
 
 class PeliculaController
 {
 	private $peliculaDAO;
+	private $generoDAO;
+	private $funcionDAO;
 
 	function __construct()
 	{
 		$this->peliculaDAO = new PeliculaDAO();
 		$this->generoDAO = new GeneroDAO();
+		$this->funcionDAO = new FuncionDAO();
 	}
 
 	public function ShowListView()
 	{
-		$this->ShowSearchBar();
-		//$peliculaList = $this->peliculaDAO->getAll();
-		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
+		$peliculaList = $this->peliculaDAO->getAll();
+		require_once(VIEWS_PATH . "pelicula/pelicula-list.php");
 	}
 
 	public function ShowSearchBar()

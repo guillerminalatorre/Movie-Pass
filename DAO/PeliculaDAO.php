@@ -172,6 +172,39 @@ class PeliculaDAO
 		}
 	}
 
+	public function getById($id)
+	{
+		try
+		{
+			$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $id . ";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+
+			foreach ($resultSet as $row) 
+			{
+				$pelicula = new Pelicula();
+				$pelicula->setId($row["id_pelicula"]);
+				$pelicula->setIdTMDB($row["id_TMDB"]);
+				$pelicula->setTitulo($row["titulo"]);
+				$generos = $this->getGeneros($pelicula);
+				$pelicula->setGeneros($generos);
+				$pelicula->setDuracion($row["duracion"]);
+				$pelicula->setDescripcion($row["descripcion"]);
+				$pelicula->setIdioma($row["idioma"]);
+				$pelicula->setClasificacion($row["clasificacion"]);
+				$pelicula->setFechaDeEstreno($row["fechaDeEstreno"]);
+				$pelicula->setPoster($row["poster"]);
+				$pelicula->setVideo($row["video"]);
+				$pelicula->setPopularidad($row["popularidad"]);
+				return $pelicula;
+			}			
+		} 
+		catch (Exception $ex) 
+		{
+			return null;
+		}
+	}
+
 	public function getByIdTMDB($id)
 	{
 		try

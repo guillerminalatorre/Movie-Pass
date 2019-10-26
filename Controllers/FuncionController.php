@@ -29,6 +29,7 @@
 
 		public function ShowAddView($idCine)
 		{
+			$peliculaList = $this->peliculaDAO->getAll();
 			require_once(VIEWS_PATH."cine/funcion-add.php");
 		}
 
@@ -39,9 +40,9 @@
 			$funcion->setId($id);
 			$funcion = $this->funcionDAO->getFuncion($funcion);
 
-			$nombreCine = $funcion->getIdCine();
+			$idCine = $funcion->getIdCine();
 
-			$this->funcionDAO->remove($id);
+			$this->funcionDAO->remove($funcion);
 
 			array_push($_SESSION['flash'], "La funcion se ha eliminado correctamente.");
 			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
@@ -50,21 +51,73 @@
 		public function Add($idCine, $idPelicula, $fecha,  $hora,  $cantEntradas)
 		{
 			$_SESSION['flash'] = array();
-			$funcion = new Funcion();
 
-			$funcion->setIdCine($idCine);
-			$funcion->setIdPelicula($idPelicula);
-			$funcion->setFecha($fecha);
-			$funcion->setHora($hora);			
-			$funcion->setCantEntradas($cantEntradas);
+			if($this->checkAvailableTime($idCine,$idPelicula,$fecha,$hora))
+			{
+				$funcion = new Funcion();
+				$funcion->setIdCine($idCine);
+				$funcion->setIdPelicula($idPelicula);
+				$funcion->setFecha($fecha);
+				$funcion->setHora($hora);			
+				$funcion->setCantEntradas($cantEntradas);
 
-			$this->funcionDAO->add($funcion);
-
-			array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
-			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
+				$this->funcionDAO->add($funcion);
+				array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
+				Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
+			}
+			else
+			{
+				array_push($_SESSION['flash'], "El horario seleccionado no esta disponible.");
+				Functions::getInstance()->redirect("Funcion","ShowAddView", $idCine);
+			}
+			
 		}
 
-		public function showMovies(){
+		private function checkAvailableTime($idCine,$idPelicula,$fecha,$hora)
+		{
+			$available = true;
+
+			// Obtengo datos del cine
+			$cine = new Cine();
+			$cine->setId($idCine);
+			$cine = $this->cineDAO->getCine($cine);
+
+			// Obtengo datos de la pelicula
+			
+			$pelicula = new Pelicula();
+			$pelicula->setId($idPelicula);
+			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+
+			// Calculo inicio y fin estimados
+			$inicio = strtotime("$fecha $hora");
+			$duracion = $pelicula->getDuracion()+15;
+			$string = "+".$duracion." minutes";
+			$fin = strtotime($string,$inicio);
+
+			$funcionList = $this->funcionDAO->getByCine($cine);
+
+			foreach($funcionList as $funcion)
+			{
+				// Obtengo datos de la pelicula de cada funcion
+				$peliculaFuncion = new Pelicula();
+				$peliculaFuncion->setId($funcion->getIdPelicula());
+				$peliculaFuncion = $this->peliculaDAO->getPelicula($peliculaFuncion);
+
+				// Obtengo datos de la funcion
+				$fechaFuncion = $funcion->getfecha();
+				$horaFuncion = $funcion->getHora();
+				$inicioFuncion = strtotime("$fechaFuncion $horaFuncion");
+				$duracion = $peliculaFuncion->getDuracion()+15;
+				$string = "+".$duracion." minutes";
+				$finFuncion = strtotime($string,$timeFuncion);
+
+				// Calculo si mis tiempos colisionan con otra funcion
+				if($finFuncion > $inicio || $inicioFuncion < $fin) $available = false;
+			}
+			return $available;
+		}
+
+		public function ShowMovies(){
 					
 			$funciones=$this->funcionDAO->getAll();
 
@@ -83,7 +136,7 @@
 
 		}
 
-		public function ShowFuncionesXPelicula($idPelicula)
+		public function ShowFuncionesPelicula($idPelicula)
 		{
 			$pelicula= new Pelicula();
 			$pelicula->setId($idPelicula);
