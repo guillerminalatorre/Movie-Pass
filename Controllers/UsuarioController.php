@@ -182,7 +182,7 @@
 					}
 					else
 					{
-						$usuario->setImage(FRONT_ROOT.UPLOADS_PATH."avatar.png");
+						$usuario->setImage(IMG_PATH."avatar.png");
 					}
 
 					$this->usuarioDAO->add($usuario);

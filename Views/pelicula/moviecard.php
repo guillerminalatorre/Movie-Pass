@@ -54,7 +54,7 @@
             <a href="#modal<?php echo $values->getId(); ?>" class="btn btn-danger" data-toggle="modal">Video</a>
             <?php } ?>
 
-            <a href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesXPelicula/<?php echo $values->getId(); ?>" class="btn btn-warning">Consultar funciones</a>
+            <a href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesPelicula/<?php echo $values->getId(); ?>" class="btn btn-warning">Consultar funciones</a>
         </div>
     </div>
 </div>

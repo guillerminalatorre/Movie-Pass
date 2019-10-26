@@ -45,7 +45,9 @@
         {
 			try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_funcion = ".$funcion->getId().";";
+				$query = "DELETE FROM ".$this->tableName." WHERE id_funcion = :id_funcion;";
+				
+				$parameters['id_funcion'] = $funcion->getId();
                 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);

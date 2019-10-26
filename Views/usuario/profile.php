@@ -5,7 +5,7 @@
 
             <!-- Volver a lista de usuarios solo para admins -->
             <?php if($this->isAdmin($_SESSION["loggedUser"])) { ?>
-            <a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a>
+            <div><a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a></div>
             <?php } ?>
 
             <?php require_once(VIEWS_PATH."alert.php"); ?>

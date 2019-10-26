@@ -73,7 +73,7 @@
 			
 		}
 
-		public function checkAvailableTime($idCine,$idPelicula,$fecha,$hora)
+		private function checkAvailableTime($idCine,$idPelicula,$fecha,$hora)
 		{
 			$available = true;
 
@@ -117,7 +117,7 @@
 			return $available;
 		}
 
-		public function showMovies(){
+		public function ShowMovies(){
 					
 			$funciones=$this->funcionDAO->getAll();
 
@@ -136,7 +136,7 @@
 
 		}
 
-		public function ShowFuncionesXPelicula($idPelicula)
+		public function ShowFuncionesPelicula($idPelicula)
 		{
 			$pelicula= new Pelicula();
 			$pelicula->setId($idPelicula);
