@@ -3,7 +3,7 @@
 <a class="btn btn-secondary" href="" role="button">Volver</a>
     <?php require_once(VIEWS_PATH."alert.php"); ?>
 
-        <h4 class="border-bottom border-gray pb-2 mb-0 text-white">Fuciones disponibles de <?php echo $pelicula->getTitulo();?></h4>
+        <h4 class="border-bottom border-gray pb-2 mb-0 text-white">Funciones disponibles de <?php echo $pelicula->getTitulo();?></h4>
 
         <?php foreach ($cineList as $cine) { ?>
 
