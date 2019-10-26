@@ -90,7 +90,9 @@
 
 			$funcionList = $this->funcionDAO->getByPelicula($pelicula);
 
-			require_once(VIEWS_PATH . "cine/funcion-disponible-list.php");
+			$cineList = $this->cineDAO->getByFunciones($funcionList);
+
+			require_once(VIEWS_PATH . "cine/cine-con-funciones-list.php");
 		}
 	}
 ?>

@@ -139,21 +139,26 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = '".$funcion->getIdCine()."';";
-				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$cines = array();
+				foreach ($funcionList as $funcion) {
 				
-				foreach ($resultSet as $row)
-				{
-					$cine = new Cine();
-					$cine->setId($row["id_cine"]);
-					$cine->setNombre($row["nombre"]);
-					$cine->setDireccion($row["direccion"]);
-					$cine->setCapacidad($row["capacidad"]);
-					$cine->setPrecio($row["precio"]);
-					return $cine;
+					$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = '".$funcion->getIdCine()."';";
+					$this->connection = Connection::GetInstance();
+					$resultSet = $this->connection->Execute($query);
+					
+					foreach ($resultSet as $row)
+					{
+						$cine = new Cine();
+						$cine->setId($row["id_cine"]);
+						$cine->setNombre($row["nombre"]);
+						$cine->setDireccion($row["direccion"]);
+						$cine->setCapacidad($row["capacidad"]);
+						$cine->setPrecio($row["precio"]);
+
+						array_push($cines, $cine);
+					}
+					return $cines;
 				}
-				return null;
 			}
 			catch(Exception $ex)
 			{

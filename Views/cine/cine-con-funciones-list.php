@@ -7,18 +7,18 @@
 
         <?php foreach ($cineList as $cine) { ?>
 
-            <h2 class="col-md-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
+                <h2 class="col-md-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
 
-            <table class="table table-sm table-dark">
-                <thead class="table-active">       
-                    <tr>
-                        <th scope="col" style="text-align:center">Fecha</th>
-                        <th scope="col" style="text-align:center">Hora</th>
-                    </tr>
-                </thead>
-            </table>
+                <table class="table table-sm table-dark">
+                    <thead class="table-active">       
+                        <tr>
+                            <th scope="col" style="text-align:center">Fecha</th>
+                            <th scope="col" style="text-align:center">Hora</th>
+                        </tr>
+                    </thead>
+                </table>
 
-            <?php require_once(VIEWS_PATH."funcion-disponible-list.php"); ?>
+                <?php require_once(VIEWS_PATH."cine/funcion-disponible-list.php"); ?>
 
         <?php } ?>
    
