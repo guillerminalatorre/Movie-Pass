@@ -155,6 +155,36 @@
             }
 		}
 
+		
+		public function getByPelicula($pelicula)
+        {
+            try
+            {
+                $list = array();
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$pelicula->getId().";";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {
+					$funcion = new Funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFecha($row["fecha"]);
+					$funcion->setHora($row["hora"]);
+					$funcion->setCantEntradas($row["cant_entradas"]);
+                    array_push($list, $funcion);
+				}				
+                return $list;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+		}
+
+
 		public function edit($funcion)
 		{
 			try

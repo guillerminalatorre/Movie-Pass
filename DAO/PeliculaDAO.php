@@ -109,6 +109,7 @@ class PeliculaDAO
 			foreach ($resultSet as $row) 
 			{
 				$pelicula = new Pelicula();
+				$pelicula->setId($row["id_pelicula"]);
 				$pelicula->setIdTMDB($row["id_TMDB"]);
 				$pelicula->setTitulo($row["titulo"]);
 				$generos = $this->getGeneros($pelicula);
