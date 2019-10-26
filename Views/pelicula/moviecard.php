@@ -1,19 +1,7 @@
 <div class="col-md-4 movie-card">
     <div class="card movie-card-height">
         <div class="card-header" >
-            <img class="card-img mb-4" src="
-            <?php
-            $poster = $values->getPoster();
-            if ($poster != NULL) 
-            {
-                echo "https://image.tmdb.org/t/p/w500" . $poster;
-            } 
-            else 
-            {
-                echo IMG_PATH . "noImage.jpg";
-            }
-            ?>" alt="Card image">
-
+            <img class="card-img mb-4" src="<?php echo $values->getPoster(); ?>" alt="Card image">
         </div>
         <div class="card-body">
             <h3 class="card-title">
@@ -74,7 +62,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        <iframe id="video" width="470" height="340" src="//www.youtube.com/embed/<?php echo $values->getVideo(); ?>?autoplay=1" frameborder="0" allowfullscreen></iframe>
+        <iframe id="video" width="470" height="340" src="//www.youtube.com/embed/<?php echo $values->getVideo(); ?>?autoplay=1&mute=1" frameborder="0" allowfullscreen></iframe>
       </div>
 
       <!-- Modal footer -->

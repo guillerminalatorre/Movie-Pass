@@ -48,6 +48,77 @@ class PeliculaController
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
+	public function updatePelicula($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
+	{
+		$_SESSION['flash'] = array();
+		$titulo = Functions::getInstance()->escapar($titulo);
+		$descripcion = Functions::getInstance()->escapar($descripcion);
+		$idioma = Functions::getInstance()->escapar($idioma);
+		$video = Functions::getInstance()->escapar($video);
+
+		$pelicula = new Pelicula();
+		$pelicula->setId($idPelicula);
+		$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+
+		if($pelicula != null)
+		{
+			// Imagen
+			try
+			{
+				if($_FILES["image"]["error"] > 0)
+				{
+					$message = "Error: " . $_FILES["image"]["error"] . "<br>";
+				}
+				else
+				{
+					$fileName = Functions::getInstance()->escapar($_FILES["image"]["name"]);
+					$tempFileName = $_FILES["image"]["tmp_name"];
+					$type = $_FILES["image"]["type"];
+					
+					$filePath = UPLOADS_PATH.basename($fileName);
+					$fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+					$imageSize = getimagesize($tempFileName);
+
+					if($imageSize !== false)
+					{
+						if (move_uploaded_file($tempFileName, $filePath))
+						{
+							$pelicula->setPoster(FRONT_ROOT.UPLOADS_PATH.$fileName);
+							array_push($_SESSION['flash'], "Imagen subida correctamente.");
+						}
+						else
+							array_push($_SESSION['flash'], "Ocurrió un error al intentar subir la imagen.");
+					}
+					else
+						array_push($_SESSION['flash'], "El archivo no corresponde a una imágen.");
+				}
+			}
+			catch(Exception $ex)
+			{
+				array_push($_SESSION['flash'], $ex->getMessage());
+			}
+			// Fin imagen
+
+			$pelicula->setTitulo($titulo);
+			if($duracion > 0) $pelicula->setDuracion($duracion);
+			else array_push($_SESSION['flash'], "La duracion debe ser mayor a 0.");
+			$pelicula->setDescripcion($descripcion);
+			$pelicula->setIdioma($idioma);
+			$pelicula->setClasificacion($clasificacion);
+			$pelicula->setVideo($video);
+			$pelicula->setPopularidad($popularidad);
+
+			$this->peliculaDAO->edit($pelicula);
+			array_push($_SESSION['flash'], "Los datos se han actualizado correctamente.");
+		}
+		else
+		{
+			array_push($_SESSION['flash'], "La pelicula no existe.");
+		}
+		
+		Functions::getInstance()->redirect("Pelicula","ShowListView");
+	}
+
 	public function getNowPlayingMoviesFromApi()
 	{
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "region" => "AR");
@@ -79,7 +150,15 @@ class PeliculaController
 
 		$pelicula = new Pelicula();
 		$pelicula->setIdTMDB($arrayToDecode["id"]);
-		$pelicula->setPoster($arrayToDecode["poster_path"]);
+		if($arrayToDecode["poster_path"] != NULL)
+		{
+			$posterPath = "https://image.tmdb.org/t/p/w500".$arrayToDecode["poster_path"];
+		}
+		else 
+		{
+			$posterPath = IMG_PATH."noImage.jpg";
+		}
+		$pelicula->setPoster($posterPath);
 		$pelicula->setIdioma($arrayToDecode["original_language"]);
 
 		$generos = array();

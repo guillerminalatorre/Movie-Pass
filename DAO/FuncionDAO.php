@@ -191,13 +191,14 @@
 		{
 			try
             {
-				$query = "UPDATE ".$this->tableName." SET id_funcion = :id_funcion, id_cine = :id_cine, id_pelicula = :id_pelicula, fecha = :fecha, hora = :hora, cant_entradas = :cant_entradas WHERE id_usuario =".$funcion->getId().";";
+				$query = "UPDATE ".$this->tableName." SET id_funcion = :id_funcion, id_cine = :id_cine, id_pelicula = :id_pelicula, fecha = :fecha, hora = :hora, cant_entradas = :cant_entradas WHERE id_funcion = :id_funcion;";
 
 				$parameters["id_cine"]= $funcion->getIdCine();
 				$parameters["id_pelicula"]= $funcion->getIdPelicula();
 				$parameters["fecha"]=$funcion->getFecha();
 				$parameters["hora"]=$funcion->getHora();
 				$parameters["cant_entradas"]=$funcion->getCantEntradas();
+				$parameters["id_funcion"]=$funcion->getId();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);

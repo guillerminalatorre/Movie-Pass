@@ -109,6 +109,31 @@
 			}
 		}
 
+		public function getById($id)
+		{
+			try
+			{
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = '".$id."';";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+				
+				foreach ($resultSet as $row)
+				{
+					$cine = new Cine();
+					$cine->setId($row["id_cine"]);
+					$cine->setNombre($row["nombre"]);
+					$cine->setDireccion($row["direccion"]);
+					$cine->setCapacidad($row["capacidad"]);
+					$cine->setPrecio($row["precio"]);
+					return $cine;
+				}
+			}
+			catch(Exception $ex)
+			{
+				return null;
+			}
+		}
+
 		public function getByNombre($nombre)
 		{
 			try
@@ -128,37 +153,6 @@
 					return $cine;
 				}
 				return null;
-			}
-			catch(Exception $ex)
-			{
-				return null;
-			}
-		}
-
-		public function getByFunciones($funcionList)
-		{
-			try
-			{
-				$cines = array();
-				foreach ($funcionList as $funcion) {
-				
-					$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = '".$funcion->getIdCine()."';";
-					$this->connection = Connection::GetInstance();
-					$resultSet = $this->connection->Execute($query);
-					
-					foreach ($resultSet as $row)
-					{
-						$cine = new Cine();
-						$cine->setId($row["id_cine"]);
-						$cine->setNombre($row["nombre"]);
-						$cine->setDireccion($row["direccion"]);
-						$cine->setCapacidad($row["capacidad"]);
-						$cine->setPrecio($row["precio"]);
-
-						array_push($cines, $cine);
-					}
-					return $cines;
-				}
 			}
 			catch(Exception $ex)
 			{
