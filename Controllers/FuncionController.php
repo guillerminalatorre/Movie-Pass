@@ -155,6 +155,8 @@
             $peliculas = array_values($peliculas); //Reordering array indexes
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
+
+		
 		
 		public function FilterFunctions()
 		{
@@ -163,9 +165,17 @@
 			$pelicula = new Pelicula();
 			$peliculaList = array();
 
-			$chosenDate = $_POST['chosenDate'];
-			$genreId = $_POST['genreId'];
-
+			if(isset($_POST['chosenDate'])){
+				$chosenDate = $_POST['chosenDate'];
+			}else{
+				$chosenDate=NULL;
+			}
+			if(isset($_POST['genreId'])) {
+				$genreId = $_POST['genreId'];
+			}else{ 
+				$genreId=NULL;
+			}
+			
 			if($chosenDate!=NULL && $genreId!=NULL)
 			{
 				foreach($funciones as $funcion)
