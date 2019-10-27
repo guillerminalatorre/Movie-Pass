@@ -156,14 +156,14 @@
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
 
-		public function FilterFunctions($genreId = null, $chosenDate = null)
+		public function FilterFunctions($genreId, $chosenDate=null)
 		{
 			$generoList = $this->generoDAO->getAll();
 			$funciones =$this->funcionDAO->getAll();
 			$pelicula = new Pelicula();
 			$peliculaList = array();
 	
-			if($chosenDate!=NULL && $genreId!=NULL)
+			if($genreId != "none" && $chosenDate != null)
 			{
 				foreach($funciones as $funcion)
 				{
@@ -184,7 +184,7 @@
 			} 
 			else
 			{
-				if( $genreId!=NULL)
+				if( $genreId != "none")
 				{
 					foreach($funciones as $funcion)
 					{
@@ -202,8 +202,8 @@
 					}
 				} 
 				else
-				{
-					if( $chosenDate!=NULL)
+				{	
+					if( $chosenDate != null)
 					{
 						foreach($funciones as $funcion)
 						{
