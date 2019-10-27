@@ -28,7 +28,7 @@
               <h4 class="alert-heading ">No hay funciones que coincidan con tu búsqueda.</h4>
               <ul>
                 <li>
-                  Intenta seleccionar un genero similar o otra fecha.
+                  Intenta seleccionar un genero similar u otra fecha.
                 </li>
               </ul>
             </div>
