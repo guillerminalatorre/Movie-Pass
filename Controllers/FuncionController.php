@@ -9,6 +9,7 @@
 	use DAO\FuncionDAO as FuncionDAO;
 	use DAO\CineDAO as CineDAO;
 	use DAO\PeliculaDAO as PeliculaDAO;
+	use DAO\GeneroDAO as GeneroDAO;
 	use Models\Funcion as Funcion;
 	use Models\Cine as Cine;
 	use Models\Pelicula as Pelicula;
@@ -19,12 +20,14 @@
 		private $funcionDAO;
 		private $cineDAO;
 		private $peliculaDAO;
+		private $generoDAO;
 
 		function __construct()
 		{
 			$this->funcionDAO = new FuncionDAO();
 			$this->cineDAO = new CineDAO();
 			$this->peliculaDAO = new PeliculaDAO();
+			$this->generoDAO = new GeneroDAO();
 		}
 
 		public function ShowAddView($idCine)
@@ -127,6 +130,7 @@
 		public function ShowMovies()
 		{					
 			$funciones=$this->funcionDAO->getAll();
+			$generoList = $this->generoDAO->getAll();
 
 			$peliculaList = array();
 			foreach($funciones as $funcion)
@@ -145,14 +149,81 @@
 		private function getPeliById($list,$id)
         {
             $pelicula = null;
-
             $peliculas = array_filter($list, function($pelicula) use($id){
                 return $pelicula->getId() == $id;
             });
-
             $peliculas = array_values($peliculas); //Reordering array indexes
-
             return (count($peliculas) > 0) ? $peliculas[0] : null;
+		}
+		
+		public function FilterFunctions()
+		{
+			$generoList = $this->generoDAO->getAll();
+			$funciones =$this->funcionDAO->getAll();
+			$pelicula = new Pelicula();
+			$peliculaList = array();
+
+			$chosenDate = $_POST['chosenDate'];
+			$genreId = $_POST['genreId'];
+
+			if($chosenDate!=NULL && $genreId!=NULL)
+			{
+				foreach($funciones as $funcion)
+				{
+					if($chosenDate==$funcion->getFecha())
+					{
+						$idPelicula = $funcion->getIdPelicula();
+						$generos = $this->peliculaDAO->getGeneros($pelicula->setId($idPelicula));
+						if(in_array($genreId, $generos))
+						{	
+							$pelicula=$this->peliculaDAO->getById($idPelicula);
+							if(!in_array($pelicula, $peliculaList))
+							{
+								array_push($peliculaList, $pelicula);
+							}
+						}
+					}
+				}
+			} 
+			else
+			{
+				if( $genreId!=NULL)
+				{
+					foreach($funciones as $funcion)
+					{
+					$idPelicula = $funcion->getIdPelicula();
+					$generos = $this->peliculaDAO->getGeneros($pelicula->setId($idPelicula));
+
+						if(in_array($genreId, $generos))
+						{
+							$pelicula=$this->peliculaDAO->getById($idPelicula);
+							if(!in_array($pelicula, $peliculaList))
+							{
+								array_push($peliculaList, $pelicula);
+							}
+						}
+					}
+				} 
+				else
+				{
+					if( $chosenDate!=NULL)
+					{
+						foreach($funciones as $funcion)
+						{
+							if($chosenDate==$funcion->getFecha())
+								{
+								$pelicula=$this->peliculaDAO->getById($funcion->getIdPelicula());
+								if(!in_array($pelicula, $peliculaList)){
+									array_push($peliculaList, $pelicula);
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			require_once(VIEWS_PATH . "pelicula/searchbar.php");
+			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 		}
 
 		public function ShowFuncionesPelicula($idPelicula)
@@ -203,4 +274,3 @@
 			return $funciones;
 		}
 	}
-?>
