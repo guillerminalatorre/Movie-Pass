@@ -232,14 +232,21 @@
 			$funciones = $this->funcionDAO->getByPelicula($pelicula);
 
 			$cineList = array();
+
+			$fechaActual = strtotime(date("Y-m-d H:i:00",time()));
+
 			foreach($funciones as $funcion)
 			{
-				$idCine = $funcion->getIdCine();
-				if($this->getPeliById($cineList,$idCine) == NULL)
+				$fechaDeLafuncion = strtotime($funcion->getFecha()." ".$funcion->getHora());
+				if($fechaDeLafuncion >= $fechaActual)
 				{
-					$cine = $this->cineDAO->getById($idCine);
-					array_push($cineList,$cine);
-				}
+					$idCine = $funcion->getIdCine();
+					if($this->getPeliById($cineList,$idCine) == NULL)
+					{
+						$cine = $this->cineDAO->getById($idCine);
+						array_push($cineList,$cine);
+					}
+				}			
 			}
 
 			require_once(VIEWS_PATH."funcion/funcion-pelicula-list.php");

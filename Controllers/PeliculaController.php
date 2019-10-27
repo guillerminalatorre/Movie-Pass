@@ -121,7 +121,7 @@ class PeliculaController
 
 	public function getNowPlayingMoviesFromApi()
 	{
-		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "region" => "AR");
+		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 
 		$get_data = APIController::callAPI('GET', API . '/movie/now_playing', $arrayReque);
 
