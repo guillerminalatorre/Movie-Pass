@@ -51,7 +51,7 @@
 			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
 		}
 
-		public function Add($idCine, $idPelicula, $fecha, $hora, $cantEntradas)
+		public function Add($idCine, $idPelicula, $fecha, $hora)
 		{
 			$_SESSION['flash'] = array();
 
@@ -64,7 +64,6 @@
 					$funcion->setIdPelicula($idPelicula);
 					$funcion->setFecha($fecha);
 					$funcion->setHora($hora);			
-					$funcion->setCantEntradas($cantEntradas);
 
 					$this->funcionDAO->add($funcion);
 					array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");

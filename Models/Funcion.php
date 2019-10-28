@@ -13,7 +13,6 @@
 		private $fecha;
 		private $hora;
 		private $idPelicula;	
-		private $cantEntradas;
 
 		/**
 		 * Getter for Id
@@ -126,29 +125,6 @@
 		public function setIdPelicula($idPelicula)
 		{
 			$this->idPelicula = $idPelicula;
-			return $this;
-		}
-
-		
-		/**
-		 * Getter for CantEntradas
-		 *
-		 * @return [type]
-		 */
-		public function getCantEntradas()
-		{
-			return $this->cantEntradas;
-		}
-
-		/**
-		 * Setter for CantEntradas
-		 * @var [type] cantEntradas
-		 *
-		 * @return self
-		 */
-		public function setCantEntradas($cantEntradas)
-		{
-			$this->cantEntradas = $cantEntradas;
 			return $this;
 		}
 	}
