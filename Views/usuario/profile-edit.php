@@ -1,11 +1,11 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
-    <div class="panelForm">
+    <div class="panelForm shadow">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Usuario/UpdateUser" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="form-group col-sm">
-                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $usuario->getId(); ?>" role="button">Volver a perfil</a>
+                    <a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $usuario->getId(); ?>" role="button">Volver a perfil</a>
                 </div>
                 <div class="form-group col-sm text-center">
                     <h2>Modificar perfil</h2>
@@ -54,15 +54,14 @@
             </div>
             <div class="row">
                 <div class="file-field">
-                    <div class="btn btn-primary btn-lg">
+                    <div class="btn btn-primary btn-lg shadow-sm">
                         <span><i class="fa fa-user"></i> Imagen de perfil (MAX: 5MB)</span>
                         <input type="hidden" name="MAX_FILE_SIZE" value="50000" />
                         <input type="file" name ="image" class="mt-2" >
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg btn-block mt-2"><i class="fa fa-plus-circle"></i> Actualizar datos</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block mt-2 shadow-sm"><i class="fa fa-plus-circle"></i> Actualizar datos</button>
             </div>
         </form>
-        <!-- <button class="btn btn-primary btn-lg btn-block"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</button> -->
     </div>
 </div>

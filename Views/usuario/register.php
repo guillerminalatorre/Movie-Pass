@@ -1,11 +1,11 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
-    <div class="registerForm">
+    <div class="registerForm rounded shadow">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
             <div class="row">
                 <div class="form-group col-sm">
-                    <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Login" role="button">Volver a login</a>
+                    <a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Login" role="button">Volver a login</a>
                 </div>
                 <div class="form-group col-sm text-center">
                     <h2>Registro</h2>
@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="row">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Crear cuenta</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Crear cuenta</button>
             </div>
         </form>
     </div>

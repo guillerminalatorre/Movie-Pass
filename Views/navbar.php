@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
 
   <a class="navbar-brand" href="<?php echo FRONT_ROOT ?>Home">
     <svg height="40" viewBox="0 0 512 512" width="40" xmlns="http://www.w3.org/2000/svg">

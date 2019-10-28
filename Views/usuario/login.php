@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
-  <div class="loginForm">
+  <div class="loginForm shadow">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
     <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">
       <h2 class="text-center">¡Hola! Para seguir, <br>ingresá tus datos</h2>
@@ -13,8 +13,8 @@
         <label for="userPassword">Contraseña</label>
         <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar sesion</button>
-      <a class="btn btn-primary btn-lg btn-block" href="<?php echo htmlspecialchars($facebookLoginUrl); ?>" role="button"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</a>
+      <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Iniciar sesion</button>
+      <a class="btn btn-primary btn-lg btn-block shadow-sm" href="<?php echo htmlspecialchars($facebookLoginUrl); ?>" role="button"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</a>
       <br>
       <div class="text-center">
         <a class="" href="#">Olvidaste tu contraseña?</a>

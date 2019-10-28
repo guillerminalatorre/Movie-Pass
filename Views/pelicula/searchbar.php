@@ -1,5 +1,5 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container bg-dark rounded pt-2">
+<div class="container bg-dark rounded pt-2 shadow">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
     <div class="jumbotron bg-dark border-0 text-white">
         <form action="<?php echo FRONT_ROOT ?>Funcion/FilterFunctions" method="POST">
@@ -24,7 +24,7 @@
                     <input type="date" name="chosenDate" min="<?php echo date("Y-m-d")?>" class="form-control">
                 </div>
                 <div class="btn-group col-md-3">
-                    <button type="submit" class="btn btn-warning">Buscar</button>
+                    <button type="submit" class="btn btn-success shadow-sm">Buscar</button>
                 </div>
             </div>
         </form>
