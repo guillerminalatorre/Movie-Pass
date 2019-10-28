@@ -223,22 +223,41 @@
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 		}
 
-		public function ShowFuncionesPelicula($idPelicula)
+		public function ShowFuncionesPelicula($idPelicula = null)
 		{
-			$pelicula= new Pelicula();
-			$pelicula->setId($idPelicula);
-			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
-
-			$funciones = $this->funcionDAO->getByPelicula($pelicula);
-
-			$cineList = array();
-
-			$fechaActual = strtotime(date("Y-m-d H:i:00",time()));
-
-			foreach($funciones as $funcion)
+			if($idPelicula != NULL)
 			{
-				$fechaDeLafuncion = strtotime($funcion->getFecha()." ".$funcion->getHora());
-				if($fechaDeLafuncion >= $fechaActual)
+				$pelicula= new Pelicula();
+				$pelicula->setId($idPelicula);
+				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+
+				$funciones = $this->funcionDAO->getByPelicula($pelicula);
+
+				$cineList = array();
+
+				$fechaActual = strtotime(date("Y-m-d H:i:00",time()));
+
+				foreach($funciones as $funcion)
+				{
+					$fechaDeLafuncion = strtotime($funcion->getFecha()." ".$funcion->getHora());
+					if($fechaDeLafuncion >= $fechaActual)
+					{
+						$idCine = $funcion->getIdCine();
+						if($this->getPeliById($cineList,$idCine) == NULL)
+						{
+							$cine = $this->cineDAO->getById($idCine);
+							array_push($cineList,$cine);
+						}
+					}
+				}
+			}
+			else
+			{
+				$funciones = $this->funcionDAO->getAll();
+
+				$cineList = array();
+
+				foreach($funciones as $funcion)
 				{
 					$idCine = $funcion->getIdCine();
 					if($this->getPeliById($cineList,$idCine) == NULL)
@@ -246,9 +265,8 @@
 						$cine = $this->cineDAO->getById($idCine);
 						array_push($cineList,$cine);
 					}
-				}			
+				}
 			}
-
 			require_once(VIEWS_PATH."funcion/funcion-pelicula-list.php");
 		}
 
