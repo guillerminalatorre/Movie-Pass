@@ -1,5 +1,5 @@
 <div class="col-md-4 movie-card">
-    <div class="card movie-card-height">
+    <div class="card movie-card-height shadow">
         <div class="card-header" >
             <img class="card-img mb-4" src="<?php echo $values->getPoster(); ?>" alt="Card image">
         </div>

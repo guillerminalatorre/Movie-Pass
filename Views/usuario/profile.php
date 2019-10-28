@@ -1,11 +1,11 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container mb-4">
     <div class="row">
-        <div class="col-sm bg-light rounded p-4 text-center mr-4">
+        <div class="col-sm bg-light rounded p-4 text-center mr-4 shadow">
 
             <!-- Volver a lista de usuarios solo para admins -->
             <?php if($this->isAdmin($_SESSION["loggedUser"])) { ?>
-            <div><a class="btn btn-secondary mb-4" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a></div>
+            <div><a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" role="button">Ver lista de usuarios</a></div>
             <?php } ?>
 
             <?php require_once(VIEWS_PATH."alert.php"); ?>
@@ -14,17 +14,17 @@
 
             <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->
             <?php if(($this->isMainAdmin($_SESSION["loggedUser"])) && ($_SESSION["loggedUser"]->getEmail() != $usuario->getEmail())) { ?>
-            <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-info btn-md mt-2" role="button">
+            <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-info btn-md mt-2 shadow-sm" role="button">
                 <?php if($usuario->getId_Rol() === 1) { ?>Hacer admin<?php } else { ?>Quitar admin<?php } ?>
             </a>
             <?php } ?>
             
             <!-- Modificar perfil -->
-            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getId();?>" class="btn btn-warning btn-md mt-2" role="button">Modificar</a>
+            <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getId();?>" class="btn btn-warning btn-md mt-2 shadow-sm" role="button">Modificar</a>
             
             <!-- Eliminar cuenta -->
             <?php if(($this->isAdmin($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId() === $usuario->getId()) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>
-            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-danger btn-md mt-2" role="button">Eliminar</a>
+            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-danger btn-md mt-2 shadow-sm" role="button">Eliminar</a>
             <?php } ?>
 
             <ul class="list-group mt-4">
@@ -38,7 +38,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-8 bg-light rounded p-4">
+        <div class="col-md-8 bg-light rounded p-4 shadow">
             <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de entradas</h4></tr>
             <table class="table table-striped">
                 <thead>

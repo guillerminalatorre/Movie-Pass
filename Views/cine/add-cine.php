@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid mt-4">
-    <div class="panelForm">
-        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
+    <div class="panelForm shadow">
+        <a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Volver a lista de cines</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Cine/Add" method="POST">
             <h2 class="text-left">Ingresa datos del cine: </h2>
@@ -40,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="form-group col-sm text-right">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-plus-circle"></i> Agregar cine</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm"><i class="fa fa-plus-circle"></i> Agregar cine</button>
                 </div>
         </form>
     </div>

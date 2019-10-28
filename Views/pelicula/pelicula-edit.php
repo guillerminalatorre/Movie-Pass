@@ -91,8 +91,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success shadow-sm">Guardar</button>
+                    <button type="button" class="btn btn-danger shadow-sm" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>
         </div>

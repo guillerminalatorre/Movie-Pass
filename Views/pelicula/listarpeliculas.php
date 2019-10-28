@@ -1,13 +1,17 @@
 <?php require_once(VIEWS_PATH . "navbar.php"); ?>
-<div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow-sm">
+<div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
   <?php require_once(VIEWS_PATH . "alert.php"); ?>
   <div class="row flex-column-reverse flex-md-row">
     <?php
-    if (!empty($peliculaList)) {
-      foreach ($peliculaList as $values) {
+    if (!empty($peliculaList)) 
+    {
+      foreach ($peliculaList as $values) 
+      {
         require("moviecard.php");
       }
-    } else {
+    } 
+    else 
+    {
       ?>
       <div class="container">
         <div class="alert alert-danger" role="alert">
@@ -25,7 +29,7 @@
               </svg>
             </div>
             <div class="col col-md-auto">
-              <h4 class="alert-heading ">No hay funciones que coincidan con tu búsqueda.</h4>
+              <h4 class="alert-heading">No hay funciones que coincidan con tu búsqueda.</h4>
               <ul>
                 <li>
                   Intenta seleccionar un genero similar u otra fecha.

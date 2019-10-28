@@ -1,15 +1,12 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container bg-dark rounded pl-5 pr-5">
+<div class="container bg-dark rounded pl-5 pr-5 shadow">
     <div class="row">
 <!-- For demo purpose -->
 <div class="container py-5">
     <div class="row text-center text-white">
         <div class="col-lg-8 mx-auto">
-            <h1 class="display-4">Team Page</h1>
+            <h1 class="display-4">Equipo de MoviePass</h1>
             <p class="lead mb-0">Using Bootstrap 4 grid and utilities, create a nice team page.</p>
-            <p class="lead">Snippet by<a href="https://bootstrapious.com/snippets" class="text-white">
-                <u>Bootstrapious</u></a>
-            </p>
         </div>
     </div>
 </div><!-- End -->

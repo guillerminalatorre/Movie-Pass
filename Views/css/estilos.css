@@ -3,11 +3,7 @@ html, body {
 }
 
 body {
-   background: url("/TP-Metodologia/Views/img/postersBackground.png") rgba(200, 200, 200, 0.95) no-repeat center center fixed;
-   -webkit-background-size: cover;
-   -moz-background-size: cover;
-   -o-background-size: cover;
-   background-size: cover;
+   background: url("/TP-Metodologia/Views/img/background.png") rgba(200, 200, 200, 0.95);
 }
 
 .container.black{
@@ -116,7 +112,7 @@ p {
 .card-body {
    position: relative;
    margin-top: -30%;
-   color: #9FA7A9;
+   color: rgb(70, 70, 70);
 }
 
 .card-body .card-text {
