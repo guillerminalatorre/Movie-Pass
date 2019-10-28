@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container">
-    <div class="panelForm shadow">
+    <div class="panelForm rounded shadow">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Usuario/UpdateUser" method="POST" enctype="multipart/form-data">
             <div class="row">
