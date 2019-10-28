@@ -156,27 +156,14 @@
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
 
-		
-		
-		public function FilterFunctions()
+		public function FilterFunctions($genreId, $chosenDate=null)
 		{
 			$generoList = $this->generoDAO->getAll();
 			$funciones =$this->funcionDAO->getAll();
 			$pelicula = new Pelicula();
 			$peliculaList = array();
-
-			if(isset($_POST['chosenDate'])){
-				$chosenDate = $_POST['chosenDate'];
-			}else{
-				$chosenDate=NULL;
-			}
-			if(isset($_POST['genreId'])) {
-				$genreId = $_POST['genreId'];
-			}else{ 
-				$genreId=NULL;
-			}
-			
-			if($chosenDate!=NULL && $genreId!=NULL)
+	
+			if($genreId != "none" && $chosenDate != null)
 			{
 				foreach($funciones as $funcion)
 				{
@@ -197,7 +184,7 @@
 			} 
 			else
 			{
-				if( $genreId!=NULL)
+				if( $genreId != "none")
 				{
 					foreach($funciones as $funcion)
 					{
@@ -215,8 +202,8 @@
 					}
 				} 
 				else
-				{
-					if( $chosenDate!=NULL)
+				{	
+					if( $chosenDate != null)
 					{
 						foreach($funciones as $funcion)
 						{
@@ -245,14 +232,21 @@
 			$funciones = $this->funcionDAO->getByPelicula($pelicula);
 
 			$cineList = array();
+
+			$fechaActual = strtotime(date("Y-m-d H:i:00",time()));
+
 			foreach($funciones as $funcion)
 			{
-				$idCine = $funcion->getIdCine();
-				if($this->getPeliById($cineList,$idCine) == NULL)
+				$fechaDeLafuncion = strtotime($funcion->getFecha()." ".$funcion->getHora());
+				if($fechaDeLafuncion >= $fechaActual)
 				{
-					$cine = $this->cineDAO->getById($idCine);
-					array_push($cineList,$cine);
-				}
+					$idCine = $funcion->getIdCine();
+					if($this->getPeliById($cineList,$idCine) == NULL)
+					{
+						$cine = $this->cineDAO->getById($idCine);
+						array_push($cineList,$cine);
+					}
+				}			
 			}
 
 			require_once(VIEWS_PATH."funcion/funcion-pelicula-list.php");
