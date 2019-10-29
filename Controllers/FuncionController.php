@@ -55,7 +55,7 @@
 		{
 			$_SESSION['flash'] = array();
 
-			$fechaHora = strtotime("$fecha $hora");
+			$fechaHora = $fecha." ". $hora;
 
 			if($idPelicula)
 			{
@@ -154,8 +154,10 @@
             $peliculas = array_values($peliculas); //Reordering array indexes
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
+		
+		//SELECT DATE_FORMAT(DATETIMEAPP,'%d-%m-%Y') AS date, DATE_FORMT(DATETIMEAPP,'%H:%i:%s') AS time FROM yourtable
 
-		/*public function FilterFunctions($genreId, $chosenDate=null)
+		public function FilterFunctions($genreId, $chosenDate=null)
 		{
 			$generoList = $this->generoDAO->getAll();
 			$funciones =$this->funcionDAO->getAll();
@@ -220,7 +222,7 @@
 			
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
-		}*/
+		}
 
 		public function ShowFuncionesPelicula($idPelicula = null)
 		{

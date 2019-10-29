@@ -3,7 +3,6 @@ if(isset($funcionList) && count($funcionList) > 0) {
     foreach ($funcionList as $funcion) {
 ?>
             <tr>
-
                 <td><?php echo $funcion->getFecha();?></td>
                 <td><?php echo $funcion->getHora();?></td>
                 <td>en proceso</td>

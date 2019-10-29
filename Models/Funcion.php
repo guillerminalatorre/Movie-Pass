@@ -90,6 +90,8 @@
 			return $this->fechaHora;
 		}
 
+		
+
 		/**
 		* Setter for FechaHora
 		* @var [type] fechaHora
@@ -102,5 +104,16 @@
 			return $this;
 		}
 
+		public function getFecha(){
+			$timestamp = $this->getFechaHora();
+			$datetime = explode(" ",$timestamp);
+			return $datetime[0];	
+		}
+
+		public function getHora(){
+			$timestamp = $this->getFechaHora();
+			$datetime = explode(" ",$timestamp);
+			return $datetime[1];	
+		}
 	}
 ?>
