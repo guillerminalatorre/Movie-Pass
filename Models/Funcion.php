@@ -10,10 +10,8 @@
 	{
 		private $id;
 		private $idCine;
-		private $fecha;
-		private $hora;
+		private $fechaHora;
 		private $idPelicula;	
-		private $cantEntradas;
 
 		/**
 		 * Getter for Id
@@ -59,54 +57,7 @@
 			$this->idCine = $idCine;
 			return $this;
 		}		
-	
 
-		/**
-		 * Getter for Fecha
-		*
-		* @return [type]
-		*/
-		public function getFecha()
-		{
-			return $this->fecha;
-		}
-	
-		/**
-		 * Setter for Fecha
-		* @var [type] fecha
-		*
-		* @return self
-		*/
-		public function setFecha($fecha)
-		{
-			$this->fecha = $fecha;
-			return $this;
-		}
-	
-	
-		/**
-		 * Getter for Hora
-		*
-		* @return [type]
-		*/
-		public function getHora()
-		{
-			return $this->hora;
-		}
-	
-		/**
-		 * Setter for Hora
-		* @var [type] hora
-		*
-		* @return self
-		*/
-		public function setHora($hora)
-		{
-			$this->hora = $hora;
-			return $this;
-		}
-	
-	
 		/**
 		 * Getter for IdPelicula
 		*
@@ -128,28 +79,41 @@
 			$this->idPelicula = $idPelicula;
 			return $this;
 		}
-
 		
 		/**
-		 * Getter for CantEntradas
-		 *
-		 * @return [type]
-		 */
-		public function getCantEntradas()
+		* Getter for FechaHora
+		*
+		* @return [type]
+		*/
+		public function getFechaHora()
 		{
-			return $this->cantEntradas;
+			return $this->fechaHora;
 		}
 
+		
+
 		/**
-		 * Setter for CantEntradas
-		 * @var [type] cantEntradas
-		 *
-		 * @return self
-		 */
-		public function setCantEntradas($cantEntradas)
+		* Setter for FechaHora
+		* @var [type] fechaHora
+		*
+		* @return self
+		*/
+		public function setFechaHora($fechaHora)
 		{
-			$this->cantEntradas = $cantEntradas;
+			$this->fechaHora = $fechaHora;
 			return $this;
+		}
+
+		public function getFecha(){
+			$timestamp = $this->getFechaHora();
+			$datetime = explode(" ",$timestamp);
+			return $datetime[0];	
+		}
+
+		public function getHora(){
+			$timestamp = $this->getFechaHora();
+			$datetime = explode(" ",$timestamp);
+			return $datetime[1];	
 		}
 	}
 ?>

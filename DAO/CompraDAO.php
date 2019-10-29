@@ -51,7 +51,6 @@ class CompraDAO
 		{
 			$valuesArray["id"] = $compra->getId();
 			$valuesArray["fecha"]= $compra->getFecha();
-			$valuesArray["cantEntradas"]= $compra->getCantEntradas();
 			$valuesArray["descuento"]=$compra->getDescuento();
 			$valuesArray["total"]=$compra->getTotal();
 			$valuesArray["id_Usuario"]=$compra->getId_Usuario();
@@ -83,7 +82,6 @@ class CompraDAO
 				$compra = new Compra();
 				$compra->setId($valuesArray["id"]  );
 				$compra->setFecha($valuesArray["fecha"] );
-				$compra->setCantEntradas($valuesArray["cantEntradas"] );
 				$compra->setDescuento($valuesArray["descuento"]);
 				$compra->setTotal($valuesArray["total"]);
 				$compra->setId_Usuario($valuesArray["id_Usuario"]);

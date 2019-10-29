@@ -10,7 +10,6 @@
 	{
 		private $id;
 		private $fecha;
-		private $cantEntradas;
 		private $descuento;
 		private $total;
 		private $id_Usuario;
@@ -59,30 +58,6 @@
 		    $this->fecha = $fecha;
 		    return $this;
 		}
-
-
-		/**
-		 * Getter for CantEntradas
-		 *
-		 * @return [type]
-		 */
-		public function getCantEntradas()
-		{
-		    return $this->cantEntradas;
-		}
-
-		/**
-		 * Setter for CantEntradas
-		 * @var [type] cantEntradas
-		 *
-		 * @return self
-		 */
-		public function setCantEntradas($cantEntradas)
-		{
-		    $this->cantEntradas = $cantEntradas;
-		    return $this;
-		}
-
 
 		/**
 		 * Getter for Descuento
@@ -150,27 +125,6 @@
 		{
 		    $this->id_Usuario = $id_Usuario;
 		    return $this;
-		}
-
-		private function logicaDescuento()
-		{
-			date_default_timezone_get();
-
-			$diaActual = date("D");
-
-			if($diaActual == "Tue" || $diaActual == "Wed")
-			{
-				if($this->cantEntradas >1) 
-				{
-					$this->setDescuento(25);
-				}
-				else {
-					$this->setDescuento(0);
-				}
-			}
-			else {
-				$this->setDescuento(0);
-			}
 		}
 	}
 ?>

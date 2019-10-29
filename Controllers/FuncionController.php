@@ -51,20 +51,20 @@
 			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
 		}
 
-		public function Add($idCine, $idPelicula, $fecha, $hora, $cantEntradas)
+		public function Add($idCine, $idPelicula, $fecha, $hora)
 		{
 			$_SESSION['flash'] = array();
 
+			$fechaHora = $fecha." ". $hora;
+
 			if($idPelicula)
 			{
-				if($this->checkAvailableTime($idCine,$idPelicula,$fecha,$hora))
+				if($this->checkAvailableTime($idCine,$idPelicula,$fechaHora))
 				{
 					$funcion = new Funcion();
 					$funcion->setIdCine($idCine);
 					$funcion->setIdPelicula($idPelicula);
-					$funcion->setFecha($fecha);
-					$funcion->setHora($hora);			
-					$funcion->setCantEntradas($cantEntradas);
+					$funcion->setFechaHora($fechaHora);
 
 					$this->funcionDAO->add($funcion);
 					array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
@@ -83,7 +83,7 @@
 			}			
 		}
 
-		private function checkAvailableTime($idCine,$idPelicula,$fecha,$hora)
+		private function checkAvailableTime($idCine,$idPelicula,$fechaHora)
 		{
 			$available = true;
 
@@ -99,7 +99,7 @@
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 
 			// Calculo inicio y fin estimados
-			$inicio = strtotime("$fecha $hora");
+			$inicio = strtotime($fechaHora);
 			$duracion = $pelicula->getDuracion()+15;
 			$string = "+".$duracion." minutes";
 			$fin = strtotime($string,$inicio);
@@ -114,9 +114,8 @@
 				$peliculaFuncion = $this->peliculaDAO->getPelicula($peliculaFuncion);
 
 				// Obtengo datos de la funcion
-				$fechaFuncion = $funcion->getfecha();
-				$horaFuncion = $funcion->getHora();
-				$inicioFuncion = strtotime("$fechaFuncion $horaFuncion");
+				$fechaHora = $funcion->getFechaHora();
+				$inicioFuncion = strtotime($fechaHora);
 				$duracion = $peliculaFuncion->getDuracion()+15;
 				$string = "+".$duracion." minutes";
 				$finFuncion = strtotime($string,$inicioFuncion);
@@ -155,6 +154,8 @@
             $peliculas = array_values($peliculas); //Reordering array indexes
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
+		
+		//SELECT DATE_FORMAT(DATETIMEAPP,'%d-%m-%Y') AS date, DATE_FORMT(DATETIMEAPP,'%H:%i:%s') AS time FROM yourtable
 
 		public function FilterFunctions($genreId, $chosenDate=null)
 		{
@@ -239,7 +240,7 @@
 
 				foreach($funciones as $funcion)
 				{
-					$fechaDeLafuncion = strtotime($funcion->getFecha()." ".$funcion->getHora());
+					$fechaDeLafuncion = strtotime($funcion->getFechaHora());
 					if($fechaDeLafuncion >= $fechaActual)
 					{
 						$idCine = $funcion->getIdCine();

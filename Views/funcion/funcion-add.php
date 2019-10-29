@@ -44,14 +44,6 @@
                     <input type="time" class="form-control" name="hora" value="<?php echo date("H:i"); ?>" required>
                 </div>
             </div>
-            <div class="row mb-2">
-                <div class="form-group col-sm">
-                    <label for="cantEntradas">Cant. Entradas:</label>
-                </div>
-                <div class="col-sm-9">
-                    <input type="number" class="form-control" name="cantEntradas" value="1" required>
-                </div>
-            </div>
             <div class="row">
                 <div class="form-group col-sm">
                     <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm"><i class="fa fa-plus-circle"></i> Agregar Funcion</button>
