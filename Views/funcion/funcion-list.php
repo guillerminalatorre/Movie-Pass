@@ -3,7 +3,6 @@ if(isset($funcionList) && count($funcionList) > 0) {
     foreach ($funcionList as $funcion) 
     {
 ?>
-
         <tr>
             <th scope="row"><?php echo $funcion->getId();?></th>
             <td scope="col"><?php echo $funcion->getIdPelicula(); ?></td>

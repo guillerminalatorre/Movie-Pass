@@ -41,8 +41,7 @@ CREATE TABLE Funciones
 	id_funcion INT NOT NULL AUTO_INCREMENT,
 	id_cine INT NOT NULL,
 	id_pelicula INT NOT NULL,
-	fecha DATE NOT NULL,
-	hora TIME NOT NULL,
+	fechaHora Timestamp not null,
 	CONSTRAINT PK_Funcion PRIMARY KEY (id_funcion ASC),
 	CONSTRAINT FK_id_cine FOREIGN KEY (id_cine) REFERENCES Cines (id_cine) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT FK_id_pelicula FOREIGN KEY (id_pelicula) REFERENCES Peliculas (id_pelicula) ON DELETE CASCADE ON UPDATE CASCADE

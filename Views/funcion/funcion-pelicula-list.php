@@ -4,7 +4,8 @@
     <a class="btn btn-warning mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Home" role="button">Volver a cartelera</a>
 <h2 class="border-bottom border-gray pb-2 mb-0 text-white">Funciones disponibles <?php if($idPelicula != null) { ?> de <?php echo $pelicula->getTitulo(); ?><?php } ?></h2>
 
-        <?php foreach ($cineList as $cine) { ?>
+        <?php foreach ($cineList as $cine) {             
+            ?>
             <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
                 <h2 class="col-md-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
                 <h5 class="col-md-6 pb-2 text-light"><?php echo $cine->getDireccion();?></h5>
