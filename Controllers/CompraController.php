@@ -18,9 +18,9 @@
 			$this->compraDAO = new CompraDAO();
 		}
 
-		public function Add(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
+		public function Add(int $id, date $fecha, int $descuento, float $total, Usuario $usuario)
 		{
-			$compra = new Compra($id,$fecha,$cantEntradas,$descuento,$total,$usuario);
+			$compra = new Compra($id,$fecha,$descuento,$total,$usuario);
 
 			$this->compraDAO->add($compra);
 
