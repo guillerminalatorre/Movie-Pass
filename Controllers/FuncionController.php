@@ -55,15 +55,16 @@
 		{
 			$_SESSION['flash'] = array();
 
+			$fechaHora = strtotime("$fecha $hora");
+
 			if($idPelicula)
 			{
-				if($this->checkAvailableTime($idCine,$idPelicula,$fecha,$hora))
+				if($this->checkAvailableTime($idCine,$idPelicula,$fechaHora))
 				{
 					$funcion = new Funcion();
 					$funcion->setIdCine($idCine);
 					$funcion->setIdPelicula($idPelicula);
-					$funcion->setFecha($fecha);
-					$funcion->setHora($hora);			
+					$funcion->setFechaHora($fechaHora);
 
 					$this->funcionDAO->add($funcion);
 					array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
@@ -82,7 +83,7 @@
 			}			
 		}
 
-		private function checkAvailableTime($idCine,$idPelicula,$fecha,$hora)
+		private function checkAvailableTime($idCine,$idPelicula,$fechaHora)
 		{
 			$available = true;
 
@@ -98,7 +99,7 @@
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 
 			// Calculo inicio y fin estimados
-			$inicio = strtotime("$fecha $hora");
+			$inicio = strtotime($fechaHora);
 			$duracion = $pelicula->getDuracion()+15;
 			$string = "+".$duracion." minutes";
 			$fin = strtotime($string,$inicio);
@@ -113,9 +114,8 @@
 				$peliculaFuncion = $this->peliculaDAO->getPelicula($peliculaFuncion);
 
 				// Obtengo datos de la funcion
-				$fechaFuncion = $funcion->getfecha();
-				$horaFuncion = $funcion->getHora();
-				$inicioFuncion = strtotime("$fechaFuncion $horaFuncion");
+				$fechaHora = $funcion->getFechaHora();
+				$inicioFuncion = strtotime($fechaHora);
 				$duracion = $peliculaFuncion->getDuracion()+15;
 				$string = "+".$duracion." minutes";
 				$finFuncion = strtotime($string,$inicioFuncion);
@@ -155,7 +155,7 @@
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
 
-		public function FilterFunctions($genreId, $chosenDate=null)
+		/*public function FilterFunctions($genreId, $chosenDate=null)
 		{
 			$generoList = $this->generoDAO->getAll();
 			$funciones =$this->funcionDAO->getAll();
@@ -220,7 +220,7 @@
 			
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
-		}
+		}*/
 
 		public function ShowFuncionesPelicula($idPelicula = null)
 		{
@@ -238,7 +238,7 @@
 
 				foreach($funciones as $funcion)
 				{
-					$fechaDeLafuncion = strtotime($funcion->getFecha()." ".$funcion->getHora());
+					$fechaDeLafuncion = strtotime($funcion->getFechaHora());
 					if($fechaDeLafuncion >= $fechaActual)
 					{
 						$idCine = $funcion->getIdCine();
