@@ -18,7 +18,12 @@
 			$this->compraDAO = new CompraDAO();
 		}
 
-		public function Add(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
+		public function Index()
+		{
+			require_once(VIEWS_PATH."compra/compra.php");
+		}
+
+		public function Payout(int $id, date $fecha, int $cantEntradas, int $descuento, float $total, Usuario $usuario)
 		{
 			$compra = new Compra($id,$fecha,$cantEntradas,$descuento,$total,$usuario);
 
