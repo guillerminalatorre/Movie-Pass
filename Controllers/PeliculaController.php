@@ -48,6 +48,19 @@ class PeliculaController
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
+	public function showApiMovies($peliculaList=null){
+		if($peliculaList==null){
+			$pagina=1;
+		}
+		$peliculaList = $this->getNowPlayingMoviesFromApi();
+			
+		while(count($peliculaList)==0){
+			$peliculaList= $this->getNowPlayingMoviesFromApi(++$pagina);
+		}
+		require_once(VIEWS_PATH . "pelicula/peliculas-api.php");
+	}
+
+
 	public function updatePelicula($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
 	{
 		$_SESSION['flash'] = array();
@@ -119,9 +132,15 @@ class PeliculaController
 		Functions::getInstance()->redirect("Pelicula","ShowListView");
 	}
 
-	public function getNowPlayingMoviesFromApi()
+	public function getNowPlayingMoviesFromApi($page=null)
 	{
-		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
+		if($page==NULL){
+			$page=1;
+		}
+
+		$moviesFromApi=array();
+
+		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "page"=> $page);
 
 		$get_data = APIController::callAPI('GET', API . '/movie/now_playing', $arrayReque);
 
@@ -129,18 +148,41 @@ class PeliculaController
 
 		foreach ($arrayToDecode["results"] as $valuesArray) 
 		{
-			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == null)
-			{
+			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == null){
+			
 				$pelicula = new Pelicula();
-				$pelicula = $this->getMovieDetailsFromApi($valuesArray["id"]);
-				$this->peliculaDAO->add($pelicula);
+
+				$pelicula->setIdTMDB($valuesArray["id"]);
+				if($valuesArray["poster_path"] != NULL)
+				{
+					$posterPath = "https://image.tmdb.org/t/p/w500".$valuesArray["poster_path"];
+				}
+				else 
+				{
+					$posterPath = IMG_PATH."noImage.jpg";
+				}
+				$pelicula->setPoster($posterPath);
+		
+				$generos = array();
+				
+				$pelicula->setTitulo($valuesArray["title"]);
+				$pelicula->setPopularidad($valuesArray["vote_average"]);
+				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);
+
+				array_push($moviesFromApi, $pelicula);
+				
 			}
 		}
-
-		Functions::getInstance()->redirect("System");
+		return $moviesFromApi;
 	}
 
-	public function getMovieDetailsFromApi($idTMDB)
+	public function AddToDatabase($idTMDB){
+		$movie= $this->getMovieDetailsFromApi($idTMDB);
+		$this->peliculaDAO->add($movie);
+		return true;
+	}
+
+	private function getMovieDetailsFromApi($idTMDB)
 	{
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 
@@ -192,4 +234,3 @@ class PeliculaController
 		return $pelicula;
 	}
 }
-?>
