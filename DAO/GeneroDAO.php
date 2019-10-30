@@ -15,7 +15,7 @@ class GeneroDAO
     {
         try {
             $list = array();
-            $query = "SELECT * FROM " . $this->tableName;
+            $query = "SELECT * FROM " . $this->tableName . " ORDER BY nombre;";
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
 
