@@ -33,7 +33,7 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}		
 
@@ -50,7 +50,7 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -76,7 +76,53 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
+		}
+	}
+
+	public function getDistinctPeliculas()
+	{
+		try
+		{
+			$list = array();
+			$query = "SELECT DISTINCT id_pelicula FROM ".$this->tableName;
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$funcion = new Funcion();
+				$funcion->setIdPelicula($row["id_pelicula"]);
+				array_push($list, $funcion);
+			}				
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			return null;
+		}
+	}
+
+	public function getDistinctCines()
+	{
+		try
+		{
+			$list = array();
+			$query = "SELECT DISTINCT id_cine FROM ".$this->tableName;
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$funcion = new Funcion();
+				$funcion->setIdCine($row["id_cine"]);
+				array_push($list, $funcion);
+			}				
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			return null;
 		}
 	}
 
@@ -100,7 +146,7 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -126,7 +172,7 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -153,10 +199,59 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
+	public function getByCinePelicula($idCine,$idPelicula)
+	{
+		try
+		{
+			$list = array();
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$idCine." AND id_pelicula = ".$idPelicula.";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$funcion = new Funcion();
+				$funcion->setId($row["id_funcion"]);
+				$funcion->setIdCine($row["id_cine"]);
+				$funcion->setIdPelicula($row["id_pelicula"]);
+				$funcion->setFechaHora($row["fecha_hora"]);
+				array_push($list, $funcion);
+			}				
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			return null;
+		}
+	}
+
+	public function getDistinctCineByPelicula($idPelicula)
+	{
+		try
+		{
+			$list = array();
+			$query = "SELECT DISTINCT id_cine, id_pelicula FROM ".$this->tableName." WHERE id_pelicula = '".$idPelicula."';";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$funcion = new Funcion();
+				$funcion->setIdCine($row["id_cine"]);
+				$funcion->setIdPelicula($row["id_pelicula"]);
+				array_push($list, $funcion);
+			}				
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			return null;
+		}
+	}
 
 	public function edit($funcion)
 	{
@@ -174,7 +269,7 @@ class FuncionDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 }

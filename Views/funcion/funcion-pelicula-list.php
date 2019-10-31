@@ -5,7 +5,10 @@
     <h2 class="border-bottom border-gray pb-2 mb-0 text-white">Funciones disponibles <?php if($idPelicula != null) { ?> de <?php echo $pelicula->getTitulo(); ?><?php } ?></h2>
 
         
-        <?php foreach ($cineList as $cine) { ?>
+        <?php foreach ($cineList as $funcionCine) { 
+            $cine = $this->cineDAO->getById($funcionCine->getIdCine());
+            ?>
+            
             <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
                 <h2 class="col-md-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
                 <h5 class="col-md-6 pb-2 text-light"><?php echo $cine->getDireccion();?></h5>
@@ -21,7 +24,11 @@
                     </thead>
                     <tbody>
                         <?php
-                        $funcionList = $this->filterByCine($funciones,$cine->getId());
+                        if($idPelicula != null) {
+                            $funcionList = $this->funcionDAO->getByCinePelicula($cine->getId(),$idPelicula);
+                        } else {
+                            $funcionList = $this->funcionDAO->getByCine($cine->getId());
+                        }                        
                         require(VIEWS_PATH."funcion/funcion-disponible-list.php"); 
                         ?>
                     </tbody>
