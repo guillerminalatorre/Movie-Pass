@@ -10,8 +10,8 @@
 	{
 		private $id;
 		private $idUsuario;
-		private $idFuncion;
-		private $fecha;
+		private $fechaHora;
+		private $precio;
 		private $cantidad;
 		private $descuento;
 		private $total;
@@ -58,31 +58,11 @@
 		}
 
 		/**
-		 * Get the value of idFuncion
-		 */ 
-		public function getIdFuncion()
-		{
-				return $this->idFuncion;
-		}
-
-		/**
-		 * Set the value of idFuncion
-		 *
-		 * @return  self
-		 */ 
-		public function setIdFuncion($idFuncion)
-		{
-				$this->idFuncion = $idFuncion;
-
-				return $this;
-		}
-
-		/**
 		 * Get the value of fecha
 		 */ 
-		public function getFecha()
+		public function getFechaHora()
 		{
-				return $this->fecha;
+				return $this->fechaHora;
 		}
 
 		/**
@@ -90,9 +70,29 @@
 		 *
 		 * @return  self
 		 */ 
-		public function setFecha($fecha)
+		public function setFechaHora($fechaHora)
 		{
-				$this->fecha = $fecha;
+				$this->fechaHora = $fechaHora;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of precio
+		 */ 
+		public function getPrecio()
+		{
+				return $this->precio;
+		}
+
+		/**
+		 * Set the value of precio
+		 *
+		 * @return  self
+		 */ 
+		public function setPrecio($precio)
+		{
+				$this->precio = $precio;
 
 				return $this;
 		}

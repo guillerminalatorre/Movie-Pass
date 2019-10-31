@@ -7,52 +7,73 @@
 	namespace Models;
 	
 	class Entrada
-	{		
-		private $id_Compra;
-		private $id_Funcion;
+	{
+		private $id;
+		private $idCompra;
+		private $idFuncion;
 		private $qr;
 
 		/**
-		 * Getter for Id_Compra
-		 *
-		 * @return [type]
-		 */
-		public function getId_Compra()
+		 * Get the value of id
+		 */ 
+		public function getId()
 		{
-		    return $this->id_Compra;
+				return $this->id;
 		}
 
 		/**
-		 * Setter for Id_Compra
-		 * @var [type] id_Compra
+		 * Set the value of id
+		 *
+		 * @return  self
+		 */ 
+		public function setId($id)
+		{
+				$this->id = $id;
+
+				return $this;
+		}
+
+		/**
+		 * Getter for IdCompra
+		 *
+		 * @return [type]
+		 */
+		public function getIdCompra()
+		{
+		    return $this->idCompra;
+		}
+
+		/**
+		 * Setter for IdCompra
+		 * @var [type] idCompra
 		 *
 		 * @return self
 		 */
-		public function setId_Compra($id_Compra)
+		public function setIdCompra($idCompra)
 		{
-		    $this->id_Compra = $id_Compra;
+		    $this->idCompra = $idCompra;
 		    return $this;
 		}
 
 		/**
-		 * Getter for Id_Funcion
+		 * Getter for IdFuncion
 		 *
 		 * @return [type]
 		 */
-		public function getId_Funcion()
+		public function getIdFuncion()
 		{
-		    return $this->id_Funcion;
+		    return $this->idFuncion;
 		}
 
 		/**
-		 * Setter for Id_Funcion
-		 * @var [type] id_Funcion
+		 * Setter for IdFuncion
+		 * @var [type] idFuncion
 		 *
 		 * @return self
 		 */
-		public function setId_Funcion($id_Funcion)
+		public function setIdFuncion($idFuncion)
 		{
-		    $this->id_Funcion = $id_Funcion;
+		    $this->idFuncion = $idFuncion;
 		    return $this;
 		}
 

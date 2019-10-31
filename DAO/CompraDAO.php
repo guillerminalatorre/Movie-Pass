@@ -7,102 +7,180 @@
 namespace DAO;
 
 use Models\Compra as Compra;
+use Models\Usuario as Usuario;
+use Models\Funcion as Funcion;
 
 class CompraDAO
 {
-	private $compraList = array();
+	private $connection;
+	private $tableName = "Compras";
 
 	/**
 	 * 
-	 * @param compra
+	 * @param funcion
 	 */
-	public function add(Compra $compra)
+	public function add($compra)
 	{
-		$this->retrieveData();
-
-		array_push($this->compraList, $compra);
+		try
+		{
+			$query = "INSERT INTO ".$this->tableName." (id_usuario, fecha_hora, precio, cantidad, descuento, total) VALUES (:id_usuario, :fecha_hora, :precio, :cantidad, :descuento, :total);";
 			
-		$this->saveData();
-	}
+			$parameters["id_usuario"]= $compra->getIdUsuario();
+			$parameters["fecha_hora"]=$compra->getFechaHora();
+			$parameters["precio"]=$compra->getPrecio();
+			$parameters["cantidad"]=$compra->getCantidad();
+			$parameters["descuento"]=$compra->getDescuento();
+			$parameters["total"]=$compra->getTotal();
 
-	function remove($nombre)
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		}
+		catch(Exception $ex)
+		{
+			throw $ex;
+		}
+	}		
+
+	function remove($compra)
 	{
-		$this->RetrieveData();
-
-		$this->compraList = array_filter($this->compraList, function($compra) use($id){
-			return $compra->getId() != $id;
-		});
-
-		$this->SaveData();
+		try
+		{
+			$query = "DELETE FROM ".$this->tableName." WHERE id_compra = :id_compra;";
+			
+			$parameters['id_compra'] = $compra->getId();
+			
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		}
+		catch(Exception $ex)
+		{
+			throw $ex;
+		}
+	}
+	
+	public function removeByUsuario($usuario)
+	{
+		try
+		{
+			$query = "DELETE FROM ".$this->tableName." WHERE id_usuario = :id_usuario;";
+			
+			$parameters["id_usuario"]=$usuario->getId();
+			
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		}
+		catch(Exception $ex)
+		{
+			throw $ex;
+		}
 	}
 
 	public function getAll()
 	{
-		$this->Retrievedata();
-
-		return $this->compraList;
-	}
-
-	public function saveData()
-	{
-		$arrayToEncode = array();
-
-		foreach($this->compraList as $compra)
+		try
 		{
-			$valuesArray["id"] = $compra->getId();
-			$valuesArray["fecha"]= $compra->getFecha();
-			$valuesArray["descuento"]=$compra->getDescuento();
-			$valuesArray["total"]=$compra->getTotal();
-			$valuesArray["id_Usuario"]=$compra->getId_Usuario();
-		
-			array_push($arrayToEncode, $valuesArray);
-		}
-
-		$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-
-		$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-		file_put_contents($jsonPath, $jsonContent);
-	}
-
-	public function retrieveData()
-	{
-		$this->compraList = array();
-
-		$jsonPath = $this->GetJsonFilePath(); //Get correct json path
-
-		if(file_exists($jsonPath));
-		{
-			$jsonContent = file_get_contents($jsonPath);
-
-			$arrayToDecode = ($jsonContent) ? json_decode ($jsonContent, true) : array();
+			$list = array();
+			$query = "SELECT * FROM ".$this->tableName;
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
 			
-			foreach($arrayToDecode as $valuesArray)
+			foreach ($resultSet as $row)
 			{
 				$compra = new Compra();
-				$compra->setId($valuesArray["id"]  );
-				$compra->setFecha($valuesArray["fecha"] );
-				$compra->setDescuento($valuesArray["descuento"]);
-				$compra->setTotal($valuesArray["total"]);
-				$compra->setId_Usuario($valuesArray["id_Usuario"]);
-
-				array_push($this->compraList, $compra);
-			}
+				$compra->setId($row["id_compra"]);
+				$compra->setIdUsuario($row["id_usuario"]);
+				$compra->setFechaHora($row["fecha_hora"]);
+				$compra->setPrecio($row["precio"]);
+				$compra->setCantidad($row["cantidad"]);
+				$compra->setDescuento($row["descuento"]);
+				$compra->setTotal($row["total"]);
+				array_push($list, $compra);
+			}				
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			throw $ex;
 		}
 	}
 
-	//Need this function to return correct file json path
-	function GetJsonFilePath(){
-
-		$initialPath = "Data\compras.json";
-		
-		if(file_exists($initialPath)){
-			$jsonFilePath = $initialPath;
-		}else{
-			$jsonFilePath = ROOT.$initialPath;
+	public function getCompra($compra)
+	{
+		try
+		{
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_compra = ".$compra->getId().";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$compra->setId($row["id_compra"]);
+				$compra->setIdUsuario($row["id_usuario"]);
+				$compra->setFechaHora($row["fecha_hora"]);
+				$compra->setPrecio($row["precio"]);
+				$compra->setCantidad($row["cantidad"]);
+				$compra->setDescuento($row["descuento"]);
+				$compra->setTotal($row["total"]);
+				return $compra;
+			}
+			return null;
 		}
-		
-		return $jsonFilePath;
+		catch(Exception $ex)
+		{
+			throw $ex;
+		}
+	}
+
+	public function getByUsuario($usuario)
+	{
+		try
+		{
+			$list = array();
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_usuario = ".$usuario->getId().";";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$compra = new Compra();
+				$compra->setId($row["id_compra"]);
+				$compra->setIdUsuario($row["id_usuario"]);
+				$compra->setFechaHora($row["fecha_hora"]);
+				$compra->setPrecio($row["precio"]);
+				$compra->setCantidad($row["cantidad"]);
+				$compra->setDescuento($row["descuento"]);
+				$compra->setTotal($row["total"]);
+				array_push($list, $compra);
+			}				
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			return null;
+		}
+	}
+
+	public function edit($compra)
+	{
+		try
+		{
+			$query = "UPDATE ".$this->tableName." SET id_compra = :id_compra, id_usuario = :id_usuario, fecha_hora = :fecha_hora, precio = :precio, cantidad = :cantidad, descuento = :descuento, total = :total WHERE id_compra = :id_compra;";
+
+			$parameters["id_usuario"]=$compra->getIdUsuario();
+			$parameters["fecha_hora"]=$compra->getFechaHora();
+			$parameters["precio"]=$compra->getPrecio();
+			$parameters["cantidad"]=$compra->getCantidad();
+			$parameters["descuento"]=$compra->getDescuento();
+			$parameters["total"]=$compra->getTotal();
+			$parameters["id_compra"]=$compra->getId();
+
+			$this->connection = Connection::GetInstance();
+			$this->connection->ExecuteNonQuery($query, $parameters);
+		}
+		catch(Exception $ex)
+		{
+			throw $ex;
+		}
 	}
 }
 ?>
