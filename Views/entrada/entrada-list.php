@@ -6,19 +6,17 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Titulo</th>
-                <th>TMDB</th>
-                <th>Duracion</th>
-                <th>Popularidad</th>
-                <th>Funciones</th>
-                <th>Editar</th>
+                <th>Pelicula</th>
+                <th>N.Funcion</th>
+                <th>N.Compra</th>
+                <th>QR</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($entradaList as $entrada) { ?>
             <tr>
                 <td><?php echo $entrada->getId(); ?></td>
-                <td><a href="#modal<?php echo $entrada->getId();?>" class="view text-light" class="view" title="" data-toggle="modal" data-original-title="View Details"><img src="<?php echo $entrada->getPoster(); ?>"  height="35" width="35" class="rounded-circle z-depth-0 mr-2" alt="entrada image">
+                <td><a href="#modal<?php echo $entrada->getId();?>" class="view text-light" class="view" title="" data-toggle="modal" data-original-title="View Details"><img src="<?php echo IMG_PATH ?>ticket.png"  height="35" width="35" class="rounded-circle z-depth-0 mr-2" alt="entrada image">
                 <b><?php echo $entrada->getTitulo(); ?></b></a></td>
                 <td><?php echo $entrada->getIdTMDB(); ?></td>
                 <td><?php echo $entrada->getDuracion(); ?></td>

@@ -30,6 +30,11 @@ class EntradaController
 		require_once(VIEWS_PATH."entrada/entrada-list.php");
 	}
 
+	public function ShowEntradaView()
+	{
+		require_once(VIEWS_PATH."entrada/entrada.php");
+	}
+
 	public function MisEntradas()
 	{
 		$entradaList = array();
