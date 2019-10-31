@@ -1,32 +1,11 @@
--- phpMyAdmin SQL Dump
--- version 4.9.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Oct 30, 2019 at 05:18 PM
--- Server version: 5.7.27-0ubuntu0.16.04.1
--- PHP Version: 7.0.33-0ubuntu0.16.04.6
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `moviepass`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Cines`
---
 
 CREATE TABLE `Cines` (
   `id_cine` int(11) NOT NULL,
@@ -36,70 +15,46 @@ CREATE TABLE `Cines` (
   `precio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `Cines`
---
-
 INSERT INTO `Cines` (`id_cine`, `nombre`, `direccion`, `capacidad`, `precio`) VALUES
 (1, 'Ambassador', 'Cordoba 2551', 300, 150),
 (2, 'Aldrey', 'Sarmiento 2685', 500, 180),
 (3, 'Los Gallegos', 'Rivadavia 3050', 250, 150);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Compras`
---
-
 CREATE TABLE `Compras` (
   `id_compra` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `id_funcion` int(11) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `cantidad` smallint(6) NOT NULL,
   `descuento` tinyint(4) NOT NULL,
   `total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Funciones`
---
+CREATE TABLE `Entradas` (
+  `id_entrada` int(11) NOT NULL,
+  `id_compra` int(11) NOT NULL,
+  `id_funcion` int(11) NOT NULL,
+  `qr` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Funciones` (
   `id_funcion` int(11) NOT NULL,
   `id_cine` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
-  `fechaHora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `Funciones`
---
-
-INSERT INTO `Funciones` (`id_funcion`, `id_cine`, `id_pelicula`, `fechaHora`) VALUES
+INSERT INTO `Funciones` (`id_funcion`, `id_cine`, `id_pelicula`, `fecha_hora`) VALUES
 (1, 1, 1, '2019-10-29 00:27:40'),
 (2, 2, 1, '2019-10-29 20:36:14'),
 (4, 2, 1, '2019-11-01 00:27:40'),
-(10, 3, 2, '2019-10-29 09:45:00'),
-(11, 3, 5, '2019-10-30 09:46:00'),
-(12, 1, 6, '2019-10-30 09:54:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Generos`
---
+(5, 3, 2, '2019-10-29 09:45:00'),
+(6, 3, 5, '2019-10-30 11:46:00'),
+(7, 1, 6, '2019-10-30 09:54:00');
 
 CREATE TABLE `Generos` (
   `id_genero` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `Generos`
---
 
 INSERT INTO `Generos` (`id_genero`, `nombre`) VALUES
 (12, 'Aventura'),
@@ -122,12 +77,6 @@ INSERT INTO `Generos` (`id_genero`, `nombre`) VALUES
 (10752, 'Bélica'),
 (10770, 'Película de TV');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Peliculas`
---
-
 CREATE TABLE `Peliculas` (
   `id_pelicula` int(11) NOT NULL,
   `id_TMDB` int(11) NOT NULL,
@@ -141,10 +90,6 @@ CREATE TABLE `Peliculas` (
   `video` varchar(255) DEFAULT NULL,
   `popularidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `Peliculas`
---
 
 INSERT INTO `Peliculas` (`id_pelicula`, `id_TMDB`, `titulo`, `duracion`, `descripcion`, `idioma`, `clasificacion`, `fechaDeEstreno`, `poster`, `video`, `popularidad`) VALUES
 (1, 475557, 'Joker', 122, 'Arthur Fleck es un hombre ignorado por la sociedad, cuya motivación en la vida es hacer reír. Pero una serie de trágicos acontecimientos le llevarán a ver el mundo de otra forma. Película basada en Joker, el popular personaje de DC Comics y archivillano de Batman, pero que en este film toma un cariz más realista y oscuro.', 'en', 0, '2019-10-02', 'https://image.tmdb.org/t/p/w500/v0eQLbzT6sWelfApuYsEkYpzufl.jpg', 'c5QLnApJX5o', 9),
@@ -209,21 +154,11 @@ INSERT INTO `Peliculas` (`id_pelicula`, `id_TMDB`, `titulo`, `duracion`, `descri
 (94, 501170, 'Doctor Sueño', 152, 'Secuela del film de culto \"El resplandor\" (1980) dirigido por Stanley Kubrick y también basado en una famosa novela de Stephen King. La historia transcurre algunos años después de los acontecimientos de \"The Shining\", y sigue a Danny Torrance (Ewan McGregor), traumatizado y con problemas de ira y alcoholismo que hacen eco de los problemas de su padre Jack, que cuando sus habilidades psíquicas resurgen, se contacta con una niña de nombre Abra Stone, a quien debe rescatar de un grupo de viajeros que se alimentan de los niños que poseen el don de \"el resplandor\".', 'en', 0, '2019-10-30', 'https://image.tmdb.org/t/p/w500/spw3MXaAK44lLVqZLKVYSlfHYtD.jpg', NULL, 7),
 (95, 694, 'El resplandor', 146, 'Jack Torrance se traslada, junto a su mujer y a su hijo, al impresionante hotel Overlook, en Colorado, para encargarse del mantenimiento del mismo durante la temporada invernal, en la que permanece cerrado y aislado por la nieve. Su idea es escribir su novela al tiempo que cuida de las instalaciones durante esos largos y solitarios meses de invierno, pero desde su llegada al hotel, Jack comienza a padecer inquietantes transtornos de personalidad, al mismo tiempo que en el lugar comienzan a suceder diversos fenómenos paranormales.', 'en', 0, '1980-05-22', 'https://image.tmdb.org/t/p/w500/p9hqo2JWhBytLxskz4FBKcP2e1k.jpg', 'A3q03BBwMp4', 8);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `PeliculasXGeneros`
---
-
 CREATE TABLE `PeliculasXGeneros` (
   `id_peliculasxgeneros` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
   `id_genero` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `PeliculasXGeneros`
---
 
 INSERT INTO `PeliculasXGeneros` (`id_peliculasxgeneros`, `id_pelicula`, `id_genero`) VALUES
 (1, 1, 80),
@@ -369,12 +304,6 @@ INSERT INTO `PeliculasXGeneros` (`id_peliculasxgeneros`, `id_pelicula`, `id_gene
 (218, 95, 27),
 (219, 95, 53);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Usuarios`
---
-
 CREATE TABLE `Usuarios` (
   `id_usuario` int(11) NOT NULL,
   `dni` int(11) DEFAULT NULL,
@@ -391,129 +320,83 @@ CREATE TABLE `Usuarios` (
   `facebookId` bigint(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `Usuarios`
---
-
 INSERT INTO `Usuarios` (`id_usuario`, `dni`, `password`, `email`, `apellido`, `nombre`, `rol`, `ip`, `registerDate`, `lastConnection`, `loggedIn`, `image`, `facebookId`) VALUES
 (1, NULL, '680023', 'rodrii_cs@hotmail.com', 'Fanjul', 'Rodrigo', 3, '::1', 1571886736, 1572228444, 1, 'http://graph.facebook.com/1874330122626592/picture?type=square&height=200', 1874330122626592),
 (2, 38831866, '1234', 'rodrii.fan@gmail.com', 'Fanjul', 'Rodrigo', 1, '::1', 1571886976, 1572387855, 1, '/TP-Metodologia/Views/img/avatar.png', NULL),
 (3, 41570767, '123', 'micael15papa@gmail.com', 'Papa', 'Micael', 1, '::1', 1571959317, 1571959318, 1, '/TP-Metodologia/Views/img/avatar.png', NULL);
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `Cines`
---
 ALTER TABLE `Cines`
   ADD PRIMARY KEY (`id_cine`),
   ADD UNIQUE KEY `UNQ_nombre` (`nombre`);
 
---
--- Indexes for table `Compras`
---
 ALTER TABLE `Compras`
   ADD PRIMARY KEY (`id_compra`),
-  ADD KEY `FK_id_usuario` (`id_usuario`),
-  ADD KEY `FK_id_funcion` (`id_funcion`);
+  ADD KEY `FK_id_usuario` (`id_usuario`);
 
---
--- Indexes for table `Funciones`
---
+ALTER TABLE `Entradas`
+  ADD PRIMARY KEY (`id_entrada`),
+  ADD KEY `FK_id_compraa` (`id_compra`),
+  ADD KEY `FK_id_funcionn` (`id_funcion`);
+
 ALTER TABLE `Funciones`
   ADD PRIMARY KEY (`id_funcion`),
   ADD KEY `FK_id_cine` (`id_cine`),
   ADD KEY `FK_id_pelicula` (`id_pelicula`);
 
---
--- Indexes for table `Generos`
---
 ALTER TABLE `Generos`
   ADD PRIMARY KEY (`id_genero`);
 
---
--- Indexes for table `Peliculas`
---
 ALTER TABLE `Peliculas`
   ADD PRIMARY KEY (`id_pelicula`);
 
---
--- Indexes for table `PeliculasXGeneros`
---
 ALTER TABLE `PeliculasXGeneros`
   ADD PRIMARY KEY (`id_peliculasxgeneros`),
   ADD KEY `FK_id_pelicula` (`id_pelicula`) USING BTREE,
   ADD KEY `FK_id_genero` (`id_genero`) USING BTREE;
 
---
--- Indexes for table `Usuarios`
---
 ALTER TABLE `Usuarios`
   ADD PRIMARY KEY (`id_usuario`),
   ADD UNIQUE KEY `UNQ_email` (`email`),
   ADD UNIQUE KEY `UNQ_dni` (`dni`) USING BTREE;
 
---
--- AUTO_INCREMENT for dumped tables
---
 
---
--- AUTO_INCREMENT for table `Cines`
---
 ALTER TABLE `Cines`
   MODIFY `id_cine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- AUTO_INCREMENT for table `Funciones`
---
-ALTER TABLE `Funciones`
-  MODIFY `id_funcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ALTER TABLE `Compras`
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `Peliculas`
---
+ALTER TABLE `Entradas`
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `Funciones`
+  MODIFY `id_funcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 ALTER TABLE `Peliculas`
   MODIFY `id_pelicula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
---
--- AUTO_INCREMENT for table `PeliculasXGeneros`
---
 ALTER TABLE `PeliculasXGeneros`
   MODIFY `id_peliculasxgeneros` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
 
---
--- AUTO_INCREMENT for table `Usuarios`
---
 ALTER TABLE `Usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
--- Constraints for dumped tables
---
 
---
--- Constraints for table `Compras`
---
 ALTER TABLE `Compras`
-  ADD CONSTRAINT `FK_id_funcion` FOREIGN KEY (`id_funcion`) REFERENCES `Funciones` (`id_funcion`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `Usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `Funciones`
---
+ALTER TABLE `Entradas`
+  ADD CONSTRAINT `FK_id_compraa` FOREIGN KEY (`id_compra`) REFERENCES `Compras` (`id_compra`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_id_funcionn` FOREIGN KEY (`id_funcion`) REFERENCES `Funciones` (`id_funcion`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 ALTER TABLE `Funciones`
   ADD CONSTRAINT `FK_id_cine` FOREIGN KEY (`id_cine`) REFERENCES `Cines` (`id_cine`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_id_pelicula` FOREIGN KEY (`id_pelicula`) REFERENCES `Peliculas` (`id_pelicula`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Constraints for table `PeliculasXGeneros`
---
 ALTER TABLE `PeliculasXGeneros`
   ADD CONSTRAINT `FK_id_generoo` FOREIGN KEY (`id_genero`) REFERENCES `Generos` (`id_genero`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_id_peliculaa` FOREIGN KEY (`id_pelicula`) REFERENCES `Peliculas` (`id_pelicula`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
