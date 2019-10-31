@@ -48,7 +48,7 @@ class PeliculaController
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
-	public function showApiMovies()
+	public function ShowApiMovies()
 	{
 		$peliculaList = array();
 		$page = 1;
