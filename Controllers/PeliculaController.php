@@ -48,14 +48,14 @@ class PeliculaController
 		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 	}
 
-	public function showApiMovies($peliculaList=null){
-		if($peliculaList==null){
-			$pagina=1;
-		}
-		$peliculaList = $this->getNowPlayingMoviesFromApi();
-			
-		while(count($peliculaList)==0){
-			$peliculaList= $this->getNowPlayingMoviesFromApi(++$pagina);
+	public function showApiMovies()
+	{
+		$peliculaList = array();
+		$page = 1;
+		while(count($peliculaList) == 0)
+		{
+			$peliculaList= $this->getNowPlayingMoviesFromApi($page);
+			$page++;
 		}
 		require_once(VIEWS_PATH . "pelicula/peliculas-api.php");
 	}
@@ -132,13 +132,11 @@ class PeliculaController
 		Functions::getInstance()->redirect("Pelicula","ShowListView");
 	}
 
-	public function getNowPlayingMoviesFromApi($page=null)
+	public function getNowPlayingMoviesFromApi($page = NULL)
 	{
-		if($page==NULL){
-			$page=1;
-		}
+		if($page == NULL) $page = 1;
 
-		$moviesFromApi=array();
+		$peliculaList = array();
 
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "page"=> $page);
 
@@ -148,8 +146,8 @@ class PeliculaController
 
 		foreach ($arrayToDecode["results"] as $valuesArray) 
 		{
-			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == null){
-			
+			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == NULL)
+			{			
 				$pelicula = new Pelicula();
 
 				$pelicula->setIdTMDB($valuesArray["id"]);
@@ -169,17 +167,21 @@ class PeliculaController
 				$pelicula->setPopularidad($valuesArray["vote_average"]);
 				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);
 
-				array_push($moviesFromApi, $pelicula);
-				
+				array_push($peliculaList, $pelicula);				
 			}
 		}
-		return $moviesFromApi;
+		return $peliculaList;
 	}
 
-	public function AddToDatabase($idTMDB){
-		$movie= $this->getMovieDetailsFromApi($idTMDB);
-		$this->peliculaDAO->add($movie);
-		return true;
+	public function AddToDatabase($idTMDB)
+	{
+		if($this->peliculaDAO->getByIdTMDB($idTMDB) == NULL)
+		{
+			$movie = $this->getMovieDetailsFromApi($idTMDB);
+			$this->peliculaDAO->add($movie);
+			return true;
+		}
+		return false;
 	}
 
 	private function getMovieDetailsFromApi($idTMDB)
