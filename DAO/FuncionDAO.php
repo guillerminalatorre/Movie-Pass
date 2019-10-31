@@ -53,23 +53,6 @@ class FuncionDAO
 			throw $ex;
 		}
 	}
-	
-	public function removeByCine($cine)
-	{
-		try
-		{
-			$query = "DELETE FROM ".$this->tableName." WHERE id_cine = :id_cine;";
-			
-			$parameters["id_cine"]=$cine->getId();
-			
-			$this->connection = Connection::GetInstance();
-			$this->connection->ExecuteNonQuery($query, $parameters);
-		}
-		catch(Exception $ex)
-		{
-			throw $ex;
-		}
-	}
 
 	public function getAll()
 	{
@@ -121,12 +104,12 @@ class FuncionDAO
 		}
 	}
 
-	public function getByCine($cine)
+	public function getByCine($idCine)
 	{
 		try
 		{
 			$list = array();
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$cine->getId().";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$idCine.";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			
@@ -148,12 +131,12 @@ class FuncionDAO
 	}
 
 	
-	public function getByPelicula($pelicula)
+	public function getByPelicula($idPelicula)
 	{
 		try
 		{
 			$list = array();
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$pelicula->getId().";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$idPelicula.";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			

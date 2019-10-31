@@ -87,13 +87,7 @@
 		{
 			$available = true;
 
-			// Obtengo datos del cine
-			$cine = new Cine();
-			$cine->setId($idCine);
-			$cine = $this->cineDAO->getCine($cine);
-
-			// Obtengo datos de la pelicula
-			
+			// Obtengo datos de la pelicula			
 			$pelicula = new Pelicula();
 			$pelicula->setId($idPelicula);
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
@@ -104,7 +98,7 @@
 			$string = "+".$duracion." minutes";
 			$fin = strtotime($string,$inicio);
 
-			$funcionList = $this->funcionDAO->getByCine($cine);
+			$funcionList = $this->funcionDAO->getByCine($idCine);
 
 			foreach($funcionList as $funcion)
 			{
@@ -154,17 +148,15 @@
             $peliculas = array_values($peliculas); //Reordering array indexes
             return (count($peliculas) > 0) ? $peliculas[0] : null;
 		}
-		
-		//SELECT DATE_FORMAT(DATETIMEAPP,'%d-%m-%Y') AS date, DATE_FORMT(DATETIMEAPP,'%H:%i:%s') AS time FROM yourtable
 
-		public function FilterFunctions($genreId, $chosenDate=null)
+		public function FilterFunctions($idGenero, $chosenDate = null)
 		{
 			$generoList = $this->generoDAO->getAll();
 			$funciones =$this->funcionDAO->getAll();
 			$pelicula = new Pelicula();
 			$peliculaList = array();
 	
-			if($genreId != "none" && $chosenDate != null)
+			if($idGenero != "none" && $chosenDate != null)
 			{
 				foreach($funciones as $funcion)
 				{
@@ -172,7 +164,7 @@
 					{
 						$idPelicula = $funcion->getIdPelicula();
 						$generos = $this->peliculaDAO->getGeneros($pelicula->setId($idPelicula));
-						if(in_array($genreId, $generos))
+						if(in_array($idGenero, $generos))
 						{	
 							$pelicula=$this->peliculaDAO->getById($idPelicula);
 							if(!in_array($pelicula, $peliculaList))
@@ -185,14 +177,14 @@
 			} 
 			else
 			{
-				if( $genreId != "none")
+				if( $idGenero != "none")
 				{
 					foreach($funciones as $funcion)
 					{
 					$idPelicula = $funcion->getIdPelicula();
 					$generos = $this->peliculaDAO->getGeneros($pelicula->setId($idPelicula));
 
-						if(in_array($genreId, $generos))
+						if(in_array($idGenero, $generos))
 						{
 							$pelicula=$this->peliculaDAO->getById($idPelicula);
 							if(!in_array($pelicula, $peliculaList))
@@ -226,39 +218,26 @@
 
 		public function ShowFuncionesPelicula($idPelicula = null)
 		{
+			$funciones = array();
 			if($idPelicula != NULL)
 			{
-				$pelicula= new Pelicula();
+				$pelicula = new Pelicula();
 				$pelicula->setId($idPelicula);
 				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
-
-				$funciones = $this->funcionDAO->getByPelicula($pelicula);
-
-				$cineList = array();
-
-				$fechaActual = strtotime(date("Y-m-d H:i:00",time()));
-
-				foreach($funciones as $funcion)
-				{
-					$fechaDeLafuncion = strtotime($funcion->getFechaHora());
-					if($fechaDeLafuncion >= $fechaActual)
-					{
-						$idCine = $funcion->getIdCine();
-						if($this->getPeliById($cineList,$idCine) == NULL)
-						{
-							$cine = $this->cineDAO->getById($idCine);
-							array_push($cineList,$cine);
-						}
-					}
-				}
+				$funciones = $this->funcionDAO->getByPelicula($pelicula->getId());
 			}
 			else
 			{
 				$funciones = $this->funcionDAO->getAll();
+			}
 
-				$cineList = array();
+			$fechaActual = time();
 
-				foreach($funciones as $funcion)
+			$cineList = array();
+			foreach($funciones as $funcion)
+			{
+				$fechaDeLafuncion = strtotime($funcion->getFechaHora());
+				if($fechaDeLafuncion >= $fechaActual)
 				{
 					$idCine = $funcion->getIdCine();
 					if($this->getPeliById($cineList,$idCine) == NULL)

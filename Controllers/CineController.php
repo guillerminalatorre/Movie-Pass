@@ -90,7 +90,6 @@
 			$cine = new Cine();
 			$cine->setId($id);
 			$this->cineDAO->remove($cine);
-			$this->funcionDAO->removeByCine($cine);
 
 			array_push($_SESSION['flash'], "El cine se ha eliminado correctamente.");
 			Functions::getInstance()->redirect("Cine","ShowListView");
