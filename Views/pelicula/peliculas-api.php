@@ -1,6 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
+    <a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>System" role="button">Volver a sistema</a>
     <h2 class="col-md-6 pb-2 text-light">Lista de Peliculas de la API</h2>
     <table class="table table-striped text-light align-center">
         <thead>
@@ -22,7 +23,11 @@
                 
                 <td><?php echo $pelicula->getFechaDeEstreno(); ?></td>
             
-                <td><button class="btn btn-success shadow-sm" name="addToDatabase" data-movie="<?php echo $pelicula->getIdTMDB();?>"><i class="fa fa-plus" aria-hidden="true"></i> Agregar a la DB</button></td>
+                <td>
+                    <a name="addToDatabase" class="view text-primary" data-movie="<?php echo $pelicula->getIdTMDB();?>" role="button"><h4><i class="fa fa-plus-circle"></i></h4></a>
+                    <div class="spinner-border spinner-border-sm" id="loading<?php echo $pelicula->getIdTMDB();?>" style="display: none;" role="status"><span class="sr-only">Loading...</span></div>
+                    <a class="view text-success" id="ok<?php echo $pelicula->getIdTMDB();?>" style="display: none;" role="button"><h4><i class="fa fa-check-circle"></i></h4></a>
+                </td>
             </tr>
             <?php } ?>
         </tbody>
@@ -31,14 +36,16 @@
 </div>
 
 <script>
-$("[name='addToDatabase']").click(function(){
-  var movie = $(this).data("movie");
-    var button= $(this);
-   $.get("<?php echo FRONT_ROOT ?>Pelicula/AddToDatabase/"+movie, function(data){
-        button.fadeOut();
-       console.log(data);
-       
-       });
+$("[name='addToDatabase']").click(function() {
+    var movie = $(this).data("movie");
+    var loading = document.getElementById("loading" + movie);
+    var ok = document.getElementById("ok" + movie);
+    $(this).hide();
+    loading.style.display = "inline-block";
+    $.get("<?php echo FRONT_ROOT ?>Pelicula/AddToDatabase/"+movie, function(data) {
+        loading.style.display = "none";
+        ok.style.display = "inline-block";
+        console.log(data);
+    });
 });
-
 </script>

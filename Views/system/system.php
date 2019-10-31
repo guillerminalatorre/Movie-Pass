@@ -28,7 +28,7 @@
                         <h5 class="mb-0">Peliculas</h5><h3 class="large text-uppercase"><?php echo $peliculaCount; ?></h3>
                         <a href="<?php echo FRONT_ROOT ?>Pelicula/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de peliculas</a>
                         <h5 class="mt-4 mb-0">Obtener de API</h5>
-                        <a href="<?php echo FRONT_ROOT ?>Pelicula/showApiMovies" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Peliculas</a>
+                        <a href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Peliculas</a>
                         <a href="<?php echo FRONT_ROOT ?>Genero/getGenresFromApi" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Generos</a>
                     </div>
                 </div><!-- End -->

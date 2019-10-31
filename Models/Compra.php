@@ -9,122 +9,152 @@
 	class Compra
 	{
 		private $id;
-		private $fecha;
+		private $idUsuario;
+		private $fechaHora;
+		private $precio;
+		private $cantidad;
 		private $descuento;
 		private $total;
-		private $id_Usuario;
+
 
 		/**
-		* Getter for Id
-		*
-		* @return [type]
-		*/
+		 * Get the value of id
+		 */ 
 		public function getId()
 		{
-			return $this->id;
+				return $this->id;
 		}
 
 		/**
-		* Setter for Id
-		* @var [type] id
-		*
-		* @return self
-		*/
+		 * Set the value of id
+		 *
+		 * @return  self
+		 */ 
 		public function setId($id)
 		{
-			$this->id = $id;
-			return $this;
+				$this->id = $id;
+
+				return $this;
 		}
 
-
 		/**
-		 * Getter for Fecha
-		 *
-		 * @return [type]
-		 */
-		public function getFecha()
+		 * Get the value of idUsuario
+		 */ 
+		public function getIdUsuario()
 		{
-		    return $this->fecha;
+				return $this->idUsuario;
 		}
 
 		/**
-		 * Setter for Fecha
-		 * @var [type] fecha
+		 * Set the value of idUsuario
 		 *
-		 * @return self
-		 */
-		public function setFecha($fecha)
+		 * @return  self
+		 */ 
+		public function setIdUsuario($idUsuario)
 		{
-		    $this->fecha = $fecha;
-		    return $this;
+				$this->idUsuario = $idUsuario;
+
+				return $this;
 		}
 
 		/**
-		 * Getter for Descuento
+		 * Get the value of fecha
+		 */ 
+		public function getFechaHora()
+		{
+				return $this->fechaHora;
+		}
+
+		/**
+		 * Set the value of fecha
 		 *
-		 * @return [type]
-		 */
+		 * @return  self
+		 */ 
+		public function setFechaHora($fechaHora)
+		{
+				$this->fechaHora = $fechaHora;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of precio
+		 */ 
+		public function getPrecio()
+		{
+				return $this->precio;
+		}
+
+		/**
+		 * Set the value of precio
+		 *
+		 * @return  self
+		 */ 
+		public function setPrecio($precio)
+		{
+				$this->precio = $precio;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of cantidad
+		 */ 
+		public function getCantidad()
+		{
+				return $this->cantidad;
+		}
+
+		/**
+		 * Set the value of cantidad
+		 *
+		 * @return  self
+		 */ 
+		public function setCantidad($cantidad)
+		{
+				$this->cantidad = $cantidad;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of descuento
+		 */ 
 		public function getDescuento()
 		{
-		    return $this->descuento;
+				return $this->descuento;
 		}
 
 		/**
-		 * Setter for Descuento
-		 * @var [type] descuento
+		 * Set the value of descuento
 		 *
-		 * @return self
-		 */
+		 * @return  self
+		 */ 
 		public function setDescuento($descuento)
 		{
-		    $this->descuento = $descuento;
-		    return $this;
+				$this->descuento = $descuento;
+
+				return $this;
 		}
 
-
 		/**
-		 * Getter for Total
-		 *
-		 * @return [type]
-		 */
+		 * Get the value of total
+		 */ 
 		public function getTotal()
 		{
-		    return $this->total;
+				return $this->total;
 		}
 
 		/**
-		 * Setter for Total
-		 * @var [type] total
+		 * Set the value of total
 		 *
-		 * @return self
-		 */
+		 * @return  self
+		 */ 
 		public function setTotal($total)
 		{
-		    $this->total = $total;
-		    return $this;
-		}
+				$this->total = $total;
 
-
-		/**
-		 * Getter for Id_Usuario
-		 *
-		 * @return [type]
-		 */
-		public function getId_Usuario()
-		{
-		    return $this->id_Usuario;
-		}
-
-		/**
-		 * Setter for Id_Usuario
-		 * @var [type] id_Usuario
-		 *
-		 * @return self
-		 */
-		public function setId_Usuario($id_Usuario)
-		{
-		    $this->id_Usuario = $id_Usuario;
-		    return $this;
+				return $this;
 		}
 	}
 ?>

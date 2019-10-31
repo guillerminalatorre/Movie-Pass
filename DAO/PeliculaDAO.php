@@ -87,7 +87,7 @@ class PeliculaDAO
 			$this->connection = Connection::GetInstance();
 			$this->connection->ExecuteNonQuery($query);
 
-			$query = "DELETE FROM " . $this->generoTableName . " WHERE id_peliculaa = " . $pelicula->getId() . ";";
+			$query = "DELETE FROM " . $this->generoTableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
 
 			$this->connection = Connection::GetInstance();
 			$this->connection->ExecuteNonQuery($query);
@@ -134,14 +134,14 @@ class PeliculaDAO
 	{
 		try
 		{
-			$query = "SELECT * FROM " . $this->generoTableName . " WHERE id_peliculaa = " . $pelicula->getId() . ";";
+			$query = "SELECT * FROM " . $this->generoTableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 
 			$generos = array();
 			foreach ($resultSet as $row) 
 			{
-				array_push($generos, $row["id_generoo"]);
+				array_push($generos, $row["id_genero"]);
 			}
 			return $generos;
 		} 
@@ -157,9 +157,9 @@ class PeliculaDAO
 		{
 			foreach($generos as $genero)
 			{
-				$query = "INSERT INTO " . $this->generoTableName . " (id_peliculaa, id_generoo) VALUES (:id_peliculaa, :id_generoo);";
-				$parameters["id_peliculaa"] = $pelicula->getId();
-				$parameters["id_generoo"] = $genero;
+				$query = "INSERT INTO " . $this->generoTableName . " (id_pelicula, id_genero) VALUES (:id_pelicula, :id_genero);";
+				$parameters["id_pelicula"] = $pelicula->getId();
+				$parameters["id_genero"] = $genero;
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
