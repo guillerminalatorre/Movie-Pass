@@ -28,3 +28,11 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal que muestra editar pelicula -->
+<?php 
+foreach($entradaList as $entrada) 
+{
+    require(VIEWS_PATH."pelicula/pelicula-edit.php");
+}
+?>

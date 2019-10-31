@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
 
-  <?php require_once("navbar/nabvar-icon.php");
+  <?php require_once("navbar/navbar-icon.php"); ?>
 
   <div class="collapse navbar-collapse ml-4" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ml-2">
@@ -24,7 +24,9 @@
 <?php
   require_once("navbar/navbar-search.php");
   require_once("navbar/navbar-dropdown.php");
-} else {
+} 
+else 
+{
   require_once("navbar/navbar-anon.php");
 }
 ?>
