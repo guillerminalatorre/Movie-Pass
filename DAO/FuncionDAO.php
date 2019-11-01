@@ -7,7 +7,6 @@
 namespace DAO;
 
 use Models\Funcion as Funcion;
-use Models\Cine as Cine;
 
 class FuncionDAO
 {
