@@ -23,7 +23,7 @@
                 <td><?php echo $pelicula->getIdTMDB(); ?></td>
                 <td><?php echo $pelicula->getDuracion(); ?></td>
                 <td><?php echo $pelicula->getPopularidad(); ?></td>
-                <td><?php echo count($this->funcionDAO->getByPelicula($pelicula)); ?></td>
+                <td><?php echo count($this->funcionDAO->getByPelicula($pelicula->getId())); ?></td>
                 <td><a href="#modal<?php echo $pelicula->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><h4><i class="fa fa-arrow-circle-right"></i></h4></a></td>
             </tr>
             <?php } ?>

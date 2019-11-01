@@ -43,7 +43,7 @@
 			$cine = new Cine();
 			$cine->setId($id);
 			$cine = $this->cineDAO->getCine($cine);
-			$funcionList = $this->funcionDAO->getByCine($cine);
+			$funcionList = $this->funcionDAO->getByCine($id);
 			require_once(VIEWS_PATH."cine/cine-ficha.php");
 		}
 
