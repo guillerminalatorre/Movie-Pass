@@ -29,7 +29,7 @@
             <?php } ?>
         </tbody>
     </table>
-    <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" role="button"><i class="fa fa-plus-circle"></i> Agregar pelicula de API</a>
+    <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" role="button"><i class="fa fa-plus-circle"></i> Obtener pelicula de API</a>
 </div>
 
 <!-- Modal que muestra editar pelicula -->

@@ -37,7 +37,7 @@ class CompraDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}		
 
@@ -54,7 +54,7 @@ class CompraDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 	
@@ -71,7 +71,7 @@ class CompraDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -100,7 +100,7 @@ class CompraDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -127,7 +127,7 @@ class CompraDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -179,7 +179,7 @@ class CompraDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 }

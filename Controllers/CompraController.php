@@ -104,10 +104,9 @@ class CompraController
 				$entrada->setIdFuncion($idFuncion);
 				$entrada->setQr($idCine."-".$idFuncion."-".$idEntrada);
 				$this->entradaDAO->add($entrada);
-				// API GOOGLE: https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=Hello%20world
 			}
 			array_push($_SESSION['flash'], "La compra se ha realizado con exito.");
-			Functions::getInstance()->redirect("Entrada","MisEntradas");
+			Functions::getInstance()->redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
 		}
 		else
 		{

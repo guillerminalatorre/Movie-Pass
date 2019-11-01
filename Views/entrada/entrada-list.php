@@ -10,18 +10,27 @@
                 <th>N.Funcion</th>
                 <th>N.Compra</th>
                 <th>QR</th>
+                <th>Entrada</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($entradaList as $entrada) { ?>
             <tr>
                 <td><?php echo $entrada->getId(); ?></td>
-                <td><a href="#modal<?php echo $entrada->getId();?>" class="view text-light" class="view" title="" data-toggle="modal" data-original-title="View Details"><img src="<?php echo IMG_PATH ?>ticket.png"  height="35" width="35" class="rounded-circle z-depth-0 mr-2" alt="entrada image">
-                <b><?php echo $entrada->getTitulo(); ?></b></a></td>
-                <td><?php echo $entrada->getIdTMDB(); ?></td>
-                <td><?php echo $entrada->getDuracion(); ?></td>
-                <td><?php echo $entrada->getPopularidad(); ?></td>
-                <td><?php echo count($this->funcionDAO->getByPelicula($entrada)); ?></td>
+                <?php 
+                    $idFuncion = $entrada->getIdFuncion();
+                    $funcion = new Funcion();
+                    $funcion->setId($idFuncion);
+                    $funcion = $this->funcionDAO->getFuncion($funcion);
+                    $idPelicula = $funcion->getIdPelicula();
+                    $pelicula = new Pelicula();
+                    $pelicula->setId();
+                    $pelicula = $this->peliculaDAO->getPelicula($pelicula);
+                ?>
+                <b><?php echo $pelicula->getTitulo(); ?></b></a></td>
+                <td><?php echo $funcion->getId(); ?></td>
+                <td><?php echo $entrada->getIdCompra(); ?></td>
+                <td><a href="#modal<?php echo $entrada->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><img src="https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=<?php echo $entrada->getQr(); ?>" class="z-depth-0" alt="qr"></a></td>
                 <td><a href="#modal<?php echo $entrada->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><h4><i class="fa fa-arrow-circle-right"></i></h4></a></td>
             </tr>
             <?php } ?>
@@ -29,10 +38,10 @@
     </table>
 </div>
 
-<!-- Modal que muestra editar pelicula -->
+<!-- Modal que muestra entrada -->
 <?php 
 foreach($entradaList as $entrada) 
 {
-    require(VIEWS_PATH."pelicula/pelicula-edit.php");
+    require(VIEWS_PATH."entrada/entrada.php");
 }
 ?>
