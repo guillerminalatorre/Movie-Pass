@@ -16,7 +16,7 @@ use DAO\PeliculaDAO as PeliculaDAO;
 use Models\Pelicula as Pelicula;
 use Models\Usuario as Usuario;
 
-class EntradaController
+class EntradaController extends Administrable
 {
 	private $entradaDAO;
 	private $compraDAO;
@@ -33,21 +33,24 @@ class EntradaController
 
 	public function ShowListView($idUsuario = null)
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+
 		$entradaList = array();
-		if($idUsuario == null)
-		{
-			$entradaList = $this->entradaDAO->getAll();
-		}
-		else
+		if($idUsuario != null)
 		{
 			$compraList = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
 			foreach($compraList as $compra)
 			{
 				$entradasCompra = $this->entradaDAO->getByCompra($compra);
 				$entradaList = array_merge($entradaList,$entradasCompra);
-			}
+			}			
 		}
-		
+		else
+		{
+			$entradaList = $this->entradaDAO->getAll();
+		}
+		$funcion = new Funcion();
+		$pelicula = new Pelicula();
 		require_once(VIEWS_PATH."entrada/entrada-list.php");
 	}
 }

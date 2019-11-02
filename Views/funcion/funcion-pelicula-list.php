@@ -10,8 +10,8 @@
             ?>
             
             <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
-                <h2 class="col-md-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
-                <h5 class="col-md-6 pb-2 text-light"><?php echo $cine->getDireccion();?></h5>
+                <h2 class="col-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
+                <h5 class="col-6 pb-2 text-light"><?php echo $cine->getDireccion();?></h5>
 
                 <table class="table table-dark table-striped text-light align-center">
                     <thead class="table-active">       

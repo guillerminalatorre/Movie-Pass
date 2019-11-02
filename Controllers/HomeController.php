@@ -9,12 +9,11 @@
 namespace Controllers;
 
 use Models\Usuario as Usuario;
-use Config\Functions as Functions;
 
 class HomeController
 {
 	public function Index()
 	{
-		Functions::getInstance()->redirect("Funcion","ShowMovies");
+		Functions::redirect("Funcion","ShowMovies");
 	}
 }

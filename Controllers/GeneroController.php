@@ -6,12 +6,11 @@
 	 */
 	namespace Controllers;
 
-	use API\APIController as APIController;
+	use API\TMDBController as TMDBController;
 	use DAO\GeneroDAO as GeneroDAO;
 	use Models\Genero as Genero;
-	use Config\Functions as Functions;
 	
-	class GeneroController
+	class GeneroController extends Administrable
 	{
 		private $generoDAO;
 	
@@ -22,9 +21,12 @@
 	
 		public function getGenresFromApi()
 		{
+			if(!$this->loggedIn()) Functions::redirect("Home");
+			if(!$this->isAdmin()) Functions::redirect("Home");
+
 			$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 	
-			$get_data = APIController::callAPI('GET', API . '/genre/movie/list', $arrayReque);
+			$get_data = TMDBController::callAPI('GET', API . '/genre/movie/list', $arrayReque);
 	
 			$arrayToDecode = json_decode($get_data, true);
 	
@@ -37,7 +39,7 @@
 				$this->generoDAO->add($category);
 			}
 
-			Functions::getInstance()->redirect("System");
+			Functions::redirect("System");
 		}
 	}
 ?>

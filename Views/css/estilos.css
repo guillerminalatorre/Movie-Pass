@@ -72,7 +72,7 @@ body {
    padding-top: 2%;
 }
 
-.movie-card .col-md-5, .movie-card .description {
+.movie-card .col-5, .movie-card .description {
    padding: 0;  
 }
 
@@ -152,7 +152,7 @@ p {
    box-sizing: border-box;
  }
  .stub {
-   background: #ef5658;
+   background: #5693ef;
    height: 250px;
    width: 250px;
    color: white;
@@ -164,8 +164,8 @@ p {
    position: absolute;
    top: 0;
    right: 0;
-   border-top: 20px solid #dd3f3e;
-   border-left: 20px solid #ef5658;
+   border-top: 20px solid #1f74f3;
+   border-left: 20px solid #5693ef;
    width: 0;
  }
  .stub:after {
@@ -173,8 +173,8 @@ p {
    position: absolute;
    bottom: 0;
    right: 0;
-   border-bottom: 20px solid #dd3f3e;
-   border-left: 20px solid #ef5658;
+   border-bottom: 20px solid #1f74f3;
+   border-left: 20px solid #5693ef;
    width: 0;
  }
  .stub .top {
@@ -207,7 +207,7 @@ p {
  }
  .stub .invite {
    position: absolute;
-   left: 150px;
+   left: 120px;
    bottom: 45px;
    color: #000;
    width: 20%;
@@ -221,7 +221,7 @@ p {
    margin-bottom: 5px;
  }
  .check {
-   background: #fff;
+   background: #eaeaea;
    height: 250px;
    width: 450px;
    padding: 40px;
@@ -232,8 +232,8 @@ p {
    position: absolute;
    top: 0;
    left: 0;
-   border-top: 20px solid #dd3f3e;
-   border-right: 20px solid #fff;
+   border-top: 20px solid #5693ef;
+   border-right: 20px solid #eaeaea;
    width: 0;
  }
  .check:after {
@@ -241,8 +241,8 @@ p {
    position: absolute;
    bottom: 0;
    left: 0;
-   border-bottom: 20px solid #dd3f3e;
-   border-right: 20px solid #fff;
+   border-bottom: 20px solid #5693ef;
+   border-right: 20px solid #eaeaea;
    width: 0;
  }
  .check .big {
@@ -254,7 +254,7 @@ p {
    position: absolute;
    top: 50px;
    right: 50px;
-   color: #ef5658;
+   color: #5693ef;
    font-size: 40px;
  }
  .check .info {
@@ -273,7 +273,7 @@ p {
  }
  .check .info section:before {
    content: '';
-   background: #ef5658;
+   background: #5693ef;
    display: block;
    width: 40px;
    height: 3px;

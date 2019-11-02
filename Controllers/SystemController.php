@@ -1,11 +1,4 @@
 <?php
-
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:05:37
- */
-
 namespace Controllers;
 
 use DAO\UsuarioDAO as UsuarioDAO;
@@ -13,7 +6,7 @@ use DAO\PeliculaDAO as PeliculaDAO;
 use DAO\CineDAO as CineDAO;
 use DAO\FuncionDAO as FuncionDAO;
 
-class SystemController
+class SystemController extends Administrable
 {
 	private $usuarioDAO;
 	private $peliculaDAO;
@@ -30,6 +23,9 @@ class SystemController
 
 	public function Index()
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isAdmin()) Functions::redirect("Home");
+		
 		$usuarioCount = count($this->usuarioDAO->getAll());
 		$peliculaCount = count($this->peliculaDAO->getAll());
 		$cineCount = count($this->cineDAO->getAll());
@@ -37,3 +33,4 @@ class SystemController
 		require_once(VIEWS_PATH."system/system.php");
 	}
 }
+?>

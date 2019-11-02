@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container mb-4">
     <div class="row">
-        <div class="col-sm bg-light rounded p-4 text-center mr-4 shadow">
+        <div class="col bg-light rounded p-4 text-center mr-4 shadow">
 
             <!-- Volver a lista de usuarios solo para admins -->
             <?php if($this->isAdmin($_SESSION["loggedUser"])) { ?>
@@ -23,7 +23,7 @@
             <a href="<?php echo FRONT_ROOT ?>Usuario/ShowEditView/<?php echo $usuario->getId();?>" class="btn btn-warning btn-md mt-2 shadow-sm" role="button">Modificar</a>
             
             <!-- Eliminar cuenta -->
-            <?php if(($this->isAdmin($_SESSION["loggedUser"]) || $_SESSION["loggedUser"]->getId() === $usuario->getId()) && ($_SESSION["loggedUser"]->getId_Rol() === 3 && $_SESSION["loggedUser"]->getEmail() != $usuario->getEmail()) && ($usuario->getId_Rol() != 3)) { ?>
+            <?php if(($this->isAdmin() && $usuario->getId() != $_SESSION["loggedUser"]->getId()) || (!$this->isAdmin() && $usuario->getId() == $_SESSION["loggedUser"]->getId())) { ?>
             <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-danger btn-md mt-2 shadow-sm" role="button">Eliminar</a>
             <?php } ?>
 
@@ -38,7 +38,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-8 bg-light rounded p-4 shadow">
+        <div class="col-8 bg-light rounded p-4 shadow">
             <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de entradas</h4></tr>
             <table class="table table-striped">
                 <thead>

@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container mb-4">
     <div class="row">
-        <div class="col-sm bg-light rounded p-4 text-center mr-4 shadow">
+        <div class="col bg-light rounded p-4 text-center mr-4 shadow">
 
             <!-- Volver a lista cines -->
             <div><a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Ver lista de cines</a></div>
@@ -22,7 +22,7 @@
                 <li class="list-group-item">Precio: <?php echo $cine->getPrecio(); ?></li>
             </ul>
         </div>
-        <div class="col-md-8 bg-light rounded p-4 shadow">
+        <div class="col-8 bg-light rounded p-4 shadow">
             <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de funciones</h4></tr>
             <table class="table table-striped">
                 <thead>                    

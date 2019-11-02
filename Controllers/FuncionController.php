@@ -13,9 +13,8 @@
 	use Models\Funcion as Funcion;
 	use Models\Cine as Cine;
 	use Models\Pelicula as Pelicula;
-	use Config\Functions as Functions;	
 
-	class FuncionController
+	class FuncionController extends Administrable
 	{
 		private $funcionDAO;
 		private $cineDAO;
@@ -32,12 +31,18 @@
 
 		public function ShowAddView($idCine)
 		{
+			if(!$this->loggedIn()) Functions::redirect("Home");
+			if(!$this->isAdmin()) Functions::redirect("Home");
+
 			$peliculaList = $this->peliculaDAO->getAll();
 			require_once(VIEWS_PATH."funcion/funcion-add.php");
 		}
 
 		public function eliminarFuncion($id)
 		{
+			if(!$this->loggedIn()) Functions::redirect("Home");
+			if(!$this->isAdmin()) Functions::redirect("Home");
+
 			$_SESSION['flash'] = array();
 			$funcion = new Funcion();
 			$funcion->setId($id);
@@ -48,11 +53,14 @@
 			$this->funcionDAO->remove($funcion);
 
 			array_push($_SESSION['flash'], "La funcion se ha eliminado correctamente.");
-			Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
+			Functions::redirect("Cine","ShowFichaView", $idCine);
 		}
 
 		public function Add($idCine, $idPelicula, $fecha, $hora)
 		{
+			if(!$this->loggedIn()) Functions::redirect("Home");
+			if(!$this->isAdmin()) Functions::redirect("Home");
+			
 			$_SESSION['flash'] = array();
 
 			$fechaHora = $fecha." ". $hora;
@@ -68,18 +76,18 @@
 
 					$this->funcionDAO->add($funcion);
 					array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
-					Functions::getInstance()->redirect("Cine","ShowFichaView", $idCine);
+					Functions::redirect("Cine","ShowFichaView", $idCine);
 				}
 				else
 				{
 					array_push($_SESSION['flash'], "El horario seleccionado no esta disponible.");
-					Functions::getInstance()->redirect("Funcion","ShowAddView", $idCine);
+					Functions::redirect("Funcion","ShowAddView", $idCine);
 				}				
 			}
 			else
 			{
 				array_push($_SESSION['flash'], "Debes seleccionar una pelicula.");
-				Functions::getInstance()->redirect("Funcion","ShowAddView", $idCine);
+				Functions::redirect("Funcion","ShowAddView", $idCine);
 			}			
 		}
 
@@ -123,7 +131,7 @@
 		}
 
 		public function ShowMovies()
-		{					
+		{
 			$funciones = $this->funcionDAO->getDistinctPeliculas();
 			$generoList = $this->generoDAO->getAll();
 			$peliculaList = array();
@@ -164,7 +172,7 @@
 			} 
 			else
 			{
-				if( $idGenero != "none")
+				if($idGenero != "none")
 				{
 					foreach($funciones as $funcion)
 					{
@@ -183,7 +191,7 @@
 				} 
 				else
 				{	
-					if( $chosenDate != null)
+					if($chosenDate != null)
 					{
 						foreach($funciones as $funcion)
 						{
@@ -212,7 +220,7 @@
 				$pelicula = new Pelicula();
 				$pelicula->setId($idPelicula);
 				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
-				$funciones = $this->funcionDAO->getByPelicula($pelicula->getId());
+				$funciones = $this->funcionDAO->getByPelicula($pelicula);
 				$cineList = $this->funcionDAO->getDistinctCineByPelicula($pelicula->getId());
 			}
 			else

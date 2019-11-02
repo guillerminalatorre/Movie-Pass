@@ -15,3 +15,4 @@ class TeamController
 		require_once(VIEWS_PATH."system/team.php");
 	}
 }
+?>

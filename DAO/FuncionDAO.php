@@ -131,7 +131,7 @@ class FuncionDAO
 	{
 		try
 		{
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = ".$funcion->getId().";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = '".$funcion->getId()."';";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			

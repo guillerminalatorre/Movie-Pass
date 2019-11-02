@@ -1,5 +1,5 @@
 <div class="modal" id="modal<?php echo $entrada->getId(); ?>">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -11,7 +11,7 @@
                 <!-- Modal body -->
                 <div class="modal-body">                
                     <div class="row">
-                        <div class="col-sm-12 text-center mb-2">
+                        <div class="col-12 text-center mb-2">
 
                           <div class="ticket">
                             <div class="stub">
@@ -25,7 +25,7 @@
                               </div>
                               <div class="number"><?php echo $entrada->getId(); ?></div>
                               <div class="invite">
-                                Presentar en entrada
+                              <img src="https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=<?php echo $entrada->getQr(); ?>" class="rounded-circle z-depth-0" alt="qr">
                               </div>
                             </div>
                             <div class="check">
@@ -36,11 +36,11 @@
                               <div class="info">
                                 <section>
                                   <div class="title">Fecha</div>
-                                  <div><?php echo date("d/m/Y H:i",$funcion->getFechaHora()); ?></div>
+                                  <div><?php echo date("d/m/Y H:i",strtotime($funcion->getFechaHora())); ?></div>
                                 </section>
                                 <section>
                                   <div class="title">Nombre</div>
-                                  <div><?php echo $_SESSION['loggedUser']->getNombre()." "$_SESSION['loggedUser']->getApellido(); ?></div>
+                                  <div><?php echo $_SESSION['loggedUser']->getNombre()." ".$_SESSION['loggedUser']->getApellido(); ?></div>
                                 </section>
                                 <section>
                                   <div class="title">Compra</div>

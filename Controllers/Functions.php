@@ -1,28 +1,13 @@
 <?php
-namespace Config;
-
-use DAO\Connection as Connection;
+namespace Controllers;
 
 class Functions
 {
-    private static $instance = null;
-    private $displayed = null;
-
     private function __construct()
     {
-
     }
 
-    public static function getInstance()
-    {
-        if (self::$instance == null)
-        {
-            self::$instance = new Functions();
-        }
-        return self::$instance;
-    }
-
-    public function redirect($controller = "Home", $method = "Index", $args = array())
+    public static function redirect($controller = "Home", $method = "Index", $args = array())
     {
         if(is_array($args))
         {
@@ -37,7 +22,7 @@ class Functions
         exit;
     }
 
-    public function escapar($string)
+    public static function validateData($string)
     {
         //$string = stripslashes($string);
         $string = strip_tags($string);

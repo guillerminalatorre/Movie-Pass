@@ -2,7 +2,7 @@
 <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
     <a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>System" role="button">Volver a sistema</a>
-    <h2 class="col-md-6 pb-2 text-light">Lista de Peliculas de la API</h2>
+    <h2 class="col-6 pb-2 text-light">Lista de Peliculas de la API</h2>
     <table class="table table-striped text-light align-center">
         <thead>
             <tr>
