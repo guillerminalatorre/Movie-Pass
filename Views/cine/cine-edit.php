@@ -7,7 +7,7 @@
         <h2 class="text-left">Modificar cine: </h2>
             <br>
             <div class="row">
-                <div class="form-group col-sm text-right">
+                <div class="form-group col text-right">
                     <label for="nombre">Nombre:</label>
                 </div>
                 <div>
@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm text-right">
+                <div class="form-group col text-right">
                     <label for="direccion">Direccion:</label>
                 </div>
                 <div>
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm text-right">
+                <div class="form-group col text-right">
                     <label for="capacidad">Capacidad:</label>
                 </div>
                 <div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm text-right">
+                <div class="form-group col text-right">
                     <label for="precio">Precio:</label>
                 </div>
                 <div>
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm text-right">
+                <div class="form-group col text-right">
                     <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm"><i class="fa fa-plus-circle"></i> Actualizar Datos</button>
                 </div>
             </div>

@@ -72,7 +72,7 @@ body {
    padding-top: 2%;
 }
 
-.movie-card .col-md-5, .movie-card .description {
+.movie-card .col-5, .movie-card .description {
    padding: 0;  
 }
 
@@ -134,148 +134,6 @@ p {
    margin-top: -60px;
 }
 
-.payment-form{
-	padding-bottom: 50px;
-	font-family: 'Montserrat', sans-serif;
-}
-
-.payment-form.dark{
-	background-color: #f6f6f6;
-}
-
-.payment-form .content{
-	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-	background-color: white;
-}
-
-.payment-form .block-heading{
-    padding-top: 50px;
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-.payment-form .block-heading p{
-	text-align: center;
-	max-width: 420px;
-	margin: auto;
-	opacity:0.7;
-}
-
-.payment-form.dark .block-heading p{
-	opacity:0.8;
-}
-
-.payment-form .block-heading h1,
-.payment-form .block-heading h2,
-.payment-form .block-heading h3 {
-	margin-bottom:1.2rem;
-	color: #3b99e0;
-}
-
-.payment-form form{
-	border-top: 2px solid #5ea4f3;
-	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-	background-color: #ffffff;
-	padding: 0;
-	max-width: 600px;
-	margin: auto;
-}
-
-.payment-form .title{
-	font-size: 1em;
-	border-bottom: 1px solid rgba(0,0,0,0.1);
-	margin-bottom: 0.8em;
-	font-weight: 600;
-	padding-bottom: 8px;
-}
-
-.payment-form .products{
-	background-color: #f7fbff;
-    padding: 25px;
-}
-
-.payment-form .products .item{
-	margin-bottom:1em;
-}
-
-.payment-form .products .item-name{
-	font-weight:600;
-	font-size: 0.9em;
-}
-
-.payment-form .products .item-description{
-	font-size:0.8em;
-	opacity:0.6;
-}
-
-.payment-form .products .item p{
-	margin-bottom:0.2em;
-}
-
-.payment-form .products .price{
-	float: right;
-	font-weight: 600;
-	font-size: 0.9em;
-}
-
-.payment-form .products .total{
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-	margin-top: 10px;
-	padding-top: 19px;
-	font-weight: 600;
-	line-height: 1;
-}
-
-.payment-form .card-details{
-	padding: 25px 25px 15px;
-}
-
-.payment-form .card-details label{
-	font-size: 12px;
-	font-weight: 600;
-	margin-bottom: 15px;
-	color: #79818a;
-	text-transform: uppercase;
-}
-
-.payment-form .card-details button{
-	margin-top: 0.6em;
-	padding:12px 0;
-	font-weight: 600;
-}
-
-.payment-form .date-separator{
- 	margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 5px;
-}
-
-@media (min-width: 576px) {
-	.payment-form .title {
-		font-size: 1.2em; 
-	}
-
-	.payment-form .products {
-		padding: 40px; 
-  	}
-
-	.payment-form .products .item-name {
-		font-size: 1em; 
-	}
-
-	.payment-form .products .price {
-    	font-size: 1em; 
-	}
-
-  	.payment-form .card-details {
-    	padding: 40px 40px 30px; 
-    }
-
-  	.payment-form .card-details button {
-    	margin-top: 2em; 
-    } 
-}
-
 .ticket {
    display: -webkit-box;
    display: -ms-flexbox;
@@ -294,7 +152,7 @@ p {
    box-sizing: border-box;
  }
  .stub {
-   background: #ef5658;
+   background: #5693ef;
    height: 250px;
    width: 250px;
    color: white;
@@ -306,8 +164,8 @@ p {
    position: absolute;
    top: 0;
    right: 0;
-   border-top: 20px solid #dd3f3e;
-   border-left: 20px solid #ef5658;
+   border-top: 20px solid #1f74f3;
+   border-left: 20px solid #5693ef;
    width: 0;
  }
  .stub:after {
@@ -315,8 +173,8 @@ p {
    position: absolute;
    bottom: 0;
    right: 0;
-   border-bottom: 20px solid #dd3f3e;
-   border-left: 20px solid #ef5658;
+   border-bottom: 20px solid #1f74f3;
+   border-left: 20px solid #5693ef;
    width: 0;
  }
  .stub .top {
@@ -349,7 +207,7 @@ p {
  }
  .stub .invite {
    position: absolute;
-   left: 150px;
+   left: 120px;
    bottom: 45px;
    color: #000;
    width: 20%;
@@ -363,7 +221,7 @@ p {
    margin-bottom: 5px;
  }
  .check {
-   background: #fff;
+   background: #eaeaea;
    height: 250px;
    width: 450px;
    padding: 40px;
@@ -374,8 +232,8 @@ p {
    position: absolute;
    top: 0;
    left: 0;
-   border-top: 20px solid #dd3f3e;
-   border-right: 20px solid #fff;
+   border-top: 20px solid #5693ef;
+   border-right: 20px solid #eaeaea;
    width: 0;
  }
  .check:after {
@@ -383,8 +241,8 @@ p {
    position: absolute;
    bottom: 0;
    left: 0;
-   border-bottom: 20px solid #dd3f3e;
-   border-right: 20px solid #fff;
+   border-bottom: 20px solid #5693ef;
+   border-right: 20px solid #eaeaea;
    width: 0;
  }
  .check .big {
@@ -396,7 +254,7 @@ p {
    position: absolute;
    top: 50px;
    right: 50px;
-   color: #ef5658;
+   color: #5693ef;
    font-size: 40px;
  }
  .check .info {
@@ -415,7 +273,7 @@ p {
  }
  .check .info section:before {
    content: '';
-   background: #ef5658;
+   background: #5693ef;
    display: block;
    width: 40px;
    height: 3px;

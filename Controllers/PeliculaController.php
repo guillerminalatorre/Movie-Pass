@@ -8,16 +8,15 @@
 
 namespace Controllers;
 
-use API\APIController as APIController;
+use API\TMDBController as TMDBController;
 use DAO\PeliculaDAO as PeliculaDAO;
 use DAO\GeneroDAO as GeneroDAO;
 use DAO\FuncionDAO as FuncionDAO;
 use Models\Pelicula as Pelicula;
 use Models\Genero as Genero;
 use Models\Funcion as Funcion;
-use Config\Functions as Functions;
 
-class PeliculaController
+class PeliculaController extends Administrable
 {
 	private $peliculaDAO;
 	private $generoDAO;
@@ -32,24 +31,18 @@ class PeliculaController
 
 	public function ShowListView()
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isAdmin()) Functions::redirect("Home");
+
 		$peliculaList = $this->peliculaDAO->getAll();
 		require_once(VIEWS_PATH . "pelicula/pelicula-list.php");
 	}
 
-	public function ShowSearchBar()
-	{
-		$generoList = $this->generoDAO->getAll();
-		require_once(VIEWS_PATH . "pelicula/searchbar.php");
-	}
-
-	public function ShowFilteredList($id = null, $fecha = null)
-	{
-		$peliculaList = $this->peliculaDAO->getAll();
-		require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
-	}
-
 	public function ShowApiMovies()
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isAdmin()) Functions::redirect("Home");
+
 		$peliculaList = array();
 		$page = 1;
 		while(count($peliculaList) == 0)
@@ -57,90 +50,93 @@ class PeliculaController
 			$peliculaList= $this->getNowPlayingMoviesFromApi($page);
 			$page++;
 		}
-		require_once(VIEWS_PATH . "pelicula/peliculas-api.php");
+		require_once(VIEWS_PATH."pelicula/peliculas-api.php");
 	}
-
 
 	public function updatePelicula($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isAdmin()) Functions::redirect("Home");
+
 		$_SESSION['flash'] = array();
-		$titulo = Functions::getInstance()->escapar($titulo);
-		$descripcion = Functions::getInstance()->escapar($descripcion);
-		$idioma = Functions::getInstance()->escapar($idioma);
-		$video = Functions::getInstance()->escapar($video);
+		$titulo = Functions::validateData($titulo);
+		$descripcion = Functions::validateData($descripcion);
+		$idioma = Functions::validateData($idioma);
+		$video = Functions::validateData($video);
 
 		$pelicula = new Pelicula();
 		$pelicula->setId($idPelicula);
 		$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 
-		if($pelicula != null)
-		{
-			// Imagen
-			try
-			{
-				if($_FILES["image"]["error"] > 0)
-				{
-					$message = "Error: " . $_FILES["image"]["error"] . "<br>";
-				}
-				else
-				{
-					$fileName = Functions::getInstance()->escapar($_FILES["image"]["name"]);
-					$tempFileName = $_FILES["image"]["tmp_name"];
-					$type = $_FILES["image"]["type"];
-					
-					$filePath = UPLOADS_PATH.basename($fileName);
-					$fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-					$imageSize = getimagesize($tempFileName);
-
-					if($imageSize !== false)
-					{
-						if (move_uploaded_file($tempFileName, $filePath))
-						{
-							$pelicula->setPoster(FRONT_ROOT.UPLOADS_PATH.$fileName);
-							array_push($_SESSION['flash'], "Imagen subida correctamente.");
-						}
-						else
-							array_push($_SESSION['flash'], "Ocurrió un error al intentar subir la imagen.");
-					}
-					else
-						array_push($_SESSION['flash'], "El archivo no corresponde a una imágen.");
-				}
-			}
-			catch(Exception $ex)
-			{
-				array_push($_SESSION['flash'], $ex->getMessage());
-			}
-			// Fin imagen
-
-			$pelicula->setTitulo($titulo);
-			if($duracion > 0) $pelicula->setDuracion($duracion);
-			else array_push($_SESSION['flash'], "La duracion debe ser mayor a 0.");
-			$pelicula->setDescripcion($descripcion);
-			$pelicula->setIdioma($idioma);
-			$pelicula->setClasificacion($clasificacion);
-			$pelicula->setVideo($video);
-			$pelicula->setPopularidad($popularidad);
-
-			$this->peliculaDAO->edit($pelicula);
-			array_push($_SESSION['flash'], "Los datos se han actualizado correctamente.");
-		}
-		else
+		if($pelicula == null)
 		{
 			array_push($_SESSION['flash'], "La pelicula no existe.");
+			Functions::redirect("Pelicula","ShowListView");
 		}
-		
-		Functions::getInstance()->redirect("Pelicula","ShowListView");
+
+		// Imagen
+		try
+		{
+			if($_FILES["image"]["error"] > 0)
+			{
+				$message = "Error: " . $_FILES["image"]["error"] . "<br>";
+			}
+			else
+			{
+				$fileName = Functions::validateData($_FILES["image"]["name"]);
+				$tempFileName = $_FILES["image"]["tmp_name"];
+				$type = $_FILES["image"]["type"];
+				
+				$filePath = UPLOADS_PATH.basename($fileName);
+				$fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+				$imageSize = getimagesize($tempFileName);
+
+				if($imageSize !== false)
+				{
+					if (move_uploaded_file($tempFileName, $filePath))
+					{
+						$pelicula->setPoster(FRONT_ROOT.UPLOADS_PATH.$fileName);
+						array_push($_SESSION['flash'], "Imagen subida correctamente.");
+					}
+					else
+						array_push($_SESSION['flash'], "Ocurrió un error al intentar subir la imagen.");
+				}
+				else
+					array_push($_SESSION['flash'], "El archivo no corresponde a una imágen.");
+			}
+		}
+		catch(Exception $ex)
+		{
+			array_push($_SESSION['flash'], $ex->getMessage());
+		}
+		// Fin imagen
+
+		$pelicula->setTitulo($titulo);
+		if($duracion > 0) $pelicula->setDuracion($duracion);
+		else array_push($_SESSION['flash'], "La duracion debe ser mayor a 0.");
+		$pelicula->setDescripcion($descripcion);
+		$pelicula->setIdioma($idioma);
+		$pelicula->setClasificacion($clasificacion);
+		$pelicula->setVideo($video);
+		$pelicula->setPopularidad($popularidad);
+
+		$this->peliculaDAO->edit($pelicula);
+		array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");		
+		Functions::redirect("Pelicula","ShowListView");
 	}
 
-	public function getNowPlayingMoviesFromApi($page = NULL)
+	private function getNowPlayingMoviesFromApi($page = NULL)
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isAdmin()) Functions::redirect("Home");
+
 		if($page == NULL) $page = 1;
 
 		$peliculaList = array();
 
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "page"=> $page);
 
-		$get_data = APIController::callAPI('GET', API . '/movie/now_playing', $arrayReque);
+		$get_data = TMDBController::callAPI('GET', API . '/movie/now_playing', $arrayReque);
 
 		$arrayToDecode = json_decode($get_data, true);
 
@@ -175,6 +171,9 @@ class PeliculaController
 
 	public function AddToDatabase($idTMDB)
 	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isAdmin()) Functions::redirect("Home");
+
 		if($this->peliculaDAO->getByIdTMDB($idTMDB) == NULL)
 		{
 			$movie = $this->getMovieDetailsFromApi($idTMDB);
@@ -188,7 +187,7 @@ class PeliculaController
 	{
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 
-		$get_data = APIController::callAPI('GET', API . '/movie'. '/' . $idTMDB, $arrayReque);
+		$get_data = TMDBController::callAPI('GET', API . '/movie'. '/' . $idTMDB, $arrayReque);
 
 		$arrayToDecode = json_decode($get_data, true);
 
@@ -222,7 +221,7 @@ class PeliculaController
 
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 
-		$get_data = APIController::callAPI('GET', API . '/movie'. '/' . $idTMDB . "/videos", $arrayReque);
+		$get_data = TMDBController::callAPI('GET', API . '/movie'. '/' . $idTMDB . "/videos", $arrayReque);
 
 		$arrayToDecode = json_decode($get_data, true);
 

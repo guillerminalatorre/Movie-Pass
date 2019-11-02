@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
-    <h2 class="col-md-6 pb-2 text-light">Lista de peliculas</h2>
+    <h2 class="col-6 pb-2 text-light">Lista de peliculas</h2>
     <table class="table table-striped text-light align-center">
         <thead>
             <tr>
@@ -23,13 +23,13 @@
                 <td><?php echo $pelicula->getIdTMDB(); ?></td>
                 <td><?php echo $pelicula->getDuracion(); ?></td>
                 <td><?php echo $pelicula->getPopularidad(); ?></td>
-                <td><?php echo count($this->funcionDAO->getByPelicula($pelicula->getId())); ?></td>
+                <td><?php echo count($this->funcionDAO->getByPelicula($pelicula)); ?></td>
                 <td><a href="#modal<?php echo $pelicula->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><h4><i class="fa fa-arrow-circle-right"></i></h4></a></td>
             </tr>
             <?php } ?>
         </tbody>
     </table>
-    <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" role="button"><i class="fa fa-plus-circle"></i> Agregar pelicula de API</a>
+    <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" role="button"><i class="fa fa-plus-circle"></i> Obtener pelicula de API</a>
 </div>
 
 <!-- Modal que muestra editar pelicula -->

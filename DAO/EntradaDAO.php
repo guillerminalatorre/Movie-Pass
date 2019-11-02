@@ -34,7 +34,7 @@ class EntradaDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}		
 
@@ -51,7 +51,7 @@ class EntradaDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -77,7 +77,7 @@ class EntradaDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 
@@ -129,7 +129,6 @@ class EntradaDAO
 			return null;
 		}
 	}
-
 	
 	public function getByFuncion($funcion)
 	{
@@ -174,7 +173,7 @@ class EntradaDAO
 		}
 		catch(Exception $ex)
 		{
-			throw $ex;
+			return null;
 		}
 	}
 }

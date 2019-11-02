@@ -28,7 +28,7 @@
                 </g>
               </svg>
             </div>
-            <div class="col col-md-auto">
+            <div class="col col-auto">
               <h4 class="alert-heading">No hay funciones que coincidan con tu búsqueda.</h4>
               <ul>
                 <li>

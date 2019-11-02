@@ -7,6 +7,8 @@
 namespace DAO;
 
 use Models\Funcion as Funcion;
+use Models\Cine as Cine;
+use Models\Pelicula as Pelicula;
 
 class FuncionDAO
 {
@@ -129,7 +131,7 @@ class FuncionDAO
 	{
 		try
 		{
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = ".$funcion->getId().";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = '".$funcion->getId()."';";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			
@@ -149,12 +151,12 @@ class FuncionDAO
 		}
 	}
 
-	public function getByCine($idCine)
+	public function getByCine($cine)
 	{
 		try
 		{
 			$list = array();
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$idCine.";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$cine->getId().";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			
@@ -176,12 +178,12 @@ class FuncionDAO
 	}
 
 	
-	public function getByPelicula($idPelicula)
+	public function getByPelicula($pelicula)
 	{
 		try
 		{
 			$list = array();
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$idPelicula.";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$pelicula->getId().";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			
@@ -202,12 +204,12 @@ class FuncionDAO
 		}
 	}
 
-	public function getByCinePelicula($idCine,$idPelicula)
+	public function getByCinePelicula($cine,$pelicula)
 	{
 		try
 		{
 			$list = array();
-			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$idCine." AND id_pelicula = ".$idPelicula.";";
+			$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$cine->getId()." AND id_pelicula = ".$pelicula->getId().";";
 			$this->connection = Connection::GetInstance();
 			$resultSet = $this->connection->Execute($query);
 			

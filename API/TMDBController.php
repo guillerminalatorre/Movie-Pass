@@ -1,7 +1,7 @@
 <?php
 namespace API;
 
-class APIController
+class TMDBController
 {    
    public static function callAPI($method, $url, $data)
    {
