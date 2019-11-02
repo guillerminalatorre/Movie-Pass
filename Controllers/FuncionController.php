@@ -98,7 +98,9 @@
 			$string = "+".$duracion." minutes";
 			$fin = strtotime($string,$inicio);
 
-			$funcionList = $this->funcionDAO->getByCine($idCine);
+			$cine = new Cine();
+			$cine->setId($idCine);
+			$funcionList = $this->funcionDAO->getByCine($cine);
 
 			foreach($funcionList as $funcion)
 			{

@@ -25,9 +25,9 @@
                     <tbody>
                         <?php
                         if($idPelicula != null) {
-                            $funcionList = $this->funcionDAO->getByCinePelicula($cine->getId(),$idPelicula);
+                            $funcionList = $this->funcionDAO->getByCinePelicula($cine,$pelicula);
                         } else {
-                            $funcionList = $this->funcionDAO->getByCine($cine->getId());
+                            $funcionList = $this->funcionDAO->getByCine($cine);
                         }                        
                         require(VIEWS_PATH."funcion/funcion-disponible-list.php"); 
                         ?>
