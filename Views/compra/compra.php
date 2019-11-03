@@ -19,8 +19,9 @@
             </div><!-- End -->
 
             <!-- Team item -->
-            <div class="col-8 mb-5">
+            <div class="col-8 mb-5">                
                 <div class="bg-white rounded shadow-sm py-4 px-4">
+                    <?php require_once(VIEWS_PATH."alert.php"); ?>
                     <h3>Tarjeta de Credito</h3>
                     <div class="row">
                         <div class="form-group col-12">

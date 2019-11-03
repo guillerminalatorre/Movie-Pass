@@ -39,7 +39,7 @@ class CompraController extends Administrable
 	{
 		if(!$this->loggedIn()) Functions::redirect("Home");
 
-		$_SESSION['flash'] = array();
+		if(!isset($_SESSION['flash'])) $_SESSION['flash'] = array();
 
 		//Datos funcion
 		$funcion = new Funcion();
@@ -75,6 +75,19 @@ class CompraController extends Administrable
 		if(!$this->loggedIn()) Functions::redirect("Home");
 
 		$_SESSION['flash'] = array();
+		
+		$name = Functions::validateData($name);
+		$mmyy = Functions::validateData($mmyy);
+		$number = Functions::validateData($number);
+		$cvc = Functions::validateData($cvc);
+		if(!$this->validatePay($name,$mmyy,$number,$cvc))
+		{			
+			$params = array();
+			array_push($params,$idFuncion);
+			array_push($params,$cantidad);
+			array_push($_SESSION['flash'], "Los datos de la tarjeta son incorrectos.");
+			Functions::redirect("Compra","Pay",$params);
+		}
 
 		//Datos funcion
 		$funcion = new Funcion();
@@ -85,6 +98,10 @@ class CompraController extends Administrable
 			array_push($_SESSION['flash'], "La funcion seleccionada no existe.");
 			Functions::redirect("Home");
 		}
+
+		$pelicula = new Pelicula();
+		$pelicula->setId($funcion->getIdPelicula());
+		$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 
 		$idCine = $funcion->getIdCine();
 		$fechaHora = $funcion->getFechaHora();
@@ -118,8 +135,24 @@ class CompraController extends Administrable
 			$entrada->setQr($idCine."-".$idFuncion."-".$idCompra);
 			$this->entradaDAO->add($entrada);
 		}
-		array_push($_SESSION['flash'], "La compra se ha realizado con exito.");
-		Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());		
+		array_push($_SESSION['flash'], "Se han generado ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!");
+		Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
+	}
+
+	private function validatePay($name,$mmyy,$number,$cvc)
+	{
+		$validateCard = CreditCard::validCreditCard($number);
+		if($validateCard['valid'] == false) return false;
+
+		$validateCvc = CreditCard::validCvc($cvc, $validateCard['type']);
+		if($validateCvc == false) return false;
+
+		$date = explode(" / ", $mmyy);
+		$validateDate = CreditCard::validDate("20".$date[1], $date[0]);
+		if(!$validateDate) return false;
+
+		array_push($_SESSION['flash'], "Tu compra con tarjeta ".$validateCard['type']." fue procesada con éxito.");
+		return true;
 	}
 	
 	private function calcularDescuento($fechaHora, $cantidad)

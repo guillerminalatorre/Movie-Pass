@@ -16,7 +16,7 @@
         <tbody>
             <?php foreach ($entradaList as $entrada) { ?>
             <tr>
-                <td><?php echo $entrada->getId(); ?></td>
+                <td class="align-middle"><?php echo $entrada->getId(); ?></td>
                 <?php 
                     $idFuncion = $entrada->getIdFuncion();
                     $funcion->setId($idFuncion);
@@ -25,11 +25,11 @@
                     $pelicula->setId($idPelicula);
                     $pelicula = $this->peliculaDAO->getPelicula($pelicula);
                 ?>
-                <td><b><?php echo $pelicula->getTitulo(); ?></b></a></td>
-                <td><?php echo $funcion->getId(); ?></td>
-                <td><?php echo $entrada->getIdCompra(); ?></td>
-                <td><a href="#modal<?php echo $entrada->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><img src="https://chart.googleapis.com/chart?chs=75x75&cht=qr&chl=<?php echo $entrada->getQr(); ?>" class="rounded-circle z-depth-0" alt="qr"></a></td>
-                <td><a href="#modal<?php echo $entrada->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><h4><i class="fa fa-arrow-circle-right"></i></h4></a></td>
+                <td class="align-middle"><b><?php echo $pelicula->getTitulo(); ?></b></a></td>
+                <td class="align-middle"><?php echo $funcion->getId(); ?></td>
+                <td class="align-middle"><?php echo $entrada->getIdCompra(); ?></td>
+                <td class="align-middle"><a href="#modal<?php echo $entrada->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><img src="https://chart.googleapis.com/chart?chs=75x75&cht=qr&chl=<?php echo $entrada->getQr(); ?>" class="rounded-circle z-depth-0" alt="qr"></a></td>
+                <td class="align-middle"><a href="#modal<?php echo $entrada->getId();?>" class="view" title="" data-toggle="modal" data-original-title="View Details"><h4><i class="fa fa-arrow-circle-right"></i></h4></a></td>
             </tr>
             <?php } ?>
         </tbody>
@@ -40,6 +40,12 @@
 <?php 
 foreach($entradaList as $entrada) 
 {
+    $idFuncion = $entrada->getIdFuncion();
+    $funcion->setId($idFuncion);
+    $funcion = $this->funcionDAO->getFuncion($funcion);
+    $idPelicula = $funcion->getIdPelicula();
+    $pelicula->setId($idPelicula);
+    $pelicula = $this->peliculaDAO->getPelicula($pelicula);
     require(VIEWS_PATH."entrada/entrada.php");
 }
 ?>
