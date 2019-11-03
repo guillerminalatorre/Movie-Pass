@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH . "navbar.php"); ?>
 <div class="container-fluid mb-4">
-  <div class="col-10 offset-1 bg-dark rounded shadow">
+  <div class="col-sm-12 col-lg-10 offset-sm-0 offset-lg-1 bg-dark rounded shadow">
     <?php require_once(VIEWS_PATH . "alert.php"); ?>
     <div class="row">
       <?php
