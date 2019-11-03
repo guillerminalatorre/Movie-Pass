@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  background: url("/TP-Metodologia/Views/img/background.png") rgba(200, 200, 200, 0.95);
+  background: url("../img/background.png") rgba(200, 200, 200, 0.95);
 }
 
 .container.black{
