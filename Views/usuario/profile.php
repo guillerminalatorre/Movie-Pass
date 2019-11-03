@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container mb-4">
+<div class="container-fluid mb-4">
     <div class="row">
-        <div class="col bg-light rounded p-4 text-center mr-4 shadow">
+        <div class="col-md-10 col-lg-3 offset-md-1 bg-light rounded p-4 text-center my-4 shadow">
 
             <!-- Volver a lista de usuarios solo para admins -->
             <?php if($this->isAdmin($_SESSION["loggedUser"])) { ?>
@@ -38,9 +38,9 @@
                 </li>
             </ul>
         </div>
-        <div class="col-8 bg-light rounded p-4 shadow">
+        <div class="col-md-10 col-lg-6 offset-md-1 bg-light rounded p-4 my-4 shadow">
             <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de entradas</h4></tr>
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive-sm">
                 <thead>
                     
                     <tr>

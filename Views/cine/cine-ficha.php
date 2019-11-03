@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container mb-4">
+<div class="container-fluid mb-4">
     <div class="row">
-        <div class="col bg-light rounded p-4 text-center mr-4 shadow">
+    <div class="col-md-10 col-lg-3 offset-md-1 bg-light rounded p-4 text-center my-4 shadow">
 
             <!-- Volver a lista cines -->
             <div><a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Ver lista de cines</a></div>
@@ -22,23 +22,32 @@
                 <li class="list-group-item">Precio: <?php echo $cine->getPrecio(); ?></li>
             </ul>
         </div>
-        <div class="col-8 bg-light rounded p-4 shadow">
+
+        <div class="col-md-10 col-lg-6 offset-md-1 bg-light rounded p-4 my-4 shadow">
             <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de funciones</h4></tr>
-            <table class="table table-striped">
+            <table class="table table-striped table-responsive-sm">
                 <thead>                    
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Pelicula</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Hora</th>
-                    <th scope="col">Entradas</th>
+                    <th scope="col">Ent. Vendidas</th>
                     <th scope="col" style="text-align:right">
-                        <a class="btn btn-info shadow-sm" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getId(); ?>">Agregar función</a>
+                        <a class="btn btn-info btn-sm shadow-sm" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getId(); ?>">Agregar función</a>
                     </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php require_once(VIEWS_PATH."funcion/funcion-list.php"); ?>
+                    <?php 
+                    if(isset($funcionList) && count($funcionList) > 0) 
+                    {
+                        foreach ($funcionList as $funcion) 
+                        {
+                            require(VIEWS_PATH."funcion/funcion-list.php");
+                        }
+                    }
+                    ?>
                 </tbody>
             </table>
         </div>

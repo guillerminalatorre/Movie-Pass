@@ -1,14 +1,20 @@
-</div>
 
+
+<li class="nav-item">
 <form class="form-inline my-0 mr-4">
   <div class="md-form form-sm my-0">
     <input class="form-control form-control-sm mr-sm-2 mb-0" type="text" placeholder="Buscar pelicula" aria-label="Search">
   </div>
 </form>
+</li>
 
-<a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Login" role="button">
-  <i class="fa fa-sign-in-alt"></i> Login
-</a>
+</div>
+
+<div class="navbar-nav ml-auto">
+  <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>Login" role="button">
+    <i class="fa fa-sign-in-alt"></i> Login
+  </a>
+</div>
 
 <!-- <ul class="nav navbar-nav flex-row justify-content-between ml-auto bd-primary">
       <li class="dropdown order-1">

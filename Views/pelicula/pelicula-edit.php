@@ -25,7 +25,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col">
-                            <label for="idPelicula">ID:</label>
+                            <label for="idPelicula">ID Pelicula:</label>
                         </div>
                         <div class="col-9">
                             <input type="text" class="form-control" name="idPelicula" readonly="readonly" value="<?php echo $pelicula->getId(); ?>">

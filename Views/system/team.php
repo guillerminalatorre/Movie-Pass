@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid">
-    <div class="col-10 offset-md-1 bg-dark rounded pl-5 pr-5 shadow">
+    <div class="col-10 offset-1 bg-dark rounded pl-5 pr-5 shadow">
         <div class="row">
             <!-- For demo purpose -->
             <div class="container py-5">

@@ -9,21 +9,25 @@
 	use DAO\CineDAO as CineDAO;
 	use DAO\FuncionDAO as FuncionDAO;
 	use DAO\PeliculaDAO as PeliculaDAO;
+	use DAO\EntradaDAO as EntradaDAO;
 	use Models\Cine as Cine;
 	use Models\Funcion as Funcion;
 	use Models\Pelicula as Pelicula;
+	use Models\Entrada as Entrada;
 	
 	class CineController extends Administrable
 	{
 		private $cineDAO;
 		private $funcionDAO;
 		private $peliculaDAO;
+		private $entradaDAO;
 
 		public function __construct()
 		{
 			$this->cineDAO = new CineDAO();
 			$this->funcionDAO = new FuncionDAO();
 			$this->peliculaDAO = new PeliculaDAO();
+			$this->entradaDAO = new EntradaDAO();
 		}
 
 		public function ShowListView()
@@ -51,6 +55,7 @@
 			$cine = new Cine();
 			$cine->setId($id);
 			$cine = $this->cineDAO->getCine($cine);
+			$pelicula = new Pelicula();
 			$funcionList = $this->funcionDAO->getByCine($cine);
 			require_once(VIEWS_PATH."cine/cine-ficha.php");
 		}
