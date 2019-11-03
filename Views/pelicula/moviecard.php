@@ -23,10 +23,10 @@
                 $description = $values->getDescripcion();
                 if ($description != NULL) 
                 {
-                    if (strlen($description) > 300) 
+                    if (strlen($description) > 280) 
                     {
-                        echo substr($description, 0, 300) . "... ";
-                        echo "<a href='#' class='card-link text-warning'>Ver mas</a>";
+                        echo substr($description, 0, 280) . "... ";
+                        echo "<a href='".FRONT_ROOT."Funcion/ShowFuncionesPelicula/".$values->getId()."' class='card-link text-warning'>Ver mas</a>";
                     } 
                     else 
                     {
