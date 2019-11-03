@@ -7,7 +7,7 @@
             <div><a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowListView" role="button">Ver lista de cines</a></div>
 
             <?php require_once(VIEWS_PATH."alert.php"); ?>
-            <img src="<?php echo IMG_PATH."cinema.png" ?>" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
+            <img src="<?php echo FRONT_ROOT.IMG_PATH."cinema.png" ?>" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
             <h3 class="mt-2"><?php echo $cine->getNombre(); ?></h3>
             
             <!-- Modificar cine -->
