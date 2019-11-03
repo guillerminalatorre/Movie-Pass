@@ -181,7 +181,7 @@ class UsuarioController extends Administrable
 		if($facebookId != null)
 		{
 			$usuario->setFacebookId($facebookId);
-			$usuario->setImage("http://graph.facebook.com/".$facebookId."/picture?type=square&height=200");
+			$usuario->setImage(PROTOCOL."graph.facebook.com/".$facebookId."/picture?type=square&height=200");
 		}
 		else
 		{
