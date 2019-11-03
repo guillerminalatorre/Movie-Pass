@@ -231,7 +231,7 @@ class Pelicula
 	 */
 	public function getPoster()
 	{
-	    return $this->poster;
+	    return (strpos($this->poster, 'https://image.tmdb.org') == false) ? FRONT_ROOT.$this->poster : $this->poster;
 	}
 
 	/**
