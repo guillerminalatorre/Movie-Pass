@@ -50,7 +50,7 @@ class PeliculaController extends Administrable
 			$peliculaList= $this->getNowPlayingMoviesFromApi($page);
 			$page++;
 		}
-		require_once(VIEWS_PATH."pelicula/peliculas-api.php");
+		require_once(VIEWS_PATH."pelicula/pelicula-api.php");
 	}
 
 	public function updatePelicula($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)

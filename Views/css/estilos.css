@@ -1,285 +1,240 @@
 html, body {
-   height: 100%;    
+  height: 100%;    
 }
 
 body {
-   background: url("/TP-Metodologia/Views/img/background.png") rgba(200, 200, 200, 0.95);
+  background: url("/TP-Metodologia/Views/img/background.png") rgba(200, 200, 200, 0.95);
 }
 
 .container.black{
-   background:rgba(0,0,0,0.95);
-   color: inherit;
+  background:rgba(0,0,0,0.95);
+  color: inherit;
 }
 
 .height-100 {
-   height: 100%;
+  height: 100%;
 }
 
 .bg-dark-alpha {
-   background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.2);
 }
 .bg-light-alpha {
-   background-color: rgba(255,255,255,0.2);
-}
-
-.registerForm {
-   position: relative;
-   z-index: 1;
-   background: #FFFFFF;
-   opacity: 0.95;
-   max-width: 600px;
-   margin: 25px auto 100px;
-   padding: 35px;
-   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(252, 42, 42, 0.4);
-}
-
-.loginForm {
-   position: relative;
-   z-index: 1;
-   background: #FFFFFF;
-   opacity: 0.95;
-   max-width: 450px;
-   margin: 25px auto 100px;
-   padding: 35px;
-   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(252, 42, 42, 0.4);
-}
-
-.panelForm {
-   position: relative;
-   z-index: 1;
-   background: #FFFFFF;
-   opacity: 0.95;
-   max-width: 600px;
-   margin: 25px auto 100px;
-   padding: 35px;
-   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4), 0 5px 5px 0 rgba(252, 42, 42, 0.4);
-   }
-
-.jumbotron {
-   padding:2rem;
-   border:1px solid rgba(0,0,0,0.1);
-   border-radius:4px;
-   padding: 20px;
-   margin-bottom: 30px;
-   font-size: 21px;
-   font-weight: 200;
-   line-height: 2.1428571435;
-   color: inherit;
+  background-color: rgba(255,255,255,0.2);
 }
 
 .movie-card {
-   font-family: 'Open Sans', sans-serif;
-   padding-top: 2%;
+  font-family: 'Open Sans', sans-serif;
+  padding-top: 2%;
 }
 
 .movie-card .col-5, .movie-card .description {
-   padding: 0;  
+  padding: 0;  
 }
 
 .movie-card-height {
-   height: 800px;
+  height: 800px;
 }
 
 .description {
-   font-family: 'Fredericka the Great', cursive;
-   text-align: center;
+  font-family: 'Fredericka the Great', cursive;
+  text-align: center;
 }
 
 .card-header, .metadata {
-   background: none;
-   padding: 0;
-   position: relative;
-   border-style: none;
+  background: none;
+  padding: 0;
+  position: relative;
+  border-style: none;
 }
 
 .metadata {
-   font-size: 16px;
+  font-size: 16px;
 }
 
 p {
-   float: left;
-   margin-top: 0;
-   margin-left: 10px;
+  float: left;
+  margin-top: 0;
+  margin-left: 10px;
 }
 
 .card-img {
-   max-height:440px;
-   -webkit-clip-path: inset(10% 0 20% 0);
-    clip-path: inset(10% 0 20% 0);
-    margin-top: -15%;
+  max-height: 450px;
+  -webkit-clip-path: inset(10% 0 20% 0);
+  clip-path: inset(10% 0 20% 0);
+  margin-top: -15%;
 }
 
 .card-body {
-   position: relative;
-   margin-top: -30%;
-   color: rgb(70, 70, 70);
+  position: relative;
+  margin-top: -30%;
+  color: rgb(70, 70, 70);
 }
 
 .card-body .card-text {
-   margin-top: 5px;
-   font-weight: 600;
-   line-height: 30px;
+  margin-top: 5px;
+  font-weight: 600;
+  line-height: 30px;
 }
 
 .card-body .card-title {
-   font-weight: 600;
-   color: #414345;
+  font-weight: 600;
+  color: #414345;
 }
 
 .card {
-   border-radius: 8pt;
-   border-style: none;
-   overflow: hidden;
-   transform: scale(0.8);
-   margin-top: -60px;
+  border-radius: 8pt;
+  border-style: none;
+  overflow: hidden;
+  transform: scale(0.8);
+  margin-top: -60px;
 }
 
 .ticket {
-   display: -webkit-box;
-   display: -ms-flexbox;
-   display: flex;
-   -webkit-box-pack: center;
-       -ms-flex-pack: center;
-           justify-content: center;
-   -webkit-box-align: center;
-       -ms-flex-align: center;
-           align-items: center;
-   width: 700px;
-   margin: 20px auto;
- }
- .ticket .stub,
- .ticket .check {
-   box-sizing: border-box;
- }
- .stub {
-   background: #5693ef;
-   height: 250px;
-   width: 250px;
-   color: white;
-   padding: 20px;
-   position: relative;
- }
- .stub:before {
-   content: '';
-   position: absolute;
-   top: 0;
-   right: 0;
-   border-top: 20px solid #1f74f3;
-   border-left: 20px solid #5693ef;
-   width: 0;
- }
- .stub:after {
-   content: '';
-   position: absolute;
-   bottom: 0;
-   right: 0;
-   border-bottom: 20px solid #1f74f3;
-   border-left: 20px solid #5693ef;
-   width: 0;
- }
- .stub .top {
-   display: -webkit-box;
-   display: -ms-flexbox;
-   display: flex;
-   -webkit-box-align: center;
-       -ms-flex-align: center;
-           align-items: center;
-   height: 40px;
-   text-transform: uppercase;
- }
- .stub .top .line {
-   display: block;
-   background: #fff;
-   height: 40px;
-   width: 3px;
-   margin: 0 20px;
- }
- .stub .top .num {
-   font-size: 10px;
- }
- .stub .top .num span {
-   color: #000;
- }
- .stub .number {
-   position: absolute;
-   left: 40px;
-   font-size: 150px;
- }
- .stub .invite {
-   position: absolute;
-   left: 120px;
-   bottom: 45px;
-   color: #000;
-   width: 20%;
- }
- .stub .invite:before {
-   content: '';
-   background: #fff;
-   display: block;
-   width: 40px;
-   height: 3px;
-   margin-bottom: 5px;
- }
- .check {
-   background: #eaeaea;
-   height: 250px;
-   width: 450px;
-   padding: 40px;
-   position: relative;
- }
- .check:before {
-   content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   border-top: 20px solid #5693ef;
-   border-right: 20px solid #eaeaea;
-   width: 0;
- }
- .check:after {
-   content: '';
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   border-bottom: 20px solid #5693ef;
-   border-right: 20px solid #eaeaea;
-   width: 0;
- }
- .check .big {
-   font-size: 60px;
-   font-weight: 900;
-   line-height: .8em;
- }
- .check .number {
-   position: absolute;
-   top: 50px;
-   right: 50px;
-   color: #5693ef;
-   font-size: 40px;
- }
- .check .info {
-   display: -webkit-box;
-   display: -ms-flexbox;
-   display: flex;
-   -webkit-box-pack: start;
-       -ms-flex-pack: start;
-           justify-content: flex-start;
-   font-size: 12px;
-   margin-top: 20px;
-   width: 100%;
- }
- .check .info section {
-   margin-right: 50px;
- }
- .check .info section:before {
-   content: '';
-   background: #5693ef;
-   display: block;
-   width: 40px;
-   height: 3px;
-   margin-bottom: 5px;
- }
- .check .info section .title {
-   font-size: 10px;
-   text-transform: uppercase;
- }
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 700px;
+  margin: 20px auto;
+}
+.ticket .stub,
+.ticket .check {
+  box-sizing: border-box;
+}
+.stub {
+  background: #5693ef;
+  height: 250px;
+  width: 250px;
+  color: white;
+  padding: 20px;
+  position: relative;
+}
+.stub:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-top: 20px solid #1f74f3;
+  border-left: 20px solid #5693ef;
+  width: 0;
+}
+.stub:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-bottom: 20px solid #1f74f3;
+  border-left: 20px solid #5693ef;
+  width: 0;
+}
+.stub .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 40px;
+  text-transform: uppercase;
+}
+.stub .top .line {
+  display: block;
+  background: #fff;
+  height: 40px;
+  width: 3px;
+  margin: 0 20px;
+}
+.stub .top .num {
+  font-size: 10px;
+}
+.stub .top .num span {
+  color: #000;
+}
+.stub .number {
+  position: absolute;
+  left: 40px;
+  font-size: 150px;
+}
+.stub .invite {
+  position: absolute;
+  left: 120px;
+  bottom: 45px;
+  color: #000;
+  width: 20%;
+}
+.stub .invite:before {
+  content: '';
+  background: #fff;
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-bottom: 5px;
+}
+.check {
+  background: #eaeaea;
+  height: 250px;
+  width: 450px;
+  padding: 40px;
+  position: relative;
+}
+.check:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 20px solid #5693ef;
+  border-right: 20px solid #eaeaea;
+  width: 0;
+}
+.check:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-bottom: 20px solid #5693ef;
+  border-right: 20px solid #eaeaea;
+  width: 0;
+}
+.check .big {
+  font-size: 60px;
+  font-weight: 900;
+  line-height: .8em;
+}
+.check .number {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  color: #5693ef;
+  font-size: 40px;
+}
+.check .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  font-size: 12px;
+  margin-top: 20px;
+  width: 100%;
+}
+.check .info section {
+  margin-right: 50px;
+}
+.check .info section:before {
+  content: '';
+  background: #5693ef;
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-bottom: 5px;
+}
+.check .info section .title {
+  font-size: 10px;
+  text-transform: uppercase;
+}

@@ -1,7 +1,7 @@
-<div class="col-4 movie-card">
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 movie-card">
     <div class="card movie-card-height shadow">
         <div class="card-header" >
-            <img class="card-img mb-4" src="<?php echo $values->getPoster(); ?>" alt="Card image">
+            <img class="card-img mb-4" src="<?php echo $values->getPoster(); ?>" alt="Poster image">
         </div>
         <div class="card-body">
             <h3 class="card-title">

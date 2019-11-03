@@ -1,11 +1,10 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container-fluid">
-  <div class="loginForm shadow">
+<div class="container-fluid mb-4">
+  <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-white rounded shadow p-md-4 p-lg-4 p-xl-5">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
     <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">
       <h2 class="text-center">¡Hola! Para seguir, <br>ingresá tus datos</h2>
-      <br>
-      <div class="form-group">
+      <div class="form-group mt-4">
         <label for="userEmail">Email</label>
         <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
       </div>
@@ -15,12 +14,8 @@
       </div>
       <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Iniciar sesion</button>
       <a class="btn btn-primary btn-lg btn-block shadow-sm" href="<?php echo htmlspecialchars($facebookLoginUrl); ?>" role="button"><i class="fab fa-facebook-f"></i>  Iniciar sesion con Facebook</a>
-      <br>
-      <div class="text-center">
-        <a class="" href="#">Olvidaste tu contraseña?</a>
-      </div>
-    </form>
-    <div class="dropdown-divider mt-5"></div>
-    <p class="message text-center">Eres nuevo? <a href="<?php echo FRONT_ROOT ?>Register"> Registrate</a></p>
+      <div class="text-center pt-4 pb-2 border-bottom"><a class="" href="#"><h6>Olvidaste tu contraseña?</a></h6></div>    
+      <div class="pt-4 pb-2 mb-2"><h6>Eres nuevo? <a href="<?php echo FRONT_ROOT ?>Register"> Registrate</a></h6></div>
+    </form>    
   </div>
 </div>

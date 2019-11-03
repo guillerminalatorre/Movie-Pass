@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container-fluid">
-    <div class="registerForm rounded shadow">
+<div class="container-fluid mb-4">
+    <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-white rounded shadow p-md-4 p-lg-4 p-xl-5">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Usuario/Register" method="POST">
             <div class="row">
@@ -45,9 +45,7 @@
                     <input type="password" class="form-control" name="confirmpassword" required>
                 </div>
             </div>
-            <div class="row">
-                <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Crear cuenta</button>
-            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Crear cuenta</button>
         </form>
     </div>
 </div>

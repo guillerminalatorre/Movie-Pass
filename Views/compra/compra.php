@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-    <div class="col-10 offset-md-1 bg-dark rounded pl-4 pr-4 pt-4 shadow">
+    <div class="col-10 offset-1 bg-dark rounded pl-4 pr-4 pt-4 shadow">
         <div class="row">
 
             <!-- Team item -->

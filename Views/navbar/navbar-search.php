@@ -1,5 +1,6 @@
-<form class="form-inline my-0 mr-5">
-    <div class="md-form form-sm my-0">
-      <input class="form-control form-control-sm mr-sm-2 mb-0" type="text" placeholder="Buscar pelicula" aria-label="Search">
-    </div>
+<li class="nav-item">
+<form class="form-inline">
+  <input class="form-control form-control-sm mt-1" type="text" placeholder="Buscar pelicula" aria-label="Search">
 </form>
+</li>
+</div>
