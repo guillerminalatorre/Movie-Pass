@@ -150,19 +150,19 @@ p {
   margin: 0 20px;
 }
 .stub .top .num {
-  font-size: 10px;
+  font-size: 12px;
 }
 .stub .top .num span {
   color: #000;
 }
 .stub .number {
   position: absolute;
-  left: 40px;
+  left: 20px;
   font-size: 150px;
 }
 .stub .invite {
   position: absolute;
-  left: 120px;
+  left: 100px;
   bottom: 45px;
   color: #000;
   width: 20%;

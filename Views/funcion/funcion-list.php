@@ -1,6 +1,6 @@
 <tr>
     <td><?php echo $funcion->getId(); ?></td>
-    <?php if(!isset($idPeliucla) || $idPelicula == null) {
+    <?php if(!isset($idPelicula) || $idPelicula == null) {
     $pelicula->setId($funcion->getIdPelicula());
     $pelicula = $this->peliculaDAO->getPelicula($pelicula);
     ?>
@@ -15,7 +15,7 @@
     echo $cine->getCapacidad();
     ?>
     </td>
-    <?php if(isset($idPeliucla) && $idPelicula != null) { ?>
+    <?php if(isset($idPelicula) && $idPelicula != null) { ?>
         <form action="<?php echo FRONT_ROOT ?>Compra/Pay" method="POST">
             <td style="text-align:right; width:35%">
             <input type="hidden" name="idFuncion" value="<?php echo $funcion->getId(); ?>">

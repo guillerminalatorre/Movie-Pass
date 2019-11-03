@@ -13,8 +13,9 @@
                     <div class="row">
                         <div class="col-12 text-center mb-2">
 
-                          <div class="ticket">
-                            <div class="stub">
+                          <div class="ticket col-12">
+                          <div class="row">
+                            <div class="stub col-sm-12 col-md-5 col-12">
                               <div class="top">
                                 <span class="admit">ENTRADA</span>
                                 <span class="line"></span>
@@ -28,7 +29,7 @@
                               <img src="https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=<?php echo $entrada->getQr(); ?>" class="rounded-circle z-depth-0" alt="qr">
                               </div>
                             </div>
-                            <div class="check">
+                            <div class="check col-sm-12 col-md-7 col-12">
                               <div class="big">
                                 <?php echo $pelicula->getTitulo(); ?>
                               </div>
@@ -48,6 +49,7 @@
                                 </section>
                               </div>
                             </div>
+                          </div>
                           </div>
 
                         </div>
