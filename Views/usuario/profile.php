@@ -9,7 +9,7 @@
             <?php } ?>
 
             <?php require_once(VIEWS_PATH."alert.php"); ?>
-            <img src="<?php if($usuario->getFacebookId() == null) echo FRONT_ROOT; ?><?php echo $usuario->getImage() ?>" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
+            <img src="<?php echo $usuario->getImage() ?>" width="140" height="140" class="rounded-circle z-depth-0" alt="avatar image">
             <h3 class="mt-2"><?php echo $usuario->getNombre()." ".$usuario->getApellido(); ?></h3>
 
             <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->
