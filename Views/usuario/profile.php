@@ -15,7 +15,7 @@
             <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->
             <?php if(($this->isMainAdmin($_SESSION["loggedUser"])) && ($_SESSION["loggedUser"]->getEmail() != $usuario->getEmail())) { ?>
             <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-info btn-md mt-2 shadow-sm" role="button">
-                <?php if($usuario->getId_Rol() === 1) { ?>Hacer admin<?php } else { ?>Quitar admin<?php } ?>
+                <?php if($usuario->getId_Rol() == 1) { ?>Hacer admin<?php } else { ?>Quitar admin<?php } ?>
             </a>
             <?php } ?>
             
@@ -24,7 +24,7 @@
             
             <!-- Eliminar cuenta -->
             <?php if(($this->isAdmin() && $usuario->getId() != $_SESSION["loggedUser"]->getId()) || (!$this->isAdmin() && $usuario->getId() == $_SESSION["loggedUser"]->getId())) { ?>
-            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-danger btn-md mt-2 shadow-sm" role="button">Eliminar</a>
+            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getId(); ?>' ;" class="btn btn-danger btn-md mt-2 shadow-sm" role="button">Eliminar</a>
             <?php } ?>
 
             <ul class="list-group mt-4">
