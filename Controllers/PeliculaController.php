@@ -95,7 +95,7 @@ class PeliculaController extends Administrable
 				{
 					if (move_uploaded_file($tempFileName, $filePath))
 					{
-						$pelicula->setPoster(FRONT_ROOT.UPLOADS_PATH.$fileName);
+						$pelicula->setPoster(UPLOADS_PATH.$fileName);
 						array_push($_SESSION['flash'], "Imagen subida correctamente.");
 					}
 					else

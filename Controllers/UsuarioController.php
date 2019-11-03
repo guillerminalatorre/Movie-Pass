@@ -117,7 +117,7 @@ class UsuarioController extends Administrable
 				{
 					if (move_uploaded_file($tempFileName, $filePath))
 					{
-						$usuario->setImage(FRONT_ROOT.UPLOADS_PATH.$fileName);
+						$usuario->setImage(UPLOADS_PATH.$fileName);
 						array_push($_SESSION['flash'], "Imagen subida correctamente.");
 					}
 					else
