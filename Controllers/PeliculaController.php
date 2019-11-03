@@ -95,7 +95,7 @@ class PeliculaController extends Administrable
 				{
 					if (move_uploaded_file($tempFileName, $filePath))
 					{
-						$pelicula->setPoster(FRONT_ROOT.UPLOADS_PATH.$fileName);
+						$pelicula->setPoster(UPLOADS_PATH.$fileName);
 						array_push($_SESSION['flash'], "Imagen subida correctamente.");
 					}
 					else
@@ -153,7 +153,7 @@ class PeliculaController extends Administrable
 				}
 				else 
 				{
-					$posterPath = IMG_PATH."noImage.jpg";
+					$posterPath = FRONT_ROOT.IMG_PATH."noImage.jpg";
 				}
 				$pelicula->setPoster($posterPath);
 		
@@ -199,7 +199,7 @@ class PeliculaController extends Administrable
 		}
 		else 
 		{
-			$posterPath = IMG_PATH."noImage.jpg";
+			$posterPath = FRONT_ROOT.IMG_PATH."noImage.jpg";
 		}
 		$pelicula->setPoster($posterPath);
 		$pelicula->setIdioma($arrayToDecode["original_language"]);

@@ -117,7 +117,7 @@ class UsuarioController extends Administrable
 				{
 					if (move_uploaded_file($tempFileName, $filePath))
 					{
-						$usuario->setImage(FRONT_ROOT.UPLOADS_PATH.$fileName);
+						$usuario->setImage(UPLOADS_PATH.$fileName);
 						array_push($_SESSION['flash'], "Imagen subida correctamente.");
 					}
 					else
@@ -181,7 +181,7 @@ class UsuarioController extends Administrable
 		if($facebookId != null)
 		{
 			$usuario->setFacebookId($facebookId);
-			$usuario->setImage("http://graph.facebook.com/".$facebookId."/picture?type=square&height=200");
+			$usuario->setImage("https://graph.facebook.com/".$facebookId."/picture?type=square&height=200");
 		}
 		else
 		{
