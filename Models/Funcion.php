@@ -107,7 +107,7 @@
 		public function getFecha(){
 			$timestamp = $this->getFechaHora();
 			$datetime = explode(" ",$timestamp);
-			return $datetime[0];	
+			return $datetime[0];
 		}
 
 		public function getHora(){

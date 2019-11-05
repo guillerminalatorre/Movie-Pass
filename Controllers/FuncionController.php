@@ -69,30 +69,32 @@
 
 			$fechaHora = $fecha." ". $hora;
 
-			if($idPelicula)
-			{
-				if($this->checkAvailableTime($idCine,$idPelicula,$fechaHora))
-				{
-					$funcion = new Funcion();
-					$funcion->setIdCine($idCine);
-					$funcion->setIdPelicula($idPelicula);
-					$funcion->setFechaHora($fechaHora);
-
-					$this->funcionDAO->add($funcion);
-					array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
-					Functions::redirect("Cine","ShowFichaView", $idCine);
-				}
-				else
-				{
-					array_push($_SESSION['flash'], "El horario seleccionado no esta disponible.");
-					Functions::redirect("Funcion","ShowAddView", $idCine);
-				}				
-			}
-			else
+			if($idPelicula == null)
 			{
 				array_push($_SESSION['flash'], "Debes seleccionar una pelicula.");
 				Functions::redirect("Funcion","ShowAddView", $idCine);
-			}			
+			}
+
+			if(!$this->checkAvailableTime($idCine,$idPelicula,$fechaHora))
+			{
+				array_push($_SESSION['flash'], "Existe una funcion en ese rango horario.");
+				Functions::redirect("Funcion","ShowAddView", $idCine);
+			}
+
+			if(!$this->checkAvailablePelicula($idCine,$idPelicula,$fechaHora))
+			{
+				array_push($_SESSION['flash'], "La pelicula ya tiene una funcion en otro cine ese mismo dia.");
+				Functions::redirect("Funcion","ShowAddView", $idCine);
+			}
+
+			$funcion = new Funcion();
+			$funcion->setIdCine($idCine);
+			$funcion->setIdPelicula($idPelicula);
+			$funcion->setFechaHora($fechaHora);
+
+			$this->funcionDAO->add($funcion);
+			array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
+			Functions::redirect("Cine","ShowFichaView", $idCine);
 		}
 
 		private function checkAvailableTime($idCine,$idPelicula,$fechaHora)
@@ -122,14 +124,26 @@
 				$peliculaFuncion = $this->peliculaDAO->getPelicula($peliculaFuncion);
 
 				// Obtengo datos de la funcion
-				$fechaHora = $funcion->getFechaHora();
-				$inicioFuncion = strtotime($fechaHora);
+				$inicioFuncion = strtotime($funcion->getFechaHora());
 				$duracion = $peliculaFuncion->getDuracion()+15;
 				$string = "+".$duracion." minutes";
 				$finFuncion = strtotime($string,$inicioFuncion);
 
 				// Calculo si mis tiempos colisionan con otra funcion
 				if(($finFuncion > $inicio && $inicioFuncion < $inicio) || ($inicioFuncion < $fin && $finFuncion > $inicio)) $available = false;
+			}
+			return $available;
+		}
+
+		private function checkAvailablePelicula($idCine,$idPelicula,$fechaHora)
+		{
+			$available = true;
+			$timestamp = strtotime($fechaHora);
+			$fecha = date("Y-m-d", $timestamp);
+			$funcionList = $this->funcionDAO->checkAvailablePelicula($idPelicula,$fecha);
+			foreach($funcionList as $funcion)
+			{
+				if($funcion->getIdCine() != $idCine) $available = false;
 			}
 			return $available;
 		}
