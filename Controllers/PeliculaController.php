@@ -53,6 +53,12 @@ class PeliculaController extends Administrable
 		require_once(VIEWS_PATH."pelicula/pelicula-api.php");
 	}
 
+	public function SearchMovies($title){
+		$peliculaList=array();
+		$peliculaList = $this->callSearchMovie($title);
+		require_once(VIEWS_PATH."pelicula/pelicula-api.php");
+	}
+
 	public function updatePelicula($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
 	{
 		if(!$this->loggedIn()) Functions::redirect("Home");
@@ -181,6 +187,41 @@ class PeliculaController extends Administrable
 			return true;
 		}
 		return false;
+	}
+
+	public function callSearchMovie($title){
+		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "query"=>$title);
+
+		$peliculaList=array();
+
+		$get_data = TMDBController::callAPI('GET', API . '/search/movie', $arrayReque);
+
+		$arrayToDecode = json_decode($get_data, true);
+
+		foreach ($arrayToDecode["results"] as $valuesArray) 
+		{
+			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == NULL)
+			{			
+				$pelicula = new Pelicula();
+
+				$pelicula->setIdTMDB($valuesArray["id"]);
+				if($valuesArray["poster_path"] != NULL)
+				{
+					$posterPath = "https://image.tmdb.org/t/p/w500".$valuesArray["poster_path"];
+				}
+				else 
+				{
+					$posterPath = FRONT_ROOT.IMG_PATH."noImage.jpg";
+				}
+				$pelicula->setPoster($posterPath);			
+				$pelicula->setTitulo($valuesArray["title"]);
+				$pelicula->setPopularidad($valuesArray["vote_average"]);
+				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);
+
+				array_push($peliculaList, $pelicula);				
+			}
+		}
+		return $peliculaList;
 	}
 
 	private function getMovieDetailsFromApi($idTMDB)
