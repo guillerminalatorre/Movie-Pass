@@ -128,11 +128,12 @@ class CompraController extends Administrable
 		$listCompras = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
 		$compra = array_pop($listCompras);
 		$idCompra = $compra->getId();
-		for ($i = $cantidad; $i > 0; $i--) {
+		for ($i = 1; $i <= $cantidad; $i++)
+		{
 			$entrada = new Entrada();
 			$entrada->setIdCompra($idCompra);
 			$entrada->setIdFuncion($idFuncion);
-			$entrada->setQr($idCine."-".$idFuncion."-".$idCompra);
+			$entrada->setQr($idCine."-".$idFuncion."-".$idCompra."-".$i);
 			$this->entradaDAO->add($entrada);
 		}
 		array_push($_SESSION['flash'], "Se han generado ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!");
