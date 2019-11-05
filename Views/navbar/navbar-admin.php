@@ -1,5 +1,3 @@
-<?php require_once "navbar-user.php"; ?>
-
 <li class="nav-item">
     <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Pelicula/ShowListView">Peliculas</a>
 </li>

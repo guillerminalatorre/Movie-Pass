@@ -23,7 +23,7 @@
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Hora</th>
                                     <th scope="col">Ent. Vendidas</th>
-                                    <?php if($idPelicula != null) { ?><th scope="col" style="text-align:right">Efectuar compra</th>
+                                    <?php if($idPelicula != null && $esAdmin == false) { ?><th scope="col" style="text-align:right">Efectuar compra</th>
                                     <?php } else { ?><th scope="col" style="text-align:right">Accion</th><?php } ?>
                                 </tr>
                             </thead>
