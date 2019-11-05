@@ -220,6 +220,9 @@
 			$funciones = array();
 			$cineList = array();
 			$pelicula = new Pelicula();
+
+			$esAdmin = $this->isAdmin();
+
 			if($idPelicula != NULL)
 			{
 				$pelicula->setId($idPelicula);
