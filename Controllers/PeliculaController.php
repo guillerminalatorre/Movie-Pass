@@ -226,7 +226,11 @@ class PeliculaController extends Administrable
 				$pelicula->setPoster($posterPath);			
 				$pelicula->setTitulo($valuesArray["title"]);
 				$pelicula->setPopularidad($valuesArray["vote_average"]);
-				$pelicula->setFechaDeEstreno($valuesArray["release_date"]);
+				if(isset($valuesArray["release_date"]) && ($valuesArray["release_date"]!=NULL)){
+					$pelicula->setFechaDeEstreno($valuesArray["release_date"]);
+				}else{
+					$pelicula ->setFechaDeEstreno("0000-00-00");
+				};
 
 				array_push($peliculaList, $pelicula);				
 			}
