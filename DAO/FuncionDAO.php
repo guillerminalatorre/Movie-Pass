@@ -230,6 +230,29 @@ class FuncionDAO
 		}
 	}
 
+	public function checkAvailablePelicula($idPelicula,$fecha)
+	{
+		try
+		{
+			$list = array();
+			$query = "SELECT id_cine FROM ".$this->tableName." WHERE id_pelicula = ".$idPelicula." AND fecha_hora LIKE '".$fecha."%';";
+			$this->connection = Connection::GetInstance();
+			$resultSet = $this->connection->Execute($query);
+			
+			foreach ($resultSet as $row)
+			{
+				$funcion = new Funcion();
+				$funcion->setIdCine($row["id_cine"]);
+				array_push($list, $funcion);
+			}
+			return $list;
+		}
+		catch(Exception $ex)
+		{
+			return null;
+		}
+	}
+
 	public function getDistinctCineByPelicula($idPelicula)
 	{
 		try
