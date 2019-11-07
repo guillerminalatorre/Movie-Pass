@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 movie-card">
+<div class="<?php if($carrousel == false) { ?>col-xs-12 col-sm-6 col-md-6 col-lg-4<?php } ?> movie-card">
     <div class="card movie-card-height shadow">
         <div class="card-header" >
             <img class="card-img mb-4" src="<?php echo $values->getPoster(); ?>" alt="Poster image">
