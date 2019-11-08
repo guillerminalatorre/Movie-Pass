@@ -12,18 +12,20 @@
 		{
 			try 
 			{
-				$query = "INSERT INTO " . $this->tableName . " (id_cine, id_pelicula, fecha_hora) VALUES (:id_cine, :id_pelicula, :fecha_hora);";
+				$query = "INSERT INTO " . $this->tableName . " (id_cine, id_sala, id_pelicula, fecha_hora) VALUES (:id_cine, :id_sala, :id_pelicula, :fecha_hora);";
 
 				$parameters["id_cine"] = $funcion->getIdCine();
+				$parameters["id_sala"] = $funcion->getIdSala();
 				$parameters["id_pelicula"] = $funcion->getIdPelicula();
 				$parameters["fecha_hora"] = $funcion->getFechaHora();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			} 
 			catch (Exception $ex) 
 			{
-				return null;
+				return false;
 			}
 		}
 
@@ -37,10 +39,11 @@
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			} 
 			catch (Exception $ex) 
 			{
-				return null;
+				return false;
 			}
 		}
 
@@ -57,6 +60,7 @@
 					$funcion = new Funcion();
 					$funcion->setId($row["id_funcion"]);
 					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
 					$funcion->setIdPelicula($row["id_pelicula"]);
 					$funcion->setFechaHora($row["fecha_hora"]);
 					array_push($list, $funcion);
@@ -122,14 +126,15 @@
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
-				foreach ($resultSet as $row) {
+				foreach ($resultSet as $row) 
+				{
 					$funcion->setId($row["id_funcion"]);
 					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
 					$funcion->setIdPelicula($row["id_pelicula"]);
 					$funcion->setFechaHora($row["fecha_hora"]);
 					return $funcion;
 				}
-				return null;
 			} 
 			catch (Exception $ex) 
 			{
@@ -151,6 +156,7 @@
 					$funcion = new Funcion();
 					$funcion->setId($row["id_funcion"]);
 					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
 					$funcion->setIdPelicula($row["id_pelicula"]);
 					$funcion->setFechaHora($row["fecha_hora"]);
 					array_push($list, $funcion);
@@ -178,6 +184,7 @@
 					$funcion = new Funcion();
 					$funcion->setId($row["id_funcion"]);
 					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
 					$funcion->setIdPelicula($row["id_pelicula"]);
 					$funcion->setFechaHora($row["fecha_hora"]);
 					array_push($list, $funcion);
@@ -204,6 +211,7 @@
 					$funcion = new Funcion();
 					$funcion->setId($row["id_funcion"]);
 					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
 					$funcion->setIdPelicula($row["id_pelicula"]);
 					$funcion->setFechaHora($row["fecha_hora"]);
 					array_push($list, $funcion);
@@ -267,19 +275,21 @@
 		{
 			try 
 			{
-				$query = "UPDATE " . $this->tableName . " SET id_cine = :id_cine, id_pelicula = :id_pelicula, fecha_hora = :fecha_hora WHERE id_funcion = :id_funcion;";
+				$query = "UPDATE " . $this->tableName . " SET id_cine = :id_cine, id_sala = :id_sala, id_pelicula = :id_pelicula, fecha_hora = :fecha_hora WHERE id_funcion = :id_funcion;";
 
 				$parameters["id_cine"] = $funcion->getIdCine();
+				$parameters["id_sala"] = $funcion->getIdSala();
 				$parameters["id_pelicula"] = $funcion->getIdPelicula();
 				$parameters["fecha_hora"] = $funcion->getFechaHora();
 				$parameters["id_funcion"] = $funcion->getId();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			} 
 			catch (Exception $ex) 
 			{
-				return null;
+				return false;
 			}
 		}
 	}

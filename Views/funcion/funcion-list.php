@@ -12,8 +12,8 @@
     <td>
     <?php 
         $sala->setId($funcion->getIdSala());
-        $sala = $this->salaDAO->getSala();
-        echo $sala->getNombre." (".$sala->getCapacidad().")";
+        $sala = $this->salaDAO->getSala($sala);
+        echo $sala->getNombre();
     ?>    
     </td>
     <td><?php echo $funcion->getFecha();?></td>
@@ -22,7 +22,7 @@
     <?php
     echo count($this->entradaDAO->getByFuncion($funcion));
     echo "/";
-    echo $cine->getCapacidad();
+    echo $sala->getCapacidad();
     ?>
     </td>
     <?php if(isset($idPelicula) && $idPelicula != null) { ?>
