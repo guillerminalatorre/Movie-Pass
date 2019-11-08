@@ -42,12 +42,14 @@
 			$salaList = $this->salaDAO->getByCine($cine);
 			if(!isset($salaList) || count($salaList) == 0)
 			{
+				$_SESSION['flash'] = array();
 				array_push($_SESSION['flash'], "El cine no tiene salas.");
 				Functions::redirect("Cine", "ShowFichaView", $idCine);
 			}
 			$peliculaList = $this->peliculaDAO->getAll();
 			if(!isset($peliculaList) || count($peliculaList) == 0)
 			{
+				$_SESSION['flash'] = array();
 				array_push($_SESSION['flash'], "No existen peliculas en la base de datos.");
 				Functions::redirect("Cine", "ShowFichaView", $idCine);
 			}

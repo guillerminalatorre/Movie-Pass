@@ -53,6 +53,13 @@
 			$cine = new Cine();
 			$cine->setId($id);
 			$cine = $this->cineDAO->getCine($cine);
+			if($cine == null)
+			{
+				$_SESSION['flash'] = array();
+				array_push($_SESSION['flash'], "El cine no existe.");
+				Functions::redirect("Cine","ShowListView");
+			}
+			
 			$pelicula = new Pelicula();
 			$salaList = $this->salaDAO->getByCine($cine);
 			$funcionList = $this->funcionDAO->getByCine($cine);
@@ -67,6 +74,12 @@
 			$cine = new Cine();
 			$cine->setId($id);
 			$cine = $this->cineDAO->getCine($cine);
+			if($cine == null)
+			{
+				array_push($_SESSION['flash'], "El cine no existe.");
+				Functions::redirect("Cine","ShowListView");
+			}
+
 			require_once(VIEWS_PATH."cine/cine-edit.php");
 		}
 
@@ -92,8 +105,9 @@
 
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
-			$this->cineDAO->edit($cine);
-			array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
+			if($this->cineDAO->edit($cine)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
+			else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
+			
 			Functions::redirect("Cine","ShowFichaView", $cine->getId());
 		}
 
@@ -107,9 +121,10 @@
 			$_SESSION['flash'] = array();
 			$cine = new Cine();
 			$cine->setId($id);
-			$this->cineDAO->remove($cine);
 
-			array_push($_SESSION['flash'], "El cine se ha eliminado correctamente.");
+			if($this->cineDAO->remove($cine)) array_push($_SESSION['flash'], "El cine se ha eliminado correctamente.");
+			else array_push($_SESSION['flash'], "Hubo un error al eliminar el cine.");
+
 			Functions::redirect("Cine","ShowListView");
 		}
 
@@ -132,8 +147,10 @@
 			$cine = new Cine();
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
-			$this->cineDAO->add($cine);
-			array_push($_SESSION['flash'], "El cine se ha creado correctamente.");
+
+			if($this->cineDAO->add($cine)) array_push($_SESSION['flash'], "El cine se ha creado correctamente.");
+			else array_push($_SESSION['flash'], "Hubo un error al crear el cine.");
+
 			Functions::redirect("Cine","ShowListView");
 		}
 	}

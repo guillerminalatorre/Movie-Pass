@@ -100,7 +100,6 @@ class UsuarioController extends Administrable
 		// Imagen de perfil
 		try
 		{
-
 			if($_FILES["image"]["error"] > 0)
 			{
 				$message = "Error: " . $_FILES["image"]["error"] . "<br>";
@@ -203,19 +202,16 @@ class UsuarioController extends Administrable
 			$usuario = new Usuario();
 			$usuario->setId($id);
 			$usuario = $this->usuarioDAO->getUsuario($usuario);
-
-			$this->usuarioDAO->remove($usuario);
-
-			if($_SESSION["loggedUser"]->getId() != $id)
+			if($usuario == null)
 			{
-				array_push($_SESSION['flash'], "El usuario seleccionado fue eliminado.");
-				Functions::redirect("Usuario","ShowListView");
+				array_push($_SESSION['flash'], "El usuario no existe.");
+				Functions::redirect("Home");
 			}
-			else
-			{
-				array_push($_SESSION['flash'], "Tu cuenta ha sido borrada satisfactoriamente.");
-				$this->Logout();
-			}
+
+			if($_SESSION["loggedUser"]->getId() == $id) $this->Logout();
+
+			if($this->usuarioDAO->remove($usuario)) array_push($_SESSION['flash'], "El usuario seleccionado fue eliminado.");
+			else array_push($_SESSION['flash'], "Hubo un error al borrar el usuario.");
 		}
 	}
 
@@ -362,6 +358,7 @@ class UsuarioController extends Administrable
 		$email = $_SESSION["loggedUser"]->getEmail();
 		$_SESSION["loggedUser"] = $this->toggleUserLoginStatus($_SESSION["loggedUser"]);
 		$this->usuarioDAO->edit($_SESSION["loggedUser"]);
+
 		unset($_SESSION["loggedUser"]);
 		
 		array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
@@ -399,23 +396,28 @@ class UsuarioController extends Administrable
 		$usuario->getLoggedIn() ? $usuario->setLoggedIn(0) : $usuario->setLoggedIn(1);
 
 		return $usuario;
-	}	
+	}
 
-	public function toggleAdmin($email)
+	public function toggleAdmin($id)
 	{
 		$_SESSION['flash'] = array();
-		if($this->isMainAdmin())
-		{
-			$usuario = $this->usuarioDAO->getUsuario($email);
+		if(!$this->isMainAdmin()) Functions::redirect("Home");
 
-			if($usuario != null)
-			{
-				//Cambiar rol
-				$usuario->getId_Rol() == 1 ? $usuario->setId_Rol(2) : $usuario->setId_Rol(1);
-				$this->usuarioDAO->edit($usuario);
-			}
+		$usuario = new Usuario();
+		$usuario->setId($id);
+		$usuario = $this->usuarioDAO->getUsuario($usuario);
+		if($usuario == null)
+		{
+			array_push($_SESSION['flash'], "El usuario no existe.");
+			Functions::redirect("Home");
 		}
-		array_push($_SESSION['flash'], "Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
+
+		//Cambiar rol
+		$usuario->getId_Rol() == 1 ? $usuario->setId_Rol(2) : $usuario->setId_Rol(1);
+		
+		if($this->usuarioDAO->edit($usuario)) array_push($_SESSION['flash'], "Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
+		else array_push($_SESSION['flash'], "Hubo un error al cambiar los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
+		
 		Functions::redirect("Usuario","ShowProfileView", $usuario->getId());
 	}
 }

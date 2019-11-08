@@ -14,7 +14,7 @@
 
             <!-- Dar/Quitar admin: Solo si es main admin y no es su propia cuenta -->
             <?php if(($this->isMainAdmin($_SESSION["loggedUser"])) && ($_SESSION["loggedUser"]->getEmail() != $usuario->getEmail())) { ?>
-            <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getEmail(); ?>' ;" class="btn btn-info btn-md mt-2 shadow-sm" role="button">
+            <a onclick = "if(toggleAdmin('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>', <?php $usuario->getId_Rol(); ?>)) href='<?php echo FRONT_ROOT ?>Usuario/toggleAdmin/<?php echo $usuario->getId(); ?>' ;" class="btn btn-info btn-md mt-2 shadow-sm" role="button">
                 <?php if($usuario->getId_Rol() == 1) { ?>Hacer admin<?php } else { ?>Quitar admin<?php } ?>
             </a>
             <?php } ?>
