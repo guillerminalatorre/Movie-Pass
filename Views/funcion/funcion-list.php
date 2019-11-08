@@ -1,11 +1,21 @@
 <tr>
     <td><?php echo $funcion->getId(); ?></td>
-    <?php if(!isset($idPelicula) || $idPelicula == null) {
+
+    <?php 
+    if(!isset($idPelicula) || $idPelicula == null) {
     $pelicula->setId($funcion->getIdPelicula());
     $pelicula = $this->peliculaDAO->getPelicula($pelicula);
     ?>
     <td><?php echo $pelicula->getTitulo(); ?></td>
     <?php } ?>
+
+    <td>
+    <?php 
+        $sala->setId($funcion->getIdSala());
+        $sala = $this->salaDAO->getSala();
+        echo $sala->getNombre." (".$sala->getCapacidad().")";
+    ?>    
+    </td>
     <td><?php echo $funcion->getFecha();?></td>
     <td><?php echo $funcion->getHora();?></td>
     <td>
@@ -31,7 +41,7 @@
         </form>
     <?php } else { ?>
         <td scope="col" style="text-align:right">
-        <a class="btn btn-danger btn-sm shadow-sm" onclick = "if(borrarFuncion('<?php echo $funcion->getId();?>')) href='<?php echo FRONT_ROOT ?>Funcion/eliminarFuncion/<?php echo $funcion->getId(); ?>';">Eliminar Funcion</a>
+        <a class="btn btn-danger btn-sm shadow-sm" onclick = "if(borrarFuncion('<?php echo $funcion->getId();?>')) href='<?php echo FRONT_ROOT ?>Funcion/Remove/<?php echo $funcion->getId(); ?>';">Eliminar Funcion</a>
         </td>
     <?php } ?>
 </tr>

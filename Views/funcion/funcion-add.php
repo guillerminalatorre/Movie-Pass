@@ -6,7 +6,7 @@
             <div class="col-4"><a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $idCine; ?>" role="button">Volver a ficha</a></div>
         </div>
         <h2 class="text-center py-4">Agregar funcion: </h2>
-        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $idCine ?>" method="POST">
+        <form action="<?php echo FRONT_ROOT ?>Funcion/Add/<?php echo $idCine; ?>" method="POST">
             <div class="row">
                 <div class="form-group col">
                     <label for="idCine">Cine:</label>
@@ -17,11 +17,24 @@
             </div>
             <div class="row">
                 <div class="form-group col">
+                    <label for="idPelicula">Sala:</label>
+                </div>
+                <div class="col-8">
+                    <select name="idPelicula" class="form-control" required>
+                        <option value="" selected>Elegir sala</option>
+                        <?php foreach ($salaList as $salaValue) { ?>
+                            <option value="<?php echo $salaValue->getId(); ?>"> <?php echo $salaValue->getNombre(); ?> (Capacidad: <?php echo $salaValue->getCapacidad(); ?>)</option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
                     <label for="idPelicula">Pelicula:</label>
                 </div>
                 <div class="col-8">
                     <select name="idPelicula" class="form-control" required>
-                        <option value="0" selected>Elegir pelicula</option>
+                        <option value="" selected>Elegir pelicula</option>
                         <?php foreach ($peliculaList as $peliculaValue) { ?>
                             <option value="<?php echo $peliculaValue->getId(); ?>"> <?php echo $peliculaValue->getTitulo(); ?></option>
                         <?php } ?>

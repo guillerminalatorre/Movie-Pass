@@ -1,19 +1,13 @@
 <?php
+	namespace Controllers;
 
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:05:37
- */
+	use Models\Usuario as Usuario;
 
-namespace Controllers;
-
-use Models\Usuario as Usuario;
-
-class HomeController
-{
-	public function Index()
+	class HomeController
 	{
-		Functions::redirect("Funcion","ShowMovies");
+		public function Index()
+		{
+			Functions::redirect("Funcion","ShowMovies");
+		}
 	}
-}
+?>

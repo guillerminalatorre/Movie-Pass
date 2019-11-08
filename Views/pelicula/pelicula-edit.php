@@ -1,7 +1,7 @@
 <div class="modal" id="modal<?php echo $pelicula->getId(); ?>">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<?php echo FRONT_ROOT ?>Pelicula/updatePelicula" method="post" enctype="multipart/form-data">
+            <form action="<?php echo FRONT_ROOT ?>Pelicula/Update" method="post" enctype="multipart/form-data">
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Editar <?php echo $pelicula->getTitulo(); ?></h4>

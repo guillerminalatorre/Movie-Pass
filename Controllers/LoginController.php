@@ -1,31 +1,25 @@
 <?php
+	namespace Controllers;
 
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:05:37
- */
+	use Models\Usuario as Usuario;
+	use API\FBController as FBController;
 
-namespace Controllers;
-
-use Models\Usuario as Usuario;
-use API\FBController as FBController;
-
-class LoginController extends Administrable
-{
-    public function Index()
+	class LoginController extends Administrable
 	{
-		$_SESSION['flash'] = array();
-		if($this->loggedIn()) Functions::redirect("Home");
-		
-		$facebookLoginUrl = $this->getFacebookLoginUrl();
-		require_once(VIEWS_PATH."usuario/login.php");
-	}
+		public function Index()
+		{
+			$_SESSION['flash'] = array();
+			if($this->loggedIn()) Functions::redirect("Home");
+			
+			$facebookLoginUrl = $this->getFacebookLoginUrl();
+			require_once(VIEWS_PATH."usuario/login.php");
+		}
 
-	private function getFacebookLoginUrl()
-	{
-		$fb = FBController::getFacebookAPI();
-		$helper = $fb->getRedirectLoginHelper();
-		return $helper->getLoginUrl(PROTOCOL.WWW.FRONT_ROOT."Usuario/FacebookLogin");
+		private function getFacebookLoginUrl()
+		{
+			$fb = FBController::getFacebookAPI();
+			$helper = $fb->getRedirectLoginHelper();
+			return $helper->getLoginUrl(PROTOCOL.WWW.FRONT_ROOT."Usuario/FacebookLogin");
+		}
 	}
-}
+?>

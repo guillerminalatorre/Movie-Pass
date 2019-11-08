@@ -1,9 +1,6 @@
 <?php
 namespace Controllers;
 
-use DAO\UsuarioDAO as UsuarioDAO;
-use Models\Usuario as Usuario;
-
 abstract class Administrable
 {
     public function loggedIn()
@@ -42,3 +39,4 @@ abstract class Administrable
 		return $rol;
 	}
 }
+?>

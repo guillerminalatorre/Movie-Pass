@@ -21,22 +21,6 @@
                     <input type="text" class="form-control" name="direccion" required>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col text-right">
-                    <label for="capacidad">Capacidad:</label>
-                </div>
-                <div class="col-8">
-                    <input type="number" class="form-control" name="capacidad" min="1" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col text-right">
-                    <label for="precio">Precio: $</label>
-                </div>
-                <div class="col-8">
-                    <input type="number" class="form-control" name="precio" min="1" required>
-                </div>
-            </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm"><i class="fa fa-plus-circle"></i> Agregar cine</button>
         </form>
     </div>
