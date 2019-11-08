@@ -69,7 +69,7 @@ class PeliculaController extends Administrable
 	}
 
 
-	public function updatePelicula($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
+	public function Update($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
 	{
 		if(!$this->loggedIn()) Functions::redirect("Home");
 		if(!$this->isAdmin()) Functions::redirect("Home");

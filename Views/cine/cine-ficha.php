@@ -17,8 +17,7 @@
 
             <ul class="list-group mt-4">
                 <li class="list-group-item">Direccion: <?php echo $cine->getDireccion(); ?></li>
-                <li class="list-group-item">Capacidad: <?php echo $cine->getCapacidad(); ?></li>
-                <li class="list-group-item">Precio: <?php echo $cine->getPrecio(); ?></li>
+                <li class="list-group-item">Salas: <?php echo count($salaList); ?></li>
             </ul>
         </div>
 
@@ -57,6 +56,7 @@
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">Pelicula</th>
+                        <th scope="col">Sala</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Hora</th>
                         <th scope="col">Ent. Vendidas</th>

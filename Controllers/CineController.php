@@ -70,19 +70,20 @@
 			require_once(VIEWS_PATH."cine/cine-edit.php");
 		}
 
-		public function updateCine($nombre, $direccion, $capacidad, $precio)
+		public function Update($id, $nombre, $direccion)
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
 			if(!$this->isAdmin()) Functions::redirect("Home");
 
 			$_SESSION['flash'] = array();
 
+			$id = Functions::validateData($id);
 			$nombre = Functions::validateData($nombre);
 			$direccion = Functions::validateData($direccion);
-			$capacidad = Functions::validateData($capacidad);
-			$precio = Functions::validateData($precio);
 
-			$cine = $this->cineDAO->getByNombre($nombre);
+			$cine = new Cine();
+			$cine->setId($id);
+			$cine = $this->cineDAO->getCine($cine);
 			if($cine == null)
 			{
 				array_push($_SESSION['flash'], "El cine no existe.");
@@ -91,8 +92,6 @@
 
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
-			$cine->setCapacidad($capacidad);
-			$cine->setPrecio($precio);
 			$this->cineDAO->edit($cine);
 			array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
 			Functions::redirect("Cine","ShowFichaView", $cine->getId());
@@ -103,6 +102,8 @@
 			if(!$this->loggedIn()) Functions::redirect("Home");
 			if(!$this->isAdmin()) Functions::redirect("Home");
 
+			$id = Functions::validateData($id);
+
 			$_SESSION['flash'] = array();
 			$cine = new Cine();
 			$cine->setId($id);
@@ -112,7 +113,7 @@
 			Functions::redirect("Cine","ShowListView");
 		}
 
-		public function Add($nombre, $direccion, $capacidad, $precio)
+		public function Add($nombre, $direccion)
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
 			if(!$this->isAdmin()) Functions::redirect("Home");
@@ -121,8 +122,6 @@
 			
 			$nombre = Functions::validateData($nombre);
 			$direccion = Functions::validateData($direccion);
-			$capacidad = Functions::validateData($capacidad);
-			$precio = Functions::validateData($precio);
 
 			if($this->cineDAO->getByNombre($nombre))
 			{
@@ -133,8 +132,6 @@
 			$cine = new Cine();
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
-			$cine->setCapacidad($capacidad);
-			$cine->setPrecio($precio);
 			$this->cineDAO->add($cine);
 			array_push($_SESSION['flash'], "El cine se ha creado correctamente.");
 			Functions::redirect("Cine","ShowListView");

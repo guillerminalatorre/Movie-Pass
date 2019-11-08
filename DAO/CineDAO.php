@@ -13,12 +13,10 @@
 		{
 			try
 			{
-				$query = "INSERT INTO ".$this->tableName." (nombre, direccion, capacidad, precio) VALUES (:nombre, :direccion, :capacidad, :precio);";
+				$query = "INSERT INTO ".$this->tableName." (nombre, direccion) VALUES (:nombre, :direccion);";
 				
 				$parameters["nombre"]=$cine->getNombre();
 				$parameters["direccion"]=$cine->getDireccion();
-				$parameters["capacidad"]=$cine->getCapacidad();
-				$parameters["precio"]=$cine->getPrecio();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
@@ -61,8 +59,6 @@
 					$cine->setId($row["id_cine"]);
 					$cine->setNombre($row["nombre"]);
 					$cine->setDireccion($row["direccion"]);
-					$cine->setCapacidad($row["capacidad"]);
-					$cine->setPrecio($row["precio"]);
 
 					array_push($list, $cine);
 				}
@@ -88,8 +84,6 @@
 					$cine->setId($row["id_cine"]);
 					$cine->setNombre($row["nombre"]);
 					$cine->setDireccion($row["direccion"]);
-					$cine->setCapacidad($row["capacidad"]);
-					$cine->setPrecio($row["precio"]);
 
 					return $cine;
 				}
@@ -101,11 +95,11 @@
 			}
 		}
 
-		public function getById($id)
+		public function getByNombre($cine)
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = '".$id."';";
+				$query = "SELECT * FROM ".$this->tableName." WHERE nombre = '".$cine->getNombre()."';";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 				
@@ -115,33 +109,6 @@
 					$cine->setId($row["id_cine"]);
 					$cine->setNombre($row["nombre"]);
 					$cine->setDireccion($row["direccion"]);
-					$cine->setCapacidad($row["capacidad"]);
-					$cine->setPrecio($row["precio"]);
-					return $cine;
-				}
-			}
-			catch(Exception $ex)
-			{
-				return null;
-			}
-		}
-
-		public function getByNombre($nombre)
-		{
-			try
-			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE nombre = '".$nombre."';";
-				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
-				
-				foreach ($resultSet as $row)
-				{
-					$cine = new Cine();
-					$cine->setId($row["id_cine"]);
-					$cine->setNombre($row["nombre"]);
-					$cine->setDireccion($row["direccion"]);
-					$cine->setCapacidad($row["capacidad"]);
-					$cine->setPrecio($row["precio"]);
 					return $cine;
 				}
 				return null;
@@ -156,13 +123,11 @@
 		{
 			try
 			{
-				$query = "UPDATE ".$this->tableName." SET id_cine = :id_cine, nombre = :nombre, direccion = :direccion, capacidad = :capacidad, precio = :precio WHERE id_cine =".$cine->getId().";";
+				$query = "UPDATE ".$this->tableName." SET id_cine = :id_cine, nombre = :nombre, direccion = :direccion WHERE id_cine =".$cine->getId().";";
 
 				$parameters["id_cine"] = $cine->getId();
 				$parameters["nombre"]= $cine->getNombre();
 				$parameters["direccion"]= $cine->getDireccion();
-				$parameters["capacidad"]=$cine->getCapacidad();
-				$parameters["precio"]=$cine->getPrecio();
 				$parameters["id_cine"] = $cine->getId();
 
 				$this->connection = Connection::GetInstance();

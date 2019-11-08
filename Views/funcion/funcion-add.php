@@ -17,6 +17,19 @@
             </div>
             <div class="row">
                 <div class="form-group col">
+                    <label for="idPelicula">Sala:</label>
+                </div>
+                <div class="col-8">
+                    <select name="idPelicula" class="form-control" required>
+                        <option value="" selected>Elegir sala</option>
+                        <?php foreach ($salaList as $salaValue) { ?>
+                            <option value="<?php echo $salaValue->getId(); ?>"> <?php echo $salaValue->getNombre(); ?> (Capacidad: <?php echo $salaValue->getCapacidad(); ?>)</option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
                     <label for="idPelicula">Pelicula:</label>
                 </div>
                 <div class="col-8">

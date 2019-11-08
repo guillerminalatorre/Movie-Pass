@@ -3,10 +3,12 @@
 
 	use Models\Funcion as Funcion;
 	use Models\Cine as Cine;
+	use Models\Sala as Sala;
 	use Models\Pelicula as Pelicula;
 	use Models\Entrada as Entrada;
 	use DAO\FuncionDAO as FuncionDAO;
 	use DAO\CineDAO as CineDAO;
+	use DAO\SalaDAO as SalaDAO;
 	use DAO\PeliculaDAO as PeliculaDAO;
 	use DAO\GeneroDAO as GeneroDAO;
 	use DAO\EntradaDAO as EntradaDAO;
@@ -15,6 +17,7 @@
 	{
 		private $funcionDAO;
 		private $cineDAO;
+		private $salaDAO;
 		private $peliculaDAO;
 		private $generoDAO;
 		private $entradaDAO;
@@ -23,6 +26,7 @@
 		{
 			$this->funcionDAO = new FuncionDAO();
 			$this->cineDAO = new CineDAO();
+			$this->salaDAO = new SalaDAO();
 			$this->peliculaDAO = new PeliculaDAO();
 			$this->generoDAO = new GeneroDAO();
 			$this->entradaDAO = new EntradaDAO();
@@ -33,7 +37,20 @@
 			if (!$this->loggedIn()) Functions::redirect("Home");
 			if (!$this->isAdmin()) Functions::redirect("Home");
 
+			$cine = new Cine();
+			$cine->setId($idCine);
+			$salaList = $this->salaDAO->getByCine($cine);
+			if(!isset($salaList) || count($salaList) == 0)
+			{
+				array_push($_SESSION['flash'], "El cine no tiene salas.");
+				Functions::redirect("Cine", "ShowFichaView", $idCine);
+			}
 			$peliculaList = $this->peliculaDAO->getAll();
+			if(!isset($peliculaList) || count($peliculaList) == 0)
+			{
+				array_push($_SESSION['flash'], "No existen peliculas en la base de datos.");
+				Functions::redirect("Cine", "ShowFichaView", $idCine);
+			}
 			require_once(VIEWS_PATH . "funcion/funcion-add.php");
 		}
 
@@ -143,8 +160,11 @@
 			$funciones = $this->funcionDAO->getDistinctPeliculas();
 			$generoList = $this->generoDAO->getAll();
 			$peliculaList = array();
-			foreach ($funciones as $funcion) {
-				$pelicula = $this->peliculaDAO->getById($funcion->getIdPelicula());
+			foreach ($funciones as $funcion) 
+			{
+				$pelicula = new Pelicula();
+				$pelicula->setId($funcion->getIdPelicula());
+				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 				array_push($peliculaList, $pelicula);
 			}
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
@@ -158,38 +178,56 @@
 			$pelicula = new Pelicula();
 			$peliculaList = array();
 
-			if ($idGenero != "none" && $chosenDate != null) {
-				foreach ($funciones as $funcion) {
-					if ($chosenDate == $funcion->getFecha()) {
+			if ($idGenero != "none" && $chosenDate != null) 
+			{
+				foreach ($funciones as $funcion) 
+				{
+					if ($chosenDate == $funcion->getFecha()) 
+					{
 						$idPelicula = $funcion->getIdPelicula();
 						$generos = $this->peliculaDAO->getGeneros($pelicula->setId($idPelicula));
-						if (in_array($idGenero, $generos)) {
-							$pelicula = $this->peliculaDAO->getById($idPelicula);
-							if (!in_array($pelicula, $peliculaList)) {
+						if (in_array($idGenero, $generos)) 
+						{
+							$pelicula->setId($funcion->getIdPelicula());
+							$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+							if (!in_array($pelicula, $peliculaList)) 
+							{
 								array_push($peliculaList, $pelicula);
 							}
 						}
 					}
 				}
-			} else {
-				if ($idGenero != "none") {
-					foreach ($funciones as $funcion) {
+			} else 
+			{
+				if ($idGenero != "none") 
+				{
+					foreach ($funciones as $funcion) 
+					{
 						$idPelicula = $funcion->getIdPelicula();
 						$generos = $this->peliculaDAO->getGeneros($pelicula->setId($idPelicula));
-
-						if (in_array($idGenero, $generos)) {
-							$pelicula = $this->peliculaDAO->getById($idPelicula);
-							if (!in_array($pelicula, $peliculaList)) {
+						if (in_array($idGenero, $generos)) 
+						{
+							$pelicula->setId($funcion->getIdPelicula());
+							$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+							if (!in_array($pelicula, $peliculaList)) 
+							{
 								array_push($peliculaList, $pelicula);
 							}
 						}
 					}
-				} else {
-					if ($chosenDate != null) {
-						foreach ($funciones as $funcion) {
-							if ($chosenDate == $funcion->getFecha()) {
-								$pelicula = $this->peliculaDAO->getById($funcion->getIdPelicula());
-								if (!in_array($pelicula, $peliculaList)) {
+				} 
+				else 
+				{
+					if ($chosenDate != null) 
+					{
+						foreach ($funciones as $funcion)
+						{
+							if ($chosenDate == $funcion->getFecha()) 
+							{
+								$pelicula->setId($funcion->getIdPelicula());
+								$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+								if (!in_array($pelicula, $peliculaList)) 
+								{
 									array_push($peliculaList, $pelicula);
 								}
 							}
@@ -207,15 +245,19 @@
 			$funciones = array();
 			$cineList = array();
 			$pelicula = new Pelicula();
+			$sala = new Sala();
 
 			$esAdmin = $this->isAdmin();
 
-			if ($idPelicula != NULL) {
+			if ($idPelicula != NULL) 
+			{
 				$pelicula->setId($idPelicula);
 				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 				$funciones = $this->funcionDAO->getByPelicula($pelicula);
 				$cineList = $this->funcionDAO->getDistinctCineByPelicula($pelicula->getId());
-			} else {
+			}
+			else 
+			{
 				$funciones = $this->funcionDAO->getDistinctPeliculas();
 				$cineList = $this->funcionDAO->getDistinctCines();
 			}

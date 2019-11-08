@@ -10,30 +10,6 @@
         private $connection;
         private $tableName = "Generos";
 
-        public function getAll()
-        {
-            try 
-            {
-                $list = array();
-                $query = "SELECT * FROM " . $this->tableName . " ORDER BY nombre;";
-                $this->connection = Connection::GetInstance();
-                $resultSet = $this->connection->Execute($query);
-
-                foreach ($resultSet as $row)
-                {
-                    $genero = new Genero();
-                    $genero->setId($row["id_genero"]);
-                    $genero->setNombre($row["nombre"]);
-                    array_push($list, $genero);
-                }
-                return $list;
-            } 
-            catch (Exception $ex)
-            {
-                throw $ex;
-            }
-        }
-
         public function add($genero)
         {
             try 
@@ -60,6 +36,30 @@
                 $this->connection->ExecuteNonQuery($query);
             } 
             catch (Exception $ex) 
+            {
+                throw $ex;
+            }
+        }
+
+        public function getAll()
+        {
+            try 
+            {
+                $list = array();
+                $query = "SELECT * FROM " . $this->tableName . " ORDER BY nombre;";
+                $this->connection = Connection::GetInstance();
+                $resultSet = $this->connection->Execute($query);
+
+                foreach ($resultSet as $row)
+                {
+                    $genero = new Genero();
+                    $genero->setId($row["id_genero"]);
+                    $genero->setNombre($row["nombre"]);
+                    array_push($list, $genero);
+                }
+                return $list;
+            } 
+            catch (Exception $ex)
             {
                 throw $ex;
             }

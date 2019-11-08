@@ -2,7 +2,8 @@
 <div class="container-fluid mb-4">
     <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-white rounded shadow p-md-4 p-lg-4 p-xl-4">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
-        <form action="<?php echo FRONT_ROOT ?>Usuario/UpdateUser" method="POST" enctype="multipart/form-data">
+        <form action="<?php echo FRONT_ROOT ?>Usuario/Update/<?php echo $usuario->getId(); ?>" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo $usuario->getId(); ?>">
             <div class="row">
                 <div class="form-group col">
                     <a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Usuario/ShowProfileView/<?php echo $usuario->getId(); ?>" role="button">Volver a perfil</a>
@@ -39,7 +40,7 @@
             <div class="row">
                 <div class="form-group col">
                     <label for="password">Contraseña anterior:</label>
-                    <input type="password" class="form-control" name="previouspassword" required>
+                    <input type="password" class="form-control" name="previouspassword">
                 </div>
             </div>
             <div class="row">

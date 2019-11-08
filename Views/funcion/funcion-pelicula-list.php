@@ -7,7 +7,8 @@
             
             <?php foreach ($cineList as $funcionCine) 
             { 
-                $cine = $this->cineDAO->getById($funcionCine->getIdCine());
+                $cine->setId($funcionCine->getIdCine());
+                $cine = $this->cineDAO->getCine($cine);
                 ?>
                 
                 <div class="container-fluid my-4">
@@ -20,6 +21,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <?php if($idPelicula == null) { ?><th scope="col">Pelicula</th><?php } ?>
+                                    <th scope="col">Sala</th>
                                     <th scope="col">Fecha</th>
                                     <th scope="col">Hora</th>
                                     <th scope="col">Ent. Vendidas</th>

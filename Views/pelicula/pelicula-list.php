@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container container-fluid bg-dark rounded mt-4 my-3 shadow">
+<div class="container-fluid mb-4">
     <?php require_once(VIEWS_PATH . "alert.php"); ?>
-    <div class="text-white p-2">
+    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark text-white rounded shadow p-4">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/SearchByTitle" method="POST">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">

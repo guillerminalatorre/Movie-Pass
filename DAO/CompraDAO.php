@@ -9,10 +9,6 @@
 		private $connection;
 		private $tableName = "Compras";
 
-		/**
-		 * 
-		 * @param funcion
-		 */
 		public function add($compra)
 		{
 			try

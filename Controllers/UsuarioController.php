@@ -51,11 +51,11 @@ class UsuarioController extends Administrable
 		require_once(VIEWS_PATH."usuario/usuario-list.php");
 	}
 
-	public function updateUser($email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
+	public function Update($id, $email, $nombre, $apellido, $dni, $previouspassword, $password, $confirmpassword)
 	{
 		if(!$this->loggedIn()) Functions::redirect("Home");
 		if(!$this->isAdmin()) Functions::redirect("Home");
-		if($id != $_SESSION["loggedUser"]->getId() && !$this->isAdmin()) Functions::redirect("Home");
+		if($id != $_SESSION["loggedUser"]->getEmail() && !$this->isAdmin()) Functions::redirect("Home");
 
 		$_SESSION['flash'] = array();
 
@@ -66,7 +66,9 @@ class UsuarioController extends Administrable
 		$password = Functions::validateData($password);
 		$confirmpassword = Functions::validateData($confirmpassword);
 
-		$usuario = $this->usuarioDAO->getByEmail($email);
+		$usuario = new Usuario();
+		$usuario->setId($id);
+		$usuario = $this->usuarioDAO->getUsuario($usuario);
 		if($usuario == null)
 		{
 			array_push($_SESSION['flash'], "El usuario no existe.");

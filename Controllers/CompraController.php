@@ -3,11 +3,13 @@
 
 	use DAO\CompraDAO as CompraDAO;
 	use DAO\CineDAO as CineDAO;
+	use DAO\SalaDAO as SalaDAO;
 	use DAO\FuncionDAO as FuncionDAO;
 	use DAO\PeliculaDAO as PeliculaDAO;
 	use DAO\EntradaDAO as EntradaDAO;
 	use Models\Compra as Compra;
 	use Models\Cine as Cine;
+	use Models\Sala as Sala;
 	use Models\Funcion as Funcion;
 	use Models\Usuario as Usuario;
 	use Models\Entrada as Entrada;
@@ -17,6 +19,7 @@
 	{
 		private $compraDAO;
 		private $cineDAO;
+		private $salaDAO;
 		private $funcionDAO;
 		private $peliculaDAO;
 		private $entradaDAO;
@@ -25,6 +28,7 @@
 		{
 			$this->compraDAO = new CompraDAO();
 			$this->cineDAO = new CineDAO();
+			$this->salaDAO = new SalaDAO();
 			$this->funcionDAO = new FuncionDAO();
 			$this->peliculaDAO = new PeliculaDAO();
 			$this->entradaDAO = new EntradaDAO();
@@ -46,16 +50,25 @@
 				Functions::redirect("Home");
 			}
 
+			//Datos pelicula
 			$pelicula = new Pelicula();
 			$pelicula->setId($funcion->getIdPelicula());
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 
-			$idCine = $funcion->getIdCine();
 			$fechaHora = $funcion->getFechaHora();
 
 			//Datos cine			
-			$cine = $this->cineDAO->getById($idCine);
-			$precio = $cine->getPrecio();
+			$idCine = $funcion->getIdCine();
+			$cine = new Cine();
+			$cine->setId($idCine);
+			$cine = $this->cineDAO->getCine($cine);
+
+			//Datos sala
+			$idSala = $funcion->getIdSala();
+			$sala = new Sala();
+			$sala->setId($idSala);
+			$sala = $this->salaDAO->getSala($sala);
+			$precio = $sala->getPrecio();
 
 			//Calculos
 			$subtotal = ($precio*$cantidad);
@@ -94,16 +107,25 @@
 				Functions::redirect("Home");
 			}
 
+			//Datos pelicula
 			$pelicula = new Pelicula();
 			$pelicula->setId($funcion->getIdPelicula());
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 
-			$idCine = $funcion->getIdCine();
 			$fechaHora = $funcion->getFechaHora();
 
 			//Datos cine			
-			$cine = $this->cineDAO->getById($idCine);
-			$precio = $cine->getPrecio();
+			$idCine = $funcion->getIdCine();
+			$cine = new Cine();
+			$cine->setId($idCine);
+			$cine = $this->cineDAO->getCine($cine);
+
+			//Datos sala
+			$idSala = $funcion->getIdSala();
+			$sala = new Sala();
+			$sala->setId($idSala);
+			$sala = $this->salaDAO->getSala($sala);
+			$precio = $sala->getPrecio();
 
 			//Calculos
 			$descuento = $this->calcularDescuento($fechaHora, $cantidad);
@@ -137,16 +159,20 @@
 
 		private function validatePay($name,$mmyy,$number,$cvc)
 		{
+			//Validamos numeros de la tarjeta
 			$validateCard = CreditCard::validCreditCard($number);
 			if($validateCard['valid'] == false) return false;
 
+			//Validamos codigo de seguridad
 			$validateCvc = CreditCard::validCvc($cvc, $validateCard['type']);
 			if($validateCvc == false) return false;
 
+			//Validamos fecha de expiracion
 			$date = explode(" / ", $mmyy);
 			$validateDate = CreditCard::validDate("20".$date[1], $date[0]);
 			if(!$validateDate) return false;
 
+			//Si pasa todas las validaciones procesamos la compra
 			array_push($_SESSION['flash'], "Tu compra con tarjeta ".$validateCard['type']." fue procesada con éxito.");
 			return true;
 		}

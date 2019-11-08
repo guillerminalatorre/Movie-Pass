@@ -1,9 +1,4 @@
 <?php
-	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:06:02
-	 */
 	namespace DAO;
 
 	use \Exception as Exception;
@@ -15,10 +10,6 @@
 		private $connection;
         private $tableName = "Usuarios";
 
-		/**
-		 * 
-		 * @param usuario
-		 */
 		public function add($usuario)
 		{
 			try
@@ -51,8 +42,10 @@
         {
 			try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_usuario = ".$usuario->getId().";";
-                
+                $query = "DELETE FROM ".$this->tableName." WHERE id_usuario = :id_usuario;";
+				
+				$parameters["id_usuario"] = $usuario->getId();
+
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
             }

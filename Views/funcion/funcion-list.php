@@ -1,11 +1,21 @@
 <tr>
     <td><?php echo $funcion->getId(); ?></td>
-    <?php if(!isset($idPelicula) || $idPelicula == null) {
+
+    <?php 
+    if(!isset($idPelicula) || $idPelicula == null) {
     $pelicula->setId($funcion->getIdPelicula());
     $pelicula = $this->peliculaDAO->getPelicula($pelicula);
     ?>
     <td><?php echo $pelicula->getTitulo(); ?></td>
     <?php } ?>
+
+    <td>
+    <?php 
+        $sala->setId($funcion->getIdSala());
+        $sala = $this->salaDAO->getSala();
+        echo $sala->getNombre." (".$sala->getCapacidad().")";
+    ?>    
+    </td>
     <td><?php echo $funcion->getFecha();?></td>
     <td><?php echo $funcion->getHora();?></td>
     <td>
