@@ -59,7 +59,7 @@
                         <th scope="col">Sala</th>
                         <th scope="col">Fecha</th>
                         <th scope="col">Hora</th>
-                        <th scope="col">Ent. Vendidas</th>
+                        <th scope="col">Vendido</th>
                         <th scope="col" style="text-align:right">
                             <a class="btn btn-info btn-sm shadow-sm" href="<?php echo FRONT_ROOT ?>Funcion/ShowAddView/<?php echo $cine->getId(); ?>">Agregar función</a>
                         </th>
