@@ -31,7 +31,7 @@
         </form>
     <?php } else { ?>
         <td scope="col" style="text-align:right">
-        <a class="btn btn-danger btn-sm shadow-sm" onclick = "if(borrarFuncion('<?php echo $funcion->getId();?>')) href='<?php echo FRONT_ROOT ?>Funcion/eliminarFuncion/<?php echo $funcion->getId(); ?>';">Eliminar Funcion</a>
+        <a class="btn btn-danger btn-sm shadow-sm" onclick = "if(borrarFuncion('<?php echo $funcion->getId();?>')) href='<?php echo FRONT_ROOT ?>Funcion/Remove/<?php echo $funcion->getId(); ?>';">Eliminar Funcion</a>
         </td>
     <?php } ?>
 </tr>

@@ -1,258 +1,286 @@
 <?php
+	namespace DAO;
 
-/**
- * @author Guille
- * @version 1.0
- * @created 06-oct.-2019 19:06:02
- */
+	use Models\Funcion as Funcion;
 
-namespace DAO;
-
-use Models\Funcion as Funcion;
-use Models\Cine as Cine;
-use Models\Pelicula as Pelicula;
-
-class FuncionDAO
-{
-	private $connection;
-	private $tableName = "Funciones";
-
-	/**
-	 * 
-	 * @param funcion
-	 */
-	public function add($funcion)
+	class FuncionDAO
 	{
-		try {
-			$query = "INSERT INTO " . $this->tableName . " (id_cine, id_pelicula, fecha_hora) VALUES (:id_cine, :id_pelicula, :fecha_hora);";
+		private $connection;
+		private $tableName = "Funciones";
 
-			$parameters["id_cine"] = $funcion->getIdCine();
-			$parameters["id_pelicula"] = $funcion->getIdPelicula();
-			$parameters["fecha_hora"] = $funcion->getFechaHora();
+		public function add($funcion)
+		{
+			try 
+			{
+				$query = "INSERT INTO " . $this->tableName . " (id_cine, id_pelicula, fecha_hora) VALUES (:id_cine, :id_pelicula, :fecha_hora);";
 
-			$this->connection = Connection::GetInstance();
-			$this->connection->ExecuteNonQuery($query, $parameters);
-		} catch (Exception $ex) {
-			return null;
-		}
-	}
+				$parameters["id_cine"] = $funcion->getIdCine();
+				$parameters["id_pelicula"] = $funcion->getIdPelicula();
+				$parameters["fecha_hora"] = $funcion->getFechaHora();
 
-	function remove($funcion)
-	{
-		try {
-			$query = "DELETE FROM " . $this->tableName . " WHERE id_funcion = :id_funcion;";
-
-			$parameters['id_funcion'] = $funcion->getId();
-
-			$this->connection = Connection::GetInstance();
-			$this->connection->ExecuteNonQuery($query, $parameters);
-		} catch (Exception $ex) {
-			return null;
-		}
-	}
-
-	public function getAll()
-	{
-		try {
-			$list = array();
-			$query = "SELECT * FROM " . $this->tableName;
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
-
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setId($row["id_funcion"]);
-				$funcion->setIdCine($row["id_cine"]);
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				$funcion->setFechaHora($row["fecha_hora"]);
-				array_push($list, $funcion);
+				$this->connection = Connection::GetInstance();
+				$this->connection->ExecuteNonQuery($query, $parameters);
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function getDistinctPeliculas()
-	{
-		try {
-			$list = array();
-			$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName;
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
+		function remove($funcion)
+		{
+			try 
+			{
+				$query = "DELETE FROM " . $this->tableName . " WHERE id_funcion = :id_funcion;";
 
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				array_push($list, $funcion);
+				$parameters['id_funcion'] = $funcion->getId();
+
+				$this->connection = Connection::GetInstance();
+				$this->connection->ExecuteNonQuery($query, $parameters);
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function getDistinctCines()
-	{
-		try {
-			$list = array();
-			$query = "SELECT DISTINCT id_cine FROM " . $this->tableName;
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
+		public function getAll()
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT * FROM " . $this->tableName;
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setIdCine($row["id_cine"]);
-				array_push($list, $funcion);
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFechaHora($row["fecha_hora"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function getFuncion($funcion)
-	{
-		try {
-			$query = "SELECT * FROM " . $this->tableName . " WHERE id_funcion = '" . $funcion->getId() . "';";
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
+		public function getDistinctPeliculas()
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName;
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
-				$funcion->setId($row["id_funcion"]);
-				$funcion->setIdCine($row["id_cine"]);
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				$funcion->setFechaHora($row["fecha_hora"]);
-				return $funcion;
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return null;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function getByCine($cine)
-	{
-		try {
-			$list = array();
-			$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . ";";
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
+		public function getDistinctCines()
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT DISTINCT id_cine FROM " . $this->tableName;
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setId($row["id_funcion"]);
-				$funcion->setIdCine($row["id_cine"]);
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				$funcion->setFechaHora($row["fecha_hora"]);
-				array_push($list, $funcion);
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setIdCine($row["id_cine"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
+		public function getFuncion($funcion)
+		{
+			try 
+			{
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_funcion = '" . $funcion->getId() . "';";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
 
-	public function getByPelicula($pelicula)
-	{
-		try {
-
-			$list = array();
-			$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . " AND fecha_hora >= NOW();";
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
-
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setId($row["id_funcion"]);
-				$funcion->setIdCine($row["id_cine"]);
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				$funcion->setFechaHora($row["fecha_hora"]);
-				array_push($list, $funcion);
+				foreach ($resultSet as $row) {
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFechaHora($row["fecha_hora"]);
+					return $funcion;
+				}
+				return null;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function getByCinePelicula($cine, $pelicula)
-	{
-		try {
+		public function getByCine($cine)
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . ";";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
 
-			$list = array();
-			$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . " AND id_pelicula = " . $pelicula->getId() . " AND fecha_hora >= NOW();";
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
-
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setId($row["id_funcion"]);
-				$funcion->setIdCine($row["id_cine"]);
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				$funcion->setFechaHora($row["fecha_hora"]);
-				array_push($list, $funcion);
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFechaHora($row["fecha_hora"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function checkAvailablePelicula($idPelicula, $fecha)
-	{
-		try {
-			$list = array();
-			$query = "SELECT id_cine FROM " . $this->tableName . " WHERE id_pelicula = " . $idPelicula . " AND fecha_hora LIKE '" . $fecha . "%';";
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setIdCine($row["id_cine"]);
-				array_push($list, $funcion);
+		public function getByPelicula($pelicula)
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . " AND fecha_hora >= NOW();";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFechaHora($row["fecha_hora"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
 		}
-	}
 
-	public function getDistinctCineByPelicula($idPelicula)
-	{
-		try {
-			$list = array();
-			$query = "SELECT DISTINCT id_cine, id_pelicula FROM " . $this->tableName . " WHERE id_pelicula = '" . $idPelicula . "'" . " AND fecha_hora>= NOW();";
-			$this->connection = Connection::GetInstance();
-			$resultSet = $this->connection->Execute($query);
+		public function getByCinePelicula($cine, $pelicula)
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . " AND id_pelicula = " . $pelicula->getId() . " AND fecha_hora >= NOW();";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
 
-			foreach ($resultSet as $row) {
-				$funcion = new Funcion();
-				$funcion->setIdCine($row["id_cine"]);
-				$funcion->setIdPelicula($row["id_pelicula"]);
-				array_push($list, $funcion);
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFechaHora($row["fecha_hora"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
 			}
-			return $list;
-		} catch (Exception $ex) {
-			return null;
+		}
+
+		public function checkAvailablePelicula($idPelicula, $fecha)
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT id_cine FROM " . $this->tableName . " WHERE id_pelicula = " . $idPelicula . " AND fecha_hora LIKE '" . $fecha . "%';";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setIdCine($row["id_cine"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
+		}
+
+		public function getDistinctCineByPelicula($idPelicula)
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT DISTINCT id_cine, id_pelicula FROM " . $this->tableName . " WHERE id_pelicula = '" . $idPelicula . "'" . " AND fecha_hora>= NOW();";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
+		}
+
+		public function edit($funcion)
+		{
+			try 
+			{
+				$query = "UPDATE " . $this->tableName . " SET id_cine = :id_cine, id_pelicula = :id_pelicula, fecha_hora = :fecha_hora WHERE id_funcion = :id_funcion;";
+
+				$parameters["id_cine"] = $funcion->getIdCine();
+				$parameters["id_pelicula"] = $funcion->getIdPelicula();
+				$parameters["fecha_hora"] = $funcion->getFechaHora();
+				$parameters["id_funcion"] = $funcion->getId();
+
+				$this->connection = Connection::GetInstance();
+				$this->connection->ExecuteNonQuery($query, $parameters);
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
 		}
 	}
-
-	public function edit($funcion)
-	{
-		try {
-			$query = "UPDATE " . $this->tableName . " SET id_cine = :id_cine, id_pelicula = :id_pelicula, fecha_hora = :fecha_hora WHERE id_funcion = :id_funcion;";
-
-			$parameters["id_cine"] = $funcion->getIdCine();
-			$parameters["id_pelicula"] = $funcion->getIdPelicula();
-			$parameters["fecha_hora"] = $funcion->getFechaHora();
-			$parameters["id_funcion"] = $funcion->getId();
-
-			$this->connection = Connection::GetInstance();
-			$this->connection->ExecuteNonQuery($query, $parameters);
-		} catch (Exception $ex) {
-			return null;
-		}
-	}
-}
+?>

@@ -43,7 +43,7 @@
             }
             catch(Exception $ex)
             {
-                throw $ex;
+                return null;
             }
 		}
 
@@ -58,7 +58,7 @@
             }
             catch(Exception $ex)
             {
-                throw $ex;
+                return null;
             }
         }
 
@@ -94,7 +94,7 @@
             }
             catch(Exception $ex)
             {
-                throw $ex;
+                return null;
             }
 		}
 		
@@ -188,7 +188,7 @@
             }
             catch(Exception $ex)
             {
-                throw $ex;
+                return null;
             }
 		}
 	}

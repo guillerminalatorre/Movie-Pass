@@ -12,6 +12,8 @@
                     <th>Capacidad</th>
                     <th>Precio</th>
                     <th>Funciones</th>
+                    <th>Salas</th>
+                    <th>Ver</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +24,7 @@
                     <td><?php echo $cine->getDireccion(); ?></td>
                     <td><?php echo $cine->getCapacidad(); ?></td>
                     <td><?php echo $cine->getPrecio(); ?></td>
+                    <td><?php echo count($this->salaDAO->getByCine($cine)); ?></td>
                     <td><?php echo count($this->funcionDAO->getByCine($cine)); ?></td>
                     <td><a href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $cine->getId();?>" class="view" title="" data-toggle="tooltip" data-original-title="View Details"><h4><i class="fa fa-arrow-circle-right"></i></h4></a></td>
                 </tr>

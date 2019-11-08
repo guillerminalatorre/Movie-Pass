@@ -1,12 +1,8 @@
 <?php
-	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:05:37
-	 */
 	namespace Controllers;
 
 	use DAO\CineDAO as CineDAO;
+	use DAO\SalaDAO as SalaDAO;
 	use DAO\FuncionDAO as FuncionDAO;
 	use DAO\PeliculaDAO as PeliculaDAO;
 	use DAO\EntradaDAO as EntradaDAO;
@@ -18,6 +14,7 @@
 	class CineController extends Administrable
 	{
 		private $cineDAO;
+		private $salaDAO;
 		private $funcionDAO;
 		private $peliculaDAO;
 		private $entradaDAO;
@@ -25,6 +22,7 @@
 		public function __construct()
 		{
 			$this->cineDAO = new CineDAO();
+			$this->salaDAO = new SalaDAO();
 			$this->funcionDAO = new FuncionDAO();
 			$this->peliculaDAO = new PeliculaDAO();
 			$this->entradaDAO = new EntradaDAO();
@@ -56,6 +54,7 @@
 			$cine->setId($id);
 			$cine = $this->cineDAO->getCine($cine);
 			$pelicula = new Pelicula();
+			$salaList = $this->salaDAO->getByCine($cine);
 			$funcionList = $this->funcionDAO->getByCine($cine);
 			require_once(VIEWS_PATH."cine/cine-ficha.php");
 		}
@@ -99,7 +98,7 @@
 			Functions::redirect("Cine","ShowFichaView", $cine->getId());
 		}
 
-		public function eliminarCine($id)
+		public function Remove($id)
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
 			if(!$this->isAdmin()) Functions::redirect("Home");

@@ -37,7 +37,7 @@
 			require_once(VIEWS_PATH . "funcion/funcion-add.php");
 		}
 
-		public function eliminarFuncion($id)
+		public function Remove($id)
 		{
 			if (!$this->loggedIn()) Functions::redirect("Home");
 			if (!$this->isAdmin()) Functions::redirect("Home");

@@ -24,7 +24,7 @@
             
             <!-- Eliminar cuenta -->
             <?php if(($this->isAdmin() && $usuario->getId() != $_SESSION["loggedUser"]->getId()) || (!$this->isAdmin() && $usuario->getId() == $_SESSION["loggedUser"]->getId())) { ?>
-            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/eliminarUsuario/<?php echo $usuario->getId(); ?>' ;" class="btn btn-danger btn-md mt-2 shadow-sm" role="button">Eliminar</a>
+            <a onclick = "if(borrarUsuario('<?php echo $usuario->getNombre(); ?> <?php echo $usuario->getApellido(); ?>')) href='<?php echo FRONT_ROOT ?>Usuario/Remove/<?php echo $usuario->getId(); ?>' ;" class="btn btn-danger btn-md mt-2 shadow-sm" role="button">Eliminar</a>
             <?php } ?>
 
             <ul class="list-group mt-4">

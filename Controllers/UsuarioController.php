@@ -193,7 +193,7 @@ class UsuarioController extends Administrable
 		$this->Login($email, $password);
 	}
 
-	public function eliminarUsuario($id)
+	public function Remove($id)
 	{
 		$_SESSION['flash'] = array();
 		if(($this->isAdmin() && $id != $_SESSION["loggedUser"]->getId()) || (!$this->isAdmin() && $id == $_SESSION["loggedUser"]->getId()))

@@ -1,10 +1,6 @@
 <?php
-	/**
-	 * @author Guille
-	 * @version 1.0
-	 * @created 06-oct.-2019 19:06:02
-	 */
 	namespace DAO;
+	
     use DAO\Connection as Connection;
 	use Models\Cine as Cine;
 
@@ -13,10 +9,6 @@
 		private $connection;
 		private $tableName = "Cines";		
 		
-		/**
-		 * 
-		 * @param cine
-		 */
 		public function add($cine)
 		{
 			try
