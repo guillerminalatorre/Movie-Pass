@@ -8,7 +8,7 @@ function borrarCine(nombreCine)
 function borrarSala(id,nombre)
 {
     var preg;
-    preg = window.confirm('¿Desea borrar la sala '+nombre+'(ID:'+id+')?');
+    preg = window.confirm('¿Desea borrar la sala '+nombre+' (ID:'+id+')?');
     return preg;
 }
 
