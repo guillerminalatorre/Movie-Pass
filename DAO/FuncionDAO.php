@@ -1,7 +1,8 @@
 <?php
 	namespace DAO;
 
-	use Models\Funcion as Funcion;
+use Exception;
+use Models\Funcion as Funcion;
 	use Models\Genero as Genero;
 
 	class FuncionDAO
@@ -119,13 +120,35 @@
 			}
 		}
 
-		//EN PROCESO
-		public function getFuncionesDisponiblesPorFecha()
+		public function getPeliculasDisponibles()
 		{
 			try 
 			{
 				$list = array();
+				
 				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE (fecha_hora > now())";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
+		}
+
+		public function getPeliculasPorFecha($date)
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE fecha_hora LIKE '" . $date . "%'";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
