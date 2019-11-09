@@ -31,7 +31,7 @@
 			$this->generoDAO = new GeneroDAO();
 			$this->entradaDAO = new EntradaDAO();
 		}
-
+			
 		public function ShowAddView($idCine)
 		{
 			if (!$this->loggedIn()) Functions::redirect("Home");
@@ -163,7 +163,7 @@
 
 		public function ShowMovies()
 		{
-			$funciones = $this->funcionDAO->getDistinctPeliculas();
+			$funciones = $this->funcionDAO->getFuncionesDisponiblesPorFecha();
 			$generoList = $this->generoDAO->getAll();
 			$peliculaList = array();
 			foreach ($funciones as $funcion) 
@@ -268,6 +268,8 @@
 				$funciones = $this->funcionDAO->getDistinctPeliculas();
 				$cineList = $this->funcionDAO->getDistinctCines();
 			}
+			require_once(VIEWS_PATH . "navbar.php");
+			require_once(VIEWS_PATH . "pelicula/movie-details.php");
 			require_once(VIEWS_PATH . "funcion/funcion-pelicula-list.php");
 		}
 	}
