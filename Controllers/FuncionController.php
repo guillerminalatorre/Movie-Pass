@@ -163,7 +163,7 @@
 
 		public function ShowMovies()
 		{
-			$funciones = $this->funcionDAO->getFuncionesDisponiblesPorFecha();
+			$funciones = $this->funcionDAO->getPeliculasDisponibles();
 			$generoList = $this->generoDAO->getAll();
 			$peliculaList = array();
 			foreach ($funciones as $funcion) 
@@ -268,8 +268,6 @@
 				$funciones = $this->funcionDAO->getDistinctPeliculas();
 				$cineList = $this->funcionDAO->getDistinctCines();
 			}
-			require_once(VIEWS_PATH . "navbar.php");
-			require_once(VIEWS_PATH . "pelicula/movie-details.php");
 			require_once(VIEWS_PATH . "funcion/funcion-pelicula-list.php");
 		}
 	}
