@@ -6,9 +6,10 @@
             <!-- Team item -->
             <div class="col-4 mb-5">
                 <div class="bg-white rounded shadow-sm py-4 px-4">
+                    <a class="btn btn-warning mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesPelicula/<?php echo $funcion->getIdPelicula(); ?>" role="button">Volver a funciones</a>
                     <h3 class="title">Items</h3>
                     <ul class="list-group mt-4 mb-4">
-                        <li class="list-group-item"><?php echo $cantidad; ?>x Entrada <?php echo $pelicula->getTitulo(); ?><h5 class="text-right">$<?php echo $cine->getPrecio(); ?></h5></li>
+                        <li class="list-group-item"><?php echo $cantidad; ?>x Entrada <?php echo $pelicula->getTitulo(); ?><h5 class="text-right">$<?php echo $sala->getPrecio(); ?></h5></li>
                     </ul>
                     <h5 class="text-right">Sub-total: <span><?php echo $subtotal; ?></span></h5>
                     <?php if($descuento != 100) { ?>

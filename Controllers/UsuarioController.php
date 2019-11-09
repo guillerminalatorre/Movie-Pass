@@ -134,8 +134,8 @@ class UsuarioController extends Administrable
 		}
 		// Fin imagen de perfil
 
-		$this->usuarioDAO->edit($usuario);
-		array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");		
+		if($this->usuarioDAO->edit($usuario)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
+		else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
 		Functions::redirect("Usuario","ShowProfileView", $usuario->getId());
 	}
 
@@ -156,6 +156,7 @@ class UsuarioController extends Administrable
 		$apellido = Functions::validateData($apellido);		
 		$password = Functions::validateData($password);
 		$confirmpassword = Functions::validateData($confirmpassword);
+		
 		if($password != $confirmpassword)
 		{
 			array_push($_SESSION['flash'], "Las password ingresadas no coinciden.");
@@ -189,9 +190,12 @@ class UsuarioController extends Administrable
 			$usuario->setImage(IMG_PATH."avatar.png");
 		}
 
-		$this->usuarioDAO->add($usuario);
-
-		$this->Login($email, $password);
+		if($this->usuarioDAO->add($usuario)) $this->Login($email, $password);
+		else 
+		{
+			array_push($_SESSION['flash'], "Hubo un error al registrar el usuario. Intenta nuevamente.");
+			Functions::redirect("Home");
+		}		
 	}
 
 	public function Remove($id)
@@ -217,21 +221,41 @@ class UsuarioController extends Administrable
 
 	public function Login($email, $password)
 	{
-		$_SESSION['flash'] = array();
 		if($this->loggedIn()) Functions::redirect("Home");
 
+		$_SESSION['flash'] = array();
 		$usuario = $this->usuarioDAO->getByEmail($email);
 		if($usuario == null || $usuario->getPassword() != $password)
 		{
 			array_push($_SESSION['flash'], "Email o password incorrecto.");
 			Functions::redirect("Login");
 		}
-
-		$this->toggleUserLoginStatus($usuario);
-
+		
 		$_SESSION["loggedUser"] = $usuario;
+		$_SESSION["loggedUser"]->setIp($this->getUserIp());
+		$_SESSION["loggedUser"]->setLastConnection(time());
+		$_SESSION["loggedUser"]->setLoggedIn(1);
+		
+		if($this->usuarioDAO->edit($_SESSION["loggedUser"])) array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
+		else array_push($_SESSION['flash'], "Error al guardar los datos de entrada. Login de todas formas.");
+		
+		Functions::redirect("Home");
+	}
 
-		array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
+	public function Logout()
+	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+
+		$_SESSION['flash'] = array();
+		$_SESSION["loggedUser"]->setIp($this->getUserIp());
+		$_SESSION["loggedUser"]->setLastConnection(time());
+		$_SESSION["loggedUser"]->setLoggedIn(0);
+		
+		if($this->usuarioDAO->edit($_SESSION["loggedUser"])) array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
+		else array_push($_SESSION['flash'], "Error al guardar los datos de salida. Logout de todas formas.");
+		
+		unset($_SESSION["loggedUser"]);
+		
 		Functions::redirect("Home");
 	}
 
@@ -349,21 +373,6 @@ class UsuarioController extends Administrable
 		$user = $response->getGraphUser();
 		return $user;
 	}
-	
-	public function Logout()
-	{
-		$_SESSION['flash'] = array();
-		if(!$this->loggedIn()) Functions::redirect("Home");
-
-		$email = $_SESSION["loggedUser"]->getEmail();
-		$_SESSION["loggedUser"] = $this->toggleUserLoginStatus($_SESSION["loggedUser"]);
-		$this->usuarioDAO->edit($_SESSION["loggedUser"]);
-
-		unset($_SESSION["loggedUser"]);
-		
-		array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
-		Functions::redirect("Home");
-	}
 
 	private function getUserIp()
 	{
@@ -380,22 +389,6 @@ class UsuarioController extends Administrable
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
 		return $ip;
-	}
-	
-	private function toggleUserLoginStatus($usuario)
-	{
-		//Ip
-		$ip = $this->getUserIp();
-		$usuario->setIp($ip);
-
-		//Ultima conexion
-		$date = time();
-		$usuario->setLastConnection($date);
-
-		//Cambiar estado
-		$usuario->getLoggedIn() ? $usuario->setLoggedIn(0) : $usuario->setLoggedIn(1);
-
-		return $usuario;
 	}
 
 	public function toggleAdmin($id)

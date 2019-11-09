@@ -20,10 +20,11 @@
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}
 
@@ -37,10 +38,11 @@
 				
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}
 
@@ -59,10 +61,8 @@
 					$cine->setId($row["id_cine"]);
 					$cine->setNombre($row["nombre"]);
 					$cine->setDireccion($row["direccion"]);
-
 					array_push($list, $cine);
-				}
-				
+				}				
 				return $list;
 			}
 			catch(Exception $ex)
@@ -84,10 +84,8 @@
 					$cine->setId($row["id_cine"]);
 					$cine->setNombre($row["nombre"]);
 					$cine->setDireccion($row["direccion"]);
-
 					return $cine;
 				}
-				return null;
 			}
 			catch(Exception $ex)
 			{
@@ -111,7 +109,6 @@
 					$cine->setDireccion($row["direccion"]);
 					return $cine;
 				}
-				return null;
 			}
 			catch(Exception $ex)
 			{
@@ -132,10 +129,11 @@
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}
 	}

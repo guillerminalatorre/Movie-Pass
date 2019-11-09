@@ -25,13 +25,14 @@
 	
 			$arrayToDecode = json_decode($get_data, true);
 	
-			foreach ($arrayToDecode["genres"] as $categoryValues) 
+			foreach ($arrayToDecode["genres"] as $generoValues) 
 			{
-				$category = new Genero();
-				$category->setId($categoryValues["id"]);
-				$category->setNombre($categoryValues["name"]);
+				$genero = new Genero();
+				$genero->setId($generoValues["id"]);
+				$genero->setNombre($generoValues["name"]);
 				   
-				$this->generoDAO->add($category);
+				if($this->generoDAO->add($genero)) array_push($_SESSION['flash'], "Se agrego el genero ".$genero->getNombre().".");
+				else array_push($_SESSION['flash'], "Hubo un error al agregar un genero.");
 			}
 
 			Functions::redirect("System");

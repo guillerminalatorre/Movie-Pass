@@ -24,10 +24,11 @@
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}		
 
@@ -41,10 +42,11 @@
 				
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}
 		
@@ -58,10 +60,11 @@
 				
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}
 
@@ -113,7 +116,6 @@
 					$compra->setTotal($row["total"]);
 					return $compra;
 				}
-				return null;
 			}
 			catch(Exception $ex)
 			{
@@ -166,10 +168,11 @@
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
 			}
 			catch(Exception $ex)
 			{
-				return null;
+				return false;
 			}
 		}
 	}

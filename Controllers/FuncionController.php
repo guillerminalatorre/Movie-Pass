@@ -205,7 +205,7 @@
 				}
 			} else 
 			{
-				if ($idGenero != "none") 
+				if ($idGenero != "none")
 				{
 					foreach ($funciones as $funcion) 
 					{

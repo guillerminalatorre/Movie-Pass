@@ -30,11 +30,12 @@
 				$parameters["image"]=$usuario->getImage();
 				$parameters["facebookId"]=$usuario->getFacebookId();
                 $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query, $parameters);
+				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
             }
             catch(Exception $ex)
             {
-                return null;
+                return false;
             }
 		}
 
@@ -47,11 +48,12 @@
 				$parameters["id_usuario"] = $usuario->getId();
 
                 $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query, $parameters);
+				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
             }
             catch(Exception $ex)
             {
-                return null;
+                return false;
             }
         }
 
@@ -82,7 +84,6 @@
 					$usuario->setFacebookId($row["facebookId"]);
                     array_push($list, $usuario);
 				}
-				
                 return $list;
             }
             catch(Exception $ex)
@@ -160,7 +161,7 @@
 		{
 			try
             {
-				$query = "UPDATE ".$this->tableName." SET id_usuario = :id_usuario, dni = :dni, password = :password, email = :email, apellido = :apellido, nombre = :nombre, rol = :rol, ip = :ip, registerDate = :registerDate, lastConnection = :lastConnection, loggedIn = :loggedIn, image = :image, facebookId = :facebookId WHERE id_usuario = :id_usuario;";
+				$query = "UPDATE ".$this->tableName." SET dni = :dni, password = :password, email = :email, apellido = :apellido, nombre = :nombre, rol = :rol, ip = :ip, registerDate = :registerDate, lastConnection = :lastConnection, loggedIn = :loggedIn, image = :image, facebookId = :facebookId WHERE id_usuario = :id_usuario;";
 
 				$parameters["dni"]=$usuario->getDni();
 				$parameters["password"]= $usuario->getPassword();
@@ -172,16 +173,17 @@
 				$parameters["registerDate"]=$usuario->getRegisterDate();
 				$parameters["lastConnection"]=$usuario->getLastConnection();
 				$parameters["loggedIn"]=$usuario->getLoggedIn();
-				$parameters["image"]=$usuario->getImage();
+				$parameters["image"]=$usuario->getImage(true);
 				$parameters["facebookId"]=$usuario->getFacebookId();
 				$parameters["id_usuario"]=$usuario->getId();
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);
+				return true;
             }
             catch(Exception $ex)
             {
-                return null;
+                return false;
             }
 		}
 	}
