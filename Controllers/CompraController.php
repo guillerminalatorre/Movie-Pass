@@ -111,6 +111,11 @@
 			$pelicula = new Pelicula();
 			$pelicula->setId($funcion->getIdPelicula());
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+			if($pelicula == null)
+			{
+				array_push($_SESSION['flash'], "La pelicula de la funcion no existe.");
+				Functions::redirect("Home");
+			}
 
 			$fechaHora = $funcion->getFechaHora();
 
@@ -119,6 +124,11 @@
 			$cine = new Cine();
 			$cine->setId($idCine);
 			$cine = $this->cineDAO->getCine($cine);
+			if($cine == null)
+			{
+				array_push($_SESSION['flash'], "El cine de la funcion no existe.");
+				Functions::redirect("Home");
+			}
 
 			//Datos sala
 			$idSala = $funcion->getIdSala();
@@ -139,7 +149,11 @@
 			$compra->setCantidad($cantidad);
 			$compra->setDescuento($descuento);
 			$compra->setTotal($total);
-			$this->compraDAO->add($compra);
+			if(!$this->compraDAO->add($compra)) 
+			{
+				array_push($_SESSION['flash'], "Se produjo un error al registrar la compra. Tu pago será devuelto.");
+				Functions::redirect("Funcion","ShowFuncionesPelicula", $idPelicula);
+			}			
 
 			//Generar entradas
 			$listCompras = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
@@ -150,10 +164,10 @@
 				$entrada = new Entrada();
 				$entrada->setIdCompra($idCompra);
 				$entrada->setIdFuncion($idFuncion);
-				$entrada->setQr($idCine."-".$idFuncion."-".$idCompra."-".$i);
-				$this->entradaDAO->add($entrada);
+				$entrada->setQr($idCine."-".$idSala."-".$idFuncion."-".$idCompra."-".$i);
+				if(!$this->entradaDAO->add($entrada)) array_push($_SESSION['flash'], "Se produjo un error al registrar la entrada ".$i.".");
 			}
-			array_push($_SESSION['flash'], "Se han generado ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!");
+			array_push($_SESSION['flash'], "Se completo la compra de ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!");
 			Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
 		}
 

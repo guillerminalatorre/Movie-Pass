@@ -105,6 +105,7 @@
 
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
+			
 			if($this->cineDAO->edit($cine)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
 			else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
 			

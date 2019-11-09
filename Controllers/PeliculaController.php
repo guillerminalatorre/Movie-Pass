@@ -136,8 +136,8 @@ class PeliculaController extends Administrable
 		$pelicula->setVideo($video);
 		$pelicula->setPopularidad($popularidad);
 
-		$this->peliculaDAO->edit($pelicula);
-		array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");		
+		if($this->peliculaDAO->edit($pelicula)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
+		else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
 		Functions::redirect("Pelicula","ShowListView");
 	}
 
@@ -187,19 +187,21 @@ class PeliculaController extends Administrable
 
 	public function AddToDatabase($idTMDB)
 	{
-		if(!$this->loggedIn()) Functions::redirect("Home");
-		if(!$this->isAdmin()) Functions::redirect("Home");
+		if(!$this->loggedIn()) return false;
+		if(!$this->isAdmin()) return false;
 
-		if($this->peliculaDAO->getByIdTMDB($idTMDB) == NULL)
-		{
-			$movie = $this->getMovieDetailsFromApi($idTMDB);
-			$this->peliculaDAO->add($movie);
-			return true;
-		}
-		return false;
+		if($this->peliculaDAO->getByIdTMDB($idTMDB) != NULL) return false;
+
+		$_SESSION['flash'] = array();
+		$movie = $this->getMovieDetailsFromApi($idTMDB);
+		$flag = $this->peliculaDAO->add($movie);
+		if($flag) array_push($_SESSION['flash'], "Se agrego la pelicula correctamente.");
+		else array_push($_SESSION['flash'], "Hubo un error al agregar la pelicula.");
+		return $flag;
 	}
 
-	public function callSearchMovie($title){
+	public function callSearchMovie($title)
+	{
 		$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES, "query"=>$title);
 
 		$peliculaList=array();

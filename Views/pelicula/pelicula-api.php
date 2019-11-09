@@ -60,6 +60,9 @@
                             <a class="view text-success" id="ok<?php echo $pelicula->getIdTMDB(); ?>" style="display: none;" role="button">
                                 <h4><i class="fa fa-check-circle"></i></h4>
                             </a>
+                            <a class="view text-danger" id="error<?php echo $pelicula->getIdTMDB(); ?>" style="display: none;" role="button">
+                                <h4><i class="fa fa-times-circle"></i></h4>
+                            </a>
                         </td>
                     </tr>
                 <?php
@@ -104,16 +107,24 @@
 </div>
 
 <script>
-    $("[name='addToDatabase']").click(function() {
+    $("[name='addToDatabase']").click(function() 
+    {
         var movie = $(this).data("movie");
         var loading = document.getElementById("loading" + movie);
         var ok = document.getElementById("ok" + movie);
+        var error = document.getElementById("error" + movie);
         $(this).hide();
         loading.style.display = "inline-block";
-        $.get("<?php echo FRONT_ROOT ?>Pelicula/AddToDatabase/" + movie, function(data) {
+        $.get("<?php echo FRONT_ROOT ?>Pelicula/AddToDatabase/" + movie, function(data) 
+        {
             loading.style.display = "none";
-            ok.style.display = "inline-block";
             console.log(data);
+        })
+        .done(function() {
+            ok.style.display = "inline-block";
+        })
+        .fail(function() {
+            error.style.display = "inline-block";
         });
     });
 </script>

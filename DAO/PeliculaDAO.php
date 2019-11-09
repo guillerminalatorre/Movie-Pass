@@ -37,14 +37,13 @@
 					$pelicula->setPoster($row["poster"]);
 					$pelicula->setVideo($row["video"]);
 					$pelicula->setPopularidad($row["popularidad"]);
-
 					array_push($list, $pelicula);
 				}
 				return $list;
 			} 
 			catch (Exception $ex) 
 			{
-				throw $ex;
+				return null;
 			}
 		}
 
@@ -73,14 +72,13 @@
 					$pelicula->setPoster($row["poster"]);
 					$pelicula->setVideo($row["video"]);
 					$pelicula->setPopularidad($row["popularidad"]);
-
 					array_push($list, $pelicula);
 				}
 				return $list;
 			} 
 			catch (Exception $ex) 
 			{
-				throw $ex;
+				return null;
 			}
 		}
 
@@ -106,10 +104,11 @@
 				$generos = $pelicula->getGeneros();
 				$pelicula = $this->getByIdTMDB($pelicula->getIdTMDB()); // Get ID to save genres
 				$this->saveGeneros($pelicula, $generos);
+				return true;
 			} 
 			catch (Exception $ex) 
 			{
-				throw $ex;
+				return false;
 			}
 		}
 
@@ -126,10 +125,11 @@
 
 				$this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query);
+				return true;
 			} 
 			catch (Exception $ex) 
 			{
-				throw $ex;
+				return false;
 			}
 		}
 

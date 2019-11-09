@@ -15,14 +15,17 @@
             try 
             {
                 $query = "INSERT INTO " . $this->tableName . " (id_genero, nombre) VALUES (:id_genero, :nombre);";
+
                 $parameters["id_genero"] = $genero->getId();
                 $parameters["nombre"] = $genero->getNombre();
+
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query, $parameters);
+                return true;
             } 
             catch (Exception $ex) 
             {
-                throw $ex;
+                return false;
             }
         }
 
@@ -34,10 +37,11 @@
 
                 $this->connection = Connection::GetInstance();
                 $this->connection->ExecuteNonQuery($query);
+                return true;
             } 
             catch (Exception $ex) 
             {
-                throw $ex;
+                return false;
             }
         }
 
@@ -61,7 +65,7 @@
             } 
             catch (Exception $ex)
             {
-                throw $ex;
+                return null;
             }
         }
 
@@ -77,12 +81,12 @@
                 {
                     $genero->setId($row["id_genero"]);
                     $genero->setNombre($row["nombre"]);
-                }
-                return $genero->getNombre();
+                    return $genero;
+                }                
             } 
             catch (Exception $ex) 
             {
-                throw $ex;
+                return null;
             }
         }
     }
