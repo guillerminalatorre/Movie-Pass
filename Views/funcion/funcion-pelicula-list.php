@@ -1,4 +1,3 @@
-<?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
     <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-secondary rounded shadow p-2">
         <?php require_once(VIEWS_PATH."alert.php"); ?>

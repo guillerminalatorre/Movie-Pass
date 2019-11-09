@@ -2,6 +2,7 @@
 	namespace DAO;
 
 	use Models\Funcion as Funcion;
+	use Models\Genero as Genero;
 
 	class FuncionDAO
 	{
@@ -108,6 +109,29 @@
 				{
 					$funcion = new Funcion();
 					$funcion->setIdCine($row["id_cine"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
+		}
+
+		//EN PROCESO
+		public function getFuncionesDisponiblesPorFecha()
+		{
+			try 
+			{
+				$list = array();
+				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE (fecha_hora > now())";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setIdPelicula($row["id_pelicula"]);
 					array_push($list, $funcion);
 				}
 				return $list;
@@ -292,5 +316,6 @@
 				return false;
 			}
 		}
+			
 	}
 ?>

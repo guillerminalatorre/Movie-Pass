@@ -238,3 +238,11 @@ p {
   font-size: 10px;
   text-transform: uppercase;
 }
+
+.rating {
+  width: 75%;
+  height: auto;
+  padding: 1em 0;
+  display: flex;
+  justify-content: space-between;
+}
