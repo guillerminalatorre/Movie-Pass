@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col-4"><a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $idCine; ?>" role="button">Volver a ficha</a></div>
         </div>
-        <h2 class="text-center py-4">Agregar funcion: </h2>
+        <h2 class="text-center py-4">Agregar sala: </h2>
         <form action="<?php echo FRONT_ROOT ?>Sala/Add/<?php echo $idCine; ?>" method="POST">
             <div class="row">
                 <div class="form-group col">
                     <label for="idCine">Cine:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $idCine ?>">
+                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $cine->getNombre()." (ID: ".$idCine.")"; ?>">
                 </div>
             </div>
             <div class="row">
