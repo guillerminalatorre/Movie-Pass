@@ -52,8 +52,10 @@
                     <!-- Team item -->
                     <div class="col-xl-3 col-lg-6 col-sm-12 mb-5">
                         <div class="bg-light rounded shadow-sm py-5 px-4">
-                            <h5 class="mb-0">Funciones</h5><h3 class="large text-uppercase counter-count"><?php echo $funcionCount; ?></h3>
+                            <h5 class="mb-0">Funciones</h5><h4 class="large text-uppercase counter-count"><?php echo $funcionCount; ?></h4>
                             <a href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesPelicula" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de funciones</a>
+                            <h5 class="mt-4 mb-0">Entradas</h5><h4 class="large text-uppercase counter-count"><?php echo $entradaCount; ?></h4>
+                            <a href="<?php echo FRONT_ROOT ?>Entrada/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de entradas</a>
                         </div>
                     </div><!-- End -->
                 </div>
