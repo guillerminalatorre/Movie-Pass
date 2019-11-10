@@ -1,4 +1,26 @@
-<?php require_once(VIEWS_PATH . "navbar.php"); ?>
+<?php require_once(VIEWS_PATH . "navbar.php");
+
+use Models\Cine as Cine;
+use Models\Pelicula as Pelicula;
+use Models\Funcion as Funcion;
+use DAO\EstadisticasDAO as EstadisticasDAO;
+
+$cine = new Cine();
+$pelicula = new Pelicula();
+$funcion = new Funcion();
+$estadisticas = new EstadisticasDAO();
+$cine->setId(1);
+$pelicula->setId(1);
+$funcion->setId(5);
+
+//$rdo = $estadisticas->getCantidadVendidaFuncion($funcion);
+//$rdo = $estadisticas->getRemanenteFuncion($funcion);
+//$rdo = $estadisticas->getVentasCine($cine, '2019-11-8 06:34:00', '2019-11-23 06:34:00');
+//$rdo = $estadisticas->getVentasPelicula($pelicula, '2019-11-8 06:34:00', '2019-11-23 06:34:00');
+
+var_dump($rdo);
+
+?>
 <div class="container-fluid mb-4">
   <div class="col-sm-12 col-lg-10 offset-sm-0 offset-lg-1 bg-dark-transparent rounded shadow">
     <div class="row">
