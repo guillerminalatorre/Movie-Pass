@@ -17,3 +17,7 @@
 <li class="nav-item mx-xl-2">
     <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Entrada/ShowListView">Entradas</a>
 </li>
+
+<li class="nav-item mx-xl-2">
+    <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Estadistica">Estadisticas</a>
+</li>

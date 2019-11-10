@@ -37,6 +37,9 @@
             if (!$this->loggedIn()) Functions::redirect("Home");
             if (!$this->isAdmin()) Functions::redirect("Home");
 
+            $cine = new Cine();
+            $cine->setId($idCine);
+            $cine = $this->cineDAO->getCine($cine);
             require_once(VIEWS_PATH . "sala/sala-add.php");
         }
 
