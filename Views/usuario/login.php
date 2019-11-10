@@ -5,11 +5,11 @@
     <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">
       <h2 class="text-center">¡Hola! Para seguir, <br>ingresá tus datos</h2>
       <div class="form-group mt-4">
-        <label for="userEmail">Email</label>
+        <label for="email">Email</label>
         <input type="email" class="form-control" name="email" placeholder="email@example.com" required>
       </div>
       <div class="form-group">
-        <label for="userPassword">Contraseña</label>
+        <label for="password">Contraseña</label>
         <input type="password" class="form-control" name="password" placeholder="Contraseña" required>
       </div>
       <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">Iniciar sesion</button>
