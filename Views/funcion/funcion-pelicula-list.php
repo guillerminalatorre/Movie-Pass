@@ -4,7 +4,7 @@ if($idPelicula != NULL)
     require_once(VIEWS_PATH . "pelicula/movie-details.php");
 ?>
 <div class="container-fluid mb-4">
-    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-custom-transparent rounded shadow p-2">
+    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-secondary rounded shadow p-2">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <a class="btn btn-warning mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Home" role="button">Volver a cartelera</a>
         <h2 class="col-12 border-bottom border-gray pb-2 mb-0 text-white">Funciones disponibles <?php if($idPelicula != null) { ?> de <?php echo $pelicula->getTitulo(); ?><?php } ?></h2>
@@ -16,7 +16,7 @@ if($idPelicula != NULL)
                 ?>
                 
                 <div class="container-fluid my-4">
-                    <div class="col-12 bg-dark-transparent rounded shadow p-2">
+                    <div class="col-12 bg-dark rounded shadow p-2">
                         <h2 class="col-6 pb-2 text-light"><?php echo $cine->getNombre();?></h2>
                         <h5 class="col-6 pb-2 text-light"><?php echo $cine->getDireccion();?></h5>
 

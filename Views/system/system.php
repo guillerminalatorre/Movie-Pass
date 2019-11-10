@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid">
-    <div class="col-10 offset-1 bg-dark-transparent rounded pl-5 pr-5 shadow">
+    <div class="col-10 offset-1 bg-dark rounded pl-5 pr-5 shadow">
         <div class="row">
             <!-- For demo purpose -->
             <div class="container py-5">
@@ -17,7 +17,7 @@
 
                     <!-- Team item -->
                     <div class="col-xl-3 col-6 mb-5">
-                        <div class="bg-light rounded shadow-sm py-5 px-4">
+                        <div class="bg-white rounded shadow-sm py-5 px-4">
                             <h5 class="mb-0">Usuarios</h5><h3 class="large text-uppercase"><?php echo $usuarioCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de usuarios</a>
                         </div>
@@ -25,7 +25,7 @@
 
                     <!-- Team item -->
                     <div class="col-xl-3 col-6 mb-5">
-                        <div class="bg-light rounded shadow-sm py-5 px-4">
+                        <div class="bg-white rounded shadow-sm py-5 px-4">
                             <h5 class="mb-0">Peliculas</h5><h3 class="large text-uppercase"><?php echo $peliculaCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Pelicula/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de peliculas</a>
                             <h5 class="mt-4 mb-0">Obtener de API</h5>
@@ -36,7 +36,7 @@
 
                     <!-- Team item -->
                     <div class="col-xl-3 col-6 mb-5">
-                        <div class="bg-light rounded shadow-sm py-5 px-4">
+                        <div class="bg-white rounded shadow-sm py-5 px-4">
                             <h5 class="mb-0">Cines</h5><h3 class="large text-uppercase"><?php echo $cineCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Cine/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de cines</a>
                         </div>
@@ -44,7 +44,7 @@
 
                     <!-- Team item -->
                     <div class="col-xl-3 col-6 mb-5">
-                        <div class="bg-light rounded shadow-sm py-5 px-4">
+                        <div class="bg-white rounded shadow-sm py-5 px-4">
                             <h5 class="mb-0">Funciones</h5><h3 class="large text-uppercase"><?php echo $funcionCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesPelicula" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de funciones</a>
                         </div>

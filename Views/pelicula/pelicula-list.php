@@ -1,7 +1,7 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
     <?php require_once(VIEWS_PATH . "alert.php"); ?>
-    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent text-white rounded shadow p-4">
+    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark text-white rounded shadow p-4">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/SearchByTitle" method="POST">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
@@ -21,7 +21,7 @@
 </div>
 
 <div class="container-fluid mb-4">
-    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent rounded shadow p-2">
+    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark rounded shadow p-2">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <h2 class="col-sm-12 col-md-6 pb-2 text-light">Lista de peliculas</h2>
         <table class="table table-striped table-responsive-md text-light align-center">

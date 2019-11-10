@@ -1,12 +1,12 @@
     <div class="container-fluid mb-4">
-        <div class="col-md-10 offset-sm-0 offset-md-1 bg-custom-transparent rounded shadow p-2">
+        <div class="col-md-10 offset-sm-0 offset-md-1 bg-secondary rounded shadow p-2">
             <div class="container-fluid my-4">
 
-                <div class="row my-4">
+                <div class="row mb-4 mt-4">
                     <div class="col-md-3 ">
                         <img class="rounded shadow img-fluid" src="<?php echo $pelicula->getPoster(); ?> " alt="Poster image">
                     </div>
-                    <div class="col-md-9 shadow text-white bg-dark-transparent rounded ">
+                    <div class="col-md-9 shadow text-white bg-dark rounded ">
                         
                         <h2 class="mt-4"><?php echo $pelicula->getTitulo(); ?></h2>
                         <div class="rating">
@@ -30,6 +30,7 @@
 
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

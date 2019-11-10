@@ -3,27 +3,23 @@ html, body {
 }
 
 body {
-  background: url("../img/background.png") rgba(170, 170, 170, 0.85);
+  background: url("../img/background.png") rgba(200, 200, 200, 0.95);
 }
 
-.bg-white-transparent{    
-  background-color: rgba(255, 255, 255, 0.9);
+.container.black{
+  background:rgba(0,0,0,0.95);
+  color: inherit;
 }
 
-.bg-light-transparent{    
-  background-color: rgba(248, 249, 250, 0.9);
+.height-100 {
+  height: 100%;
 }
 
-.bg-custom-transparent{    
-  background-color: rgba(74, 76, 78, 0.9);
+.bg-dark-alpha {
+  background-color: rgba(0,0,0,0.2);
 }
-
-.bg-secondary-transparent{    
-  background-color: rgba(108, 117, 125, 0.9);
-}
-
-.bg-dark-transparent{    
-  background-color: rgba(52,58,64,0.9);
+.bg-light-alpha {
+  background-color: rgba(255,255,255,0.2);
 }
 
 .movie-card {
@@ -106,12 +102,10 @@ p {
   width: 700px;
   margin: 20px auto;
 }
-
 .ticket .stub,
 .ticket .check {
   box-sizing: border-box;
 }
-
 .stub {
   background: #5693ef;
   height: 250px;
@@ -120,7 +114,6 @@ p {
   padding: 20px;
   position: relative;
 }
-
 .stub:before {
   content: '';
   position: absolute;
@@ -130,7 +123,6 @@ p {
   border-left: 20px solid #5693ef;
   width: 0;
 }
-
 .stub:after {
   content: '';
   position: absolute;
@@ -140,7 +132,6 @@ p {
   border-left: 20px solid #5693ef;
   width: 0;
 }
-
 .stub .top {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -151,7 +142,6 @@ p {
   height: 40px;
   text-transform: uppercase;
 }
-
 .stub .top .line {
   display: block;
   background: #fff;
@@ -159,21 +149,17 @@ p {
   width: 3px;
   margin: 0 20px;
 }
-
 .stub .top .num {
   font-size: 12px;
 }
-
 .stub .top .num span {
   color: #000;
 }
-
 .stub .number {
   position: absolute;
   left: 20px;
   font-size: 150px;
 }
-
 .stub .invite {
   position: absolute;
   left: 100px;
@@ -181,7 +167,6 @@ p {
   color: #000;
   width: 20%;
 }
-
 .stub .invite:before {
   content: '';
   background: #fff;
@@ -190,7 +175,6 @@ p {
   height: 3px;
   margin-bottom: 5px;
 }
-
 .check {
   background: #eaeaea;
   height: 250px;
@@ -198,7 +182,6 @@ p {
   padding: 40px;
   position: relative;
 }
-
 .check:before {
   content: '';
   position: absolute;
@@ -208,7 +191,6 @@ p {
   border-right: 20px solid #eaeaea;
   width: 0;
 }
-
 .check:after {
   content: '';
   position: absolute;
@@ -218,13 +200,11 @@ p {
   border-right: 20px solid #eaeaea;
   width: 0;
 }
-
 .check .big {
   font-size: 60px;
   font-weight: 900;
   line-height: .8em;
 }
-
 .check .number {
   position: absolute;
   top: 50px;
@@ -232,7 +212,6 @@ p {
   color: #5693ef;
   font-size: 40px;
 }
-
 .check .info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -244,11 +223,9 @@ p {
   margin-top: 20px;
   width: 100%;
 }
-
 .check .info section {
   margin-right: 50px;
 }
-
 .check .info section:before {
   content: '';
   background: #5693ef;
@@ -257,7 +234,6 @@ p {
   height: 3px;
   margin-bottom: 5px;
 }
-
 .check .info section .title {
   font-size: 10px;
   text-transform: uppercase;

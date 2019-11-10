@@ -1,5 +1,5 @@
 <?php require_once(VIEWS_PATH . "navbar.php"); ?>
-<div class="container container-fluid bg-dark-transparent rounded mt-4 my-3 shadow">
+<div class="container container-fluid bg-dark rounded mt-4 my-3 shadow">
     <?php require_once(VIEWS_PATH . "alert.php"); ?>
     <div class="text-white p-2">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/SearchMovies" method="POST">
@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="container container-fluid bg-dark-transparent rounded mt-4 my-3 p-3 shadow">
+<div class="container container-fluid bg-dark rounded mt-4 my-3 p-3 shadow">
     <?php require_once(VIEWS_PATH . "alert.php"); ?>
 
     <?php

@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-    <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-light rounded shadow p-md-4 p-lg-4 p-xl-4">
+    <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-white rounded shadow p-md-4 p-lg-4 p-xl-4">
         <a class="btn btn-secondary shadow-sm" href="<?php echo FRONT_ROOT ?>Cine/ShowFichaView/<?php echo $cine->getId(); ?>" role="button">Volver a la ficha del cine</a>
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <form action="<?php echo FRONT_ROOT ?>Cine/Update" method="post">

@@ -1,11 +1,11 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-    <div class="col-10 offset-1 bg-dark-transparent rounded pl-4 pr-4 pt-4 shadow">
+    <div class="col-10 offset-1 bg-dark rounded pl-4 pr-4 pt-4 shadow">
         <div class="row">
 
             <!-- Team item -->
             <div class="col-4 mb-5">
-                <div class="bg-light rounded shadow-sm py-4 px-4">
+                <div class="bg-white rounded shadow-sm py-4 px-4">
                     <a class="btn btn-warning mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesPelicula/<?php echo $funcion->getIdPelicula(); ?>" role="button">Volver a funciones</a>
                     <h3 class="title">Items</h3>
                     <ul class="list-group mt-4 mb-4">
@@ -21,7 +21,7 @@
 
             <!-- Team item -->
             <div class="col-8 mb-5">                
-                <div class="bg-light rounded shadow-sm py-4 px-4">
+                <div class="bg-white rounded shadow-sm py-4 px-4">
                     <?php require_once(VIEWS_PATH."alert.php"); ?>
                     <h3>Tarjeta de Credito</h3>
                     <div class="row">
