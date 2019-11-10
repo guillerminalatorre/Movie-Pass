@@ -78,10 +78,18 @@ class FuncionController extends Administrable
 			if (!$this->isAdmin()) Functions::redirect("Home");
 
 			$fechaHora = $fecha . " " . $hora;
+			$hour = strtotime("H:i",$hora);
+			$timePlus1Hour = strtotime('+1 hour');
 
 			if (empty($idPelicula)) 
 			{
 				Functions::flash("Debes seleccionar una pelicula.","warning");
+				Functions::redirect("Funcion", "ShowAddView", $idCine);
+			}
+
+			if($fecha == date("Y-m-d") && $hour < $timePlus1Hour)
+			{
+				Functions::flash("No se puede crear una funcion antes de la hora actual.","warning");
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
