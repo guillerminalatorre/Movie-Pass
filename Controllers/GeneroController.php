@@ -31,8 +31,8 @@
 				$genero->setId($generoValues["id"]);
 				$genero->setNombre($generoValues["name"]);
 				   
-				if($this->generoDAO->add($genero)) array_push($_SESSION['flash'], "Se agrego el genero ".$genero->getNombre().".");
-				else array_push($_SESSION['flash'], "Hubo un error al agregar un genero.");
+				if($this->generoDAO->add($genero)) Functions::flash("Se agrego el genero ".$genero->getNombre().".");
+				else Functions::flash("Hubo un error al agregar un genero.","danger");
 			}
 
 			Functions::redirect("System");

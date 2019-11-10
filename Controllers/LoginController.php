@@ -8,7 +8,6 @@
 	{
 		public function Index()
 		{
-			$_SESSION['flash'] = array();
 			if($this->loggedIn()) Functions::redirect("Home");
 			
 			$facebookLoginUrl = $this->getFacebookLoginUrl();

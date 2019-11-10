@@ -74,7 +74,6 @@ class PeliculaController extends Administrable
 		if(!$this->loggedIn()) Functions::redirect("Home");
 		if(!$this->isAdmin()) Functions::redirect("Home");
 
-		$_SESSION['flash'] = array();
 		$titulo = Functions::validateData($titulo);
 		$descripcion = Functions::validateData($descripcion);
 		$idioma = Functions::validateData($idioma);
@@ -86,7 +85,7 @@ class PeliculaController extends Administrable
 
 		if($pelicula == null)
 		{
-			array_push($_SESSION['flash'], "La pelicula no existe.");
+			Functions::flash("La pelicula no existe.","warning");
 			Functions::redirect("Pelicula","ShowListView");
 		}
 
@@ -112,32 +111,32 @@ class PeliculaController extends Administrable
 					if (move_uploaded_file($tempFileName, $filePath))
 					{
 						$pelicula->setPoster(UPLOADS_PATH.$fileName);
-						array_push($_SESSION['flash'], "Imagen subida correctamente.");
+						Functions::flash("Imagen subida correctamente.","success");
 					}
 					else
-						array_push($_SESSION['flash'], "Ocurrió un error al intentar subir la imagen.");
+						Functions::flash("Ocurrió un error al intentar subir la imagen.","danger");
 				}
 				else
-					array_push($_SESSION['flash'], "El archivo no corresponde a una imágen.");
+					Functions::flash("El archivo no corresponde a una imágen.","warning");
 			}
 		}
 		catch(Exception $ex)
 		{
-			array_push($_SESSION['flash'], $ex->getMessage());
+			Functions::flash($ex->getMessage());
 		}
 		// Fin imagen
 
 		$pelicula->setTitulo($titulo);
 		if($duracion > 0) $pelicula->setDuracion($duracion);
-		else array_push($_SESSION['flash'], "La duracion debe ser mayor a 0.");
+		else Functions::flash("La duracion debe ser mayor a 0.","warning");
 		$pelicula->setDescripcion($descripcion);
 		$pelicula->setIdioma($idioma);
 		$pelicula->setClasificacion($clasificacion);
 		$pelicula->setVideo($video);
 		$pelicula->setPopularidad($popularidad);
 
-		if($this->peliculaDAO->edit($pelicula)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
-		else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
+		if($this->peliculaDAO->edit($pelicula)) Functions::flash("Los datos se han guardado correctamente.","success");
+		else Functions::flash("Hubo un error al guardar los datos.","danger");
 		Functions::redirect("Pelicula","ShowListView");
 	}
 
@@ -192,11 +191,10 @@ class PeliculaController extends Administrable
 
 		if($this->peliculaDAO->getByIdTMDB($idTMDB) != NULL) return false;
 
-		$_SESSION['flash'] = array();
 		$movie = $this->getMovieDetailsFromApi($idTMDB);
 		$flag = $this->peliculaDAO->add($movie);
-		if($flag) array_push($_SESSION['flash'], "Se agrego la pelicula correctamente.");
-		else array_push($_SESSION['flash'], "Hubo un error al agregar la pelicula.");
+		if($flag) Functions::flash("Se agrego la pelicula correctamente.","success");
+		else Functions::flash("Hubo un error al agregar la pelicula.","danger");
 		return $flag;
 	}
 

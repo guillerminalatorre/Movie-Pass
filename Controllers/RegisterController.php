@@ -7,9 +7,8 @@
 	{
 		public function Index()
 		{
-			$_SESSION['flash'] = array();
 			if($this->loggedIn()) Functions::redirect("Home");
-			
+						
 			require_once(VIEWS_PATH."usuario/register.php");
 		}
 	}

@@ -55,8 +55,7 @@
 			$cine = $this->cineDAO->getCine($cine);
 			if($cine == null)
 			{
-				$_SESSION['flash'] = array();
-				array_push($_SESSION['flash'], "El cine no existe.");
+				Functions::flash("El cine no existe.","warning");
 				Functions::redirect("Cine","ShowListView");
 			}
 			
@@ -76,7 +75,7 @@
 			$cine = $this->cineDAO->getCine($cine);
 			if($cine == null)
 			{
-				array_push($_SESSION['flash'], "El cine no existe.");
+				Functions::flash("El cine no existe.","warning");
 				Functions::redirect("Cine","ShowListView");
 			}
 
@@ -88,8 +87,6 @@
 			if(!$this->loggedIn()) Functions::redirect("Home");
 			if(!$this->isAdmin()) Functions::redirect("Home");
 
-			$_SESSION['flash'] = array();
-
 			$id = Functions::validateData($id);
 			$nombre = Functions::validateData($nombre);
 			$direccion = Functions::validateData($direccion);
@@ -99,15 +96,15 @@
 			$cine = $this->cineDAO->getCine($cine);
 			if($cine == null)
 			{
-				array_push($_SESSION['flash'], "El cine no existe.");
+				Functions::flash("El cine no existe.","warning");
 				Functions::redirect("Cine","ShowListView");
 			}
 
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
 			
-			if($this->cineDAO->edit($cine)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
-			else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
+			if($this->cineDAO->edit($cine)) Functions::flash("Los datos se han guardado correctamente.","success");
+			else Functions::flash("Hubo un error al guardar los datos.","danger");
 			
 			Functions::redirect("Cine","ShowFichaView", $cine->getId());
 		}
@@ -119,12 +116,11 @@
 
 			$id = Functions::validateData($id);
 
-			$_SESSION['flash'] = array();
 			$cine = new Cine();
 			$cine->setId($id);
 
-			if($this->cineDAO->remove($cine)) array_push($_SESSION['flash'], "El cine se ha eliminado correctamente.");
-			else array_push($_SESSION['flash'], "Hubo un error al eliminar el cine.");
+			if($this->cineDAO->remove($cine)) Functions::flash("El cine se ha eliminado correctamente.","success");
+			else Functions::flash("Hubo un error al eliminar el cine.");
 
 			Functions::redirect("Cine","ShowListView");
 		}
@@ -133,15 +129,13 @@
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
 			if(!$this->isAdmin()) Functions::redirect("Home");
-
-			$_SESSION['flash'] = array();
 			
 			$nombre = Functions::validateData($nombre);
 			$direccion = Functions::validateData($direccion);
 
 			if($this->cineDAO->getByNombre($nombre))
 			{
-				array_push($_SESSION['flash'], "Ya existe un cine con ese nombre.");
+				Functions::flash("Ya existe un cine con ese nombre.","warning");
 				Functions::redirect("Cine","ShowAddView");
 			}
 
@@ -149,8 +143,8 @@
 			$cine->setNombre($nombre);
 			$cine->setDireccion($direccion);
 
-			if($this->cineDAO->add($cine)) array_push($_SESSION['flash'], "El cine se ha creado correctamente.");
-			else array_push($_SESSION['flash'], "Hubo un error al crear el cine.");
+			if($this->cineDAO->add($cine)) Functions::flash("El cine se ha creado correctamente.","success");
+			else Functions::flash("Hubo un error al crear el cine.","danger");
 
 			Functions::redirect("Cine","ShowListView");
 		}
