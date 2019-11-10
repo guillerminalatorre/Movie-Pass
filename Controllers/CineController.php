@@ -7,6 +7,7 @@
 	use DAO\PeliculaDAO as PeliculaDAO;
 	use DAO\EntradaDAO as EntradaDAO;
 	use Models\Cine as Cine;
+	use Models\Sala as Sala;
 	use Models\Funcion as Funcion;
 	use Models\Pelicula as Pelicula;
 	use Models\Entrada as Entrada;
@@ -58,6 +59,7 @@
 				Functions::flash("El cine no existe.","warning");
 				Functions::redirect("Cine","ShowListView");
 			}
+			$sala = new Sala();
 			
 			$pelicula = new Pelicula();
 			$salaList = $this->salaDAO->getByCine($cine);
