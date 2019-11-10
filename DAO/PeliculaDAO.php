@@ -17,7 +17,7 @@
 			try 
 			{
 				$list = array();
-				$query = "SELECT * FROM " . $this->tableName;
+				$query = "SELECT * FROM " . $this->tableName." ORDER BY titulo ASC;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
