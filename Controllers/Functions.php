@@ -32,7 +32,7 @@
 
             $data[0] = $message;
             $data[1] = $type;
-            Functions::flash($data);
+            array_push($_SESSION['flash'], $data);
         }
     }
 ?>
