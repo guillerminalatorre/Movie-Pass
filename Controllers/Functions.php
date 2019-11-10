@@ -25,5 +25,14 @@
             $string = htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
             return $string;
         }
+
+        public static function flash($message, $type = 'info')
+        {
+            if(!isset($_SESSION['flash'])) $_SESSION['flash'] = array();
+
+            $data[0] = $message;
+            $data[1] = $type;
+            Functions::flash($data);
+        }
     }
 ?>

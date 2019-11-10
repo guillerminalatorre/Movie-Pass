@@ -47,16 +47,14 @@
 
             $id = Functions::validateData($id);
 
-            $_SESSION['flash'] = array();
             $sala = new Sala();
             $sala->setId($id);
             $sala = $this->salaDAO->getSala($sala);
 
             $idCine = $sala->getIdCine();
 
-            $this->salaDAO->remove($sala);
-
-            array_push($_SESSION['flash'], "La sala se ha eliminado correctamente.");
+            if($this->salaDAO->remove($sala) != null) Functions::flash("La sala se ha eliminado correctamente.","success");
+            else Functions::flash("Hubo un error al eliminar la sala.","danger");
             Functions::redirect("Cine", "ShowFichaView", $idCine);
         }
 
@@ -70,16 +68,14 @@
             $precio = Functions::validateData($precio);
             $capacidad = Functions::validateData($capacidad);
 
-            $_SESSION['flash'] = array();
-
             $sala = new Sala();
             $sala->setIdCine($idCine);
             $sala->setNombre($nombre);
             $sala->setPrecio($precio);
             $sala->setCapacidad($capacidad);
 
-            $this->salaDAO->add($sala);
-            array_push($_SESSION['flash'], "La sala se ha agregado correctamente.");
+            if($this->salaDAO->add($sala) != null) Functions::flash("La sala se ha agregado correctamente.","success");
+            else Functions::flash("Hubo un error al agregar la sala.","danger");
             Functions::redirect("Cine", "ShowFichaView", $idCine);
         }
     }

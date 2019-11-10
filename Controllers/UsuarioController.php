@@ -57,8 +57,6 @@ class UsuarioController extends Administrable
 		if(!$this->isAdmin()) Functions::redirect("Home");
 		if($id != $_SESSION["loggedUser"]->getEmail() && !$this->isAdmin()) Functions::redirect("Home");
 
-		$_SESSION['flash'] = array();
-
 		$email = Functions::validateData($email);
 		$nombre = Functions::validateData($nombre);
 		$apellido = Functions::validateData($apellido);		
@@ -71,7 +69,7 @@ class UsuarioController extends Administrable
 		$usuario = $this->usuarioDAO->getUsuario($usuario);
 		if($usuario == null)
 		{
-			array_push($_SESSION['flash'], "El usuario no existe.");
+			Functions::flash("El usuario no existe.","danger");
 			Functions::redirect("Home");
 		}
 
@@ -88,13 +86,13 @@ class UsuarioController extends Administrable
 				}			
 				else
 				{
-					array_push($_SESSION['flash'], "Las password nuevas no coinciden.");
+					Functions::flash("Las password nuevas no coinciden.","warning");
 				}
 			}
 		}
 		else
 		{
-			array_push($_SESSION['flash'], "La password ingresada es incorrecta.");
+			Functions::flash("La password ingresada es incorrecta.","danger");
 		}
 		
 		// Imagen de perfil
@@ -119,35 +117,34 @@ class UsuarioController extends Administrable
 					if (move_uploaded_file($tempFileName, $filePath))
 					{
 						$usuario->setImage(UPLOADS_PATH.$fileName);
-						array_push($_SESSION['flash'], "Imagen subida correctamente.");
+						Functions::flash("Imagen subida correctamente.","success");
 					}
 					else
-						array_push($_SESSION['flash'], "Ocurrió un error al intentar subir la imagen.");
+						Functions::flash("Ocurrió un error al intentar subir la imagen.","danger");
 				}
 				else
-					array_push($_SESSION['flash'], "El archivo no corresponde a una imágen.");
+					Functions::flash("El archivo no corresponde a una imágen.","warning");
 			}
 		}
 		catch(Exception $ex)
 		{
-			array_push($_SESSION['flash'], $ex->getMessage());
+			Functions::flash($ex->getMessage());
 		}
 		// Fin imagen de perfil
 
-		if($this->usuarioDAO->edit($usuario)) array_push($_SESSION['flash'], "Los datos se han guardado correctamente.");
-		else array_push($_SESSION['flash'], "Hubo un error al guardar los datos.");
+		if($this->usuarioDAO->edit($usuario)) Functions::flash("Los datos se han guardado correctamente.","success");
+		else Functions::flash("Hubo un error al guardar los datos.","danger");
 		Functions::redirect("Usuario","ShowProfileView", $usuario->getId());
 	}
 
 	public function Register($email, $nombre, $apellido, $dni = null, $password, $confirmpassword, $facebookId = null)
 	{
-		$_SESSION['flash'] = array();
 		if($this->loggedIn()) Functions::redirect("Home");
 
 		$usuario = $this->usuarioDAO->getByEmail($email);
 		if($usuario != null)
 		{
-			array_push($_SESSION['flash'], "El usuario ya existe.");
+			Functions::flash("El usuario ya existe.","warning");
 			Functions::redirect("Register");
 		}
 
@@ -159,7 +156,7 @@ class UsuarioController extends Administrable
 		
 		if($password != $confirmpassword)
 		{
-			array_push($_SESSION['flash'], "Las password ingresadas no coinciden.");
+			Functions::flash("Las password ingresadas no coinciden.","warning");
 			Functions::redirect("Register");
 		}
 
@@ -193,14 +190,13 @@ class UsuarioController extends Administrable
 		if($this->usuarioDAO->add($usuario)) $this->Login($email, $password);
 		else 
 		{
-			array_push($_SESSION['flash'], "Hubo un error al registrar el usuario. Intenta nuevamente.");
-			Functions::redirect("Home");
+			Functions::flash("Hubo un error al registrar el usuario. Intenta nuevamente.","danger");
+			Functions::redirect("Register");
 		}		
 	}
 
 	public function Remove($id)
 	{
-		$_SESSION['flash'] = array();
 		if(($this->isAdmin() && $id != $_SESSION["loggedUser"]->getId()) || (!$this->isAdmin() && $id == $_SESSION["loggedUser"]->getId()))
 		{
 			$usuario = new Usuario();
@@ -208,14 +204,14 @@ class UsuarioController extends Administrable
 			$usuario = $this->usuarioDAO->getUsuario($usuario);
 			if($usuario == null)
 			{
-				array_push($_SESSION['flash'], "El usuario no existe.");
+				Functions::flash("El usuario no existe.","warning");
 				Functions::redirect("Home");
 			}
 
 			if($_SESSION["loggedUser"]->getId() == $id) $this->Logout();
 
-			if($this->usuarioDAO->remove($usuario)) array_push($_SESSION['flash'], "El usuario seleccionado fue eliminado.");
-			else array_push($_SESSION['flash'], "Hubo un error al borrar el usuario.");
+			if($this->usuarioDAO->remove($usuario)) Functions::flash("El usuario seleccionado fue eliminado.","success");
+			else Functions::flash("Hubo un error al eliminar el usuario.","danger");
 		}
 	}
 
@@ -223,11 +219,10 @@ class UsuarioController extends Administrable
 	{
 		if($this->loggedIn()) Functions::redirect("Home");
 
-		$_SESSION['flash'] = array();
 		$usuario = $this->usuarioDAO->getByEmail($email);
 		if($usuario == null || $usuario->getPassword() != $password)
 		{
-			array_push($_SESSION['flash'], "Email o password incorrecto.");
+			Functions::flash("Email o password incorrecto.","warning");
 			Functions::redirect("Login");
 		}
 		
@@ -236,8 +231,8 @@ class UsuarioController extends Administrable
 		$_SESSION["loggedUser"]->setLastConnection(time());
 		$_SESSION["loggedUser"]->setLoggedIn(1);
 		
-		if($this->usuarioDAO->edit($_SESSION["loggedUser"])) array_push($_SESSION['flash'], "Login exitoso. Disfruta tu estadia.");
-		else array_push($_SESSION['flash'], "Error al guardar los datos de entrada. Login de todas formas.");
+		if($this->usuarioDAO->edit($_SESSION["loggedUser"])) Functions::flash("Login exitoso. Disfruta tu estadia.");
+		else Functions::flash("Error al guardar los datos de entrada. Login de todas formas.","danger");
 		
 		Functions::redirect("Home");
 	}
@@ -246,13 +241,12 @@ class UsuarioController extends Administrable
 	{
 		if(!$this->loggedIn()) Functions::redirect("Home");
 
-		$_SESSION['flash'] = array();
 		$_SESSION["loggedUser"]->setIp($this->getUserIp());
 		$_SESSION["loggedUser"]->setLastConnection(time());
 		$_SESSION["loggedUser"]->setLoggedIn(0);
 		
-		if($this->usuarioDAO->edit($_SESSION["loggedUser"])) array_push($_SESSION['flash'], "Logout exitoso. Hasta pronto.");
-		else array_push($_SESSION['flash'], "Error al guardar los datos de salida. Logout de todas formas.");
+		if($this->usuarioDAO->edit($_SESSION["loggedUser"])) Functions::flash("Logout exitoso. Hasta pronto.");
+		else Functions::flash("Error al guardar los datos de salida. Logout de todas formas.","danger");
 		
 		unset($_SESSION["loggedUser"]);
 		
@@ -261,8 +255,6 @@ class UsuarioController extends Administrable
 
 	public function FacebookLogin()
 	{
-		$_SESSION['flash'] = array();
-
 		$fb = FBController::getFacebookAPI();
 		$helper = $fb->getRedirectLoginHelper();
 		try 
@@ -271,12 +263,12 @@ class UsuarioController extends Administrable
 		} 
 		catch(Facebook\Exceptions\FacebookResponseException $e) {
 			// When Graph returns an error
-			array_push($_SESSION['flash'], 'Graph returned an error: ' . $e->getMessage());
+			Functions::flash('Graph returned an error: ' . $e->getMessage());
 			Functions::redirect("Login");
 		} 
 		catch(Facebook\Exceptions\FacebookSDKException $e) {
 			// When validation fails or other local issues
-			array_push($_SESSION['flash'], 'Facebook SDK returned an error: ' . $e->getMessage());
+			Functions::flash('Facebook SDK returned an error: ' . $e->getMessage());
 			Functions::redirect("Login");
 		}
 		
@@ -285,15 +277,15 @@ class UsuarioController extends Administrable
 			if ($helper->getError()) 
 			{
 				header('HTTP/1.0 401 Unauthorized');
-				array_push($_SESSION['flash'], "Error: " . $helper->getError());
-				array_push($_SESSION['flash'], "Error Code: " . $helper->getErrorCode());
-				array_push($_SESSION['flash'], "Error Reason: " . $helper->getErrorReason());
-				array_push($_SESSION['flash'], "Error Description: " . $helper->getErrorDescription());
+				Functions::flash("Error: " . $helper->getError());
+				Functions::flash("Error Code: " . $helper->getErrorCode());
+				Functions::flash("Error Reason: " . $helper->getErrorReason());
+				Functions::flash("Error Description: " . $helper->getErrorDescription());
 			} 
 			else 
 			{
 				header('HTTP/1.0 400 Bad Request');
-				array_push($_SESSION['flash'], 'Bad request');
+				Functions::flash('Bad request');
 			}
 			Functions::redirect("Login");
 		}
@@ -324,7 +316,7 @@ class UsuarioController extends Administrable
 			} 
 			catch (Facebook\Exceptions\FacebookSDKException $e) 
 			{
-				array_push($_SESSION['flash'], "Error getting long-lived access token: " . $e->getMessage());
+				Functions::flash("Error getting long-lived access token: " . $e->getMessage());
 				Functions::redirect("Login");
 			}
 			
@@ -393,7 +385,6 @@ class UsuarioController extends Administrable
 
 	public function toggleAdmin($id)
 	{
-		$_SESSION['flash'] = array();
 		if(!$this->isMainAdmin()) Functions::redirect("Home");
 
 		$usuario = new Usuario();
@@ -401,15 +392,15 @@ class UsuarioController extends Administrable
 		$usuario = $this->usuarioDAO->getUsuario($usuario);
 		if($usuario == null)
 		{
-			array_push($_SESSION['flash'], "El usuario no existe.");
+			Functions::flash("El usuario no existe.","warning");
 			Functions::redirect("Home");
 		}
 
 		//Cambiar rol
 		$usuario->getId_Rol() == 1 ? $usuario->setId_Rol(2) : $usuario->setId_Rol(1);
 		
-		if($this->usuarioDAO->edit($usuario)) array_push($_SESSION['flash'], "Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
-		else array_push($_SESSION['flash'], "Hubo un error al cambiar los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
+		if($this->usuarioDAO->edit($usuario)) Functions::flash("Se han cambiado los accesos de ".$usuario->getNombre().$usuario->getApellido().".");
+		else Functions::flash("Hubo un error al cambiar los accesos de ".$usuario->getNombre().$usuario->getApellido().".","danger");
 		
 		Functions::redirect("Usuario","ShowProfileView", $usuario->getId());
 	}

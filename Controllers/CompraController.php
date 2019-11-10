@@ -38,15 +38,13 @@
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
 
-			if(!isset($_SESSION['flash'])) $_SESSION['flash'] = array();
-
 			//Datos funcion
 			$funcion = new Funcion();
 			$funcion->setId($idFuncion);
 			$funcion = $this->funcionDAO->getFuncion($funcion);
 			if($funcion == null)
 			{
-				array_push($_SESSION['flash'], "La funcion seleccionada no existe.");
+				Functions::flash("La funcion seleccionada no existe.","warning");
 				Functions::redirect("Home");
 			}
 
@@ -81,8 +79,6 @@
 		public function Payout($idFuncion,$cantidad,$name,$mmyy,$number,$cvc)
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
-
-			$_SESSION['flash'] = array();
 			
 			$name = Functions::validateData($name);
 			$mmyy = Functions::validateData($mmyy);
@@ -93,7 +89,7 @@
 				$params = array();
 				array_push($params,$idFuncion);
 				array_push($params,$cantidad);
-				array_push($_SESSION['flash'], "Los datos de la tarjeta son incorrectos.");
+				Functions::flash("Los datos de la tarjeta son incorrectos.","warning");
 				Functions::redirect("Compra","Pay",$params);
 			}
 
@@ -103,7 +99,7 @@
 			$funcion = $this->funcionDAO->getFuncion($funcion);
 			if($funcion == null)
 			{
-				array_push($_SESSION['flash'], "La funcion seleccionada no existe.");
+				Functions::flash("La funcion seleccionada no existe.","warning");
 				Functions::redirect("Home");
 			}
 
@@ -113,7 +109,7 @@
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 			if($pelicula == null)
 			{
-				array_push($_SESSION['flash'], "La pelicula de la funcion no existe.");
+				Functions::flash("La pelicula de la funcion no existe.","warning");
 				Functions::redirect("Home");
 			}
 
@@ -126,7 +122,7 @@
 			$cine = $this->cineDAO->getCine($cine);
 			if($cine == null)
 			{
-				array_push($_SESSION['flash'], "El cine de la funcion no existe.");
+				Functions::flash("El cine de la funcion no existe.","warning");
 				Functions::redirect("Home");
 			}
 
@@ -151,7 +147,7 @@
 			$compra->setTotal($total);
 			if(!$this->compraDAO->add($compra)) 
 			{
-				array_push($_SESSION['flash'], "Se produjo un error al registrar la compra. Tu pago será devuelto.");
+				Functions::flash("Se produjo un error al registrar la compra. Tu pago será devuelto.","danger");
 				Functions::redirect("Funcion","ShowFuncionesPelicula", $idPelicula);
 			}			
 
@@ -165,9 +161,9 @@
 				$entrada->setIdCompra($idCompra);
 				$entrada->setIdFuncion($idFuncion);
 				$entrada->setQr($idCine."-".$idSala."-".$idFuncion."-".$idCompra."-".$i);
-				if(!$this->entradaDAO->add($entrada)) array_push($_SESSION['flash'], "Se produjo un error al registrar la entrada ".$i.".");
+				if(!$this->entradaDAO->add($entrada)) Functions::flash("Se produjo un error al registrar la entrada ".$i.".","danger");
 			}
-			array_push($_SESSION['flash'], "Se completo la compra de ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!");
+			Functions::flash("Se completo la compra de ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!", "success");
 			Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
 		}
 
@@ -187,7 +183,7 @@
 			if(!$validateDate) return false;
 
 			//Si pasa todas las validaciones procesamos la compra
-			array_push($_SESSION['flash'], "Tu compra con tarjeta ".$validateCard['type']." fue procesada con éxito.");
+			Functions::flash("Tu compra con tarjeta ".$validateCard['type']." fue procesada con éxito.","success");
 			return true;
 		}
 		

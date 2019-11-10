@@ -42,15 +42,13 @@
 			$salaList = $this->salaDAO->getByCine($cine);
 			if(!isset($salaList) || count($salaList) == 0)
 			{
-				$_SESSION['flash'] = array();
-				array_push($_SESSION['flash'], "El cine no tiene salas.");
+				Functions::flash("El cine no tiene salas.","warning");
 				Functions::redirect("Cine", "ShowFichaView", $idCine);
 			}
 			$peliculaList = $this->peliculaDAO->getAll();
 			if(!isset($peliculaList) || count($peliculaList) == 0)
 			{
-				$_SESSION['flash'] = array();
-				array_push($_SESSION['flash'], "No existen peliculas en la base de datos.");
+				Functions::flash("No existen peliculas en la base de datos.","warning");
 				Functions::redirect("Cine", "ShowFichaView", $idCine);
 			}
 			require_once(VIEWS_PATH . "funcion/funcion-add.php");
@@ -61,16 +59,14 @@
 			if (!$this->loggedIn()) Functions::redirect("Home");
 			if (!$this->isAdmin()) Functions::redirect("Home");
 
-			$_SESSION['flash'] = array();
 			$funcion = new Funcion();
 			$funcion->setId($id);
 			$funcion = $this->funcionDAO->getFuncion($funcion);
 
 			$idCine = $funcion->getIdCine();
 
-			$this->funcionDAO->remove($funcion);
-
-			array_push($_SESSION['flash'], "La funcion se ha eliminado correctamente.");
+			if($this->funcionDAO->remove($funcion) != null) Functions::flash("La funcion se ha eliminado correctamente.","success");
+			else Functions::flash("Hubo un error al eliminar la funcion.", "danger");			
 			Functions::redirect("Cine", "ShowFichaView", $idCine);
 		}
 
@@ -79,25 +75,23 @@
 			if (!$this->loggedIn()) Functions::redirect("Home");
 			if (!$this->isAdmin()) Functions::redirect("Home");
 
-			$_SESSION['flash'] = array();
-
 			$fechaHora = $fecha . " " . $hora;
 
 			if (empty($idPelicula)) 
 			{
-				array_push($_SESSION['flash'], "Debes seleccionar una pelicula.");
+				Functions::flash("Debes seleccionar una pelicula.","warning");
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
 			if (!$this->checkAvailableTime($idCine, $idPelicula, $fechaHora)) 
 			{
-				array_push($_SESSION['flash'], "Existe una funcion en ese rango horario.");
+				Functions::flash("Existe una funcion en ese rango horario.","warning");
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
 			if (!$this->checkAvailablePelicula($idCine, $idPelicula, $fechaHora)) 
 			{
-				array_push($_SESSION['flash'], "La pelicula ya tiene una funcion en otro cine ese mismo dia.");
+				Functions::flash("La pelicula ya tiene una funcion en otro cine ese mismo dia.","warning");
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
@@ -107,8 +101,8 @@
 			$funcion->setIdPelicula($idPelicula);
 			$funcion->setFechaHora($fechaHora);
 
-			if($this->funcionDAO->add($funcion) != null) array_push($_SESSION['flash'], "La funcion se ha agregado correctamente.");
-			else array_push($_SESSION['flash'], "Hubo un error al agregar la funcion.");
+			if($this->funcionDAO->add($funcion) != null) Functions::flash("La funcion se ha agregado correctamente.","success");
+			else Functions::flash("Hubo un error al agregar la funcion.","danger");
 			Functions::redirect("Cine", "ShowFichaView", $idCine);
 		}
 
