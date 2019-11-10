@@ -3,12 +3,13 @@
 
 use Exception;
 use Models\Funcion as Funcion;
-	use Models\Genero as Genero;
+use Models\Genero as Genero;
 
 	class FuncionDAO
 	{
 		private $connection;
 		private $tableName = "Funciones";
+		private $peliculasPorGenerosTableName= "PeliculasXGeneros";
 
 		public function add($funcion)
 		{
@@ -143,12 +144,15 @@ use Models\Funcion as Funcion;
 			}
 		}
 
-		public function getPeliculasPorFecha($date)
-		{
+		public function getMoviesWithFunctionsByDate($date)
+		{	
+			$fecha = date_create($date.' 00:00:00');
+			date_add($fecha, date_interval_create_from_date_string('1 days'));
+
 			try 
 			{
 				$list = array();
-				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE fecha_hora LIKE '" . $date . "%'";
+				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE fecha_hora BETWEEN '" . $date . "' and '".date_format($fecha, 'Y-m-d H:i:s')."'";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -162,6 +166,49 @@ use Models\Funcion as Funcion;
 			catch (Exception $ex) 
 			{
 				return null;
+			}
+		}
+
+		public function getMoviesByGenreAndDate($genre, $date){
+			$list=array();
+			$fecha = date_create($date.' 00:00:00');
+			date_add($fecha, date_interval_create_from_date_string('1 days'));
+
+			try{
+				$query="SELECT DISTINCT f.id_pelicula FROM ".$this->tableName. " f inner join ".$this->peliculasPorGenerosTableName ." pxg on f.id_pelicula=pxg.id_pelicula WHERE pxg.id_genero = ". $genre->getId()." AND fecha_hora BETWEEN '" . $date . "' and '".date_format($fecha, 'Y-m-d H:i:s')."'";
+
+				$this->connection = Connection::GetInstance();
+				$resultSet=$this->connection->Execute($query);
+
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			}
+			catch(Exception $ex){
+
+			}
+		}
+
+		public function getMoviesWithFunctionsByGenre($genre){
+			$list=array();
+			try{
+				$query="SELECT DISTINCT f.id_pelicula FROM ".$this->tableName. " f inner join ".$this->peliculasPorGenerosTableName ." pxg on f.id_pelicula=pxg.id_pelicula WHERE pxg.id_genero = ". $genre->getId()." and f.fecha_hora >= now()";
+
+				$this->connection = Connection::GetInstance();
+				$resultSet=$this->connection->Execute($query);
+
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			}
+			catch(Exception $ex){
+
 			}
 		}
 
