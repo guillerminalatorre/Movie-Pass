@@ -8,7 +8,7 @@
 
   <div class="collapse navbar-collapse ml-4" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ml-2">
-      <li class="nav-item">
+      <li class="nav-item mx-xl-2">
         <a class="nav-link text-light" href="<?php echo FRONT_ROOT ?>Home">Inicio</a>
       </li>
 

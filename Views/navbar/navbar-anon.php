@@ -1,6 +1,6 @@
 
 
-<li class="nav-item">
+<li class="nav-item mx-xl-2">
 <form class="form-inline my-0 mr-4">
   <div class="md-form form-sm my-0">
     <input class="form-control form-control-sm mr-sm-2 mb-0" type="text" placeholder="Buscar pelicula" aria-label="Search">

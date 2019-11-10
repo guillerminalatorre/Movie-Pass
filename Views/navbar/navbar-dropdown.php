@@ -1,5 +1,5 @@
 <ul class="navbar-nav ml-auto nav-flex-icons">
-    <li class="nav-item avatar dropdown">
+    <li class="nav-item mx-xl-2 avatar dropdown">
         <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <?php echo $_SESSION["loggedUser"]->getNombre() . " " . $_SESSION["loggedUser"]->getApellido(); ?><img src="<?php echo $_SESSION["loggedUser"]->getImage() ?>" height="30" class="rounded-circle z-depth-0 ml-2" alt="avatar image">
         </a>
