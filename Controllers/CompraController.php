@@ -52,6 +52,11 @@
 			$pelicula = new Pelicula();
 			$pelicula->setId($funcion->getIdPelicula());
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+			if($pelicula == null)
+			{
+				Functions::flash("La pelicula seleccionada no existe.","warning");
+				Functions::redirect("Home");
+			}
 
 			$fechaHora = $funcion->getFechaHora();
 
@@ -60,12 +65,22 @@
 			$cine = new Cine();
 			$cine->setId($idCine);
 			$cine = $this->cineDAO->getCine($cine);
+			if($cine == null)
+			{
+				Functions::flash("El cine seleccionado no existe.","warning");
+				Functions::redirect("Home");
+			}
 
 			//Datos sala
 			$idSala = $funcion->getIdSala();
 			$sala = new Sala();
 			$sala->setId($idSala);
 			$sala = $this->salaDAO->getSala($sala);
+			if($sala == null)
+			{
+				Functions::flash("La sala seleccionada no existe.","warning");
+				Functions::redirect("Home");
+			}
 			$precio = $sala->getPrecio();
 
 			//Calculos
@@ -109,7 +124,7 @@
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 			if($pelicula == null)
 			{
-				Functions::flash("La pelicula de la funcion no existe.","warning");
+				Functions::flash("La pelicula seleccionada no existe.","warning");
 				Functions::redirect("Home");
 			}
 
@@ -122,7 +137,7 @@
 			$cine = $this->cineDAO->getCine($cine);
 			if($cine == null)
 			{
-				Functions::flash("El cine de la funcion no existe.","warning");
+				Functions::flash("El cine seleccionado no existe.","warning");
 				Functions::redirect("Home");
 			}
 
@@ -131,6 +146,11 @@
 			$sala = new Sala();
 			$sala->setId($idSala);
 			$sala = $this->salaDAO->getSala($sala);
+			if($sala == null)
+			{
+				Functions::flash("La sala seleccionada no existe.","warning");
+				Functions::redirect("Home");
+			}
 			$precio = $sala->getPrecio();
 
 			//Calculos

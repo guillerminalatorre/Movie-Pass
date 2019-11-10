@@ -73,7 +73,7 @@
         {
             try 
             {
-                $query = "SELECT * FROM " . $this->tableName . "WHERE id_genero = " . $genero->getId() . ";";
+                $query = "SELECT * FROM " . $this->tableName . " WHERE id_genero = '" . $genero->getId() . "';";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 

@@ -25,15 +25,23 @@
 	
 			$arrayToDecode = json_decode($get_data, true);
 	
+			$count = 0;
 			foreach ($arrayToDecode["genres"] as $generoValues) 
 			{
 				$genero = new Genero();
 				$genero->setId($generoValues["id"]);
 				$genero->setNombre($generoValues["name"]);
-				   
-				if($this->generoDAO->add($genero)) Functions::flash("Se agrego el genero ".$genero->getNombre().".");
+				if($this->generoDAO->getGenero($genero) != null) continue;
+					
+				if($this->generoDAO->add($genero))
+				{
+					Functions::flash("Se agrego el genero ".$genero->getNombre().".");
+					$count++;
+				}					
 				else Functions::flash("Hubo un error al agregar un genero.","danger");
 			}
+			if($count > 0) Functions::flash("Se agregaron ".$count." generos correctamente.","info");
+			else Functions::flash("No existen mas generos para agregar de la API.","warning");
 
 			Functions::redirect("System");
 		}
