@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-dark mb-4 shadow">
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark-transparent mb-4 shadow">
 
   <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
