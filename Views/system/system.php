@@ -1,9 +1,16 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid">
     <div class="col-10 offset-1 bg-dark-transparent rounded pl-5 pr-5 shadow">
+        <?php if(isset($_SESSION['flash']) && count($_SESSION['flash']) > 0) { ?>
+            <div class="row">
+                <div class="col-12 pt-3">
+                    <?php require_once(VIEWS_PATH."alert.php"); ?>
+                </div>
+            </div>            
+        <?php } ?>
         <div class="row">
             <!-- For demo purpose -->
-            <div class="container py-5">
+            <div class="container py-4">
                 <div class="row text-center text-white">
                     <div class="col-lg-8 mx-auto">
                         <h1 class="display-4">Administración Moviepass</h1>

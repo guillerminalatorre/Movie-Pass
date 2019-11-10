@@ -2,6 +2,7 @@
 <div class="container-fluid">
     <div class="col-10 offset-1 bg-dark-transparent rounded pl-5 pr-5 shadow">
         <div class="row">
+            <?php require_once(VIEWS_PATH."alert.php"); ?>
             <!-- For demo purpose -->
             <div class="container py-5">
                 <div class="row text-center text-white">
