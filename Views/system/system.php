@@ -16,17 +16,17 @@
                 <div class="row text-center">
 
                     <!-- Team item -->
-                    <div class="col-xl-3 col-6 mb-5">
+                    <div class="col-xl-3 col-lg-6 col-sm-12 mb-5">
                         <div class="bg-light rounded shadow-sm py-5 px-4">
-                            <h5 class="mb-0">Usuarios</h5><h3 class="large text-uppercase"><?php echo $usuarioCount; ?></h3>
+                            <h5 class="mb-0">Usuarios</h5><h3 class="large text-uppercase counter-count"><?php echo $usuarioCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Usuario/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de usuarios</a>
                         </div>
                     </div><!-- End -->
 
                     <!-- Team item -->
-                    <div class="col-xl-3 col-6 mb-5">
+                    <div class="col-xl-3 col-lg-6 col-sm-12 mb-5">
                         <div class="bg-light rounded shadow-sm py-5 px-4">
-                            <h5 class="mb-0">Peliculas</h5><h3 class="large text-uppercase"><?php echo $peliculaCount; ?></h3>
+                            <h5 class="mb-0">Peliculas</h5><h3 class="large text-uppercase counter-count"><?php echo $peliculaCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Pelicula/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de peliculas</a>
                             <h5 class="mt-4 mb-0">Obtener de API</h5>
                             <a href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Peliculas</a>
@@ -35,17 +35,17 @@
                     </div><!-- End -->
 
                     <!-- Team item -->
-                    <div class="col-xl-3 col-6 mb-5">
+                    <div class="col-xl-3 col-lg-6 col-sm-12 mb-5">
                         <div class="bg-light rounded shadow-sm py-5 px-4">
-                            <h5 class="mb-0">Cines</h5><h3 class="large text-uppercase"><?php echo $cineCount; ?></h3>
+                            <h5 class="mb-0">Cines</h5><h3 class="large text-uppercase counter-count"><?php echo $cineCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Cine/ShowListView" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de cines</a>
                         </div>
                     </div><!-- End -->
 
                     <!-- Team item -->
-                    <div class="col-xl-3 col-6 mb-5">
+                    <div class="col-xl-3 col-lg-6 col-sm-12 mb-5">
                         <div class="bg-light rounded shadow-sm py-5 px-4">
-                            <h5 class="mb-0">Funciones</h5><h3 class="large text-uppercase"><?php echo $funcionCount; ?></h3>
+                            <h5 class="mb-0">Funciones</h5><h3 class="large text-uppercase counter-count"><?php echo $funcionCount; ?></h3>
                             <a href="<?php echo FRONT_ROOT ?>Funcion/ShowFuncionesPelicula" class="btn btn-info btn-md mt-2 shadow-sm" role="button">Lista de funciones</a>
                         </div>
                     </div><!-- End -->
@@ -54,3 +54,16 @@
         </div>
     </div>
 </div>
+<script>
+    $('.counter-count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 1500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+</script>

@@ -21,6 +21,7 @@
         } else if ($_SESSION["loggedUser"]->getId_Rol() == 3) {
           require_once("navbar/navbar-main-admin.php");
         }
+  require_once("navbar/navbar-team.php");
   require_once("navbar/navbar-search.php");
   require_once("navbar/navbar-dropdown.php");
 } 
