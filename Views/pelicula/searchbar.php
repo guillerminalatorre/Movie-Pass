@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-    <div class="col-sm-12 col-lg-10 offset-sm-0 offset-lg-1 bg-dark rounded shadow p-sm-2 p-md-4">
+    <div class="col-sm-12 col-lg-10 offset-sm-0 offset-lg-1 bg-dark-transparent rounded shadow p-sm-2 p-md-4">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <div class="text-white p-2">
             <form action="<?php echo FRONT_ROOT ?>Funcion/FilterFunctions" method="POST">

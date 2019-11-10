@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-  <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-white rounded shadow p-md-4 p-lg-4 p-xl-5">
+  <div class="col-sm-12 col-md-8 col-lg-4 offset-sm-0 offset-md-2 offset-lg-4 bg-light rounded shadow p-md-4 p-lg-4 p-xl-5">
     <?php require_once(VIEWS_PATH."alert.php"); ?>
     <form action="<?php echo FRONT_ROOT ?>Usuario/Login" method="POST">
       <h2 class="text-center">¡Hola! Para seguir, <br>ingresá tus datos</h2>

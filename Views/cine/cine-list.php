@@ -1,6 +1,6 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark rounded shadow p-2">
+    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent rounded shadow p-2">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <h2 class="col-sm-12 col-md-6 pb-2 text-light">Lista de cines</h2>
         <table class="table table-striped table-responsive-md text-light align-center">
