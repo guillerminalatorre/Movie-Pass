@@ -46,7 +46,8 @@
                     <label for="fecha">Fecha:</label>
                 </div>
                 <div class="col-8">
-                    <input type="date" class="form-control" name="fecha" value="<?php echo date('Y-m-d'); ?>" min="<?php echo date("Y-m-d") ?>" required>
+                    <?php $timePlus1Hour = date(("H:i"), strtotime('+1 hour')); ?>
+                    <input type="time" class="form-control" name="hora" value="<?php echo date("H:i"); ?>" min="<?php echo $timePlus1Hour; ?>" required>
                 </div>
             </div>
             <div class="row">
