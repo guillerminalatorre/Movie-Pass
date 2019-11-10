@@ -11,9 +11,10 @@ use Models\Pelicula as Pelicula;
 class EstadisticasDAO
 {
     private $connection;
-    private $tableNameEntradas = "entradas";
-    private $tableNameCompras = "compras";
-    private $tableNameFunciones = "funciones";
+    private $tableNameEntradas = "Entradas";
+    private $tableNameCompras = "Compras";
+    private $tableNameFunciones = "Funciones";
+    private $tableNameSalas = "Salas";
 
 
     public function getCantidadVendidaFuncion(Funcion $funcion)
@@ -36,20 +37,17 @@ class EstadisticasDAO
 
     public function getRemanenteFuncion(Funcion $funcion)
     {
-        try {
-            $query = "SELECT SUM(total) AS 'remanente' FROM " . $this->tableNameEntradas . " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra) WHERE id_funcion = :id_funcion;";
-            $parameters["id_funcion"] = $funcion->getId();
 
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query, $parameters);
+        $query = "SELECT ((SELECT capacidad FROM ".$this->tableNameFunciones." JOIN ".$this->tableNameSalas." ON (".$this->tableNameFunciones.".id_sala = ".$this->tableNameSalas.".id_sala) WHERE id_funcion = :id_funcion) - SUM(cantidad)) as 'remanente' FROM " . $this->tableNameEntradas . " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra WHERE id_funcion = :id_funcion;";
+        $parameters['id_funcion'] = $funcion->getId();
 
-            foreach ($resultSet as $row) {
-                $remanente = $row["remanente"];
-            }
-            return $remanente;
-        } catch (Exception $ex) {
-            return null;
+        $this->connection = Connection::GetInstance();
+        $resultSet = $this->connection->Execute($query, $parameters);
+
+        foreach ($resultSet as $row) {
+            $remanente = $row["remanente"];
         }
+        return $remanente;
     }
 
     public function getVentasPelicula(Pelicula $pelicula, $fechaInicio, $fechaCierre)
