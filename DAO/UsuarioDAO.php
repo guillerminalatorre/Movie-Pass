@@ -27,7 +27,7 @@
 				$parameters["registerDate"]=$usuario->getRegisterDate();
 				$parameters["lastConnection"]=$usuario->getLastConnection();
 				$parameters["loggedIn"]=$usuario->getLoggedIn();
-				$parameters["image"]=$usuario->getImage();
+				$parameters["image"]=$usuario->getImage(true);
 				$parameters["facebookId"]=$usuario->getFacebookId();
                 $this->connection = Connection::GetInstance();
 				$this->connection->ExecuteNonQuery($query, $parameters);

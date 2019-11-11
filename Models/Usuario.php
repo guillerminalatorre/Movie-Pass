@@ -274,9 +274,9 @@
 		 *
 		 * @return [type]
 		 */
-		public function getImage($root = false)
+		public function getImage($noRoot = false)
 		{
-			return ($this->getFacebookId() == null && !$root) ? FRONT_ROOT.$this->image : $this->image;
+			return ($this->getFacebookId() == null && !$noRoot) ? FRONT_ROOT.$this->image : $this->image;
 		}
 
 		/**
