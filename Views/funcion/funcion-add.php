@@ -54,8 +54,7 @@
                     <label for="hora">Hora:</label>
                 </div>
                 <div class="col-8">
-                    <?php $timePlus1Hour = date(("H:i"), strtotime('+1 hour')); ?>
-                    <input type="time" class="form-control" name="hora" value="<?php echo date("H:i"); ?>" min="<?php echo $timePlus1Hour; ?>" required>
+                    <input type="time" class="form-control" name="hora" value="<?php echo date("H:i"); ?>" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm"><i class="fa fa-plus-circle"></i> Agregar Funcion</button>
