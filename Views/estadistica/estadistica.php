@@ -30,10 +30,12 @@
                     <div class="col-xl-4 col-lg-6 col-sm-12 mb-3">
                         <div class="bg-light rounded shadow-sm py-4 px-4">
                             <h5 class="mb-2">Funcion</h5>
-                            <select name="idFuncion" class="form-control">
+                            <select name="idFuncion" id="idFuncion" class="form-control">
                                 <option value="" selected>Elegir funcion</option>
                                 <?php foreach ($funcionList as $funcionValue) { ?>
-                                    <option value="<?php echo $funcionValue->getId(); ?>"> <?php echo $peliculaValue->getTitulo(); ?></option>
+                                    <?php $pelicula->setId($funcionValue->getIdPelicula());
+                                    $pelicula = $this->peliculaDAO->getPelicula($pelicula); ?>
+                                    <option value="<?php echo $funcionValue->getId(); ?>"> <?php echo $pelicula->getTitulo(); ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -52,33 +54,3 @@
         </div>
     </div>
 </div>
-<script>
-function funciones() 
-{
-    var cine = $("#idCine :selected").val();
-    var data = new FormData();
-    data.append('idPelicula', $("#idPelicula :selected").val());
-    data.append('idCine', $("#idCine :selected").val());
-    var xhttp;
-
-    xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            loadData(this.responseText);
-        }
-    };
-    
-    xhttp.open("POST", "<?php echo FRONT_ROOT ?>Estadistica/ReturnFunciones", true);
-    xhttp.send(data);
-}
-
-function loadData(data)
-{
-    var $select = $('select.idFuncion');
-    $select.empty();
-                        
-    for (var i = 0; i < data.length; i++)
-        var o = $('<option/>', { value: data[i] }).text(data[i]).prop('selected', i == 0);
-        o.appendTo($select);
-}
-</script>
