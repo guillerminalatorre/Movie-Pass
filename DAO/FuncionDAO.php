@@ -55,7 +55,7 @@ use Models\Genero as Genero;
 			try 
 			{
 				$list = array();
-				$query = "SELECT * FROM " . $this->tableName;
+				$query = "SELECT * FROM " . $this->tableName. " ORDER BY fecha_hora ASC;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 

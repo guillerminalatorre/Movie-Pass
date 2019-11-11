@@ -205,20 +205,19 @@ class FuncionController extends Administrable
 						$funciones= $this->funcionDAO->getMoviesWithFunctionsByDate($chosenDate);
 					}
 				}
-				if(!empty($funciones)){
-					foreach ($funciones as $funcion) 
-					{
-						$pelicula = new Pelicula();
-						$pelicula = $this->peliculaDAO->getPelicula($pelicula->setId($funcion->getIdPelicula()));
-						array_push($peliculaList, $pelicula);
-					}
+			}
+			if(!empty($funciones)){
+				foreach ($funciones as $funcion) 
+				{
+					$pelicula = new Pelicula();
+					$pelicula = $this->peliculaDAO->getPelicula($pelicula->setId($funcion->getIdPelicula()));
+					array_push($peliculaList, $pelicula);
 				}
-
-
 			}
 
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
+			
 		}
 
 		public function ShowFuncionesPelicula($idPelicula = null)
