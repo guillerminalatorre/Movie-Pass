@@ -8,7 +8,7 @@ use Models\Funcion as Funcion;
 use Models\Cine as Cine;
 use Models\Pelicula as Pelicula;
 
-class EstadisticasDAO
+class EstadisticaDAO
 {
     private $connection;
     private $tableNameEntradas = "Entradas";
