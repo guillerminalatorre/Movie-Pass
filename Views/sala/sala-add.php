@@ -12,7 +12,7 @@
                     <label for="idCine">Cine:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $cine->getNombre()." (ID: ".$idCine.")"; ?>">
+                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $idCine; ?>">
                 </div>
             </div>
             <div class="row">
