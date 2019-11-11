@@ -175,15 +175,23 @@
 			$listCompras = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
 			$compra = array_pop($listCompras);
 			$idCompra = $compra->getId();
+
+			$listEntradas = array();
+
 			for ($i = 1; $i <= $cantidad; $i++)
 			{
 				$entrada = new Entrada();
 				$entrada->setIdCompra($idCompra);
 				$entrada->setIdFuncion($idFuncion);
 				$entrada->setQr($idCine."-".$idSala."-".$idFuncion."-".$idCompra."-".$i);
-				if(!$this->entradaDAO->add($entrada)) Functions::flash("Se produjo un error al registrar la entrada ".$i.".","danger");
+				array_push($listEntradas, $entrada);
+				if(!$this->entradaDAO->add($entrada)) Functions::flash("Se produjo un error al registrar la entrada ".$i.".","danger");	
 			}
 			Functions::flash("Se completo la compra de ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!", "success");
+			
+			$subject = "Movie Pass - Tus entradas para ver ".$pelicula->getTitulo();
+		
+			Functions::sendEmail($_SESSION['loggedUser']->getEmail(),$subject, $this->compraMailBody($listEntradas));
 			Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
 		}
 
@@ -213,6 +221,51 @@
 			$day = date('w', strtotime($fechaHora));
 			if(($day == 2 || $day == 3) && $cantidad >= 2) $descuento = 25;
 			return $descuento;
+		}
+
+		private function compraMailBody($entradaList){
+			$message  = "<html><head>
+			<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+			<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
+			</head><body>";
+			$message.= "<div class='container-fluid mb-4'>
+			<div class='col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent rounded shadow p-2'>
+				<h2 class='col-sm-12 col-md-6 pb-2 text-light'>Lista de entradas</h2>
+				<table class='table table-striped table-responsive-md text-light align-center border='1' frame='border' rules='groups'>
+					<thead bgcolor='#DDE0FC'>
+						<tr>
+							<th>Nro Entrada</th>
+							<th>Pelicula</th>
+							<th>N.Funcion</th>
+							<th>N.Compra</th>
+							<th>QR</th>
+						</tr>
+					</thead>
+					<tbody>";
+						foreach ($entradaList as $entrada) { 
+							$funcion= new Funcion();
+							$pelicula= new Pelicula();
+							$idFuncion = $entrada->getIdFuncion();
+							$funcion->setId($idFuncion);
+							$funcion = $this->funcionDAO->getFuncion($funcion);
+							$idPelicula = $funcion->getIdPelicula();
+							$pelicula->setId($idPelicula);
+							$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+							$title= $pelicula->getTitulo();
+							$idEntrada= $entrada->getId();
+							$idCompra= $entrada->getIdCompra();
+							$qr= $entrada->getQr();
+							$message.="<tr>
+							<td align='center' class='align-middle'>".$idEntrada."</td>
+							<td class='align-middle'><b>".$title."</b></a></td>
+							<td class='align-middle' align='center'>".$idFuncion."</td>
+							<td class='align-middle'align='center'>".$idCompra."</td>
+							<td class='align-middle'align='center'><img src='https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=";
+							$message.=$qr."'></td></tr>";
+						}
+						$message.="</tbody></table></div></div></body></html>";
+			
+			return $message;
 		}
 	}
 ?>
