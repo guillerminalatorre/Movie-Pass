@@ -20,7 +20,10 @@ class EstadisticaDAO
     {
         try 
         {
-            $query = "SELECT SUM(cantidad) AS 'cantidadVendida' FROM " . $this->tableNameEntradas . " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra) WHERE id_funcion = :id_funcion;";
+            $query = "SELECT SUM(cantidad) AS 'cantidadVendida' FROM " . $this->tableNameEntradas . 
+            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
+            " WHERE id_funcion = :id_funcion;";
+            
             $parameters["id_funcion"] = $funcion->getId();
 
             $this->connection = Connection::GetInstance();
@@ -42,8 +45,13 @@ class EstadisticaDAO
     {
         try 
         {
-            $query = "SELECT ((SELECT capacidad FROM " . $this->tableNameFunciones . " JOIN " . $this->tableNameSalas . " ON (" . $this->tableNameFunciones . ".id_sala = " . $this->tableNameSalas . ".id_sala) WHERE id_funcion = :id_funcion ) - COUNT(id_entrada)) as 'remanente' FROM " . $this->tableNameEntradas . " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra) WHERE id_funcion = :id_funcion;";
+            $query = "SELECT ((SELECT capacidad FROM " . $this->tableNameFunciones . 
+            " JOIN " . $this->tableNameSalas . " ON (" . $this->tableNameFunciones . ".id_sala = " . $this->tableNameSalas . ".id_sala) WHERE id_funcion = :id_funcion ) - COUNT(id_entrada)) as 'remanente' FROM " . $this->tableNameEntradas . 
+            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
+            " WHERE id_funcion = :id_funcion;";
+            
             $parameters['id_funcion'] = $funcion->getId();
+            
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
@@ -59,16 +67,23 @@ class EstadisticaDAO
         }
     }
 
-    public function getVentasPelicula(Pelicula $pelicula, $fechaInicio, $fechaCierre)
+    public function getVentasPelicula(Pelicula $pelicula, $fechaInicio = null, $fechaFin = null)
     {
         try 
         {
-            $query = "SELECT SUM(total) AS 'total' FROM " . $this->tableNameEntradas . " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra) JOIN "
-                . $this->tableNameFunciones . " ON (" . $this->tableNameEntradas . ".id_funcion = "
-                . $this->tableNameFunciones . ".id_funcion) WHERE id_pelicula = :id_pelicula AND " . $this->tableNameFunciones . ".fecha_hora >= :fecha_inicio AND " . $this->tableNameFunciones . ".fecha_hora <=:fecha_cierre;";
+            $query = "SELECT SUM(total) AS 'total' FROM " . $this->tableNameEntradas . 
+            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
+            " JOIN " . $this->tableNameFunciones . " ON (" . $this->tableNameEntradas . ".id_funcion = " . $this->tableNameFunciones . ".id_funcion)".
+            " WHERE id_pelicula = :id_pelicula";
+           
+            if($fechaInicio != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora >= :fecha_inicio";
+            if($fechaFin != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora <= :fecha_fin";
+
+            $query = $query . ";";
+
             $parameters["id_pelicula"] = $pelicula->getId();
             $parameters["fecha_inicio"] = $fechaInicio;
-            $parameters["fecha_cierre"] = $fechaCierre;
+            $parameters["fecha_fin"] = $fechaFin;
             
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
@@ -85,17 +100,23 @@ class EstadisticaDAO
         }
     }
 
-    public function getVentasCine(Cine $cine, $fechaInicio, $fechaCierre)
+    public function getVentasCine(Cine $cine, $fechaInicio = null, $fechaFin = null)
     {
         try 
         {
-            $query = "SELECT SUM(total) AS 'total' FROM " . $this->tableNameEntradas . " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra) JOIN "
-                . $this->tableNameFunciones . " ON (" . $this->tableNameEntradas . ".id_funcion = "
-                . $this->tableNameFunciones . ".id_funcion) WHERE id_cine = :id_cine AND " . $this->tableNameFunciones . ".fecha_hora >= :fecha_inicio AND " . $this->tableNameFunciones . ".fecha_hora <=:fecha_cierre;";
+            $query = "SELECT SUM(total) AS 'total' FROM " . $this->tableNameEntradas . 
+            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
+            " JOIN " . $this->tableNameFunciones . " ON (" . $this->tableNameEntradas . ".id_funcion = " . $this->tableNameFunciones . ".id_funcion)".
+            " WHERE id_cine = :id_cine";
             
+            if($fechaInicio != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora >= :fecha_inicio";
+            if($fechaFin != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora <= :fecha_fin";
+
+            $query = $query . ";";
+
             $parameters["id_cine"] = $cine->getId();
             $parameters["fecha_inicio"] = $fechaInicio;
-            $parameters["fecha_cierre"] = $fechaCierre;
+            $parameters["fecha_fin"] = $fechaFin;
             
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
