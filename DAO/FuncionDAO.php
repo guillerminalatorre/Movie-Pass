@@ -169,6 +169,28 @@ use Models\Genero as Genero;
 			}
 		}
 
+		public function getMoviesWithFunctionsBetweenDates($start,$end)
+		{
+			try
+			{
+				$list = array();
+				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE fecha_hora BETWEEN '" . $start . "' AND '". $end ."'";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) {
+					$funcion = new Funcion();
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
+		}
+
 		public function getMoviesByGenreAndDate($genre, $date){
 			$list=array();
 			$fecha = date_create($date.' 00:00:00');
