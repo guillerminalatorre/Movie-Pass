@@ -39,3 +39,13 @@ function API()
     preg = window.confirm('¿Desea conectar a TMDB para obtener datos de la API?');
     return preg;
 }
+
+function overlayOn() 
+{
+    document.getElementById("overlay").style.display = "block";
+}
+  
+function overlayOff() 
+{
+    document.getElementById("overlay").style.display = "none";
+}
