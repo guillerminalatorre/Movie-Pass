@@ -20,8 +20,7 @@ class EstadisticaDAO
     {
         try 
         {
-            $query = "SELECT SUM(cantidad) AS 'cantidadVendida' FROM " . $this->tableNameEntradas . 
-            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
+            $query = "SELECT COUNT(id_entrada) AS 'cantidad' FROM " . $this->tableNameEntradas .
             " WHERE id_funcion = :id_funcion;";
             
             $parameters["id_funcion"] = $funcion->getId();
@@ -31,13 +30,13 @@ class EstadisticaDAO
 
             foreach ($resultSet as $row) 
             {
-                $cantidad = $row["cantidadVendida"];
+                $cantidad = $row["cantidad"];
             }
             return $cantidad;
         } 
         catch (Exception $ex) 
         {
-            return null;
+            return 0;
         }
     }
 
@@ -63,7 +62,32 @@ class EstadisticaDAO
         } 
         catch (Exception $ex) 
         {
-            return null;
+            return 0;
+        }
+    }
+
+    public function getRecaudacionFuncion(Funcion $funcion)
+    {
+        try 
+        {
+            $query = "SELECT " . $this->tableNameCompras . ".id_compra, total - descuento AS 'recaudacion' FROM " . $this->tableNameEntradas .
+            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
+            " WHERE id_funcion = :id_funcion GROUP BY " . $this->tableNameCompras . ".id_compra;";
+            
+            $parameters["id_funcion"] = $funcion->getId();
+
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) 
+            {
+                $recaudacion = $row["recaudacion"];
+                return $recaudacion;
+            }            
+        } 
+        catch (Exception $ex) 
+        {
+            return 0;
         }
     }
 
