@@ -119,8 +119,9 @@
 			}
 
 			//Datos pelicula
+			$idPelicula = $funcion->getIdPelicula();
 			$pelicula = new Pelicula();
-			$pelicula->setId($funcion->getIdPelicula());
+			$pelicula->setId($idPelicula);
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 			if($pelicula == null)
 			{

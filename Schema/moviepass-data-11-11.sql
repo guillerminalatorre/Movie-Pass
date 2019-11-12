@@ -7,18 +7,73 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-INSERT INTO `Cines` (`id_cine`, `nombre`, `direccion`, `capacidad`, `precio`) VALUES
-(1, 'Ambassador', 'Cordoba 2551', 300, 150),
-(2, 'Aldrey', 'Sarmiento 2685', 500, 180),
-(3, 'Los Gallegos', 'Rivadavia 3050', 250, 150);
+INSERT INTO `Cines` (`id_cine`, `nombre`, `direccion`) VALUES
+(1, 'Ambassador', 'Cordoba 2551'),
+(2, 'Aldrey', 'Sarmiento 2685'),
+(3, 'Los Gallegos', 'Rivadavia 3050'),
+(4, 'Cine del Paseo', 'Diagonal Pueyrredón 3058');
 
-INSERT INTO `Funciones` (`id_funcion`, `id_cine`, `id_pelicula`, `fecha_hora`) VALUES
-(1, 1, 1, '2019-10-29 00:27:40'),
-(2, 2, 1, '2019-10-29 20:36:14'),
-(4, 2, 1, '2019-11-01 00:27:40'),
-(5, 3, 2, '2019-10-29 09:45:00'),
-(6, 3, 5, '2019-10-30 11:46:00'),
-(7, 1, 6, '2019-10-30 09:54:00');
+INSERT INTO `Compras` (`id_compra`, `id_usuario`, `fecha_hora`, `precio`, `cantidad`, `descuento`, `total`) VALUES
+(1, 1, '2019-11-09 14:34:00', 25, 2, 0, 50),
+(2, 2, '2019-11-09 14:37:00', 50, 2, 0, 100),
+(3, 3, '2019-11-08 14:37:00', 100, 1, 0, 100),
+(4, 4, '2019-11-10 08:14:50', 5000, 1, 0, 5000),
+(5, 3, '2019-11-11 04:28:06', 350, 2, 100, 700),
+(6, 5, '2019-11-11 04:47:58', 250, 2, 100, 500),
+(7, 5, '2019-11-11 06:08:34', 350, 2, 100, 700),
+(8, 5, '2019-11-11 06:12:42', 350, 2, 100, 700),
+(9, 5, '2019-11-11 06:52:56', 250, 2, 100, 500),
+(10, 5, '2019-11-11 06:57:03', 350, 2, 100, 700),
+(11, 5, '2019-11-11 07:02:06', 350, 2, 100, 700),
+(12, 5, '2019-11-11 07:11:10', 250, 2, 100, 500),
+(13, 5, '2019-11-11 07:15:22', 350, 2, 100, 700),
+(14, 5, '2019-11-11 07:25:00', 350, 2, 25, 175),
+(15, 5, '2019-11-11 07:32:01', 350, 2, 100, 700),
+(16, 5, '2019-11-11 07:38:32', 250, 2, 100, 500),
+(17, 5, '2019-11-11 07:40:36', 350, 2, 25, 175),
+(18, 5, '2019-11-11 08:02:09', 350, 1, 100, 350),
+(19, 3, '2019-11-12 05:24:07', 350, 1, 100, 350),
+(20, 5, '2019-11-12 05:52:47', 350, 8, 25, 700);
+
+INSERT INTO `Entradas` (`id_entrada`, `id_compra`, `id_funcion`, `qr`) VALUES
+(7, 6, 8, '3-3-8-6-1'),
+(8, 6, 8, '3-3-8-6-2'),
+(11, 8, 11, '1-2-11-8-1'),
+(12, 8, 11, '1-2-11-8-2'),
+(17, 11, 9, '1-2-9-11-1'),
+(18, 11, 9, '1-2-9-11-2'),
+(19, 12, 8, '3-3-8-12-1'),
+(20, 12, 8, '3-3-8-12-2'),
+(21, 13, 11, '1-2-11-13-1'),
+(22, 13, 11, '1-2-11-13-2'),
+(23, 14, 4, '1-2-4-14-1'),
+(24, 14, 4, '1-2-4-14-2'),
+(27, 16, 8, '3-3-8-16-1'),
+(28, 16, 8, '3-3-8-16-2'),
+(29, 17, 4, '1-2-4-17-1'),
+(30, 17, 4, '1-2-4-17-2'),
+(31, 18, 3, '1-2-3-18-1'),
+(32, 19, 4, '1-2-4-19-1'),
+(33, 20, 4, '1-2-4-20-1'),
+(34, 20, 4, '1-2-4-20-2'),
+(35, 20, 4, '1-2-4-20-3'),
+(36, 20, 4, '1-2-4-20-4'),
+(37, 20, 4, '1-2-4-20-5'),
+(38, 20, 4, '1-2-4-20-6'),
+(39, 20, 4, '1-2-4-20-7'),
+(40, 20, 4, '1-2-4-20-8');
+
+INSERT INTO `Funciones` (`id_funcion`, `id_cine`, `id_sala`, `id_pelicula`, `fecha_hora`) VALUES
+(2, 1, 2, 2, '2019-11-10 06:36:00'),
+(3, 1, 2, 4, '2019-11-13 06:05:00'),
+(4, 1, 2, 1, '2019-11-14 07:01:00'),
+(7, 4, 1, 1, '2019-11-12 11:34:00'),
+(8, 3, 3, 5, '2019-11-15 06:32:00'),
+(9, 1, 2, 4, '2019-11-11 14:15:00'),
+(10, 1, 2, 2, '2019-11-13 09:16:00'),
+(11, 1, 2, 100, '2019-11-15 10:17:00'),
+(12, 1, 2, 11, '2019-11-11 05:02:00'),
+(13, 2, 4, 38, '2019-11-12 08:38:00');
 
 INSERT INTO `Generos` (`id_genero`, `nombre`) VALUES
 (12, 'Aventura'),
@@ -61,7 +116,7 @@ INSERT INTO `Peliculas` (`id_pelicula`, `id_TMDB`, `titulo`, `duracion`, `descri
 (17, 630849, 'Todo por el ascenso', 80, 'Néstor es extremadamente supersticioso. Este año, su equipo, se juega el ascenso en Mendoza y se dispone a viajar con Rafa, su amigo. Pero aparece Fabián, un piedra, un mufa, un desgraciado para el fútbol. El ascenso está en peligro, a menos que puedan evitar que el Fabián llegue a la cancha.', 'es', 0, '2019-09-12', 'https://image.tmdb.org/t/p/w500/m2RqyjDP6YSOKtPn43Y034pAQAX.jpg', NULL, 7),
 (18, 630343, 'El Juego de las Llaves', 600, '', 'es', 0, '2019-09-18', 'https://image.tmdb.org/t/p/w500/uMuw1IX9yT6JUHcd1CaeXw6cxxg.jpg', NULL, 8),
 (19, 621268, 'Así habló el cambista', 97, 'Durante los años 70, la economía de la región atrajo a muchos oportunistas a Uruguay. Las instituciones estaban en bancarrota; había un gobierno militar; los subversivos estaban tras las rejas y, para los sectores de baja reputación de las economías de Brasil y Argentina, el mercado financiero uruguayo parecía el lugar ideal para hacer desaparecer el dinero. Así es como Humberto Brause comienza una meteórica carrera en la compra y venta de divisas extranjeras, patrocinado por su propio suegro, un veterano en el negocio de la fuga de capitales. Ciego por su excesiva ambición, Humberto se lleva por delante a todo aquel que se cruce en su camino. Consigue hacerse cargo del negocio familiar y acepta una sospechosa tarea: lavar la cantidad de dinero más grande que ha visto en su vida.', 'es', 0, '2019-09-26', 'https://image.tmdb.org/t/p/w500/dUwpZl6QJUFoqkhEcu10Hzbd5Bn.jpg', NULL, 0),
-(20, 629522, 'La sombra del gallo', 100, 'Tras la muerte de su padre, el ex policía Román Maidana retorna al pueblo de su infancia que se encuentra atravesado por la reciente desaparición de una adolescente. Mientras enfrenta el duelo, se encuentra teniendo visiones de una joven que lo alienta a desarmar un grupo criminal que está relacionado con la trata de mujeres.', 'es', 0, '2019-10-10', '/TP-Metodologia/Uploads/la-sombra-del-gallo.jpg', 'CbX3ovj4bAk', 0),
+(20, 629522, 'La sombra del gallo', 100, 'Tras la muerte de su padre, el ex policía Román Maidana retorna al pueblo de su infancia que se encuentra atravesado por la reciente desaparición de una adolescente. Mientras enfrenta el duelo, se encuentra teniendo visiones de una joven que lo alienta a desarmar un grupo criminal que está relacionado con la trata de mujeres.', 'es', 0, '2019-10-10', 'Uploads/la-sombra-del-gallo.jpg', 'CbX3ovj4bAk', 0),
 (21, 290859, 'Terminator: Destino Oscuro', 120, 'Sarah Connor une todas sus fuerzas con una mujer cyborg para proteger a una joven de un extremadamente poderoso y nuevo Terminator.', 'en', 0, '2019-10-23', 'https://image.tmdb.org/t/p/w500/xGecvRFG8vBQewLAqoNzVSYIdVr.jpg', 'TwKkavM9VeE', 7),
 (22, 449924, 'Ip Man 4', 0, '', 'cn', 0, '2019-10-18', 'https://image.tmdb.org/t/p/w500/mAWBfTDAmfpvQGMVFuzuVl49N1P.jpg', NULL, 6),
 (23, 559969, 'El Camino: Una película de Breaking Bad', 123, 'Tiempo después de los eventos sucedidos tras el último episodio de la serie \"Breaking Bad\", el fugitivo Jesse Pinkman huye de sus perseguidores, de la ley y de su pasado.', 'en', 0, '2019-10-11', 'https://image.tmdb.org/t/p/w500/hoWADuvXs3Ua4AXBAiZYnppTupO.jpg', NULL, 7),
@@ -102,7 +157,17 @@ INSERT INTO `Peliculas` (`id_pelicula`, `id_TMDB`, `titulo`, `duracion`, `descri
 (92, 530382, 'El Lado Siniestro de la Luna', 115, 'En 1988, el oficial de la policía de Filadelfia Thomas Lockhart (Boyd Holbrook), ansioso por convertirse en detective, comienza a seguirle la pista a un asesino en serie que misteriosamente resurge cada nueve años. Cuando los crímenes del asesino empiezan a desafiar cualquier explicación científica, la obsesión por descubrir la verdad amenaza con destruir su carrera, su familia y posiblemente su cordura.', 'en', 0, '2019-09-27', 'https://image.tmdb.org/t/p/w500/nn1LVyYKASSsxEp4JCyBRYe3a27.jpg', NULL, 6),
 (93, 637475, 'A Noise That Carries', 15, '', 'en', 0, '2019-10-22', 'https://image.tmdb.org/t/p/w500/2804sVWpmGCKHrK63RUVdu8LOwz.jpg', NULL, 0),
 (94, 501170, 'Doctor Sueño', 152, 'Secuela del film de culto \"El resplandor\" (1980) dirigido por Stanley Kubrick y también basado en una famosa novela de Stephen King. La historia transcurre algunos años después de los acontecimientos de \"The Shining\", y sigue a Danny Torrance (Ewan McGregor), traumatizado y con problemas de ira y alcoholismo que hacen eco de los problemas de su padre Jack, que cuando sus habilidades psíquicas resurgen, se contacta con una niña de nombre Abra Stone, a quien debe rescatar de un grupo de viajeros que se alimentan de los niños que poseen el don de \"el resplandor\".', 'en', 0, '2019-10-30', 'https://image.tmdb.org/t/p/w500/spw3MXaAK44lLVqZLKVYSlfHYtD.jpg', NULL, 7),
-(95, 694, 'El resplandor', 146, 'Jack Torrance se traslada, junto a su mujer y a su hijo, al impresionante hotel Overlook, en Colorado, para encargarse del mantenimiento del mismo durante la temporada invernal, en la que permanece cerrado y aislado por la nieve. Su idea es escribir su novela al tiempo que cuida de las instalaciones durante esos largos y solitarios meses de invierno, pero desde su llegada al hotel, Jack comienza a padecer inquietantes transtornos de personalidad, al mismo tiempo que en el lugar comienzan a suceder diversos fenómenos paranormales.', 'en', 0, '1980-05-22', 'https://image.tmdb.org/t/p/w500/p9hqo2JWhBytLxskz4FBKcP2e1k.jpg', 'A3q03BBwMp4', 8);
+(95, 694, 'El resplandor', 146, 'Jack Torrance se traslada, junto a su mujer y a su hijo, al impresionante hotel Overlook, en Colorado, para encargarse del mantenimiento del mismo durante la temporada invernal, en la que permanece cerrado y aislado por la nieve. Su idea es escribir su novela al tiempo que cuida de las instalaciones durante esos largos y solitarios meses de invierno, pero desde su llegada al hotel, Jack comienza a padecer inquietantes transtornos de personalidad, al mismo tiempo que en el lugar comienzan a suceder diversos fenómenos paranormales.', 'en', 0, '1980-05-22', 'https://image.tmdb.org/t/p/w500/p9hqo2JWhBytLxskz4FBKcP2e1k.jpg', 'A3q03BBwMp4', 8),
+(96, 521777, 'Chicos buenos', 95, 'Después de ser invitados a su primera \"fiesta del beso\", tres buenos amigos destrozan por casualidad un dron que tenían prohibido tocar. Para reemplazarlo, se ausentan de clase y toman una serie de decisiones erróneas, involucrándose en un caso relacionado con droga, policía y, sobre todo, con muchas lágrimas.', 'en', 0, '2019-08-14', 'https://image.tmdb.org/t/p/w500/8zqptFnq7GhpVEXzfOnNxWbN0U2.jpg', NULL, 7),
+(97, 398978, 'El irlandés', 209, 'Biopic sobre Frank Sheeran, apodado \"el irlandés\", al que se le atribuyen más de 25 asesinatos relacionados con la mafia... Adaptación del libro \"I Heard You Paint Houses\", de Charles Brandt, a cargo del guionista Steven Zaillian (La lista de Schindler, American Gangster).', 'en', 0, '2019-11-01', 'https://image.tmdb.org/t/p/w500/s2TPNe80v8JdZi4yKjJAkoI87cg.jpg', NULL, 9),
+(98, 565348, 'Adopt a Highway', 78, '', 'en', 0, '2019-11-01', 'https://image.tmdb.org/t/p/w500/y2nzyAsOufAhqEEhsr0ArTCQBPz.jpg', NULL, 8),
+(99, 524247, 'The Intruder (El Ocupante)', 102, 'Un joven matrimonio compra una preciosa casa con varias acres de terreno en Napa Valley y descubren que el hombre al que se la compraron se niega a abandonar la propiedad.', 'en', 0, '2019-05-03', 'https://image.tmdb.org/t/p/w500/h3wP6pdzLSLpGiC7tPMX7eLqZhr.jpg', NULL, 6),
+(100, 504949, 'The King', 140, 'Inglaterra, siglo XV. Hal, un caprichoso príncipe que vive entre la población lejos de la corte, se ve obligado por las circunstancias a aceptar el trono a regañadientes y convertirse en Enrique V.', 'en', 0, '2019-10-11', 'https://image.tmdb.org/t/p/w500/8u0QBGUbZcBW59VEAdmeFl9g98N.jpg', NULL, 7),
+(101, 330457, 'Frozen 2', 0, '¿Por qué nació Elsa con poderes mágicos? La respuesta le está llamando y amenaza su reino. Junto con Anna, Kristoff, Olaf y Sven emprenderá un viaje peligroso e inolvidable. En \'Frozen\', Elsa temía que sus poderes fueran demasiado para el mundo. En \'Frozen 2\', deseará que sean suficientes. Secuela de \"Frozen. El reino del hielo\" (2013), el film de animación más taquillero de la historia del cine, ganador del Oscar a la mejor película animada. Reunirá al mismo equipo artístico y técnico de la original.', 'en', 0, '2019-11-11', 'https://image.tmdb.org/t/p/w500/jnFCk7qGGWop2DgfnJXeKLZFuBq.jpg', 'XRQxxaulh9g', 5),
+(102, 522162, 'Midway', 138, '1942, Segunda Guerra Mundial. Después del devastador ataque sorpresa que destruyó Pearl Harbor, la Armada Imperial Japonesa se prepara para un nuevo ataque. Pero el Almirante Nimitz (Woody Harrelson) y Dick Best (Ed Skrein), el mejor piloto de la armada estadounidense, preparan un contraataque al imponente ejército japonés. Dick encabezará un ataque masivo que hará que Japón se dé cuenta de su error. Una decisión que cambió el curso de la historia para siempre. Mientras estos dos titánicos enemigos emprenden una letal batalla para cambiar el rumbo de la guerra, todas las miradas se vuelcan hacia la remota isla de Midway, donde una serie de impactantes ataques aéreos y marítimos pondrán a prueba la potencia y la fortaleza de ambas naciones.', 'en', 0, '2019-11-06', 'https://image.tmdb.org/t/p/w500/xL1yNzwGSXfassYpt13hXADpz6R.jpg', NULL, 5),
+(103, 549053, 'Last Christmas', 102, 'Kate es una mujer joven que suele tomar siempre la decisión menos acertada. ¿Su último error? Haber aceptado un trabajo como elfo de Santa Claus en un centro comercial. Sin embargo, el destino la lleva a conocer a Tom, circunstancia que cambia por completo su vida. Para Kate, todo es demasiado bueno para ser cierto.', 'en', 0, '2019-11-07', 'https://image.tmdb.org/t/p/w500/s9Ig9aoORT9jCuUDOCX4j1nNke6.jpg', 'asD_qZ2bqAI', 8),
+(104, 499701, 'Dora y la ciudad perdida', 102, 'Tras haber pasado la mayor parte de su vida explorando la jungla junto a sus padres, nada podría haber preparado a Dora para la aventura más peligrosa a la que jamás se ha enfrentado: ¡el instituto!. Exploradora hasta el final, Dora no tarda en ponerse al frente de un equipo formado por Botas (su mejor amigo, un mono), Diego, un misterioso habitante de la jungla y un desorganizado grupo de adolescentes en una aventura en la que deberán salvar a sus padres y resolver el misterio oculto tras una ciudad perdida de oro.', 'en', 0, '2019-08-08', 'https://image.tmdb.org/t/p/w500/zFzRbVWduN0qewAjLJEKlNvMunt.jpg', 'bgkodj8L558', 6),
+(105, 463257, 'The Peanut Butter Falcon', 93, 'Zak es un joven con Síndrome de Down que se escapa de su residencia para perseguir su sueño de convertirse en un luchador profesional en la escuela de lucha de Salwater Redneck. Una serie de circunstancias le llevan a encontrarse con Tyler, un delincuente que también se ha dado a la fuga y que más tarde se convierte en su entrenador y aliado. Su aventura les lleva a conocer a Eleanor, una enfermera un tanto peculiar que se une a ellos en su viaje a través del norte de California.', 'en', 0, '2019-08-09', 'https://image.tmdb.org/t/p/w500/qyQcRGvdW3VtxHR4fSDgPOePEip.jpg', NULL, 8);
 
 INSERT INTO `PeliculasXGeneros` (`id_peliculasxgeneros`, `id_pelicula`, `id_genero`) VALUES
 (1, 1, 80),
@@ -246,12 +311,49 @@ INSERT INTO `PeliculasXGeneros` (`id_peliculasxgeneros`, `id_pelicula`, `id_gene
 (216, 93, 53),
 (217, 94, 27),
 (218, 95, 27),
-(219, 95, 53);
+(219, 95, 53),
+(220, 96, 35),
+(221, 97, 18),
+(222, 97, 80),
+(223, 98, 18),
+(224, 99, 53),
+(225, 99, 18),
+(226, 99, 9648),
+(227, 100, 18),
+(228, 100, 36),
+(229, 100, 10752),
+(230, 101, 12),
+(231, 101, 16),
+(232, 101, 35),
+(233, 101, 10751),
+(234, 101, 14),
+(235, 101, 10402),
+(236, 102, 10752),
+(237, 102, 36),
+(238, 102, 28),
+(239, 102, 18),
+(240, 103, 35),
+(241, 103, 10749),
+(242, 103, 18),
+(243, 104, 12),
+(244, 104, 35),
+(245, 104, 10751),
+(246, 105, 12),
+(247, 105, 18),
+(248, 105, 35);
+
+INSERT INTO `Salas` (`id_sala`, `id_cine`, `nombre`, `precio`, `capacidad`) VALUES
+(1, 4, 'Tiffany', 350, 100),
+(2, 1, 'Tiffany', 350, 100),
+(3, 3, 'Atmos', 250, 150),
+(4, 2, 'Aldrito', 190, 200);
 
 INSERT INTO `Usuarios` (`id_usuario`, `dni`, `password`, `email`, `apellido`, `nombre`, `rol`, `ip`, `registerDate`, `lastConnection`, `loggedIn`, `image`, `facebookId`) VALUES
-(1, NULL, '680023', 'rodrii_cs@hotmail.com', 'Fanjul', 'Rodrigo', 3, '::1', 1571886736, 1572228444, 1, 'http://graph.facebook.com/1874330122626592/picture?type=square&height=200', 1874330122626592),
-(2, 38831866, '1234', 'rodrii.fan@gmail.com', 'Fanjul', 'Rodrigo', 1, '::1', 1571886976, 1572387855, 1, '/TP-Metodologia/Views/img/avatar.png', NULL),
-(3, 41570767, '123', 'micael15papa@gmail.com', 'Papa', 'Micael', 1, '::1', 1571959317, 1571959318, 1, '/TP-Metodologia/Views/img/avatar.png', NULL);
+(1, 37777777, 'admin', 'moviepass.arg@gmail.com', 'Pass', 'Movie', 3, '::1', 1573100064, 1573509250, 1, 'Views/img/avatar.png', NULL),
+(2, 38831867, '123456', 'rodrii_cs@hotmail.com', 'Fanjul', 'Rodrigo', 3, '::1', 1571886736, 1573520198, 0, 'https://graph.facebook.com/1874330122626592/picture?type=square&height=200', 1874330122626592),
+(3, 38831866, '1234', 'rodrii.fan@gmail.com', 'Fanjul', 'Rodrigo', 1, '::1', 1571886976, 1573520415, 0, 'Views/img/avatar.png', NULL),
+(4, 41570767, '1234', 'micael15papa@gmail.com', 'Papa', 'Micael', 1, '::1', 1571959317, 1571959318, 0, 'Views/img/avatar.png', NULL),
+(5, 123457262, '123456', 'piberenz@gmail.com', 'Berenz', 'Pamela', 1, '::1', 1573418831, 1573509239, 0, 'Views/img/avatar.png', NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
