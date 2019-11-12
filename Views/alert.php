@@ -1,6 +1,8 @@
 <?php 
-if(isset($_SESSION['flash']) && count($_SESSION['flash']) > 0) { 
-  foreach($_SESSION['flash'] as $data) {
+if(isset($_SESSION['flash']) && !empty($_SESSION['flash'])) 
+{ 
+  foreach($_SESSION['flash'] as $data) 
+  {
 ?>
 
 <div class="alert alert-<?php echo $data[1]; ?> alert-dismissible fade show" role="alert">
