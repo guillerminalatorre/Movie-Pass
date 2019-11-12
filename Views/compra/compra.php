@@ -13,7 +13,7 @@
                     </ul>
                     <h5 class="text-right">Sub-total: <span><?php echo $subtotal; ?></span></h5>
                     <?php if($descuento != 100) { ?>
-                        <h6 class="text-right">Descuento: <span><?php echo $descuento; ?></span></h6>";
+                        <h6 class="text-right">Descuento: <span><?php echo $descuento; ?></span></h6>";                        
                     <?php } ?>
                     <h4 class="text-right">Total: <span><?php echo $total; ?></span></h4>
                 </div>
