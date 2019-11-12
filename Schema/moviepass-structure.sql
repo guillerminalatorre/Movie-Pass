@@ -10,15 +10,14 @@ SET time_zone = "+00:00";
 CREATE TABLE `Cines` (
   `id_cine` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `direccion` varchar(50) NOT NULL,
-  `capacidad` int(11) NOT NULL,
-  `precio` float NOT NULL
+  `direccion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Compras` (
   `id_compra` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `precio` int(11) NOT NULL,
   `cantidad` smallint(6) NOT NULL,
   `descuento` tinyint(4) NOT NULL,
   `total` float NOT NULL
@@ -34,6 +33,7 @@ CREATE TABLE `Entradas` (
 CREATE TABLE `Funciones` (
   `id_funcion` int(11) NOT NULL,
   `id_cine` int(11) NOT NULL,
+  `id_sala` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
   `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -61,6 +61,14 @@ CREATE TABLE `PeliculasXGeneros` (
   `id_peliculasxgeneros` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
   `id_genero` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Salas` (
+  `id_sala` int(11) NOT NULL,
+  `id_cine` int(11) NOT NULL,
+  `nombre` varchar(128) NOT NULL,
+  `precio` int(11) NOT NULL,
+  `capacidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Usuarios` (
@@ -96,7 +104,8 @@ ALTER TABLE `Entradas`
 ALTER TABLE `Funciones`
   ADD PRIMARY KEY (`id_funcion`),
   ADD KEY `FK_id_cine` (`id_cine`),
-  ADD KEY `FK_id_pelicula` (`id_pelicula`);
+  ADD KEY `FK_id_pelicula` (`id_pelicula`),
+  ADD KEY `FK_id_sala` (`id_sala`);
 
 ALTER TABLE `Generos`
   ADD PRIMARY KEY (`id_genero`);
@@ -108,6 +117,10 @@ ALTER TABLE `PeliculasXGeneros`
   ADD PRIMARY KEY (`id_peliculasxgeneros`),
   ADD KEY `FK_id_pelicula` (`id_pelicula`) USING BTREE,
   ADD KEY `FK_id_genero` (`id_genero`) USING BTREE;
+
+ALTER TABLE `Salas`
+  ADD PRIMARY KEY (`id_sala`),
+  ADD KEY `FK_id_cinee` (`id_cine`);
 
 ALTER TABLE `Usuarios`
   ADD PRIMARY KEY (`id_usuario`),
@@ -133,6 +146,9 @@ ALTER TABLE `Peliculas`
 ALTER TABLE `PeliculasXGeneros`
   MODIFY `id_peliculasxgeneros` int(11) NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE `Salas`
+  MODIFY `id_sala` int(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE `Usuarios`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT;
 
@@ -146,11 +162,15 @@ ALTER TABLE `Entradas`
 
 ALTER TABLE `Funciones`
   ADD CONSTRAINT `FK_id_cine` FOREIGN KEY (`id_cine`) REFERENCES `Cines` (`id_cine`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_id_pelicula` FOREIGN KEY (`id_pelicula`) REFERENCES `Peliculas` (`id_pelicula`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_id_pelicula` FOREIGN KEY (`id_pelicula`) REFERENCES `Peliculas` (`id_pelicula`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_id_sala` FOREIGN KEY (`id_sala`) REFERENCES `Salas` (`id_sala`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `PeliculasXGeneros`
   ADD CONSTRAINT `FK_id_generoo` FOREIGN KEY (`id_genero`) REFERENCES `Generos` (`id_genero`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_id_peliculaa` FOREIGN KEY (`id_pelicula`) REFERENCES `Peliculas` (`id_pelicula`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `Salas`
+  ADD CONSTRAINT `FK_id_cinee` FOREIGN KEY (`id_cine`) REFERENCES `Cines` (`id_cine`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

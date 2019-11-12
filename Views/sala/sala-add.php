@@ -7,12 +7,13 @@
         </div>
         <h2 class="text-center py-4">Agregar sala: </h2>
         <form action="<?php echo FRONT_ROOT ?>Sala/Add/<?php echo $idCine; ?>" method="POST">
+            <input type="hidden" name="idCine" value="<?php echo $idCine; ?>" />
             <div class="row">
                 <div class="form-group col">
                     <label for="idCine">Cine:</label>
                 </div>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $idCine; ?>">
+                    <input type="text" class="form-control" name="idCine" readonly="readonly" value="<?php echo $cine->getNombre()." (ID: ".$idCine.")"; ?>">
                 </div>
             </div>
             <div class="row">
