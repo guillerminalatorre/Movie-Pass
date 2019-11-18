@@ -11,7 +11,7 @@
     use Models\Sala as Sala;
     use Models\Funcion as Funcion;
 
-	class EstadisticaController
+	class EstadisticaController extends Administrable
 	{
         private $estadisticaDAO;
         private $peliculaDAO;
@@ -130,6 +130,7 @@
             }
             // Fin estadisticas
 
+            require_once(VIEWS_PATH."estadistica/searchbar.php");
 			require_once(VIEWS_PATH."estadistica/estadistica.php");
         }
 	}
