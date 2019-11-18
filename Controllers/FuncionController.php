@@ -77,7 +77,7 @@ class FuncionController extends Administrable
 			if (!$this->loggedIn()) Functions::redirect("Home");
 			if (!$this->isAdmin()) Functions::redirect("Home");
 
-			$fechaHora = $fecha . " " . $hora;
+			$fechaHora = $fecha." ".$hora;
 			$hour = strtotime("H:i",$hora);
 			$timePlus1Hour = strtotime('+1 hour');
 
@@ -99,9 +99,9 @@ class FuncionController extends Administrable
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
-			if (!$this->checkAvailablePelicula($idCine, $idPelicula, $fechaHora)) 
+			if (!$this->checkAvailablePelicula($idCine, $idSala, $idPelicula, $fechaHora)) 
 			{
-				Functions::flash("La pelicula ya tiene una funcion en otro cine ese mismo dia.","warning");
+				Functions::flash("La pelicula ya tiene una funcion en otro cine/sala ese dia.","warning");
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
@@ -153,15 +153,17 @@ class FuncionController extends Administrable
 			return $available;
 		}
 
-		private function checkAvailablePelicula($idCine, $idPelicula, $fechaHora)
+		private function checkAvailablePelicula($idCine, $idSala, $idPelicula, $fechaHora)
 		{
 			$available = true;
 			$timestamp = strtotime($fechaHora);
 			$fecha = date("Y-m-d", $timestamp);
-			$funcionList = $this->funcionDAO->checkAvailablePelicula($idPelicula, $fecha);
+			$funcionList = $this->funcionDAO->checkAvailablePeliculaCine($idPelicula, $fecha);
 			foreach ($funcionList as $funcion) 
 			{
 				if ($funcion->getIdCine() != $idCine) $available = false;
+				if ($funcion->getIdSala() != $idSala) $available = false;
+				if ($available == false) break;
 			}
 			return $available;
 		}
