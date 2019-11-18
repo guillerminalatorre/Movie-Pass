@@ -78,7 +78,7 @@ class FuncionController extends Administrable
 			if (!$this->isAdmin()) Functions::redirect("Home");
 
 			$fechaHora = $fecha." ".$hora;
-			$hour = strtotime("H:i",$hora);
+			$hour = strtotime("H:i", $hora);
 			$timePlus1Hour = strtotime('+1 hour');
 
 			if (empty($idPelicula)) 
@@ -158,7 +158,7 @@ class FuncionController extends Administrable
 			$available = true;
 			$timestamp = strtotime($fechaHora);
 			$fecha = date("Y-m-d", $timestamp);
-			$funcionList = $this->funcionDAO->checkAvailablePeliculaCine($idPelicula, $fecha);
+			$funcionList = $this->funcionDAO->checkAvailablePelicula($idPelicula, $fecha);
 			foreach ($funcionList as $funcion) 
 			{
 				if ($funcion->getIdCine() != $idCine) $available = false;
