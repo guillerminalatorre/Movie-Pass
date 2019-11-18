@@ -322,7 +322,7 @@ use Controllers\Functions as Functions;
 			try 
 			{
 				$list = array();
-				$query = "SELECT id_cine FROM " . $this->tableName . " WHERE id_pelicula = " . $idPelicula . " AND fecha_hora LIKE '" . $fecha . "%';";
+				$query = "SELECT id_cine, id_sala FROM " . $this->tableName . " WHERE id_pelicula = " . $idPelicula . " AND fecha_hora LIKE '" . $fecha . "%';";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -330,6 +330,7 @@ use Controllers\Functions as Functions;
 				{
 					$funcion = new Funcion();
 					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
 					array_push($list, $funcion);
 				}
 				return $list;
