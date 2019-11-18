@@ -191,8 +191,16 @@
 			Functions::flash("Se completo la compra de ".$cantidad." entrada(s) para ver ".$pelicula->getTitulo()."!", "success");
 			
 			$subject = "Movie Pass - Tus entradas para ver ".$pelicula->getTitulo();
+
+			$emailDetails=array();
+			$emailDetails['pelicula'] = $pelicula->getTitulo();
+			$emailDetails['fechaHora'] = $fechaHora;
+			$emailDetails['cine'] = $cine->getNombre();
+			$emailDetails['sala'] = $sala->getNombre();
+			$emailDetails['idCompra'] = $idCompra;
 		
-			Functions::sendEmail($_SESSION['loggedUser']->getEmail(),$subject, $this->compraMailBody($listEntradas));
+			echo $this->compraMailBody($emailDetails);
+			Functions::sendEmail($_SESSION['loggedUser']->getEmail(),$subject, $this->compraMailBody($emailDetails));
 			Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
 		}
 
@@ -224,48 +232,57 @@
 			return $descuento;
 		}
 
-		private function compraMailBody($entradaList){
-			$message  = "<html><head>
-			<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
-			<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous'></script>
-			</head><body>";
-			$message.= "<div class='container-fluid mb-4'>
-			<div class='col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent rounded shadow p-2'>
-				<h2 class='col-sm-12 col-md-6 pb-2 text-light'>Lista de entradas</h2>
-				<table class='table table-striped table-responsive-md text-light align-center border='1' frame='border' rules='groups'>
-					<thead bgcolor='#DDE0FC'>
-						<tr>
-							<th>Nro Entrada</th>
-							<th>Pelicula</th>
-							<th>N.Funcion</th>
-							<th>N.Compra</th>
-							<th>QR</th>
-						</tr>
-					</thead>
-					<tbody>";
-						foreach ($entradaList as $entrada) { 
-							$funcion= new Funcion();
-							$pelicula= new Pelicula();
-							$idFuncion = $entrada->getIdFuncion();
-							$funcion->setId($idFuncion);
-							$funcion = $this->funcionDAO->getFuncion($funcion);
-							$idPelicula = $funcion->getIdPelicula();
-							$pelicula->setId($idPelicula);
-							$pelicula = $this->peliculaDAO->getPelicula($pelicula);
-							$title= $pelicula->getTitulo();
-							$idEntrada= $entrada->getId();
-							$idCompra= $entrada->getIdCompra();
-							$qr= $entrada->getQr();
-							$message.="<tr>
-							<td align='center' class='align-middle'>".$idEntrada."</td>
-							<td class='align-middle'><b>".$title."</b></a></td>
-							<td class='align-middle' align='center'>".$idFuncion."</td>
-							<td class='align-middle'align='center'>".$idCompra."</td>
-							<td class='align-middle'align='center'><img src='https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=";
-							$message.=$qr."'></td></tr>";
-						}
-						$message.="</tbody></table></div></div></body></html>";
+		private function compraMailBody($emailDetails){
+
+			$pelicula = $emailDetails['pelicula'];
+			$fechaHora = $emailDetails['fechaHora'];
+			$cine = $emailDetails['cine'];
+			$sala = $emailDetails['sala'];
+			$compra = new Compra();
+			$entradas = $this->entradaDAO->getByCompra($compra->setId($emailDetails['idCompra']));
 			
+			$message  = "<html>
+			<body style='background-color:#fff; background-image:url(https://i.imgur.com/t216lYB.jpg); background-size:cover' bgcolor='#fff' >
+			&nbsp;
+			<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Raleway, Helvetica,sans-serif;border-radius: 30px; background-image: url(https://communications.globant.com/Comm/Corporate/2019/Champions/WorkingMood/bg.png); background-size: cover' width='650'>
+				<tbody>
+					<tr>
+						<td style='font-family: Raleway, Helvetica,sans-serif;font-weight:400;font-size:15px;color:#fff;text-align:center;padding:20px;line-height:25px; ' class=''><center><img src='https://i.imgur.com/uSaf2DO.png' style='display: block'></center>
+			&nbsp;
+			<center><img src='https://i.imgur.com/kvDOOvM.gif' style='display: block; border-radius: 200px' width='200'></center>
+			<p style='color: whitesmoke; font-size: 36px; font-weight: 900; line-height: 40px; text-align:center'>Te acercamos tus entradas<br></p></td></tr>
+			</tbody>
+			</table>
+			&nbsp;
+			&nbsp;";
+
+						foreach ($entradas as $entrada) { 
+
+							$qr = $entrada->getQr();
+						
+							$message.="<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Montserrat, Helvetica, sans-serif;' width='650'>
+							<tbody>
+								<tr>
+									<td bgcolor='#fff' style='color:#666; text-align:left; font-size:14px;font-family:Montserrat, Helvetica, sans-serif; padding:20px 0px 20px 40px; line-height:25px; border-radius:30px 0 0 30px;' valign='middle' width='50%' class=''>
+									<h2 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>".$pelicula."<br></h2>
+															
+									<table align='center' border='0' cellpadding='0' cellspacing='0' width='280'>
+										<tbody>
+											<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>".$cine." </h4>
+											<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>Sala ".$sala."<br></h4>
+											<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>Fecha: ".$fechaHora."<br></h4>
+										</tbody>
+									</table>
+									</td>
+									<td bgcolor='#fff' style='color:#666; text-align:center; font-size:13px; padding:20px 0px 20px 40px; line-height:25px; border-radius:0 30px 30px 0;' valign='middle' width='50%' class=''>
+									<center><img src='https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=.$qr style='display:block'></center>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						&nbsp;";
+						}
+						$message.="<h3 style='color: whitesmoke; text-align:center'>¡Que disfrutes de la función!<br></h3></body></html>";
 			return $message;
 		}
 	}
