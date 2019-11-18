@@ -60,15 +60,7 @@
                 $funcion->setId($idFuncion);
                 $funcion = $this->funcionDAO->getFuncion($funcion);
             }
-            if($fechaInicio != null)
-            {
-                $timeInicio = strtotime($fechaInicio);
-            }
-            if($fechaFin != null)
-            {
-                $timeFin = strtotime($fechaFin);
-            }
-            if($fechaInicio != null && $fechaFin != null && $timeInicio > $timeFin)
+            if($fechaInicio != null && $fechaFin != null && $fechaInicio > $fechaFin)
             {
                 $timeInicio = $timeFin;
                 Functions::flash("Ese rango de tiempo no existe. Se modifico para solucionarlo.","warning");
@@ -77,59 +69,59 @@
             // Load funciones en base a pelicula y cine
             if($idPelicula != null && $idCine != null)
             {
-                $funcionList = $this->funcionDAO->getByCinePelicula($cine,$pelicula);
+                $funcionList = $this->funcionDAO->getByCinePelicula($cine,$pelicula,$fechaInicio,$fechaFin);
             }
             else if($idPelicula != null)
             {
-                $funcionList = $this->funcionDAO->getByPelicula($pelicula);
+                $funcionList = $this->funcionDAO->getByPelicula($pelicula,$fechaInicio,$fechaFin, false);
             }
             else if($idCine != null)
             {
-                $funcionList = $this->funcionDAO->getByCine($cine);
+                $funcionList = $this->funcionDAO->getByCine($cine,$fechaInicio,$fechaFin);
             }
             else
             {
-                $funcionList = $this->funcionDAO->getAll();
+                $funcionList = $this->funcionDAO->getAll($fechaInicio,$fechaFin);
             }
 
             // Inicio estadisticas
             if($idFuncion != null) $count = 1;
             else $count = count($funcionList);
 
-            $vendidas = 0;
-            $remanente = 0;
-            $capacidad = 0;
-            $recaudacion = 0;
-            $perdida = 0;
+            $estadistica['vendidas'] = 0;
+            $estadistica['remanente'] = 0;
+            $estadistica['capacidad'] = 0;
+            $estadistica['recaudacion'] = 0;
+            $estadistica['perdida'] = 0;
             if($count > 0)
             {
                 if($idFuncion != null)
                 {
-                    $vendidas += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
-                    $remanente += $this->estadisticaDAO->getRemanenteFuncion($funcion);
-                    $capacidad += $vendidas+$remanente;
-                    $recaudacion += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
+                    $estadistica['vendidas'] += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
+                    $estadistica['remanente'] += $this->estadisticaDAO->getRemanenteFuncion($funcion);
+                    $estadistica['capacidad'] += $estadistica['vendidas']+$estadistica['remanente'];
+                    $estadistica['recaudacion'] += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
 
                     $sala->setId($funcion->getIdSala());
                     $sala = $this->salaDAO->getSala($sala);
                     $precio = $sala->getPrecio();
 
-                    $perdida += $remanente * $precio;
+                    $estadistica['perdida'] += $estadistica['remanente'] * $precio;
                 }
                 else
                 {
                     foreach($funcionList as $funcion)
                     {
-                        $vendidas += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
-                        $remanente += $this->estadisticaDAO->getRemanenteFuncion($funcion);
-                        $capacidad += $vendidas+$remanente;
-                        $recaudacion += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
+                        $estadistica['vendidas'] += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
+                        $estadistica['remanente'] += $this->estadisticaDAO->getRemanenteFuncion($funcion);
+                        $estadistica['capacidad'] += $estadistica['vendidas']+$estadistica['remanente'];
+                        $estadistica['recaudacion'] += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
                                              
                         $sala->setId($funcion->getIdSala());
                         $sala = $this->salaDAO->getSala($sala);
                         $precio = $sala->getPrecio();
 
-                        $perdida += $remanente * $precio;
+                        $estadistica['perdida'] += $estadistica['remanente'] * $precio;
                     }
                 }
             }
