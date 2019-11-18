@@ -159,7 +159,8 @@ class FuncionController extends Administrable
 			$timestamp = strtotime($fechaHora);
 			$fecha = date("Y-m-d", $timestamp);
 			$funcionList = $this->funcionDAO->checkAvailablePelicula($idPelicula, $fecha);
-			foreach ($funcionList as $funcion) {
+			foreach ($funcionList as $funcion) 
+			{
 				if ($funcion->getIdCine() != $idCine) $available = false;
 			}
 			return $available;
@@ -181,43 +182,27 @@ class FuncionController extends Administrable
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
 		}
 
-		public function FilterFunctions($idGenero, $chosenDate = null)
+		public function FilterFunctions($genreId = null, $fechaInicio = null, $fechaFin = null)
 		{
 			$generoList = $this->generoDAO->getAll();
-			$funciones = array();
 			$peliculaList = array();
+			$genreId = ($genreId == "NULL") ? null : $genreId;
+			$funciones = $this->funcionDAO->getMoviesByGenreAndDate($genreId, $fechaInicio, $fechaFin);
 
-			if ($idGenero != "none" && $chosenDate != null) 
-			{
-				$genero = new Genero();
-				$funciones= $this->funcionDAO->getMoviesByGenreAndDate($genero->setId($idGenero),$chosenDate );
-			} else 
-			{
-				if ($idGenero != "none")
-				{
-					$genero = new Genero();
-					$funciones= $this->funcionDAO->getMoviesWithFunctionsByGenre($genero->setId($idGenero));
-				} 
-				else 
-				{
-					if ($chosenDate != null) 
-					{
-						$funciones= $this->funcionDAO->getMoviesWithFunctionsByDate($chosenDate);
-					}
-				}
-			}
-			if(!empty($funciones)){
+			if(!empty($funciones))
+			{				
 				foreach ($funciones as $funcion) 
 				{
 					$pelicula = new Pelicula();
-					$pelicula = $this->peliculaDAO->getPelicula($pelicula->setId($funcion->getIdPelicula()));
+					$idPelicula = $funcion->getIdPelicula();
+					$pelicula->setId($idPelicula);
+					$pelicula = $this->peliculaDAO->getPelicula($pelicula);
 					array_push($peliculaList, $pelicula);
 				}
 			}
 
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
-			
 		}
 
 		public function ShowFuncionesPelicula($idPelicula = null)
