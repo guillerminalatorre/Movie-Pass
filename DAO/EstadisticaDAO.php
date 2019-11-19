@@ -74,7 +74,6 @@ class EstadisticaDAO
             $query = "SELECT c.total - c.descuento AS recaudacion FROM " . $this->tableNameEntradas .
             " e JOIN " . $this->tableNameCompras . " c ON (e.id_compra = c.id_compra)".
             " WHERE id_funcion = :id_funcion GROUP BY c.id_compra;";
-            Functions::flash($query);
             
             $parameters["id_funcion"] = $funcion->getId();
 
