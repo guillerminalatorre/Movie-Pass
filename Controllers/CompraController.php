@@ -157,7 +157,6 @@
 
 			//Calculos
 			$descuento = $this->calcularDescuento($fechaHora, $cantidad);
-			echo $descuento;
 			$total = ($precio*$cantidad)-(($precio*$cantidad)*($descuento/100));
 
 			//Guardar compra
