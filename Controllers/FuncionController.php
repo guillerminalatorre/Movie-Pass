@@ -93,7 +93,7 @@ class FuncionController extends Administrable
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
 			}
 
-			if (!$this->checkAvailableTime($idCine, $idPelicula, $fechaHora)) 
+			if (!$this->checkAvailableTime($idCine, $idSala, $idPelicula, $fechaHora)) 
 			{
 				Functions::flash("Existe una funcion en ese rango horario.","warning");
 				Functions::redirect("Funcion", "ShowAddView", $idCine);
@@ -116,7 +116,7 @@ class FuncionController extends Administrable
 			Functions::redirect("Cine", "ShowFichaView", $idCine);
 		}
 
-		private function checkAvailableTime($idCine, $idPelicula, $fechaHora)
+		private function checkAvailableTime($idCine, $idSala, $idPelicula, $fechaHora)
 		{
 			$available = true;
 
@@ -133,7 +133,9 @@ class FuncionController extends Administrable
 
 			$cine = new Cine();
 			$cine->setId($idCine);
-			$funcionList = $this->funcionDAO->getByCine($cine);
+			$sala = new Sala();
+			$sala->setId($idSala);
+			$funcionList = $this->funcionDAO->getByCineSala($cine,$sala);
 
 			foreach ($funcionList as $funcion) {
 				// Obtengo datos de la pelicula de cada funcion
