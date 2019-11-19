@@ -40,19 +40,19 @@
                         <div class="col-xl-4 col-lg-6 col-sm-12 py-2">
                             <div class="bg-success rounded shadow py-3 px-4 text-uppercase">
                                 <h6>Vendido</h6>
-                                <h3 class="large text-uppercase text-center counter-count"><?php echo $estadistica['vendidas']; ?></h3>
+                                <h3 class="large text-uppercase text-center counter-count"><?php echo array_sum($estadistica['vendido']); ?></h3>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-sm-12 py-2">
                             <div class="bg-warning rounded shadow py-3 px-4 text-uppercase">
                                 <h6>Remanente</h6>
-                                <h3 class="large text-uppercase text-center counter-count"><?php echo $estadistica['remanente']; ?></h3>
+                                <h3 class="large text-uppercase text-center counter-count"><?php echo array_sum($estadistica['remanente']); ?></h3>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-6 col-sm-12 py-2">
                             <div class="bg-info rounded shadow py-3 px-4 text-uppercase">
                                 <h6>Capacidad Total</h6>
-                                <h3 class="large text-uppercase text-center counter-count"><?php echo $estadistica['capacidad']; ?></h3>
+                                <h3 class="large text-uppercase text-center counter-count"><?php echo array_sum($estadistica['capacidad']); ?></h3>
                             </div>
                         </div>
                     </div>
@@ -62,14 +62,14 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 py-2">
                             <div class="bg-success rounded shadow py-3 px-4 text-uppercase">
                                 <h6>Recaudacion</h6>
-                                <h3 class="large text-uppercase text-center counter-count-money"><?php echo $estadistica['recaudacion']; ?></h3>
+                                <h3 class="large text-uppercase text-center counter-count-money"><?php echo array_sum($estadistica['recaudacion']); ?></h3>
                             </div>
                         </div>
 
                         <div class="col-xl-6 col-lg-6 col-sm-12 py-2">
                             <div class="bg-danger rounded shadow py-3 px-4 text-uppercase">
                                 <h6>No vendido</h6>
-                                <h3 class="large text-uppercase text-center counter-count-money"><?php echo $estadistica['perdida']; ?></h3>
+                                <h3 class="large text-uppercase text-center counter-count-money"><?php echo array_sum($estadistica['novendido']); ?></h3>
                             </div>
                         </div>
                     </div>

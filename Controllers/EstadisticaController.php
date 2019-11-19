@@ -91,47 +91,49 @@
             if($idFuncion != null) $count = 1;
             else $count = count($funcionList);
 
-            $estadistica['vendidas'] = 0;
-            $estadistica['remanente'] = 0;
-            $estadistica['capacidad'] = 0;
-            $estadistica['recaudacion'] = 0;
-            $estadistica['perdida'] = 0;
+            $estadistica['vendido'] = array();
+            $estadistica['remanente'] = array();
+            $estadistica['capacidad'] = array();
+            $estadistica['recaudacion'] = array();
+            $estadistica['novendido'] = array();
             if($count > 0)
             {
                 if($idFuncion != null)
                 {
-                    $estadistica['vendidas'] += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
-                    $estadistica['remanente'] += $this->estadisticaDAO->getRemanenteFuncion($funcion);
-                    $estadistica['capacidad'] += $estadistica['vendidas']+$estadistica['remanente'];
-                    $estadistica['recaudacion'] += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
+                    $estadistica['vendido'][0] = $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
+                    $estadistica['remanente'][0] = $this->estadisticaDAO->getRemanenteFuncion($funcion);
+                    $estadistica['capacidad'][0] = $estadistica['vendido'][0] + $estadistica['remanente'][0];
+                    $estadistica['recaudacion'][0] = $this->estadisticaDAO->getRecaudacionFuncion($funcion);
 
                     $sala->setId($funcion->getIdSala());
                     $sala = $this->salaDAO->getSala($sala);
                     $precio = $sala->getPrecio();
 
-                    $estadistica['perdida'] += $estadistica['remanente'] * $precio;
+                    $estadistica['novendido'][0] = $estadistica['remanente'][0] * $precio;
                 }
                 else
                 {
-                    foreach($funcionList as $funcion)
+                    foreach($funcionList as $key=>$funcion)
                     {
-                        $estadistica['vendidas'] += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
-                        $estadistica['remanente'] += $this->estadisticaDAO->getRemanenteFuncion($funcion);
-                        $estadistica['recaudacion'] += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
+                        $estadistica['vendido'][$key] = $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
+                        $estadistica['remanente'][$key] = $this->estadisticaDAO->getRemanenteFuncion($funcion);
+                        $estadistica['capacidad'][$key] = $estadistica['vendido'][$key] + $estadistica['remanente'][$key];
+                        $estadistica['recaudacion'][$key] = $this->estadisticaDAO->getRecaudacionFuncion($funcion);
                                              
                         $sala->setId($funcion->getIdSala());
                         $sala = $this->salaDAO->getSala($sala);
                         $precio = $sala->getPrecio();
 
-                        $estadistica['perdida'] += $estadistica['remanente'] * $precio;
+                        $estadistica['novendido'][$key] = $estadistica['remanente'][$key] * $precio;
                     }
-                    $estadistica['capacidad'] += $estadistica['vendidas'] + $estadistica['remanente'];
+                    
                 }
             }
             // Fin estadisticas
 
             require_once(VIEWS_PATH."estadistica/searchbar.php");
-			require_once(VIEWS_PATH."estadistica/estadistica.php");
+            require_once(VIEWS_PATH."estadistica/estadistica.php");
+            require_once(VIEWS_PATH."estadistica/estadistica-list.php");
         }
 	}
 ?>
