@@ -1,30 +1,8 @@
-<?php require_once(VIEWS_PATH."navbar.php"); ?>
-<div class="container-fluid mb-4">
-    <?php require_once(VIEWS_PATH . "alert.php"); ?>
-    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent text-white rounded shadow p-4">
-        <form action="<?php echo FRONT_ROOT ?>Pelicula/SearchByTitle" method="POST">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
-                    <h3 class="border-bottom pb-2">Ingresa el nombre que deseas buscar:</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="btn-group input-group col-8 mb-2">
-                    <input type="text" name="title" class="form-control">
-                </div>
-                <div class="btn-group col-4 mb-2">
-                    <button type="submit" class="btn btn-success shadow-sm">Buscar</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-
 <div class="container-fluid mb-4">
     <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent rounded shadow p-2">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
         <h2 class="col-sm-12 col-md-6 pb-2 text-light">Lista de peliculas</h2>
-        <table class="table table-striped table-responsive-md text-light align-center">
+        <table id="myTable" class="table table-striped table-responsive-md text-light align-center">
             <thead>
                 <tr>
                     <th>#</th>

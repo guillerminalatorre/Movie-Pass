@@ -35,6 +35,7 @@ class PeliculaController extends Administrable
 		if(!$this->isAdmin()) Functions::redirect("Home");
 
 		$peliculaList = $this->peliculaDAO->getAll();
+		require_once(VIEWS_PATH . "pelicula/filterbyname.php");
 		require_once(VIEWS_PATH . "pelicula/pelicula-list.php");
 	}
 
@@ -58,16 +59,6 @@ class PeliculaController extends Administrable
 		$peliculaList = $this->callSearchMovie($title);
 		require_once(VIEWS_PATH."pelicula/pelicula-api.php");
 	}
-
-	public function SearchByTitle($title){
-
-		if(!$this->loggedIn()) Functions::redirect("Home");
-		if(!$this->isAdmin()) Functions::redirect("Home");
-
-		$peliculaList = $this->peliculaDAO->searchByTitle($title);
-		require_once(VIEWS_PATH . "pelicula/pelicula-list.php");
-	}
-
 
 	public function Update($idPelicula, $titulo, $duracion, $descripcion, $idioma, $clasificacion, $video, $popularidad)
 	{
