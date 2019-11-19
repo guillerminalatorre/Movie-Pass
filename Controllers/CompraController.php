@@ -225,7 +225,7 @@
 		
 		private function calcularDescuento($fechaHora, $cantidad)
 		{
-			$descuento = 100;
+			$descuento = 0;
 			$day = date('w', strtotime($fechaHora));
 			if(($day == 2 || $day == 3) && $cantidad >= 2) $descuento = 25;
 			return $descuento;
