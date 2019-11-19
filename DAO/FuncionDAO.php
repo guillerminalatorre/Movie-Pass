@@ -188,9 +188,6 @@ use Controllers\Functions as Functions;
 			{
 				$list = array();
 
-				if($inicio != null) $inicio = date_create($inicio.' 00:00:00');
-				if($fin != null) $fin = date_create($inicio.' 00:00:00');
-
 				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId();
 				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
 				else if($inicio != null) $query = $query." AND fecha_hora >= '" . $inicio . "'";

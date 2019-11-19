@@ -117,7 +117,6 @@
                     {
                         $estadistica['vendidas'] += $this->estadisticaDAO->getCantidadVendidaFuncion($funcion);
                         $estadistica['remanente'] += $this->estadisticaDAO->getRemanenteFuncion($funcion);
-                        $estadistica['capacidad'] += $estadistica['vendidas']+$estadistica['remanente'];
                         $estadistica['recaudacion'] += $this->estadisticaDAO->getRecaudacionFuncion($funcion);
                                              
                         $sala->setId($funcion->getIdSala());
@@ -126,6 +125,7 @@
 
                         $estadistica['perdida'] += $estadistica['remanente'] * $precio;
                     }
+                    $estadistica['capacidad'] += $estadistica['vendidas'] + $estadistica['remanente'];
                 }
             }
             // Fin estadisticas

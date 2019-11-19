@@ -68,7 +68,7 @@
 
                         <div class="col-xl-6 col-lg-6 col-sm-12 py-2">
                             <div class="bg-danger rounded shadow py-3 px-4 text-uppercase">
-                                <h6>Pérdida</h6>
+                                <h6>No vendido</h6>
                                 <h3 class="large text-uppercase text-center counter-count-money"><?php echo $estadistica['perdida']; ?></h3>
                             </div>
                         </div>
