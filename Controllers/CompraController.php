@@ -199,7 +199,6 @@
 			$emailDetails['sala'] = $sala->getNombre();
 			$emailDetails['idCompra'] = $idCompra;
 		
-			echo $this->compraMailBody($emailDetails);
 			Functions::sendEmail($_SESSION['loggedUser']->getEmail(),$subject, $this->compraMailBody($emailDetails));
 			Functions::redirect("Entrada","ShowListView", $_SESSION['loggedUser']->getId());
 		}
