@@ -50,7 +50,7 @@
                 </table>
             </div>
             <div class="container-fluid bg-light rounded p-4 my-4 shadow">
-                <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de funciones</h4></tr>
+                <tr><h4 class="border-bottom border-gray pb-2 mb-2">Lista de funciones</h4></tr>
                 <table id="sortable2" class="table table-striped table-responsive-sm">
                     <thead>
                         <tr>
