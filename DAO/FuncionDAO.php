@@ -214,6 +214,37 @@ use Controllers\Functions as Functions;
 			}
 		}
 
+		public function getByCineSala($cine, $sala, $inicio = null, $fin = null)
+		{
+			try 
+			{
+				$list = array();
+
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . " AND id_sala = " . $sala->getId();
+				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
+				else if($inicio != null) $query = $query." AND fecha_hora >= '" . $inicio . "'";
+				else if($fin != null) $query = $query." AND fecha_hora <= '" . $fin . "'";
+				$query = $query.";";
+				$this->connection = Connection::GetInstance();
+				$resultSet = $this->connection->Execute($query);
+
+				foreach ($resultSet as $row) 
+				{
+					$funcion = new Funcion();
+					$funcion->setId($row["id_funcion"]);
+					$funcion->setIdCine($row["id_cine"]);
+					$funcion->setIdSala($row["id_sala"]);
+					$funcion->setIdPelicula($row["id_pelicula"]);
+					$funcion->setFechaHora($row["fecha_hora"]);
+					array_push($list, $funcion);
+				}
+				return $list;
+			} 
+			catch (Exception $ex) 
+			{
+				return null;
+			}
+		}
 
 		public function getByPelicula($pelicula, $inicio = null, $fin = null, $now = true)
 		{
