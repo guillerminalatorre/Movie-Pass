@@ -85,8 +85,9 @@
 
 			//Calculos
 			$subtotal = ($precio*$cantidad);
-			$descuento = $this->calcularDescuento($fechaHora, $cantidad);
-			$total = $subtotal*($descuento/100);
+			$descuentoPorcent = $this->calcularDescuento($fechaHora, $cantidad);
+			$descuento= $subtotal*($descuentoPorcent/100);
+			$total = $subtotal-$descuento;
 
 			require_once(VIEWS_PATH."compra/compra.php");
 		}
@@ -156,7 +157,8 @@
 
 			//Calculos
 			$descuento = $this->calcularDescuento($fechaHora, $cantidad);
-			$total = ($precio*$cantidad)*($descuento/100);
+			echo $descuento;
+			$total = ($precio*$cantidad)-(($precio*$cantidad)*($descuento/100));
 
 			//Guardar compra
 			$compra = new Compra();
