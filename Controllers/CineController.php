@@ -135,14 +135,14 @@
 			$nombre = Functions::validateData($nombre);
 			$direccion = Functions::validateData($direccion);
 
-			if($this->cineDAO->getByNombre($nombre))
+			$cine = new Cine();
+			$cine->setNombre($nombre);
+			if($this->cineDAO->getByNombre($cine) != null)
 			{
 				Functions::flash("Ya existe un cine con ese nombre.","warning");
 				Functions::redirect("Cine","ShowAddView");
 			}
-
-			$cine = new Cine();
-			$cine->setNombre($nombre);
+			
 			$cine->setDireccion($direccion);
 
 			if($this->cineDAO->add($cine)) Functions::flash("El cine se ha creado correctamente.","success");
