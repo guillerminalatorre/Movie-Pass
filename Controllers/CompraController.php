@@ -244,7 +244,7 @@
 			$message  = "<html>
 			<body style='background-color:#fff; background-image:url(https://i.imgur.com/t216lYB.jpg); background-size:cover' bgcolor='#fff' >
 			&nbsp;
-			<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Raleway, Helvetica,sans-serif;border-radius: 30px; background-image: url(https://communications.globant.com/Comm/Corporate/2019/Champions/WorkingMood/bg.png); background-size: cover' width='650'>
+			<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Raleway, Helvetica,sans-serif;border-radius: 30px; background-image: url(https://i.imgur.com/hINcb6A.png); background-size: cover' width='650'>
 				<tbody>
 					<tr>
 						<td style='font-family: Raleway, Helvetica,sans-serif;font-weight:400;font-size:15px;color:#fff;text-align:center;padding:20px;line-height:25px; ' class=''><center><img src='https://i.imgur.com/uSaf2DO.png' style='display: block'></center>
