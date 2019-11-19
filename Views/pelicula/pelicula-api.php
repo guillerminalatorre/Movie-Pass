@@ -1,10 +1,11 @@
 <?php require_once(VIEWS_PATH . "navbar.php"); ?>
 <div class="container container-fluid bg-dark-transparent rounded mt-4 my-3 shadow">
     <?php require_once(VIEWS_PATH . "alert.php"); ?>
+    <a class="btn btn-secondary mt-4 shadow-sm" href="<?php echo FRONT_ROOT ?>System" role="button">Volver a sistema</a>
     <div class="text-white p-2">
         <form action="<?php echo FRONT_ROOT ?>Pelicula/SearchMovies" method="POST">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+                <div class="col-12">
                     <h3 class="border-bottom pb-2">Ingresa el nombre que deseas buscar:</h3>
                 </div>
             </div>
@@ -20,15 +21,13 @@
     </div>
 </div>
 
-<div class="container container-fluid bg-dark-transparent rounded mt-4 my-3 p-3 shadow">
-    <?php require_once(VIEWS_PATH . "alert.php"); ?>
-
-    <?php
-    if (!empty($peliculaList)) {
-        ?>
-        <a class="btn btn-secondary mb-4 shadow-sm" href="<?php echo FRONT_ROOT ?>System" role="button">Volver a sistema</a>
-        <h2 class="col-6 pb-2 text-light">Lista de Peliculas de la API</h2>
-        <table class="table table-striped text-light align-center">
+<div class="container container-fluid bg-dark-transparent text-white rounded mt-4 my-3 p-3 shadow">
+    <?php 
+    require_once(VIEWS_PATH . "alert.php");
+    if (!empty($peliculaList)) { 
+    ?>
+        <h2 class="col-6 pb-2 mb-2">Lista de Peliculas de la API</h2>
+        <table id="sortable" class="table table-striped text-light align-center">
             <thead>
                 <tr>
                     <th>Titulo</th>
@@ -105,8 +104,15 @@
         </table>
         <!-- <a class="btn btn-primary btn-block" href="<?php echo FRONT_ROOT ?>Pelicula/ShowAddView" role="button"><i class="fa fa-plus-circle"></i> Agregar pelicula</a> -->
 </div>
-
 <script>
+    $(document).ready(function() {
+        $('#sortable').DataTable( {
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ]
+        } );
+    } );
+
     $("[name='addToDatabase']").click(function() 
     {
         var movie = $(this).data("movie");

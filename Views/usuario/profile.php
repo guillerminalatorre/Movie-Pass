@@ -39,14 +39,15 @@
             </ul>
         </div>
         <div class="col-md-10 col-lg-6 offset-md-1 bg-light rounded p-4 my-4 shadow">
-            <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de entradas</h4></tr>
-            <table class="table table-striped table-responsive-sm">
+            <tr><h4 class="border-bottom border-gray pb-2 mb-3">Lista de entradas</h4></tr>
+            <table id="sortable" class="table table-striped table-responsive-sm">
                 <thead>
                     
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Pelicula</th>
                     <th scope="col">Cine</th>
+                    <th scope="col">Sala</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Total</th>
                     </tr>
@@ -58,12 +59,14 @@
                     <td>Otto</td>
                     <td>@mdo</td>
                     <td>@mdo</td>
+                    <td>@mdo</td>
                     </tr>
                     <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
+                    <td>@mdo</td>
                     <td>@mdo</td>
                     </tr>
                     <tr>
@@ -72,11 +75,13 @@
                     <td>the Bird</td>
                     <td>@twitter</td>
                     <td>@mdo</td>
+                    <td>@mdo</td>
                     </tr>
                     <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
+                    <td>@mdo</td>
                     <td>@mdo</td>
                     <td>@mdo</td>
                     </tr>
@@ -85,6 +90,7 @@
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
+                    <td>@mdo</td>
                     <td>@mdo</td>
                     </tr>
                     <tr>
@@ -93,11 +99,13 @@
                     <td>the Bird</td>
                     <td>@twitter</td>
                     <td>@mdo</td>
+                    <td>@mdo</td>
                     </tr>
                     <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
+                    <td>@mdo</td>
                     <td>@mdo</td>
                     <td>@mdo</td>
                     </tr>
@@ -106,6 +114,7 @@
                     <td>Jacob</td>
                     <td>Thornton</td>
                     <td>@fat</td>
+                    <td>@mdo</td>
                     <td>@mdo</td>
                     </tr>
                 </tbody>
@@ -113,3 +122,12 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#sortable').DataTable( {
+        "columnDefs": [
+            { "orderable": false, "targets": 5 }
+        ]
+        } );
+    } );
+</script>
