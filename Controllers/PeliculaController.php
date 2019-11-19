@@ -35,7 +35,6 @@ class PeliculaController extends Administrable
 		if(!$this->isAdmin()) Functions::redirect("Home");
 
 		$peliculaList = $this->peliculaDAO->getAll();
-		require_once(VIEWS_PATH . "pelicula/filterbyname.php");
 		require_once(VIEWS_PATH . "pelicula/pelicula-list.php");
 	}
 
