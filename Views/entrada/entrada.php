@@ -31,7 +31,10 @@
                             </div>
                             <div class="check col-sm-12 col-md-7 col-12">
                               <div class="big">
-                                <?php echo $pelicula->getTitulo(); ?>
+                                <?php 
+                                $title = $pelicula->getTitulo();
+                                if (strlen($title) > 20) echo substr($title, 0, 20)."...";
+                                ?>
                               </div>
                               <div class="number">#<?php echo $entrada->getId(); ?></div>
                               <div class="info">

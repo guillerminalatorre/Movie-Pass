@@ -1,9 +1,9 @@
 <?php require_once(VIEWS_PATH."navbar.php"); ?>
 <div class="container-fluid mb-4">
-    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent rounded shadow p-2">
+    <div class="col-sm-12 col-md-10 offset-sm-0 offset-md-1 bg-dark-transparent text-white rounded shadow p-2">
         <?php require_once(VIEWS_PATH."alert.php"); ?>
-        <h2 class="col-sm-12 col-md-6 pb-2 text-light">Lista de usuarios</h2>
-        <table class="table table-striped table-responsive-md text-light align-center">
+        <h2 class="col-sm-12 col-md-6 pb-2 mb-2">Lista de usuarios</h2>
+        <table id="sortable" class="table table-striped table-responsive-md text-light align-center">
             <thead>
                 <tr>
                     <th>#</th>
@@ -55,3 +55,12 @@
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#sortable').DataTable( {
+        "columnDefs": [
+            { "orderable": false, "targets": 7 }
+        ]
+        } );
+    } );
+</script>

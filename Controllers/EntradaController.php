@@ -38,7 +38,7 @@
 				{
 					$entradasCompra = $this->entradaDAO->getByCompra($compra);
 					$entradaList = array_merge($entradaList,$entradasCompra);
-				}			
+				}
 			}
 			else
 			{

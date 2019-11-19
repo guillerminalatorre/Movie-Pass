@@ -23,8 +23,8 @@
 
         <div class="col-md-10 col-lg-6 offset-md-1">
             <div class="container-fluid bg-light rounded p-4 my-4 shadow">
-                <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de salas</h4></tr>
-                <table class="table table-striped table-responsive-sm">
+                <tr><h4 class="border-bottom border-gray pb-2 mb-2">Lista de salas</h4></tr>
+                <table id="sortable" class="table table-striped table-responsive-sm">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -51,7 +51,7 @@
             </div>
             <div class="container-fluid bg-light rounded p-4 my-4 shadow">
                 <tr><h4 class="border-bottom border-gray pb-2 mb-0">Lista de funciones</h4></tr>
-                <table class="table table-striped table-responsive-sm">
+                <table id="sortable2" class="table table-striped table-responsive-sm">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -81,3 +81,18 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function() 
+{
+    $('#sortable').DataTable( {
+    "columnDefs": [
+        { "orderable": false, "targets": 4 }
+    ]
+    } );
+    $('#sortable2').DataTable( {
+    "columnDefs": [
+        { "orderable": false, "targets": 6 }
+    ]
+    } );
+} );
+</script>

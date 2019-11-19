@@ -9,15 +9,31 @@ namespace Controllers;
 use API\FBController as FBController;
 use DAO\UsuarioDAO as UsuarioDAO;
 use Models\Usuario as Usuario;
+use DAO\EntradaDAO as EntradaDAO;
+use Models\Entrada as Entrada;
+use DAO\CompraDAO as CompraDAO;
+use Models\Compra as Compra;
+use DAO\FuncionDAO as FuncionDAO;
+use Models\Funcion as Funcion;
+use DAO\PeliculaDAO as PeliculaDAO;
+use Models\Pelicula as Pelicula;
 use Facebook as Facebook;
 
 class UsuarioController extends Administrable
 {
 	private $usuarioDAO;
+	private $entradaDAO;
+	private $compraDAO;
+	private $funcionDAO;
+	private $peliculaDAO;
 
 	function __construct()
 	{
 		$this->usuarioDAO = new UsuarioDAO();
+		$this->entradaDAO = new EntradaDAO();
+		$this->compraDAO = new CompraDAO();
+		$this->funcionDAO = new FuncionDAO();
+		$this->peliculaDAO = new PeliculaDAO();
 	}
 
 	public function ShowProfileView($id)
@@ -25,9 +41,22 @@ class UsuarioController extends Administrable
 		if(!$this->loggedIn()) Functions::redirect("Home");
 		if($id != $_SESSION["loggedUser"]->getId() && !$this->isAdmin()) Functions::redirect("Home");
 
+		//Datos del usuario
 		$usuario = new Usuario();
 		$usuario->setId($id);
 		$usuario = $this->usuarioDAO->getUsuario($usuario);
+
+		//Lista de entradas
+		$entradaList = array();
+		$compraList = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
+		foreach($compraList as $compra)
+		{
+			$entradasCompra = $this->entradaDAO->getByCompra($compra);
+			$entradaList = array_merge($entradaList,$entradasCompra);
+		}
+		$funcion = new Funcion();
+		$pelicula = new Pelicula();
+
 		require_once(VIEWS_PATH."usuario/profile.php");
 	}
 
