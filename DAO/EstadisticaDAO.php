@@ -7,6 +7,7 @@ use DAO\Connection as Connection;
 use Models\Funcion as Funcion;
 use Models\Cine as Cine;
 use Models\Pelicula as Pelicula;
+use Controllers\Functions as Functions;
 
 class EstadisticaDAO
 {
@@ -70,20 +71,22 @@ class EstadisticaDAO
     {
         try 
         {
-            $query = "SELECT " . $this->tableNameCompras . ".id_compra, total - descuento AS 'recaudacion' FROM " . $this->tableNameEntradas .
-            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
-            " WHERE id_funcion = :id_funcion GROUP BY " . $this->tableNameCompras . ".id_compra;";
+            $query = "SELECT c.total - c.descuento AS recaudacion FROM " . $this->tableNameEntradas .
+            " e JOIN " . $this->tableNameCompras . " c ON (e.id_compra = c.id_compra)".
+            " WHERE id_funcion = :id_funcion GROUP BY c.id_compra;";
+            Functions::flash($query);
             
             $parameters["id_funcion"] = $funcion->getId();
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
+            $recaudacion = 0;
             foreach ($resultSet as $row) 
             {
-                $recaudacion = $row["recaudacion"];
-                return $recaudacion;
-            }            
+                $recaudacion += $row["recaudacion"];
+            }
+            return $recaudacion;          
         } 
         catch (Exception $ex) 
         {
