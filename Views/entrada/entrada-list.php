@@ -39,7 +39,11 @@
 </div>
 <script>
     $(document).ready(function() {
-        $('#sortable').DataTable();
+        $('#sortable').DataTable( {
+        "columnDefs": [
+            { "orderable": false, "targets": [4,5]}
+        ]
+        } );
     } );
 </script>
 
