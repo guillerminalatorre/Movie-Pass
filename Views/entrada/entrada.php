@@ -33,7 +33,7 @@
                               <div class="big">
                                 <?php 
                                 $title = $pelicula->getTitulo();
-                                if (strlen($title) > 20) echo substr($title, 0, 20)."...";
+                                echo (strlen($title) > 20) ? substr($title, 0, 20)."..." : $title;
                                 ?>
                               </div>
                               <div class="number">#<?php echo $entrada->getId(); ?></div>
