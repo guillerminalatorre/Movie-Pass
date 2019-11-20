@@ -43,7 +43,7 @@
         {
 			try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_usuario = :id_usuario;";
+                $query = "UPDATE ".$this->tableName." SET deleted = 1 WHERE id_usuario = :id_usuario;";
 				
 				$parameters["id_usuario"] = $usuario->getId();
 
@@ -62,7 +62,7 @@
 			try
             {
                 $list = array();
-                $query = "SELECT * FROM ".$this->tableName." ORDER BY nombre ASC;";
+                $query = "SELECT * FROM ".$this->tableName." WHERE deleted = 0 ORDER BY nombre ASC;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
@@ -96,7 +96,7 @@
         {
             try
             {
-                $query = "SELECT * FROM ".$this->tableName." WHERE id_usuario = ".$usuario->getId().";";
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_usuario = ".$usuario->getId()." AND deleted = 0;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
                 
@@ -128,7 +128,7 @@
         {
             try
             {
-                $query = "SELECT * FROM ".$this->tableName." WHERE email = '".$email."';";
+                $query = "SELECT * FROM ".$this->tableName." WHERE email = '".$email."' AND deleted = 0;";
                 $this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
                 
