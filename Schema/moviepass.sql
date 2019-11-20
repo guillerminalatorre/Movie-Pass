@@ -120,6 +120,7 @@ ALTER TABLE `PeliculasXGeneros`
 
 ALTER TABLE `Salas`
   ADD PRIMARY KEY (`id_sala`),
+  ADD UNIQUE KEY `unq_nombre` (`nombre`),
   ADD KEY `FK_id_cinee` (`id_cine`);
 
 ALTER TABLE `Usuarios`
