@@ -49,13 +49,17 @@ class UsuarioController extends Administrable
 		//Lista de entradas
 		$entradaList = array();
 		$compraList = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
-		foreach($compraList as $compra)
+		if($compraList == null) Functions::flash("Se produjo un error al obtener las compras del usuario.","warning");
+		else
 		{
-			$entradasCompra = $this->entradaDAO->getByCompra($compra);
-			$entradaList = array_merge($entradaList,$entradasCompra);
+			foreach($compraList as $compra)
+			{
+				$entradasCompra = $this->entradaDAO->getByCompra($compra);
+				$entradaList = array_merge($entradaList,$entradasCompra);
+			}
+			$funcion = new Funcion();
+			$pelicula = new Pelicula();
 		}
-		$funcion = new Funcion();
-		$pelicula = new Pelicula();
 
 		require_once(VIEWS_PATH."usuario/profile.php");
 	}
