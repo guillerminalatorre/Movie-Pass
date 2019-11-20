@@ -2,7 +2,8 @@
     namespace DAO;
 
     use Models\Sala as Sala;
-
+    use Exception;
+    
     class SalaDAO
     {
         private $connection;
