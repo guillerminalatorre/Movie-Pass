@@ -30,7 +30,6 @@
                 <?php } ?>
             </tbody>
         </table>
-        <a class="btn btn-primary btn-block mt-2" href="<?php echo FRONT_ROOT ?>Pelicula/ShowApiMovies" role="button"><i class="fa fa-plus-circle"></i> Obtener pelicula de API</a>
     </div>
 </div>
 <script>
