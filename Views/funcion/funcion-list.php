@@ -32,7 +32,7 @@
             <input type="hidden" name="idFuncion" value="<?php echo $funcion->getId(); ?>">
             <input type="number" class="form-control d-inline align-middle col-2 input-sm" name="cantidad" value="1" min="1" max=<?php echo ($sala->getCapacidad()-$entradasVendidas) ?> required>
 
-            <?php if($this->loggedIn() && $esAdmin == false) { ?>            
+            <?php if($this->loggedIn()) { ?>            
             <button type="submit" class="btn btn-success shadow-sm align-middle">Comprar entrada</button>
             <?php } else { ?>
             <a class="btn btn-secondary shadow-sm align-middle" href="<?php echo FRONT_ROOT ?>Login" role="button">Iniciar sesion para comprar</a>

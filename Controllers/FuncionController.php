@@ -217,8 +217,6 @@ class FuncionController extends Administrable
 			$cine = new Cine();
 			$sala = new Sala();
 
-			$esAdmin = $this->isAdmin();
-
 			if ($idPelicula != NULL) 
 			{
 				$pelicula->setId($idPelicula);
