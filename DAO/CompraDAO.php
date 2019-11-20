@@ -31,13 +31,13 @@
 			{
 				return false;
 			}
-		}		
+		}
 
 		function remove($compra)
 		{
 			try
 			{
-				$query = "DELETE FROM ".$this->tableName." WHERE id_compra = :id_compra;";
+				$query = "UPDATE ".$this->tableName." SET deleted = 1 WHERE id_compra = :id_compra;";
 				
 				$parameters['id_compra'] = $compra->getId();
 				
@@ -55,7 +55,7 @@
 		{
 			try
 			{
-				$query = "DELETE FROM ".$this->tableName." WHERE id_usuario = :id_usuario;";
+				$query = "UPDATE ".$this->tableName." SET deleted = 1 WHERE id_usuario = :id_usuario;";
 				
 				$parameters["id_usuario"]=$usuario->getId();
 				
@@ -74,7 +74,7 @@
 			try
 			{
 				$list = array();
-				$query = "SELECT * FROM ".$this->tableName;
+				$query = "SELECT * FROM ".$this->tableName." WHERE deleted = 0;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 				
@@ -102,9 +102,10 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_compra = ".$compra->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_compra = :id_compra AND deleted = 0;";
+				$parameters['id_compra'] = $compra->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 				
 				foreach ($resultSet as $row)
 				{
@@ -129,9 +130,10 @@
 			try
 			{
 				$list = array();
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_usuario = ".$usuario->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_usuario = :id_usuario AND deleted = 0;";
+				$parameters['id_usuario'] = $usuario->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 				
 				foreach ($resultSet as $row)
 				{
