@@ -121,9 +121,8 @@
 		{
 			try
 			{
-				$query = "UPDATE ".$this->tableName." SET id_cine = :id_cine, nombre = :nombre, direccion = :direccion WHERE id_cine =".$cine->getId().";";
+				$query = "UPDATE ".$this->tableName." SET nombre = :nombre, direccion = :direccion WHERE id_cine = :id_cine;";
 
-				$parameters["id_cine"] = $cine->getId();
 				$parameters["nombre"]= $cine->getNombre();
 				$parameters["direccion"]= $cine->getDireccion();
 				$parameters["id_cine"] = $cine->getId();
