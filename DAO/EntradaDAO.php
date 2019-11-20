@@ -1,6 +1,7 @@
 <?php
 	namespace DAO;
 
+	use \Exception as Exception;
 	use Models\Entrada as Entrada;
 	use Models\Compra as Compra;
 	use Models\Funcion as Funcion;

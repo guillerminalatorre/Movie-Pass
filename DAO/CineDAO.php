@@ -1,6 +1,7 @@
 <?php
 	namespace DAO;
 	
+	use \Exception as Exception;
     use DAO\Connection as Connection;
 	use Models\Cine as Cine;
 

@@ -1,8 +1,8 @@
 <?php
     namespace DAO;
 
+    use \Exception as Exception;
     use Models\Sala as Sala;
-    use Exception;
     
     class SalaDAO
     {

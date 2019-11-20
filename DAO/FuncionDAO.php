@@ -1,10 +1,10 @@
 <?php
 	namespace DAO;
 
-use Exception;
-use Models\Funcion as Funcion;
-use Models\Genero as Genero;
-use Controllers\Functions as Functions;
+    use \Exception as Exception;
+	use Models\Funcion as Funcion;
+	use Models\Genero as Genero;
+	use Controllers\Functions as Functions;
 
 	class FuncionDAO
 	{
