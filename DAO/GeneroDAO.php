@@ -33,10 +33,10 @@
         {
             try 
             {
-                $query = "DELETE FROM " . $this->tableName . " WHERE id_genero = " . $genero->getId() . ";";
-
+                $query = "UPDATE " . $this->tableName . " SET deleted = 1 WHERE id_genero = :id_genero;";
+                $parameters["id_genero"] = $genero->getId();
                 $this->connection = Connection::GetInstance();
-                $this->connection->ExecuteNonQuery($query);
+                $this->connection->ExecuteNonQuery($query,$parameters);
                 return true;
             } 
             catch (Exception $ex) 
@@ -50,7 +50,7 @@
             try 
             {
                 $list = array();
-                $query = "SELECT * FROM " . $this->tableName . " ORDER BY nombre;";
+                $query = "SELECT * FROM " . $this->tableName . " WHERE deleted = 0 ORDER BY nombre;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
@@ -73,9 +73,10 @@
         {
             try 
             {
-                $query = "SELECT * FROM " . $this->tableName . " WHERE id_genero = '" . $genero->getId() . "';";
+                $query = "SELECT * FROM " . $this->tableName . " WHERE id_genero = :id_genero AND deleted = 0;";
+                $parameters["id_genero"] = $genero->getId();
                 $this->connection = Connection::GetInstance();
-                $resultSet = $this->connection->Execute($query);
+                $resultSet = $this->connection->Execute($query,$parameters);
 
                 foreach ($resultSet as $row) 
                 {
