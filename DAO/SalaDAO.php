@@ -34,7 +34,7 @@
         {
             try 
             {
-                $query = "DELETE FROM " . $this->tableName . " WHERE id_sala = :id_sala;";
+                $query = "UPDATE " . $this->tableName . " SET deleted = 1 WHERE id_sala = :id_sala;";
 
                 $parameters['id_sala'] = $sala->getId();
 
@@ -53,7 +53,7 @@
             try 
             {
                 $list = array();
-                $query = "SELECT * FROM " . $this->tableName;
+                $query = "SELECT * FROM " . $this->tableName." WHERE deleted = 0;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
@@ -79,7 +79,7 @@
         {
             try 
             {
-                $query = "SELECT * FROM " . $this->tableName . " WHERE id_sala = '" . $sala->getId() . "';";
+                $query = "SELECT * FROM " . $this->tableName . " WHERE id_sala = '" . $sala->getId() . "' AND deleted = 0;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
@@ -104,7 +104,7 @@
             try 
             {
                 $list = array();
-                $query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = '" . $cine->getId() . "';";
+                $query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = '" . $cine->getId() . "' AND deleted = 0;";
                 $this->connection = Connection::GetInstance();
                 $resultSet = $this->connection->Execute($query);
 
