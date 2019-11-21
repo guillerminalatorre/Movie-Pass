@@ -35,7 +35,7 @@
 		{
 			try
 			{
-				$query = "DELETE FROM ".$this->tableName." WHERE id_entrada = :id_entrada;";
+				$query = "UPDATE ".$this->tableName." SET deleted = 1 WHERE id_entrada = :id_entrada;";
 				
 				$parameters['id_entrada'] = $entrada->getId();
 				
@@ -54,7 +54,7 @@
 			try
 			{
 				$list = array();
-				$query = "SELECT * FROM ".$this->tableName;
+				$query = "SELECT * FROM ".$this->tableName." WHERE deleted = 0;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 				
@@ -79,9 +79,10 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_entrada = ".$entrada->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_entrada = :id_entrada AND deleted = 0;";
+				$parameters["id_entrada"]= $entrada->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 				
 				foreach ($resultSet as $row)
 				{
@@ -103,9 +104,10 @@
 			try
 			{
 				$list = array();
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_compra = ".$compra->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_compra = :id_compra AND deleted = 0;";
+				$parameters["id_compra"]= $compra->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 				
 				foreach ($resultSet as $row)
 				{
@@ -129,9 +131,10 @@
 			try
 			{
 				$list = array();
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = ".$funcion->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_funcion = :id_funcion AND deleted = 0;";
+				$parameters["id_funcion"]= $funcion->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 				
 				foreach ($resultSet as $row)
 				{
