@@ -10,7 +10,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `Cines` (
   `id_cine` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `direccion` varchar(50) NOT NULL
+  `direccion` varchar(50) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Compras` (
@@ -20,14 +21,16 @@ CREATE TABLE `Compras` (
   `precio` int(11) NOT NULL,
   `cantidad` smallint(6) NOT NULL,
   `descuento` tinyint(4) NOT NULL,
-  `total` float NOT NULL
+  `total` float NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Entradas` (
   `id_entrada` int(11) NOT NULL,
   `id_compra` int(11) NOT NULL,
   `id_funcion` int(11) NOT NULL,
-  `qr` varchar(255) NOT NULL
+  `qr` varchar(255) NOT NULL,
+  `deleted` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Funciones` (
@@ -35,12 +38,14 @@ CREATE TABLE `Funciones` (
   `id_cine` int(11) NOT NULL,
   `id_sala` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
-  `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `fecha_hora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Generos` (
   `id_genero` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Peliculas` (
@@ -54,13 +59,15 @@ CREATE TABLE `Peliculas` (
   `fechaDeEstreno` date NOT NULL,
   `poster` varchar(255) DEFAULT NULL,
   `video` varchar(255) DEFAULT NULL,
-  `popularidad` int(11) NOT NULL
+  `popularidad` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `PeliculasXGeneros` (
   `id_peliculasxgeneros` int(11) NOT NULL,
   `id_pelicula` int(11) NOT NULL,
-  `id_genero` int(11) NOT NULL
+  `id_genero` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Salas` (
@@ -68,7 +75,8 @@ CREATE TABLE `Salas` (
   `id_cine` int(11) NOT NULL,
   `nombre` varchar(128) NOT NULL,
   `precio` int(11) NOT NULL,
-  `capacidad` int(11) NOT NULL
+  `capacidad` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Usuarios` (
@@ -84,7 +92,8 @@ CREATE TABLE `Usuarios` (
   `lastConnection` int(11) DEFAULT NULL,
   `loggedIn` tinyint(1) DEFAULT NULL,
   `image` varchar(256) DEFAULT NULL,
-  `facebookId` bigint(64) DEFAULT NULL
+  `facebookId` bigint(64) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
