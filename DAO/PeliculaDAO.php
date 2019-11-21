@@ -17,7 +17,7 @@
 			try 
 			{
 				$list = array();
-				$query = "SELECT * FROM " . $this->tableName." ORDER BY titulo ASC;";
+				$query = "SELECT * FROM " . $this->tableName." WHERE deleted = 0 ORDER BY titulo ASC;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -81,15 +81,17 @@
 		{
 			try 
 			{
-				$query = "DELETE FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
+				$parameters["id_pelicula"] = $pelicula->getId();
+
+				$query = "UPDATE " . $this->tableName . " SET deleted = 1 WHERE id_pelicula = :id_pelicula;";				
 
 				$this->connection = Connection::GetInstance();
-				$this->connection->ExecuteNonQuery($query);
+				$this->connection->ExecuteNonQuery($query,$parameters);
 
-				$query = "DELETE FROM " . $this->generoTableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
+				$query = "UPDATE " . $this->generoTableName . " SET deleted = 1 WHERE id_pelicula = :id_pelicula;";
 
 				$this->connection = Connection::GetInstance();
-				$this->connection->ExecuteNonQuery($query);
+				$this->connection->ExecuteNonQuery($query,$parameters);
 				return true;
 			} 
 			catch (Exception $ex) 
@@ -102,9 +104,10 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = ".$pelicula->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_pelicula = :id_pelicula AND deleted = 0;";
+				$parameters["id_pelicula"] = $pelicula->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 
 				foreach ($resultSet as $row) 
 				{
@@ -134,9 +137,10 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM " . $this->generoTableName . " WHERE id_pelicula = " . $pelicula->getId() . ";";
+				$query = "SELECT * FROM " . $this->generoTableName . " WHERE id_pelicula = :id_pelicula AND deleted = 0;";
+				$parameters["id_pelicula"] = $pelicula->getId();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 
 				$generos = array();
 				foreach ($resultSet as $row) 
@@ -171,13 +175,14 @@
 			}
 		}
 
-		public function getByIdTMDB($id)
+		public function getByIdTMDB($pelicula)
 		{
 			try
 			{
-				$query = "SELECT * FROM " . $this->tableName . " WHERE id_TMDB = " . $id . ";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_TMDB = :id_TMDB AND deleted = 0;";
+				$parameters["id_TMDB"] = $pelicula->getIdTMDB();
 				$this->connection = Connection::GetInstance();
-				$resultSet = $this->connection->Execute($query);
+				$resultSet = $this->connection->Execute($query,$parameters);
 
 				foreach ($resultSet as $row) 
 				{

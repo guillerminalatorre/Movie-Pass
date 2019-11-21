@@ -1,6 +1,7 @@
 <?php
 	namespace DAO;
 	
+	use \Exception as Exception;
     use DAO\Connection as Connection;
 	use Models\Cine as Cine;
 
@@ -32,7 +33,7 @@
 		{
 			try
 			{
-				$query = "DELETE FROM ".$this->tableName." WHERE id_cine = :id_cine;";
+				$query = "UPDATE ".$this->tableName." SET deleted = 1 WHERE id_cine = :id_cine;";
 
 				$parameters["id_cine"]=$cine->getId();
 				
@@ -51,7 +52,7 @@
 			try
 			{
 				$list = array();
-				$query = "SELECT * FROM ".$this->tableName." ORDER BY nombre ASC;";
+				$query = "SELECT * FROM ".$this->tableName." WHERE deleted = 0 ORDER BY nombre ASC;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 				
@@ -75,7 +76,7 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$cine->getId().";";
+				$query = "SELECT * FROM ".$this->tableName." WHERE id_cine = ".$cine->getId()." AND deleted = 0;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 				
@@ -97,7 +98,7 @@
 		{
 			try
 			{
-				$query = "SELECT * FROM ".$this->tableName." WHERE nombre = '".$cine->getNombre()."';";
+				$query = "SELECT * FROM ".$this->tableName." WHERE nombre = '".$cine->getNombre()."' AND deleted = 0;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 				
@@ -120,9 +121,8 @@
 		{
 			try
 			{
-				$query = "UPDATE ".$this->tableName." SET id_cine = :id_cine, nombre = :nombre, direccion = :direccion WHERE id_cine =".$cine->getId().";";
+				$query = "UPDATE ".$this->tableName." SET nombre = :nombre, direccion = :direccion WHERE id_cine = :id_cine;";
 
-				$parameters["id_cine"] = $cine->getId();
 				$parameters["nombre"]= $cine->getNombre();
 				$parameters["direccion"]= $cine->getDireccion();
 				$parameters["id_cine"] = $cine->getId();

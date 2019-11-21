@@ -35,9 +35,9 @@ class EstadisticaDAO
             }
             return $cantidad;
         } 
-        catch (Exception $ex) 
+        catch (Exception $ex)
         {
-            return 0;
+            return null;
         }
     }
 
@@ -61,9 +61,9 @@ class EstadisticaDAO
             }
             return $remanente;
         } 
-        catch (Exception $ex) 
+        catch (Exception $ex)
         {
-            return 0;
+            return null;
         }
     }
 
@@ -71,89 +71,23 @@ class EstadisticaDAO
     {
         try 
         {
-            $query = "SELECT c.total - c.descuento AS recaudacion FROM " . $this->tableNameEntradas .
-            " e JOIN " . $this->tableNameCompras . " c ON (e.id_compra = c.id_compra)".
-            " WHERE id_funcion = :id_funcion GROUP BY c.id_compra;";
+            $query = "SELECT SUM(totalfuncion) as recaudacion FROM".
+            " (SELECT DISTINCT SUM(total) AS totalfuncion FROM " . $this->tableNameEntradas . " e".
+            " JOIN " . $this->tableNameCompras . " c ON e.id_compra = c.id_compra"
+            ." WHERE id_funcion = :id_funcion GROUP BY e.id_entrada) as r";
             
             $parameters["id_funcion"] = $funcion->getId();
 
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $recaudacion = 0;
             foreach ($resultSet as $row) 
             {
-                $recaudacion += $row["recaudacion"];
+                $recaudacion = $row["recaudacion"];
+                return $recaudacion;
             }
-            return $recaudacion;          
         } 
-        catch (Exception $ex) 
-        {
-            return 0;
-        }
-    }
-
-    public function getVentasPelicula(Pelicula $pelicula, $fechaInicio = null, $fechaFin = null)
-    {
-        try 
-        {
-            $query = "SELECT SUM(total) AS 'total' FROM " . $this->tableNameEntradas . 
-            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
-            " JOIN " . $this->tableNameFunciones . " ON (" . $this->tableNameEntradas . ".id_funcion = " . $this->tableNameFunciones . ".id_funcion)".
-            " WHERE id_pelicula = :id_pelicula";
-           
-            if($fechaInicio != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora >= :fecha_inicio";
-            if($fechaFin != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora <= :fecha_fin";
-
-            $query = $query . ";";
-
-            $parameters["id_pelicula"] = $pelicula->getId();
-            $parameters["fecha_inicio"] = $fechaInicio;
-            $parameters["fecha_fin"] = $fechaFin;
-            
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query, $parameters);
-           
-            foreach ($resultSet as $row) 
-            {
-                $ventas = $row["total"];
-            }
-            return $ventas;
-        } 
-        catch (Exception $ex) 
-        {
-            return null;
-        }
-    }
-
-    public function getVentasCine(Cine $cine, $fechaInicio = null, $fechaFin = null)
-    {
-        try 
-        {
-            $query = "SELECT SUM(total) AS 'total' FROM " . $this->tableNameEntradas . 
-            " JOIN " . $this->tableNameCompras . " ON (" . $this->tableNameEntradas . ".id_compra = " . $this->tableNameCompras . ".id_compra)".
-            " JOIN " . $this->tableNameFunciones . " ON (" . $this->tableNameEntradas . ".id_funcion = " . $this->tableNameFunciones . ".id_funcion)".
-            " WHERE id_cine = :id_cine";
-            
-            if($fechaInicio != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora >= :fecha_inicio";
-            if($fechaFin != null) $query = $query . " AND " . $this->tableNameFunciones . ".fecha_hora <= :fecha_fin";
-
-            $query = $query . ";";
-
-            $parameters["id_cine"] = $cine->getId();
-            $parameters["fecha_inicio"] = $fechaInicio;
-            $parameters["fecha_fin"] = $fechaFin;
-            
-            $this->connection = Connection::GetInstance();
-            $resultSet = $this->connection->Execute($query, $parameters);
-            
-            foreach ($resultSet as $row)
-            {
-                $ventas = $row["total"];
-            }
-            return $ventas;
-        } 
-        catch (Exception $ex) 
+        catch (Exception $ex)
         {
             return null;
         }

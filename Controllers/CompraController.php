@@ -156,8 +156,10 @@
 			$precio = $sala->getPrecio();
 
 			//Calculos
-			$descuento = $this->calcularDescuento($fechaHora, $cantidad);
-			$total = ($precio*$cantidad)-(($precio*$cantidad)*($descuento/100));
+			$subtotal = ($precio*$cantidad);
+			$descuentoPorcent = $this->calcularDescuento($fechaHora, $cantidad);
+			$descuento= $subtotal*($descuentoPorcent/100);
+			$total = $subtotal-$descuento;
 
 			//Guardar compra
 			$compra = new Compra();
@@ -171,7 +173,7 @@
 			{
 				Functions::flash("Se produjo un error al registrar la compra. Tu pago será devuelto.","danger");
 				Functions::redirect("Funcion","ShowFuncionesPelicula", $idPelicula);
-			}			
+			}
 
 			//Generar entradas
 			$listCompras = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);

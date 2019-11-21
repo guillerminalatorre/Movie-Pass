@@ -147,11 +147,10 @@ class PeliculaController extends Administrable
 
 		foreach ($arrayToDecode["results"] as $valuesArray) 
 		{
-			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == NULL)
-			{			
-				$pelicula = new Pelicula();
-
-				$pelicula->setIdTMDB($valuesArray["id"]);
+			$pelicula = new Pelicula();
+			$pelicula->setIdTMDB($valuesArray["id"]);
+			if($this->peliculaDAO->getByIdTMDB($pelicula) == NULL)
+			{
 				if($valuesArray["poster_path"] != NULL)
 				{
 					$posterPath = "https://image.tmdb.org/t/p/w500".$valuesArray["poster_path"];
@@ -179,7 +178,9 @@ class PeliculaController extends Administrable
 		if(!$this->loggedIn()) return false;
 		if(!$this->isAdmin()) return false;
 
-		if($this->peliculaDAO->getByIdTMDB($idTMDB) != NULL) return false;
+		$pelicula = new Pelicula();
+		$pelicula->setIdTMDB($idTMDB);
+		if($this->peliculaDAO->getByIdTMDB($pelicula) != NULL) return false;
 
 		$movie = $this->getMovieDetailsFromApi($idTMDB);
 		$flag = $this->peliculaDAO->add($movie);
@@ -200,11 +201,10 @@ class PeliculaController extends Administrable
 
 		foreach ($arrayToDecode["results"] as $valuesArray) 
 		{
-			if($this->peliculaDAO->getByIdTMDB($valuesArray["id"]) == NULL)
-			{			
-				$pelicula = new Pelicula();
-
-				$pelicula->setIdTMDB($valuesArray["id"]);
+			$pelicula = new Pelicula();
+			$pelicula->setIdTMDB($valuesArray["id"]);
+			if($this->peliculaDAO->getByIdTMDB($pelicula) == NULL)
+			{
 				if($valuesArray["poster_path"] != NULL)
 				{
 					$posterPath = "https://image.tmdb.org/t/p/w500".$valuesArray["poster_path"];

@@ -1,10 +1,10 @@
 <?php
 	namespace DAO;
 
-use Exception;
-use Models\Funcion as Funcion;
-use Models\Genero as Genero;
-use Controllers\Functions as Functions;
+    use \Exception as Exception;
+	use Models\Funcion as Funcion;
+	use Models\Genero as Genero;
+	use Controllers\Functions as Functions;
 
 	class FuncionDAO
 	{
@@ -37,7 +37,7 @@ use Controllers\Functions as Functions;
 		{
 			try 
 			{
-				$query = "DELETE FROM " . $this->tableName . " WHERE id_funcion = :id_funcion;";
+				$query = "UPDATE " . $this->tableName . " SET deleted = 1 WHERE id_funcion = :id_funcion;";
 
 				$parameters['id_funcion'] = $funcion->getId();
 
@@ -56,7 +56,7 @@ use Controllers\Functions as Functions;
 			try 
 			{
 				$list = array();
-				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName;
+				$query = "SELECT DISTINCT id_pelicula FROM ".$this->tableName." WHERE deleted = 0;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -78,7 +78,7 @@ use Controllers\Functions as Functions;
 			try 
 			{
 				$list = array();
-				$query = "SELECT DISTINCT id_cine FROM " . $this->tableName;
+				$query = "SELECT DISTINCT id_cine FROM ".$this->tableName." WHERE deleted = 0;";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -102,7 +102,7 @@ use Controllers\Functions as Functions;
 			{
 				$list = array();
 				
-				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE (fecha_hora > now())";
+				$query = "SELECT DISTINCT id_pelicula FROM " . $this->tableName. " WHERE (fecha_hora > now()) AND deleted = 0";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -132,13 +132,12 @@ use Controllers\Functions as Functions;
 
 				$query="SELECT DISTINCT f.id_pelicula FROM ".$this->tableName. " f";
 				if($genre != null) $query=$query." JOIN ".$this->peliculasPorGenerosTableName ." pxg ON f.id_pelicula = pxg.id_pelicula";
-				$query = $query." WHERE";
-				if($genre != null) $query = $query." pxg.id_genero = ". $genre;
-				if($genre != null && ($inicio != null || $fin != null || $now)) $query = $query." AND";
-				if($inicio != null && $fin != null) $query = $query." fecha_hora BETWEEN '" . $inicio . "' AND '".$fin."'";
-				else if($inicio != null) $query = $query." fecha_hora BETWEEN '" . $inicio . "' AND '".date_format($end,"Y-m-d H:i")."'";
-				else if($fin != null) $query = $query." fecha_hora <= '" . $fin . "'";
-				else if($now) $query=$query." f.fecha_hora >= now()";
+				$query = $query." WHERE deleted = 0";
+				if($genre != null) $query = $query." AND pxg.id_genero = ". $genre;
+				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' AND '".$fin."'";
+				else if($inicio != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' AND '".date_format($end,"Y-m-d H:i")."'";
+				else if($fin != null) $query = $query." AND fecha_hora <= '" . $fin . "'";
+				else if($now) $query=$query." AND f.fecha_hora >= now()";
 				$query = $query.";";
 
 				$this->connection = Connection::GetInstance();
@@ -162,7 +161,7 @@ use Controllers\Functions as Functions;
 		{
 			try 
 			{
-				$query = "SELECT * FROM " . $this->tableName . " WHERE id_funcion = '" . $funcion->getId() . "';";
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_funcion = '" . $funcion->getId() ."' AND deleted = 0";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -188,7 +187,7 @@ use Controllers\Functions as Functions;
 			{
 				$list = array();
 
-				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId();
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() ." AND deleted = 0";
 				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
 				else if($inicio != null) $query = $query." AND fecha_hora >= '" . $inicio . "'";
 				else if($fin != null) $query = $query." AND fecha_hora <= '" . $fin . "'";
@@ -220,7 +219,7 @@ use Controllers\Functions as Functions;
 			{
 				$list = array();
 
-				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . " AND id_sala = " . $sala->getId();
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_cine = " . $cine->getId() . " AND id_sala = " . $sala->getId()." AND deleted = 0";
 				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
 				else if($inicio != null) $query = $query." AND fecha_hora >= '" . $inicio . "'";
 				else if($fin != null) $query = $query." AND fecha_hora <= '" . $fin . "'";
@@ -252,7 +251,7 @@ use Controllers\Functions as Functions;
 			{
 				$list = array();
 
-				$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId();
+				$query = "SELECT * FROM " . $this->tableName . " WHERE id_pelicula = " . $pelicula->getId()." AND deleted = 0";
 				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
 				else if($inicio != null) $query = $query." AND fecha_hora >= '" . $inicio . "'";
 				else if($fin != null) $query = $query." AND fecha_hora <= '" . $fin . "'";
@@ -319,10 +318,10 @@ use Controllers\Functions as Functions;
 			{
 				$list = array();
 
-				$query = "SELECT * FROM " . $this->tableName;
-				if($inicio != null && $fin != null) $query = $query." WHERE fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
-				else if($inicio != null) $query = $query." WHERE fecha_hora >= '" . $inicio . "'";
-				else if($fin != null) $query = $query." WHERE fecha_hora <= '" . $fin . "'";
+				$query = "SELECT * FROM " . $this->tableName . " WHERE deleted = 0";
+				if($inicio != null && $fin != null) $query = $query." AND fecha_hora BETWEEN '" . $inicio . "' and '".$fin."'";
+				else if($inicio != null) $query = $query." AND fecha_hora >= '" . $inicio . "'";
+				else if($fin != null) $query = $query." AND fecha_hora <= '" . $fin . "'";
 				$query = $query." ORDER BY fecha_hora ASC;";
 
 				$this->connection = Connection::GetInstance();
@@ -338,7 +337,7 @@ use Controllers\Functions as Functions;
 					array_push($list, $funcion);
 				}
 				return $list;
-			} 
+			}
 			catch (Exception $ex) 
 			{
 				return null;
@@ -350,7 +349,7 @@ use Controllers\Functions as Functions;
 			try 
 			{
 				$list = array();
-				$query = "SELECT id_cine, id_sala FROM " . $this->tableName . " WHERE id_pelicula = " . $idPelicula . " AND fecha_hora LIKE '" . $fecha . "%';";
+				$query = "SELECT id_cine, id_sala FROM " . $this->tableName . " WHERE id_pelicula = " . $idPelicula . " AND deleted = 0 AND fecha_hora LIKE '" . $fecha . "%';";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
@@ -374,7 +373,7 @@ use Controllers\Functions as Functions;
 			try 
 			{
 				$list = array();
-				$query = "SELECT DISTINCT id_cine, id_pelicula FROM " . $this->tableName . " WHERE id_pelicula = '" . $idPelicula . "'" . " AND fecha_hora>= NOW();";
+				$query = "SELECT DISTINCT id_cine, id_pelicula FROM " . $this->tableName . " WHERE id_pelicula = '" . $idPelicula . "' AND deleted = 0 AND fecha_hora>= NOW();";
 				$this->connection = Connection::GetInstance();
 				$resultSet = $this->connection->Execute($query);
 
