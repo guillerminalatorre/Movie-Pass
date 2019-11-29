@@ -74,7 +74,9 @@
                 $mail->send();
 
                 Functions::flash("Las entradas han sido enviadas a tu casilla de email","success");
-            } catch (Exception $e) {
+            } 
+            catch (Exception $e) 
+            {
                 Functions::flash("Las entradas no han podido ser enviadas.","danger");
             }   
         }
