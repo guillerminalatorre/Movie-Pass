@@ -31,7 +31,7 @@
 		public function Index($idPelicula = null, $idCine = null, $idFuncion = null, $fechaInicio = null, $fechaFin = null)
 		{
             if (!$this->loggedIn()) Functions::redirect("Home");
-			if (!$this->isAdmin()) Functions::redirect("Home");
+			if (!$this->isMainAdmin()) Functions::redirect("Home");
 
             if($idPelicula != null) $idPelicula = Functions::validateData($idPelicula);
             if($idCine != null) $idCine = Functions::validateData($idCine);

@@ -17,7 +17,7 @@
 		public function getGenresFromApi()
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
-			if(!$this->isAdmin()) Functions::redirect("Home");
+			if(!$this->isMainAdmin()) Functions::redirect("Home");
 
 			$arrayReque = array("api_key" => API_KEY, "language" => LANGUAGE_ES);
 	

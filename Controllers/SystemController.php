@@ -27,7 +27,7 @@
 		public function Index()
 		{
 			if(!$this->loggedIn()) Functions::redirect("Home");
-			if(!$this->isAdmin()) Functions::redirect("Home");
+			if(!$this->isMainAdmin()) Functions::redirect("Home");
 			
 			$usuarioCount = count($this->usuarioDAO->getAll());
 			$peliculaCount = count($this->peliculaDAO->getAll());

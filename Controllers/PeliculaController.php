@@ -41,7 +41,7 @@ class PeliculaController extends Administrable
 	public function ShowApiMovies()
 	{
 		if(!$this->loggedIn()) Functions::redirect("Home");
-		if(!$this->isAdmin()) Functions::redirect("Home");
+		if(!$this->isMainAdmin()) Functions::redirect("Home");
 
 		$peliculaList = array();
 		$page = 1;
@@ -53,8 +53,12 @@ class PeliculaController extends Administrable
 		require_once(VIEWS_PATH."pelicula/pelicula-api.php");
 	}
 
-	public function SearchMovies($title){
-		$peliculaList=array();
+	public function SearchMovies($title)
+	{
+		if(!$this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isMainAdmin()) Functions::redirect("Home");
+
+		$peliculaList = array();
 		$peliculaList = $this->callSearchMovie($title);
 		require_once(VIEWS_PATH."pelicula/pelicula-api.php");
 	}

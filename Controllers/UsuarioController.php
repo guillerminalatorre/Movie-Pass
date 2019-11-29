@@ -241,22 +241,22 @@ class UsuarioController extends Administrable
 
 	public function Remove($id)
 	{
-		if(($this->isAdmin() && $id != $_SESSION["loggedUser"]->getId()) || (!$this->isAdmin() && $id == $_SESSION["loggedUser"]->getId()))
+		if($this->loggedIn()) Functions::redirect("Home");
+		if(!$this->isMainAdmin() && $id != $_SESSION["loggedUser"]->getId()) Functions::redirect("Home");
+
+		$usuario = new Usuario();
+		$usuario->setId($id);
+		$usuario = $this->usuarioDAO->getUsuario($usuario);
+		if($usuario == null)
 		{
-			$usuario = new Usuario();
-			$usuario->setId($id);
-			$usuario = $this->usuarioDAO->getUsuario($usuario);
-			if($usuario == null)
-			{
-				Functions::flash("El usuario no existe.","warning");
-				Functions::redirect("Home");
-			}
-
-			if($_SESSION["loggedUser"]->getId() == $id) $this->Logout();
-
-			if($this->usuarioDAO->remove($usuario)) Functions::flash("El usuario seleccionado fue eliminado.","success");
-			else Functions::flash("Hubo un error al eliminar el usuario.","danger");
+			Functions::flash("El usuario no existe.","warning");
+			Functions::redirect("Home");
 		}
+
+		if($_SESSION["loggedUser"]->getId() == $id) $this->Logout();
+
+		if($this->usuarioDAO->remove($usuario)) Functions::flash("El usuario seleccionado fue eliminado.","success");
+		else Functions::flash("Hubo un error al eliminar el usuario.","danger");
 	}
 
 	public function Login($email, $password)
