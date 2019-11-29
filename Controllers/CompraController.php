@@ -177,6 +177,11 @@
 
 			//Generar entradas
 			$listCompras = $this->compraDAO->getByUsuario($_SESSION['loggedUser']);
+			if($listCompras == null) 
+			{
+				Functions::flash("Se produjo un error al registrar la compra. Tu pago será devuelto.","danger");
+				Functions::redirect("Funcion","ShowFuncionesPelicula", $idPelicula);
+			}
 			$compra = array_pop($listCompras);
 			$idCompra = $compra->getId();
 
@@ -242,8 +247,9 @@
 			$sala = $emailDetails['sala'];
 			$compra = new Compra();
 			$entradas = $this->entradaDAO->getByCompra($compra->setId($emailDetails['idCompra']));
+			if($entradas == null) Functions::flash("Se produjo un error al obtener los datos de las entradas.","danger");
 			
-			$message  = "<html>
+			$message = "<html>
 			<body style='background-color:#fff; background-image:url(https://i.imgur.com/t216lYB.jpg); background-size:cover' bgcolor='#fff' >
 			&nbsp;
 			<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Raleway, Helvetica,sans-serif;border-radius: 30px; background-image: url(https://i.imgur.com/hINcb6A.png); background-size: cover' width='650'>
@@ -258,33 +264,33 @@
 			&nbsp;
 			&nbsp;";
 
-						foreach ($entradas as $entrada) { 
+			foreach ($entradas as $entrada) { 
 
-							$qr = $entrada->getQr();
-						
-							$message.="<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Montserrat, Helvetica, sans-serif;' width='650'>
-							<tbody>
-								<tr>
-									<td bgcolor='#fff' style='color:#666; text-align:left; font-size:14px;font-family:Montserrat, Helvetica, sans-serif; padding:20px 0px 20px 40px; line-height:25px; border-radius:30px 0 0 30px;' valign='middle' width='50%' class=''>
-									<h2 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>".$pelicula."<br></h2>
-															
-									<table align='center' border='0' cellpadding='0' cellspacing='0' width='280'>
-										<tbody>
-											<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>".$cine." </h4>
-											<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>Sala ".$sala."<br></h4>
-											<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>Fecha: ".$fechaHora."<br></h4>
-										</tbody>
-									</table>
-									</td>
-									<td bgcolor='#fff' style='color:#666; text-align:center; font-size:13px; padding:20px 0px 20px 40px; line-height:25px; border-radius:0 30px 30px 0;' valign='middle' width='50%' class=''>
-									<center><img src='https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=.$qr style='display:block'></center>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						&nbsp;";
-						}
-						$message.="<h3 style='color: whitesmoke; text-align:center'>¡Que disfrutes de la función!<br></h3></body></html>";
+				$qr = $entrada->getQr();
+			
+				$message .= "<table align='center' border='0' cellpadding='0' cellspacing='0' style='font-family: Montserrat, Helvetica, sans-serif;' width='650'>
+					<tbody>
+						<tr>
+							<td bgcolor='#fff' style='color:#666; text-align:left; font-size:14px;font-family:Montserrat, Helvetica, sans-serif; padding:20px 0px 20px 40px; line-height:25px; border-radius:30px 0 0 30px;' valign='middle' width='50%' class=''>
+							<h2 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>".$pelicula."<br></h2>
+													
+							<table align='center' border='0' cellpadding='0' cellspacing='0' width='280'>
+								<tbody>
+									<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>".$cine." </h4>
+									<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>Sala ".$sala."<br></h4>
+									<h4 style= letter-spacing: 1px; font-weight: 700; font-size: 26px; text-align: center; margin: 0; line-height: normal'>Fecha: ".$fechaHora."<br></h4>
+								</tbody>
+							</table>
+							</td>
+							<td bgcolor='#fff' style='color:#666; text-align:center; font-size:13px; padding:20px 0px 20px 40px; line-height:25px; border-radius:0 30px 30px 0;' valign='middle' width='50%' class=''>
+							<center><img src='https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=.$qr style='display:block'></center>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				&nbsp;";
+			}
+			$message .= "<h3 style='color: whitesmoke; text-align:center'>¡Que disfrutes de la función!<br></h3></body></html>";
 			return $message;
 		}
 	}
