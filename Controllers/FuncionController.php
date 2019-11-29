@@ -124,11 +124,16 @@ class FuncionController extends Administrable
 			$pelicula = new Pelicula();
 			$pelicula->setId($idPelicula);
 			$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+			if($pelicula == null)
+			{
+				$duracion = 30;
+				Functions::flash("Ocurrio un error al obtener duracion de la pelicula. Se establecio en 30.","warning");
+			}
+			else $duracion = $pelicula->getDuracion() + 15;
 
 			// Calculo inicio y fin estimados
-			$inicio = strtotime($fechaHora);
-			$duracion = $pelicula->getDuracion() + 15;
 			$string = "+" . $duracion . " minutes";
+			$inicio = strtotime($fechaHora);			
 			$fin = strtotime($string, $inicio);
 
 			$cine = new Cine();
@@ -137,21 +142,30 @@ class FuncionController extends Administrable
 			$sala->setId($idSala);
 			$funcionList = $this->funcionDAO->getByCineSala($cine,$sala);
 
-			foreach ($funcionList as $funcion) {
-				// Obtengo datos de la pelicula de cada funcion
-				$peliculaFuncion = new Pelicula();
-				$peliculaFuncion->setId($funcion->getIdPelicula());
-				$peliculaFuncion = $this->peliculaDAO->getPelicula($peliculaFuncion);
-
-				// Obtengo datos de la funcion
-				$inicioFuncion = strtotime($funcion->getFechaHora());
-				$duracion = $peliculaFuncion->getDuracion() + 15;
-				$string = "+" . $duracion . " minutes";
-				$finFuncion = strtotime($string, $inicioFuncion);
-
-				// Calculo si mis tiempos colisionan con otra funcion
-				if (($finFuncion > $inicio && $inicioFuncion < $inicio) || ($inicioFuncion < $fin && $finFuncion > $inicio)) $available = false;
-			}
+			if(!empty($funcionList))
+			{
+				foreach ($funcionList as $funcion) 
+				{
+					// Obtengo datos de la pelicula de cada funcion
+					$peliculaFuncion = new Pelicula();
+					$peliculaFuncion->setId($funcion->getIdPelicula());
+					$peliculaFuncion = $this->peliculaDAO->getPelicula($peliculaFuncion);
+					if($peliculaFuncion == null)
+					{
+						$duracion = 30;
+						Functions::flash("Ocurrio un error al obtener duracion de una pelicula. Se establecio en 30.","warning");
+					}
+					else $duracion = $peliculaFuncion->getDuracion() + 15;
+	
+					// Obtengo datos de la funcion
+					$string = "+" . $duracion . " minutes";
+					$inicioFuncion = strtotime($funcion->getFechaHora());				
+					$finFuncion = strtotime($string, $inicioFuncion);
+	
+					// Calculo si mis tiempos colisionan con otra funcion
+					if (($finFuncion > $inicio && $inicioFuncion < $inicio) || ($inicioFuncion < $fin && $finFuncion > $inicio)) $available = false;
+				}
+			}			
 			return $available;
 		}
 
@@ -180,7 +194,7 @@ class FuncionController extends Administrable
 				$pelicula = new Pelicula();
 				$pelicula->setId($funcion->getIdPelicula());
 				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
-				array_push($peliculaList, $pelicula);
+				if($pelicula != null) array_push($peliculaList, $pelicula);
 			}
 			require_once(VIEWS_PATH . "pelicula/searchbar.php");
 			require_once(VIEWS_PATH . "pelicula/listarpeliculas.php");
@@ -201,7 +215,7 @@ class FuncionController extends Administrable
 					$idPelicula = $funcion->getIdPelicula();
 					$pelicula->setId($idPelicula);
 					$pelicula = $this->peliculaDAO->getPelicula($pelicula);
-					array_push($peliculaList, $pelicula);
+					if($pelicula != null) array_push($peliculaList, $pelicula);
 				}
 			}
 
@@ -221,6 +235,11 @@ class FuncionController extends Administrable
 			{
 				$pelicula->setId($idPelicula);
 				$pelicula = $this->peliculaDAO->getPelicula($pelicula);
+				if($pelicula == null)
+				{
+					Functions::flash("Ocurrio un error al obtener los datos de la pelicula.","warning");
+					Functions::redirect("Home");
+				}
 				$funciones = $this->funcionDAO->getByPelicula($pelicula);
 				$cineList = $this->funcionDAO->getDistinctCineByPelicula($pelicula->getId());
 			}
