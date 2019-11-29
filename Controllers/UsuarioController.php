@@ -45,6 +45,11 @@ class UsuarioController extends Administrable
 		$usuario = new Usuario();
 		$usuario->setId($id);
 		$usuario = $this->usuarioDAO->getUsuario($usuario);
+		if($usuario == null)
+		{
+			Functions::flash("El usuario no existe.","danger");
+			Functions::redirect("Home");
+		}
 
 		//Lista de entradas
 		$entradaList = array();
@@ -72,6 +77,12 @@ class UsuarioController extends Administrable
 		$usuario = new Usuario();
 		$usuario->setId($id);
 		$usuario = $this->usuarioDAO->getUsuario($usuario);
+		if($usuario == null)
+		{
+			Functions::flash("El usuario no existe.","danger");
+			Functions::redirect("Home");
+		}
+
 		require_once(VIEWS_PATH."usuario/profile-edit.php");
 	}
 
@@ -161,7 +172,7 @@ class UsuarioController extends Administrable
 		}
 		catch(Exception $ex)
 		{
-			Functions::flash($ex->getMessage());
+			Functions::flash("Ocurrió un error en la carga de la imagen.","danger");
 		}
 		// Fin imagen de perfil
 
